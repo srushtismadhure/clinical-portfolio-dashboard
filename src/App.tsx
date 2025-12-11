@@ -5,6 +5,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
+import CaseStudies from "./pages/CaseStudies";
+import Analytics from "./pages/Analytics";
+import UXWork from "./pages/UXWork";
+import Labs from "./pages/Labs";
+import Blog from "./pages/Blog";
+import Skills from "./pages/Skills";
+import About from "./pages/About";
+import Resume from "./pages/Resume";
+import Contact from "./pages/Contact";
+import Work from "./pages/Work";
+import Play from "./pages/Play";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +29,19 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/work" element={<Work />} />
+          <Route path="/play" element={<Play />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/ux-work" element={<UXWork />} />
+          <Route path="/labs" element={<Labs />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
