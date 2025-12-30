@@ -6,7 +6,8 @@
 
 @layer base {
   :root {
-    --background: 210 33% 98%;
+    /* Soft Mint/Sage Green Clinical Palette */
+    --background: 150 35% 96%;
     --foreground: 220 26% 14%;
 
     --card: 0 0% 100%;
@@ -15,45 +16,56 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 26% 14%;
 
-    --primary: 174 43% 51%;
+    /* Primary: Muted Sage Green */
+    --primary: 156 40% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 252 100% 86%;
+    /* Secondary: Soft Mint */
+    --secondary: 152 30% 90%;
     --secondary-foreground: 220 26% 14%;
 
-    --muted: 30 100% 96%;
+    /* Muted: Light sage tint */
+    --muted: 150 25% 94%;
     --muted-foreground: 215 19% 35%;
 
-    --accent: 5 100% 75%;
-    --accent-foreground: 220 26% 14%;
+    /* Accent: Deeper sage for emphasis */
+    --accent: 158 35% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 92%;
-    --input: 220 20% 92%;
-    --ring: 174 43% 51%;
+    --border: 150 20% 90%;
+    --input: 150 20% 90%;
+    --ring: 156 40% 55%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
-    /* Custom EHR Palette */
-    --ehr-teal: 174 43% 51%;
-    --ehr-lavender: 252 100% 86%;
-    --ehr-cream: 30 100% 96%;
-    --ehr-coral: 5 100% 75%;
-    --ehr-blue: 231 95% 67%;
-    --ehr-soft-gray: 210 33% 98%;
+    /* Clinical Wellness Palette */
+    --ehr-teal: 156 40% 55%;
+    --ehr-mint: 152 35% 92%;
+    --ehr-sage: 150 30% 85%;
+    --ehr-cream: 45 50% 96%;
+    --ehr-lavender: 260 40% 92%;
+    --ehr-coral: 12 80% 70%;
+    --ehr-blue: 210 60% 60%;
+    --ehr-soft-gray: 150 20% 97%;
     --ehr-text: 215 19% 35%;
     --ehr-heading: 220 26% 14%;
 
-    --sidebar-background: 30 100% 98%;
+    /* Gradient backgrounds */
+    --gradient-start: 150 40% 97%;
+    --gradient-mid: 148 35% 95%;
+    --gradient-end: 152 30% 96%;
+
+    --sidebar-background: 150 30% 98%;
     --sidebar-foreground: 215 19% 35%;
-    --sidebar-primary: 174 43% 51%;
+    --sidebar-primary: 156 40% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 252 100% 93%;
+    --sidebar-accent: 152 35% 92%;
     --sidebar-accent-foreground: 220 26% 14%;
-    --sidebar-border: 220 20% 92%;
-    --sidebar-ring: 174 43% 51%;
+    --sidebar-border: 150 20% 90%;
+    --sidebar-ring: 156 40% 55%;
   }
 }
 
@@ -65,16 +77,23 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gradient-start)) 0%,
+      hsl(var(--gradient-mid)) 50%,
+      hsl(var(--gradient-end)) 100%
+    );
+    min-height: 100vh;
   }
 }
 
 @layer components {
   .ehr-card {
-    @apply bg-card rounded-2xl p-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-border/50 transition-all duration-300;
+    @apply bg-card rounded-2xl p-6 shadow-[0_4px_20px_rgba(95,191,154,0.08)] border border-[hsl(var(--ehr-sage)/0.5)] transition-all duration-300 backdrop-blur-sm;
   }
 
   .ehr-card:hover {
-    @apply shadow-[0_4px_20px_rgba(0,0,0,0.08)] scale-[1.01];
+    @apply shadow-[0_8px_30px_rgba(95,191,154,0.12)] scale-[1.01];
   }
 
   .ehr-pill {
@@ -82,11 +101,19 @@
   }
 
   .ehr-pill-teal {
-    @apply bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))];
+    @apply bg-[hsl(var(--ehr-teal)/0.12)] text-[hsl(var(--ehr-teal))];
+  }
+
+  .ehr-pill-mint {
+    @apply bg-[hsl(var(--ehr-mint))] text-[hsl(var(--ehr-heading))];
+  }
+
+  .ehr-pill-sage {
+    @apply bg-[hsl(var(--ehr-sage))] text-[hsl(var(--ehr-heading))];
   }
 
   .ehr-pill-lavender {
-    @apply bg-[hsl(var(--ehr-lavender)/0.5)] text-[hsl(var(--ehr-heading))];
+    @apply bg-[hsl(var(--ehr-lavender))] text-[hsl(var(--ehr-heading))];
   }
 
   .ehr-pill-cream {
@@ -94,23 +121,30 @@
   }
 
   .ehr-pill-coral {
-    @apply bg-[hsl(var(--ehr-coral)/0.2)] text-[hsl(var(--ehr-coral))];
+    @apply bg-[hsl(var(--ehr-coral)/0.15)] text-[hsl(var(--ehr-coral))];
   }
 
   .ehr-pill-blue {
-    @apply bg-[hsl(var(--ehr-blue)/0.15)] text-[hsl(var(--ehr-blue))];
+    @apply bg-[hsl(var(--ehr-blue)/0.12)] text-[hsl(var(--ehr-blue))];
   }
 
   .nav-item {
-    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-[hsl(var(--ehr-teal)/0.1)] hover:text-[hsl(var(--ehr-teal))] transition-all duration-200 cursor-pointer;
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-[hsl(var(--ehr-teal)/0.08)] hover:text-[hsl(var(--ehr-teal))] transition-all duration-200 cursor-pointer;
   }
 
   .nav-item.active {
-    @apply bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))] font-medium;
+    @apply bg-[hsl(var(--ehr-teal)/0.12)] text-[hsl(var(--ehr-teal))] font-medium shadow-[0_2px_8px_rgba(95,191,154,0.15)];
   }
 
   .table-row-hover {
-    @apply hover:bg-[hsl(var(--ehr-cream)/0.5)] transition-colors duration-200;
+    @apply hover:bg-[hsl(var(--ehr-mint)/0.5)] transition-colors duration-200;
+  }
+
+  /* Soft wave background overlay */
+  .wave-bg {
+    background: 
+      radial-gradient(ellipse at 20% 20%, hsl(var(--ehr-mint)) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, hsl(var(--ehr-sage)/0.3) 0%, transparent 50%);
   }
 }
 
