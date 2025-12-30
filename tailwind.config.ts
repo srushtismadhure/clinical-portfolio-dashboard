@@ -62,8 +62,6 @@ export default {
         },
         ehr: {
           teal: "hsl(var(--ehr-teal))",
-          mint: "hsl(var(--ehr-mint))",
-          sage: "hsl(var(--ehr-sage))",
           lavender: "hsl(var(--ehr-lavender))",
           cream: "hsl(var(--ehr-cream))",
           coral: "hsl(var(--ehr-coral))",
@@ -78,10 +76,9 @@ export default {
         "2xl": "1.5rem",
       },
       boxShadow: {
-        'ehr': '0 4px 20px rgba(95, 191, 154, 0.08)',
-        'ehr-hover': '0 8px 30px rgba(95, 191, 154, 0.12)',
-        'sidebar': '4px 0 16px rgba(95, 191, 154, 0.06)',
-        'card-mint': '0 4px 24px rgba(95, 191, 154, 0.1)',
+        'ehr': '0 2px 12px rgba(0, 0, 0, 0.04)',
+        'ehr-hover': '0 4px 20px rgba(0, 0, 0, 0.08)',
+        'sidebar': '4px 0 12px rgba(0, 0, 0, 0.03)',
       },
       keyframes: {
         "accordion-down": {
