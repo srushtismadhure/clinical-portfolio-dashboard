@@ -18,21 +18,21 @@ const Index = () => {
       <div className="flex-1 flex flex-col min-w-0">
         <TopBar />
 
-        <main className="flex-1 p-4 lg:p-6 overflow-auto">
+        <main className="flex-1 p-6 overflow-auto">
           {/* Tab Navigation */}
           <TabNav />
 
-          {/* Main Grid - Responsive */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+          {/* Main Grid */}
+          <div className="grid grid-cols-12 gap-6">
             {/* Left Column - Featured Projects & Analytics */}
-            <div className="lg:col-span-8 space-y-4 lg:space-y-6">
+            <div className="col-span-8 space-y-6">
               <FeaturedProjects />
               <AnalyticsChart />
               <ProjectTable />
             </div>
 
             {/* Right Column - Profile, Skills, Trend */}
-            <div className="lg:col-span-4 space-y-4 lg:space-y-6">
+            <div className="col-span-4 space-y-6">
               <ProfileCard />
               <SkillsCard />
               <TrendWidget />

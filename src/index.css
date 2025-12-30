@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,66 +6,54 @@
 
 @layer base {
   :root {
-    /* Neutral System (75-80% of UI) */
-    --background: 210 20% 98%;
-    --foreground: 220 13% 9%;
+    --background: 210 33% 98%;
+    --foreground: 220 26% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 9%;
+    --card-foreground: 220 26% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 9%;
+    --popover-foreground: 220 26% 14%;
 
-    /* Primary Brand - Clinical Teal (use sparingly) */
-    --primary: 168 45% 44%;
+    --primary: 174 43% 51%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary Brand - Slate Indigo */
-    --secondary: 235 45% 60%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 252 100% 86%;
+    --secondary-foreground: 220 26% 14%;
 
-    /* Muted/Neutral */
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 30 100% 96%;
+    --muted-foreground: 215 19% 35%;
 
-    /* Accent - minimal use */
-    --accent: 220 14% 96%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 5 100% 75%;
+    --accent-foreground: 220 26% 14%;
 
-    /* Functional Status Colors */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --success: 160 84% 39%;
-    --success-foreground: 0 0% 100%;
 
-    /* Borders/Dividers */
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 168 45% 44%;
+    --border: 220 20% 92%;
+    --input: 220 20% 92%;
+    --ring: 174 43% 51%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    /* EHR-Adjacent Semantic Tokens */
-    --ehr-primary: 168 45% 44%;
-    --ehr-secondary: 235 45% 60%;
-    --ehr-text-primary: 220 13% 9%;
-    --ehr-text-secondary: 220 9% 46%;
-    --ehr-text-muted: 220 9% 60%;
-    --ehr-border: 220 13% 91%;
-    --ehr-bg-elevated: 0 0% 100%;
-    --ehr-bg-subtle: 220 14% 96%;
+    /* Custom EHR Palette */
+    --ehr-teal: 174 43% 51%;
+    --ehr-lavender: 252 100% 86%;
+    --ehr-cream: 30 100% 96%;
+    --ehr-coral: 5 100% 75%;
+    --ehr-blue: 231 95% 67%;
+    --ehr-soft-gray: 210 33% 98%;
+    --ehr-text: 215 19% 35%;
+    --ehr-heading: 220 26% 14%;
 
-    /* Sidebar */
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 220 9% 46%;
-    --sidebar-primary: 168 45% 44%;
+    --sidebar-background: 30 100% 98%;
+    --sidebar-foreground: 215 19% 35%;
+    --sidebar-primary: 174 43% 51%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 168 45% 44%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 168 45% 44%;
+    --sidebar-accent: 252 100% 93%;
+    --sidebar-accent-foreground: 220 26% 14%;
+    --sidebar-border: 220 20% 92%;
+    --sidebar-ring: 174 43% 51%;
   }
 }
 
@@ -76,98 +64,73 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 }
 
 @layer components {
-  /* EHR Card - Clean, clinical, minimal decoration */
   .ehr-card {
-    @apply bg-card rounded-lg p-5 border border-border transition-all duration-200;
+    @apply bg-card rounded-2xl p-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-border/50 transition-all duration-300;
   }
 
   .ehr-card:hover {
-    @apply shadow-sm;
+    @apply shadow-[0_4px_20px_rgba(0,0,0,0.08)] scale-[1.01];
   }
 
-  /* Pills - functional, not decorative */
   .ehr-pill {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200;
   }
 
-  .ehr-pill-primary {
-    @apply bg-primary/10 text-primary;
+  .ehr-pill-teal {
+    @apply bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))];
   }
 
-  .ehr-pill-secondary {
-    @apply bg-secondary/10 text-secondary;
+  .ehr-pill-lavender {
+    @apply bg-[hsl(var(--ehr-lavender)/0.5)] text-[hsl(var(--ehr-heading))];
   }
 
-  .ehr-pill-muted {
-    @apply bg-muted text-muted-foreground;
+  .ehr-pill-cream {
+    @apply bg-[hsl(var(--ehr-cream))] text-[hsl(var(--ehr-heading))];
   }
 
-  .ehr-pill-success {
-    @apply bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))];
+  .ehr-pill-coral {
+    @apply bg-[hsl(var(--ehr-coral)/0.2)] text-[hsl(var(--ehr-coral))];
   }
 
-  .ehr-pill-warning {
-    @apply bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))];
+  .ehr-pill-blue {
+    @apply bg-[hsl(var(--ehr-blue)/0.15)] text-[hsl(var(--ehr-blue))];
   }
 
-  .ehr-pill-error {
-    @apply bg-destructive/10 text-destructive;
-  }
-
-  /* Navigation - clean, functional */
   .nav-item {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors duration-150 cursor-pointer text-sm;
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-[hsl(var(--ehr-teal)/0.1)] hover:text-[hsl(var(--ehr-teal))] transition-all duration-200 cursor-pointer;
   }
 
   .nav-item.active {
-    @apply bg-primary/10 text-primary font-medium;
+    @apply bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))] font-medium;
   }
 
-  /* Table rows */
   .table-row-hover {
-    @apply hover:bg-muted/50 transition-colors duration-150;
-  }
-
-  /* Status indicators */
-  .status-dot {
-    @apply w-2 h-2 rounded-full;
-  }
-
-  .status-dot-active {
-    @apply bg-[hsl(var(--success))];
-  }
-
-  .status-dot-pending {
-    @apply bg-[hsl(var(--warning))];
-  }
-
-  .status-dot-inactive {
-    @apply bg-muted-foreground;
+    @apply hover:bg-[hsl(var(--ehr-cream)/0.5)] transition-colors duration-200;
   }
 }
 
 @layer utilities {
   .text-ehr-heading {
-    @apply text-foreground font-semibold;
+    @apply text-[hsl(var(--ehr-heading))] font-semibold;
   }
 
   .text-ehr-body {
-    @apply text-muted-foreground;
+    @apply text-[hsl(var(--ehr-text))];
   }
 
   .animate-fade-up {
-    animation: fadeUp 0.3s ease-out forwards;
+    animation: fadeUp 0.5s ease-out forwards;
   }
 
   @keyframes fadeUp {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
