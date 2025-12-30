@@ -5,7 +5,7 @@ const projects = [
     category: 'Data Engineering',
     categoryIcon: Database,
     name: 'EHR Pipeline',
-    date: 'July, 20, 2024',
+    date: 'Jul 20, 2024',
     tools: 'Python, Spark',
     outcome: 'ETL Automation',
     progress: 85,
@@ -14,7 +14,7 @@ const projects = [
     category: 'Machine Learning',
     categoryIcon: Brain,
     name: 'Risk Model',
-    date: 'July, 1, 2024',
+    date: 'Jul 1, 2024',
     tools: 'Python, R',
     outcome: 'AUC 0.92',
     progress: 70,
@@ -23,7 +23,7 @@ const projects = [
     category: 'UX Design',
     categoryIcon: Palette,
     name: 'Patient Portal',
-    date: 'June, 11, 2024',
+    date: 'Jun 11, 2024',
     tools: 'Figma, React',
     outcome: 'Live in Prod',
     progress: 100,
@@ -32,7 +32,7 @@ const projects = [
     category: 'Analytics',
     categoryIcon: LineChart,
     name: 'SDOH Dashboard',
-    date: 'June, 25, 2024',
+    date: 'Jun 25, 2024',
     tools: 'Power BI',
     outcome: 'Stakeholder Demo',
     progress: 90,
@@ -41,25 +41,17 @@ const projects = [
     category: 'EHR Integration',
     categoryIcon: FileText,
     name: 'FHIR Converter',
-    date: 'May, 21, 2024',
+    date: 'May 21, 2024',
     tools: 'HL7, Azure',
     outcome: 'Interoperability',
     progress: 65,
   },
 ];
 
-const categoryColors: Record<string, string> = {
-  'Data Engineering': 'text-ehr-blue',
-  'Machine Learning': 'text-ehr-teal',
-  'UX Design': 'text-ehr-lavender',
-  'Analytics': 'text-ehr-coral',
-  'EHR Integration': 'text-primary',
-};
-
 export function ProjectTable() {
   return (
     <div className="ehr-card animate-fade-in" style={{ animationDelay: '0.3s' }}>
-      {/* Tabs */}
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex gap-4">
           <button className="text-sm font-medium text-primary border-b-2 border-primary pb-2">
@@ -70,11 +62,12 @@ export function ProjectTable() {
           </button>
         </div>
         <div className="flex items-center gap-2">
-          <button className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
+          <button className="w-8 h-8 rounded-md bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
             <Search className="w-4 h-4 text-muted-foreground" />
           </button>
-          <button className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
-            <Plus className="w-4 h-4 text-primary-foreground" />
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+            <Plus className="w-4 h-4" />
+            New Project
           </button>
         </div>
       </div>
@@ -93,38 +86,37 @@ export function ProjectTable() {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project, idx) => (
+            {projects.map((project) => (
               <tr 
                 key={project.name} 
-                className="table-row-hover border-b border-border/50 last:border-0 cursor-pointer"
+                className="table-row-hover border-b border-border last:border-0 cursor-pointer"
               >
                 <td className="py-3 px-2">
                   <div className="flex items-center gap-2">
-                    <project.categoryIcon className={`w-4 h-4 ${categoryColors[project.category]}`} />
+                    <project.categoryIcon className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm text-foreground">{project.category}</span>
                   </div>
                 </td>
                 <td className="py-3 px-2">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-medium text-foreground">{project.name}</span>
-                  </div>
+                  <span className="text-sm font-medium text-foreground">{project.name}</span>
                 </td>
                 <td className="py-3 px-2">
                   <span className="text-sm text-muted-foreground">{project.date}</span>
                 </td>
                 <td className="py-3 px-2">
-                  <span className="ehr-pill ehr-pill-cream text-xs py-1">{project.tools}</span>
+                  <span className="ehr-pill ehr-pill-muted text-xs">{project.tools}</span>
                 </td>
                 <td className="py-3 px-2">
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
+                    <div className="w-20 h-1.5 bg-muted rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-ehr-blue rounded-full transition-all duration-500"
+                        className={`h-full rounded-full transition-all duration-500 ${
+                          project.progress === 100 ? 'bg-[hsl(160,84%,39%)]' : 'bg-primary'
+                        }`}
                         style={{ width: `${project.progress}%` }}
                       />
                     </div>
-                    <span className="text-xs text-muted-foreground">{project.progress}%</span>
+                    <span className="text-xs text-muted-foreground w-8">{project.progress}%</span>
                   </div>
                 </td>
                 <td className="py-3 px-2">

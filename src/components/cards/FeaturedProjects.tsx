@@ -4,10 +4,12 @@ import {
   Database, 
   MessageSquare, 
   BarChart3,
-  ArrowUpRight,
-  Sun,
-  Moon
+  ArrowRight,
+  Clock,
+  CheckCircle2,
+  Circle
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const projects = [
   {
@@ -15,148 +17,163 @@ const projects = [
     icon: Brain,
     title: 'Predictive Modeling',
     description: 'Risk prediction & forecasting',
-    color: 'teal',
-    doses: ['50 ml', '100 ml'],
-    schedule: { morning: 1, evening: 2 },
-    days: ['Mon 07', 'Tue 08', 'Wed 09', 'Thu 10', 'Fri 11', 'Sat 12', 'Sun 13'],
-    activeDay: 2,
+    phase: 'Phase 3',
+    milestones: 4,
+    completed: 3,
+    status: 'active',
+    timeline: ['Q1', 'Q2', 'Q3', 'Q4'],
+    currentPhase: 2,
   },
   {
     id: 2,
     icon: HeartPulse,
     title: "Women's Health Analytics",
     description: 'SDOH insights + care optimization',
-    color: 'lavender',
-    doses: ['100 ml'],
-    schedule: { morning: 1, evening: 2 },
-    days: ['Mon 07', 'Tue 08', 'Wed 09', 'Thu 10', 'Fri 11', 'Sat 12', 'Sun 13'],
-    activeDay: 3,
+    phase: 'Phase 2',
+    milestones: 5,
+    completed: 2,
+    status: 'active',
+    timeline: ['Q1', 'Q2', 'Q3', 'Q4'],
+    currentPhase: 1,
   },
   {
     id: 3,
     icon: Database,
     title: 'EHR Data Engineering',
     description: 'ETL pipelines & normalization',
-    color: 'blue',
-    doses: ['30 ml'],
-    schedule: { morning: 2, evening: 0 },
-    days: ['Mon 07', 'Tue 08', 'Wed 09', 'Thu 10', 'Fri 11', 'Sat 12', 'Sun 13'],
-    activeDay: 4,
+    phase: 'Phase 4',
+    milestones: 6,
+    completed: 5,
+    status: 'review',
+    timeline: ['Q1', 'Q2', 'Q3', 'Q4'],
+    currentPhase: 3,
   },
   {
     id: 4,
     icon: MessageSquare,
     title: 'Chatbot AI (LLM)',
     description: 'Conversational health assistant',
-    color: 'coral',
-    doses: ['50 ml'],
-    schedule: { morning: 2, evening: 2 },
-    days: ['Mon 07', 'Tue 08', 'Wed 09', 'Thu 10', 'Fri 11', 'Sat 12', 'Sun 13'],
-    activeDay: 5,
+    phase: 'Phase 1',
+    milestones: 4,
+    completed: 1,
+    status: 'active',
+    timeline: ['Q1', 'Q2', 'Q3', 'Q4'],
+    currentPhase: 0,
   },
   {
     id: 5,
     icon: BarChart3,
     title: 'Dashboards & Reporting',
     description: 'Power BI & Tableau',
-    color: 'cream',
-    doses: ['100 ml'],
-    schedule: { morning: 0, evening: 2 },
-    days: ['Mon 07', 'Tue 08', 'Wed 09', 'Thu 10', 'Fri 11', 'Sat 12', 'Sun 13'],
-    activeDay: 6,
+    phase: 'Complete',
+    milestones: 5,
+    completed: 5,
+    status: 'complete',
+    timeline: ['Q1', 'Q2', 'Q3', 'Q4'],
+    currentPhase: 4,
   },
 ];
 
-const colorClasses: Record<string, string> = {
-  teal: 'ehr-pill-teal',
-  lavender: 'ehr-pill-lavender',
-  blue: 'ehr-pill-blue',
-  coral: 'ehr-pill-coral',
-  cream: 'ehr-pill-cream',
+const statusStyles: Record<string, string> = {
+  active: 'ehr-pill-primary',
+  review: 'ehr-pill-secondary',
+  complete: 'ehr-pill-success',
 };
 
-const dotColors: Record<string, string> = {
-  teal: 'bg-ehr-teal',
-  lavender: 'bg-ehr-lavender',
-  blue: 'bg-ehr-blue',
-  coral: 'bg-ehr-coral',
-  cream: 'bg-amber-300',
+const statusIcons: Record<string, typeof Circle> = {
+  active: Clock,
+  review: Circle,
+  complete: CheckCircle2,
 };
 
 export function FeaturedProjects() {
   return (
     <div className="ehr-card animate-fade-in" style={{ animationDelay: '0.1s' }}>
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-2">
-          <Database className="w-5 h-5 text-primary" />
-          <h3 className="text-lg font-semibold text-foreground">Featured Projects</h3>
+      <div className="flex items-center justify-between mb-1">
+        <div>
+          <h3 className="text-base font-semibold text-foreground">Featured Projects</h3>
+          <p className="text-sm text-muted-foreground">Active projects and delivery timelines</p>
         </div>
-        <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors">
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
-        </button>
+        <Link 
+          to="/projects"
+          className="flex items-center gap-1.5 text-sm text-secondary hover:text-secondary/80 transition-colors font-medium"
+        >
+          View all
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
 
       {/* Timeline Header */}
-      <div className="flex items-center gap-4 mb-4 ml-[180px]">
-        {projects[0].days.map((day, i) => (
-          <div key={day} className={`text-xs font-medium w-16 text-center ${i === 2 ? 'text-primary' : 'text-muted-foreground'}`}>
-            {day}
+      <div className="flex items-center gap-4 mt-6 mb-3 pl-[200px]">
+        {['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'].map((quarter, i) => (
+          <div key={quarter} className={`text-xs font-medium flex-1 text-center ${i === 2 ? 'text-primary' : 'text-muted-foreground'}`}>
+            {quarter}
           </div>
         ))}
       </div>
 
       {/* Project Timeline */}
-      <div className="space-y-3">
-        {projects.map((project, idx) => (
-          <div key={project.id} className="flex items-center gap-4 animate-fade-in" style={{ animationDelay: `${0.1 + idx * 0.05}s` }}>
-            {/* Project Info */}
-            <div className="w-44 flex items-center gap-3">
-              <div className={`w-2 h-2 rounded-full ${dotColors[project.color]}`} />
-              <project.icon className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium text-foreground truncate">{project.title}</span>
-            </div>
-
-            {/* Timeline */}
-            <div className="flex-1 flex items-center">
-              <div className="w-full h-[2px] bg-border relative flex items-center">
-                {/* Timeline pill positioned at active day */}
-                <div 
-                  className="absolute flex items-center gap-2"
-                  style={{ left: `${(project.activeDay - 1) * 14.28}%` }}
-                >
-                  <span className={`ehr-pill text-xs py-1 ${colorClasses[project.color]}`}>
-                    {project.doses[0]}
-                  </span>
-                  <div className="flex items-center gap-1">
-                    {project.schedule.morning > 0 && (
-                      <span className="ehr-pill-cream text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                        <Sun className="w-3 h-3" /> {project.schedule.morning}
-                      </span>
-                    )}
-                    {project.schedule.evening > 0 && (
-                      <span className="ehr-pill-blue text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                        <Moon className="w-3 h-3" /> {project.schedule.evening}
-                      </span>
-                    )}
-                  </div>
+      <div className="space-y-2">
+        {projects.map((project, idx) => {
+          const StatusIcon = statusIcons[project.status];
+          return (
+            <div 
+              key={project.id} 
+              className="flex items-center gap-4 py-2 px-2 rounded-md hover:bg-muted/50 transition-colors animate-fade-in cursor-pointer" 
+              style={{ animationDelay: `${0.1 + idx * 0.05}s` }}
+            >
+              {/* Project Info */}
+              <div className="w-[184px] flex items-center gap-3 flex-shrink-0">
+                <div className="w-8 h-8 rounded-md bg-muted flex items-center justify-center">
+                  <project.icon className="w-4 h-4 text-muted-foreground" />
+                </div>
+                <div className="min-w-0">
+                  <span className="text-sm font-medium text-foreground block truncate">{project.title}</span>
+                  <span className="text-xs text-muted-foreground">{project.milestones - project.completed} milestones left</span>
                 </div>
               </div>
+
+              {/* Timeline Bar */}
+              <div className="flex-1 flex items-center gap-1">
+                {project.timeline.map((_, i) => (
+                  <div 
+                    key={i}
+                    className={`flex-1 h-2 rounded-sm ${
+                      i < project.currentPhase 
+                        ? 'bg-primary' 
+                        : i === project.currentPhase 
+                          ? 'bg-secondary' 
+                          : 'bg-muted'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Status */}
+              <div className="w-24 flex-shrink-0">
+                <span className={`ehr-pill text-xs ${statusStyles[project.status]}`}>
+                  <StatusIcon className="w-3 h-3" />
+                  {project.phase}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 mt-6 pt-4 border-t border-border">
-        <div className="flex items-center gap-2">
-          <div className="ehr-pill-cream px-3 py-1.5 rounded-full flex items-center gap-1 text-xs">
-            <Sun className="w-3 h-3" /> Morning
-          </div>
+      <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="w-3 h-2 rounded-sm bg-primary" />
+          <span>Completed</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="ehr-pill-blue px-3 py-1.5 rounded-full flex items-center gap-1 text-xs">
-            <Moon className="w-3 h-3" /> Evening
-          </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="w-3 h-2 rounded-sm bg-secondary" />
+          <span>In Progress</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="w-3 h-2 rounded-sm bg-muted" />
+          <span>Planned</span>
         </div>
       </div>
     </div>

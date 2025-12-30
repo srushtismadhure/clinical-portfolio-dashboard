@@ -1,14 +1,13 @@
 import { LineChart, Line, ResponsiveContainer, XAxis } from 'recharts';
-import { Activity, ArrowUpRight } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 
 const data = [
-  { day: '07', heart: 92, stress: 45 },
-  { day: '08', heart: 88, stress: 52 },
-  { day: '09', heart: 95, stress: 38 },
-  { day: '10', heart: 91, stress: 42 },
-  { day: '11', heart: 98, stress: 35 },
-  { day: '12', heart: 94, stress: 40 },
-  { day: '13', heart: 96, stress: 32 },
+  { week: 'W1', proficiency: 82, growth: 45 },
+  { week: 'W2', proficiency: 85, growth: 52 },
+  { week: 'W3', proficiency: 88, growth: 48 },
+  { week: 'W4', proficiency: 91, growth: 55 },
+  { week: 'W5', proficiency: 94, growth: 58 },
+  { week: 'W6', proficiency: 96, growth: 62 },
 ];
 
 export function TrendWidget() {
@@ -16,35 +15,32 @@ export function TrendWidget() {
     <div className="ehr-card animate-fade-in" style={{ animationDelay: '0.5s' }}>
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <Activity className="w-5 h-5 text-accent" />
-          <h3 className="text-base font-semibold text-foreground">Technical Strength</h3>
+          <TrendingUp className="w-4 h-4 text-primary" />
+          <h3 className="text-sm font-semibold text-foreground">Technical Proficiency</h3>
         </div>
-        <button className="w-6 h-6 rounded-md hover:bg-muted flex items-center justify-center transition-colors">
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
-        </button>
       </div>
-      <p className="text-xs text-muted-foreground mb-3">07 - 13 June, 2024</p>
+      <p className="text-xs text-muted-foreground mb-3">Last 6 weeks</p>
 
-      <div className="h-24">
+      <div className="h-20">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
             <XAxis 
-              dataKey="day" 
+              dataKey="week" 
               axisLine={false}
               tickLine={false}
-              tick={{ fill: '#4A5568', fontSize: 10 }}
+              tick={{ fill: '#6B7280', fontSize: 10 }}
             />
             <Line 
               type="monotone" 
-              dataKey="heart" 
-              stroke="#FF8A80" 
+              dataKey="proficiency" 
+              stroke="#3FA092" 
               strokeWidth={2}
               dot={false}
             />
             <Line 
               type="monotone" 
-              dataKey="stress" 
-              stroke="#5C7CFA" 
+              dataKey="growth" 
+              stroke="#5E6AD2" 
               strokeWidth={2}
               dot={false}
               strokeDasharray="4 4"
@@ -56,11 +52,11 @@ export function TrendWidget() {
       <div className="grid grid-cols-2 gap-4 mt-3 pt-3 border-t border-border">
         <div className="text-center">
           <p className="text-xs text-muted-foreground">Proficiency</p>
-          <p className="text-lg font-semibold text-foreground">98 <span className="text-xs text-muted-foreground">score</span></p>
+          <p className="text-lg font-semibold text-foreground">96<span className="text-xs text-muted-foreground ml-0.5">%</span></p>
         </div>
         <div className="text-center">
           <p className="text-xs text-muted-foreground">Growth</p>
-          <p className="text-lg font-semibold text-ehr-teal">47% <span className="text-xs">up</span></p>
+          <p className="text-lg font-semibold text-primary">+17<span className="text-xs ml-0.5">%</span></p>
         </div>
       </div>
     </div>
