@@ -15,10 +15,10 @@ export function TabNav() {
         {tabs.map((tab) => (
           <button
             key={tab.label}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-[10px] text-sm transition-all ${
               tab.active 
-                ? 'bg-card border border-primary text-primary shadow-sm' 
-                : 'bg-card border border-border text-muted-foreground hover:border-primary/30 hover:text-foreground'
+                ? 'bg-white/70 backdrop-blur-sm border border-primary/30 text-primary shadow-sm' 
+                : 'bg-white/40 backdrop-blur-sm border border-white/40 text-muted-foreground hover:bg-white/60 hover:text-foreground'
             }`}
           >
             <tab.icon className="w-4 h-4" />
@@ -29,7 +29,7 @@ export function TabNav() {
           </button>
         ))}
       </div>
-      <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm">
+      <button className="flex items-center gap-2 px-4 py-2 rounded-[10px] bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm">
         <Plus className="w-4 h-4" />
         <span>Create new project</span>
       </button>

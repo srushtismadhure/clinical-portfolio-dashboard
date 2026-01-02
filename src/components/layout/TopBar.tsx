@@ -8,7 +8,7 @@ interface TopBarProps {
 
 export function TopBar({ title = 'Dashboard', breadcrumbs }: TopBarProps) {
   return (
-    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6">
+    <header className="h-16 glass-topbar flex items-center justify-between px-6 sticky top-0 z-10">
       {/* Left: Breadcrumbs & Title */}
       <div>
         {breadcrumbs && breadcrumbs.length > 0 && (
@@ -25,7 +25,7 @@ export function TopBar({ title = 'Dashboard', breadcrumbs }: TopBarProps) {
             ))}
           </nav>
         )}
-        <h2 className="text-xl font-semibold text-foreground">{title}</h2>
+        <h2 className="text-xl font-semibold text-foreground tracking-tight">{title}</h2>
       </div>
 
       {/* Center: Search */}
@@ -35,21 +35,21 @@ export function TopBar({ title = 'Dashboard', breadcrumbs }: TopBarProps) {
           <input
             type="text"
             placeholder="Search projects, skills..."
-            className="w-full h-10 pl-11 pr-4 rounded-xl bg-background border border-border text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            className="w-full h-10 pl-11 pr-4 rounded-[12px] bg-white/50 backdrop-blur-sm border border-white/40 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
           />
         </div>
       </div>
 
       {/* Right: Actions */}
       <div className="flex items-center gap-3">
-        <button className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center hover:bg-muted transition-colors">
+        <button className="w-10 h-10 rounded-[12px] bg-white/40 backdrop-blur-sm border border-white/40 flex items-center justify-center hover:bg-white/60 transition-colors">
           <Sun className="w-5 h-5 text-muted-foreground" />
         </button>
-        <button className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center hover:bg-muted transition-colors relative">
+        <button className="w-10 h-10 rounded-[12px] bg-white/40 backdrop-blur-sm border border-white/40 flex items-center justify-center hover:bg-white/60 transition-colors relative">
           <Bell className="w-5 h-5 text-muted-foreground" />
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full text-[10px] text-primary-foreground flex items-center justify-center font-medium">3</span>
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-[hsl(var(--ehr-coral))] rounded-full text-[10px] text-white flex items-center justify-center font-medium">3</span>
         </button>
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-[hsl(var(--ehr-blue))] flex items-center justify-center text-primary-foreground font-semibold text-sm">SM</div>
+        <div className="w-10 h-10 rounded-[12px] bg-gradient-to-br from-primary to-[hsl(var(--ehr-blue))] flex items-center justify-center text-white font-semibold text-sm shadow-sm">SM</div>
       </div>
     </header>
   );

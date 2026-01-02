@@ -23,22 +23,22 @@ const colorClasses: Record<string, string> = {
 
 export function SkillsCard() {
   return (
-    <div className="ehr-card animate-fade-in" style={{ animationDelay: '0.4s' }}>
-      <div className="flex items-center justify-between mb-4">
+    <div className="ehr-card-secondary animate-fade-in" style={{ animationDelay: '0.2s' }}>
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-ehr-lavender" />
-          <h3 className="text-lg font-semibold text-foreground">Skills & Tools</h3>
+          <Sparkles className="w-4 h-4 text-[hsl(var(--ehr-lavender))]" />
+          <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Skills & Tools</h3>
         </div>
-        <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors">
-          <MoreVertical className="w-4 h-4 text-muted-foreground" />
+        <button className="w-6 h-6 rounded-md hover:bg-white/50 flex items-center justify-center transition-colors">
+          <MoreVertical className="w-3.5 h-3.5 text-muted-foreground" />
         </button>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         {skills.map((skill) => (
           <span 
             key={skill.name}
-            className={`ehr-pill text-xs ${colorClasses[skill.color]} hover:scale-105 transition-transform cursor-default`}
+            className={`ehr-pill text-xs py-1.5 px-3 ${colorClasses[skill.color]} hover:scale-[1.02] transition-transform cursor-default`}
           >
             {skill.name}
           </span>
