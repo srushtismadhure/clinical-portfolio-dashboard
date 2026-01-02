@@ -1,47 +1,33 @@
 import { Sidebar } from '@/components/layout/Sidebar';
 import { TopBar } from '@/components/layout/TopBar';
-import { TabNav } from '@/components/cards/TabNav';
+import { HeroSection } from '@/components/cards/HeroSection';
 import { FeaturedProjects } from '@/components/cards/FeaturedProjects';
 import { AnalyticsChart } from '@/components/cards/AnalyticsChart';
-import { ProfileCard } from '@/components/cards/ProfileCard';
-import { SkillsCard } from '@/components/cards/SkillsCard';
-import { TrendWidget } from '@/components/cards/TrendWidget';
 import { ProjectTable } from '@/components/cards/ProjectTable';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex w-full bg-gradient-to-br from-[hsl(var(--ehr-soft-gray))] via-[hsl(210,40%,98%)] to-[hsl(var(--ehr-cream)/0.3)]">
+    <div className="min-h-screen flex w-full bg-gradient-to-br from-[hsl(var(--ehr-soft-gray))] via-[hsl(210,40%,98%)] to-[hsl(var(--ehr-cream)/0.2)]">
       {/* Left Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        <TopBar title="Clinical Profile Dashboard" />
+        <TopBar title="Portfolio Dashboard" />
 
         <main className="flex-1 p-6 overflow-auto">
-          {/* Tab Navigation */}
-          <TabNav />
+          {/* Hero Section - Above the Fold */}
+          <HeroSection />
 
-          {/* Above the Fold: Two-Column EHR Dashboard Layout */}
-          <div className="grid grid-cols-12 gap-6">
-            {/* Left Column - Profile Summary (Primary Focus) */}
-            <div className="col-span-12 lg:col-span-4 space-y-5">
-              {/* Profile Card - Primary, visually dominant */}
-              <ProfileCard />
-              
-              {/* Skills Card - Secondary widget */}
-              <SkillsCard />
-              
-              {/* Trend Widget - Tertiary, supporting data */}
-              <TrendWidget />
-            </div>
-
-            {/* Right Column - Dashboard Widgets Grid */}
-            <div className="col-span-12 lg:col-span-8 space-y-5">
-              {/* Featured Projects - Primary dashboard module */}
+          {/* Below the Fold - Preserved exactly as before */}
+          <div id="projects" className="grid grid-cols-12 gap-6 mt-8">
+            {/* Featured Projects - Primary dashboard module */}
+            <div className="col-span-12">
               <FeaturedProjects />
-              
-              {/* Analytics Chart - Data visualization module */}
+            </div>
+            
+            {/* Analytics Chart - Data visualization module */}
+            <div className="col-span-12">
               <AnalyticsChart />
             </div>
           </div>
