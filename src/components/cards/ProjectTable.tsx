@@ -70,25 +70,25 @@ export function ProjectTable() {
           </button>
         </div>
         <div className="flex items-center gap-2">
-          <button className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors">
-            <Search className="w-4 h-4 text-muted-foreground" />
+          <button className="w-7 h-7 rounded-lg bg-white/50 flex items-center justify-center hover:bg-white/70 transition-colors">
+            <Search className="w-3.5 h-3.5 text-muted-foreground" />
           </button>
-          <button className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
-            <Plus className="w-4 h-4 text-primary-foreground" />
+          <button className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
+            <Plus className="w-3.5 h-3.5 text-white" />
           </button>
         </div>
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto bg-white/30 rounded-xl">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-border">
-              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-2">Category</th>
-              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-2">Project Name</th>
-              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-2">Date</th>
-              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-2">Tools</th>
-              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-2">Progress</th>
+            <tr className="border-b border-white/40">
+              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-3 uppercase tracking-wide">Category</th>
+              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-3 uppercase tracking-wide">Project Name</th>
+              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-3 uppercase tracking-wide">Date</th>
+              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-3 uppercase tracking-wide">Tools</th>
+              <th className="text-left text-xs font-medium text-muted-foreground py-3 px-3 uppercase tracking-wide">Progress</th>
               <th className="w-10"></th>
             </tr>
           </thead>
@@ -96,40 +96,40 @@ export function ProjectTable() {
             {projects.map((project, idx) => (
               <tr 
                 key={project.name} 
-                className="table-row-hover border-b border-border/50 last:border-0 cursor-pointer"
+                className="table-row-hover border-b border-white/30 last:border-0 cursor-pointer"
               >
-                <td className="py-3 px-2">
+                <td className="py-3 px-3">
                   <div className="flex items-center gap-2">
                     <project.categoryIcon className={`w-4 h-4 ${categoryColors[project.category]}`} />
                     <span className="text-sm text-foreground">{project.category}</span>
                   </div>
                 </td>
-                <td className="py-3 px-2">
+                <td className="py-3 px-3">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm font-medium text-foreground">{project.name}</span>
                   </div>
                 </td>
-                <td className="py-3 px-2">
+                <td className="py-3 px-3">
                   <span className="text-sm text-muted-foreground">{project.date}</span>
                 </td>
-                <td className="py-3 px-2">
-                  <span className="ehr-pill ehr-pill-cream text-xs py-1">{project.tools}</span>
+                <td className="py-3 px-3">
+                  <span className="bg-[hsl(var(--ehr-cream))] text-foreground text-xs py-1 px-2 rounded-full">{project.tools}</span>
                 </td>
-                <td className="py-3 px-2">
+                <td className="py-3 px-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
+                    <div className="w-20 h-1.5 bg-white/50 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-ehr-blue rounded-full transition-all duration-500"
+                        className="h-full bg-[hsl(var(--ehr-blue))] rounded-full transition-all duration-500"
                         style={{ width: `${project.progress}%` }}
                       />
                     </div>
                     <span className="text-xs text-muted-foreground">{project.progress}%</span>
                   </div>
                 </td>
-                <td className="py-3 px-2">
-                  <button className="w-6 h-6 rounded hover:bg-muted flex items-center justify-center transition-colors">
-                    <MoreVertical className="w-4 h-4 text-muted-foreground" />
+                <td className="py-3 px-3">
+                  <button className="w-5 h-5 rounded hover:bg-white/50 flex items-center justify-center transition-colors">
+                    <MoreVertical className="w-3.5 h-3.5 text-muted-foreground" />
                   </button>
                 </td>
               </tr>

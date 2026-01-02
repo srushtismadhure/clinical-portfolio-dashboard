@@ -13,38 +13,38 @@ const data = [
 
 export function TrendWidget() {
   return (
-    <div className="ehr-card animate-fade-in" style={{ animationDelay: '0.5s' }}>
+    <div className="ehr-card-secondary animate-fade-in" style={{ animationDelay: '0.3s' }}>
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <Activity className="w-5 h-5 text-accent" />
-          <h3 className="text-base font-semibold text-foreground">Technical Strength</h3>
+          <Activity className="w-4 h-4 text-[hsl(var(--ehr-coral))]" />
+          <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Technical Strength</h3>
         </div>
-        <button className="w-6 h-6 rounded-md hover:bg-muted flex items-center justify-center transition-colors">
-          <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
+        <button className="w-5 h-5 rounded hover:bg-white/50 flex items-center justify-center transition-colors">
+          <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground" />
         </button>
       </div>
-      <p className="text-xs text-muted-foreground mb-3">07 - 13 June, 2024</p>
+      <p className="text-xs text-muted-foreground mb-2">07 - 13 June, 2024</p>
 
-      <div className="h-24">
+      <div className="h-20 bg-white/30 rounded-lg p-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
             <XAxis 
               dataKey="day" 
               axisLine={false}
               tickLine={false}
-              tick={{ fill: '#4A5568', fontSize: 10 }}
+              tick={{ fill: '#4A5568', fontSize: 9 }}
             />
             <Line 
               type="monotone" 
               dataKey="heart" 
-              stroke="#FF8A80" 
+              stroke="hsl(5, 100%, 75%)" 
               strokeWidth={2}
               dot={false}
             />
             <Line 
               type="monotone" 
               dataKey="stress" 
-              stroke="#5C7CFA" 
+              stroke="hsl(231, 95%, 67%)" 
               strokeWidth={2}
               dot={false}
               strokeDasharray="4 4"
@@ -53,14 +53,14 @@ export function TrendWidget() {
         </ResponsiveContainer>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mt-3 pt-3 border-t border-border">
+      <div className="grid grid-cols-2 gap-3 mt-3 pt-3 border-t border-white/40">
         <div className="text-center">
           <p className="text-xs text-muted-foreground">Proficiency</p>
-          <p className="text-lg font-semibold text-foreground">98 <span className="text-xs text-muted-foreground">score</span></p>
+          <p className="text-base font-semibold text-foreground">98 <span className="text-[10px] text-muted-foreground">score</span></p>
         </div>
         <div className="text-center">
           <p className="text-xs text-muted-foreground">Growth</p>
-          <p className="text-lg font-semibold text-ehr-teal">47% <span className="text-xs">up</span></p>
+          <p className="text-base font-semibold text-primary">47% <span className="text-[10px]">up</span></p>
         </div>
       </div>
     </div>

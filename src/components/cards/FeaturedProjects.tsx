@@ -85,19 +85,19 @@ const dotColors: Record<string, string> = {
 
 export function FeaturedProjects() {
   return (
-    <div className="ehr-card animate-fade-in" style={{ animationDelay: '0.1s' }}>
-      <div className="flex items-center justify-between mb-6">
+    <div className="ehr-card-primary animate-fade-in" style={{ animationDelay: '0.1s' }}>
+      <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
           <Database className="w-5 h-5 text-primary" />
-          <h3 className="text-lg font-semibold text-foreground">Featured Projects</h3>
+          <h3 className="text-base font-semibold text-foreground uppercase tracking-wide">Featured Projects</h3>
         </div>
-        <button className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors">
+        <button className="w-7 h-7 rounded-lg hover:bg-white/50 flex items-center justify-center transition-colors">
           <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
         </button>
       </div>
 
       {/* Timeline Header */}
-      <div className="flex items-center gap-4 mb-4 ml-[180px]">
+      <div className="flex items-center gap-4 mb-3 ml-[180px]">
         {projects[0].days.map((day, i) => (
           <div key={day} className={`text-xs font-medium w-16 text-center ${i === 2 ? 'text-primary' : 'text-muted-foreground'}`}>
             {day}
@@ -106,9 +106,9 @@ export function FeaturedProjects() {
       </div>
 
       {/* Project Timeline */}
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         {projects.map((project, idx) => (
-          <div key={project.id} className="flex items-center gap-4 animate-fade-in" style={{ animationDelay: `${0.1 + idx * 0.05}s` }}>
+          <div key={project.id} className="flex items-center gap-4 animate-fade-in py-1.5 px-2 rounded-lg hover:bg-white/30 transition-colors" style={{ animationDelay: `${0.1 + idx * 0.05}s` }}>
             {/* Project Info */}
             <div className="w-44 flex items-center gap-3">
               <div className={`w-2 h-2 rounded-full ${dotColors[project.color]}`} />
@@ -118,7 +118,7 @@ export function FeaturedProjects() {
 
             {/* Timeline */}
             <div className="flex-1 flex items-center">
-              <div className="w-full h-[2px] bg-border relative flex items-center">
+              <div className="w-full h-[2px] bg-white/40 relative flex items-center">
                 {/* Timeline pill positioned at active day */}
                 <div 
                   className="absolute flex items-center gap-2"
@@ -129,12 +129,12 @@ export function FeaturedProjects() {
                   </span>
                   <div className="flex items-center gap-1">
                     {project.schedule.morning > 0 && (
-                      <span className="ehr-pill-cream text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                      <span className="bg-[hsl(var(--ehr-cream))] text-foreground text-xs px-2 py-1 rounded-full flex items-center gap-1">
                         <Sun className="w-3 h-3" /> {project.schedule.morning}
                       </span>
                     )}
                     {project.schedule.evening > 0 && (
-                      <span className="ehr-pill-blue text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                      <span className="bg-[hsl(var(--ehr-blue)/0.15)] text-[hsl(var(--ehr-blue))] text-xs px-2 py-1 rounded-full flex items-center gap-1">
                         <Moon className="w-3 h-3" /> {project.schedule.evening}
                       </span>
                     )}
@@ -147,14 +147,14 @@ export function FeaturedProjects() {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 mt-6 pt-4 border-t border-border">
+      <div className="flex items-center gap-4 mt-5 pt-4 border-t border-white/40">
         <div className="flex items-center gap-2">
-          <div className="ehr-pill-cream px-3 py-1.5 rounded-full flex items-center gap-1 text-xs">
+          <div className="bg-[hsl(var(--ehr-cream))] px-3 py-1.5 rounded-full flex items-center gap-1 text-xs text-foreground">
             <Sun className="w-3 h-3" /> Morning
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="ehr-pill-blue px-3 py-1.5 rounded-full flex items-center gap-1 text-xs">
+          <div className="bg-[hsl(var(--ehr-blue)/0.15)] text-[hsl(var(--ehr-blue))] px-3 py-1.5 rounded-full flex items-center gap-1 text-xs">
             <Moon className="w-3 h-3" /> Evening
           </div>
         </div>
