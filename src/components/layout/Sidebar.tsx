@@ -31,7 +31,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Mobile Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 z-40 lg:hidden"
+          style={{ background: 'hsla(220, 20%, 8%, 0.7)', backdropFilter: 'blur(4px)' }}
           onClick={onClose}
         />
       )}
@@ -46,23 +47,27 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           lg:translate-x-0 lg:flex
         `}
       >
-        <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+        <div className="px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid hsla(220, 15%, 28%, 0.5)' }}>
           <Link to="/" className="flex items-center gap-2.5" onClick={handleNavClick}>
-            <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center border border-border">
-              <Activity className="w-4 h-4 text-primary" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center glow-primary" style={{
+              background: 'linear-gradient(135deg, hsla(174, 35%, 45%, 0.2) 0%, hsla(174, 35%, 45%, 0.1) 100%)',
+              border: '1px solid hsla(174, 35%, 45%, 0.3)'
+            }}>
+              <Activity className="w-4 h-4" style={{ color: 'hsl(174 35% 55%)' }} />
             </div>
             <div>
-              <h1 className="font-semibold text-foreground text-sm tracking-tight">Healthcare Analytics</h1>
-              <p className="text-[10px] text-muted-foreground">S. Madhure</p>
+              <h1 className="font-semibold text-sm tracking-tight" style={{ color: 'hsl(220 10% 92%)' }}>Healthcare Analytics</h1>
+              <p className="text-[10px]" style={{ color: 'hsl(220 10% 55%)' }}>S. Madhure</p>
             </div>
           </Link>
           
           {/* Close button for mobile */}
           <button 
             onClick={onClose}
-            className="lg:hidden w-7 h-7 rounded-md bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
+            className="lg:hidden w-7 h-7 rounded-md flex items-center justify-center transition-colors"
+            style={{ background: 'hsla(220, 15%, 25%, 0.6)', border: '1px solid hsla(220, 15%, 35%, 0.4)' }}
           >
-            <X className="w-3.5 h-3.5 text-muted-foreground" />
+            <X className="w-3.5 h-3.5" style={{ color: 'hsl(220 10% 60%)' }} />
           </button>
         </div>
 
@@ -86,8 +91,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-border">
-          <div className="text-[10px] text-muted-foreground space-y-0.5">
+        <div className="p-3" style={{ borderTop: '1px solid hsla(220, 15%, 28%, 0.5)' }}>
+          <div className="text-[10px] space-y-0.5" style={{ color: 'hsl(220 10% 45%)' }}>
             <p>Version 1.0.0</p>
             <p>Last sync: Jan 2026</p>
           </div>
