@@ -2,112 +2,114 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { TrendingUp } from 'lucide-react';
 
 const data = [
-  { date: '01-07', projects: 60, skills: 55 },
-  { date: '08-15', projects: 62, skills: 58 },
-  { date: '16-23', projects: 68, skills: 65 },
-  { date: '24-31', projects: 72, skills: 70 },
+  { period: 'Q1', projects: 4, skills: 8 },
+  { period: 'Q2', projects: 7, skills: 12 },
+  { period: 'Q3', projects: 10, skills: 15 },
+  { period: 'Q4', projects: 12, skills: 18 },
 ];
 
 const stats = [
-  { label: 'Projects Completed', value: '24', change: '+4.2%' },
-  { label: 'Skills Mastered', value: '18', change: '+12%' },
-  { label: 'Experience Growth', value: '3 yrs', change: '' },
+  { label: 'Use Cases', value: '12', unit: 'completed' },
+  { label: 'Data Points', value: '2.5M+', unit: 'processed' },
+  { label: 'Tenure', value: '3 yrs', unit: 'experience' },
 ];
 
 export function AnalyticsChart() {
   return (
-    <div className="ehr-card animate-fade-in min-w-0" style={{ animationDelay: '0.2s' }}>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4">
+    <div className="system-module animate-fade-in min-w-0" style={{ animationDelay: '0.2s' }}>
+      <div className="system-module-header">
         <div className="flex items-center gap-2 min-w-0">
-          <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-          <h3 className="text-sm sm:text-base font-semibold text-foreground uppercase tracking-wide truncate">My Work at a Glance</h3>
+          <TrendingUp className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+          <span className="system-module-label">Portfolio Metrics</span>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-[10px] sm:text-xs text-muted-foreground">Month Records</span>
-          <select className="text-[10px] sm:text-xs bg-white/50 backdrop-blur-sm border border-white/40 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary/20">
-            <option>June 2024</option>
-          </select>
+          <span className="text-[10px] text-muted-foreground">Period: 2024</span>
         </div>
       </div>
 
-      {/* Annotations - Hidden on mobile, visible on sm+ */}
-      <div className="hidden sm:flex items-center gap-4 mb-2 text-xs text-muted-foreground flex-wrap">
-        <span>June 8 - June 15: <span className="text-primary font-medium">+3 projects (+4.2%)</span></span>
-        <span>End Projects: <span className="font-medium text-foreground">68</span></span>
-        <span>Target: <span className="font-medium text-foreground">Aim to grow by 5</span></span>
+      <div className="system-module-content">
+        {/* Legend */}
+        <div className="flex items-center gap-4 mb-2 text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[hsl(var(--ehr-blue))]" />
+            Projects
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            Skills Applied
+          </span>
+        </div>
+
+        {/* Chart */}
+        <div className="h-28 sm:h-32 bg-muted/30 rounded border border-border p-2">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={data} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+              <defs>
+                <linearGradient id="projectsGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(215, 70%, 50%)" stopOpacity={0.15}/>
+                  <stop offset="95%" stopColor="hsl(215, 70%, 50%)" stopOpacity={0}/>
+                </linearGradient>
+                <linearGradient id="skillsGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="hsl(174, 35%, 45%)" stopOpacity={0.15}/>
+                  <stop offset="95%" stopColor="hsl(174, 35%, 45%)" stopOpacity={0}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 14%, 90%)" vertical={false} />
+              <XAxis 
+                dataKey="period" 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(220, 10%, 46%)', fontSize: 9 }}
+              />
+              <YAxis 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(220, 10%, 46%)', fontSize: 9 }}
+              />
+              <Tooltip 
+                contentStyle={{ 
+                  background: 'rgba(255,255,255,0.95)', 
+                  border: '1px solid hsl(220, 14%, 90%)',
+                  borderRadius: '4px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                  fontSize: '11px',
+                  padding: '6px 10px'
+                }}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="projects" 
+                stroke="hsl(215, 70%, 50%)" 
+                strokeWidth={1.5}
+                fill="url(#projectsGradient)"
+                dot={{ fill: 'hsl(215, 70%, 50%)', strokeWidth: 0, r: 2 }}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="skills" 
+                stroke="hsl(174, 35%, 45%)" 
+                strokeWidth={1.5}
+                fill="url(#skillsGradient)"
+                dot={{ fill: 'hsl(174, 35%, 45%)', strokeWidth: 0, r: 2 }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-2 mt-3">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center p-2 bg-muted/30 rounded border border-border min-w-0">
+              <p className="metric-value text-base">{stat.value}</p>
+              <p className="metric-label">{stat.label}</p>
+              <p className="text-[9px] text-muted-foreground">{stat.unit}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Chart */}
-      <div className="h-36 sm:h-44 mt-3 sm:mt-4 bg-white/30 rounded-lg sm:rounded-xl p-2 sm:p-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-            <defs>
-              <linearGradient id="projectsGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(231, 95%, 67%)" stopOpacity={0.2}/>
-                <stop offset="95%" stopColor="hsl(231, 95%, 67%)" stopOpacity={0}/>
-              </linearGradient>
-              <linearGradient id="skillsGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(5, 100%, 75%)" stopOpacity={0.2}/>
-                <stop offset="95%" stopColor="hsl(5, 100%, 75%)" stopOpacity={0}/>
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 20%, 92%)" vertical={false} />
-            <XAxis 
-              dataKey="date" 
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'hsl(215, 19%, 35%)', fontSize: 10 }}
-            />
-            <YAxis 
-              domain={[55, 75]}
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'hsl(215, 19%, 35%)', fontSize: 10 }}
-              tickFormatter={(value) => `${value}`}
-            />
-            <Tooltip 
-              contentStyle={{ 
-                background: 'rgba(255,255,255,0.9)', 
-                border: '1px solid rgba(255,255,255,0.5)',
-                borderRadius: '12px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                backdropFilter: 'blur(8px)',
-                fontSize: '12px'
-              }}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="projects" 
-              stroke="hsl(231, 95%, 67%)" 
-              strokeWidth={2}
-              fill="url(#projectsGradient)"
-              dot={{ fill: 'hsl(231, 95%, 67%)', strokeWidth: 2, r: 3 }}
-              activeDot={{ r: 5, fill: 'hsl(231, 95%, 67%)' }}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="skills" 
-              stroke="hsl(5, 100%, 75%)" 
-              strokeWidth={2}
-              fill="url(#skillsGradient)"
-              dot={{ fill: 'hsl(5, 100%, 75%)', strokeWidth: 2, r: 3 }}
-              activeDot={{ r: 5, fill: 'hsl(5, 100%, 75%)' }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 pt-4 border-t border-white/40">
-        {stats.map((stat) => (
-          <div key={stat.label} className="text-center bg-white/30 rounded-lg sm:rounded-xl py-2 sm:py-3 px-1 sm:px-2 min-w-0">
-            <p className="text-base sm:text-xl font-semibold text-foreground">{stat.value}</p>
-            <p className="text-[10px] sm:text-xs text-muted-foreground truncate">{stat.label}</p>
-            {stat.change && (
-              <p className="text-[10px] sm:text-xs text-primary font-medium mt-0.5">{stat.change}</p>
-            )}
-          </div>
-        ))}
+      <div className="system-module-footer">
+        <span>Metrics aggregated from portfolio analysis · Updated quarterly</span>
       </div>
     </div>
   );
