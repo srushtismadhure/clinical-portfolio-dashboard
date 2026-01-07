@@ -1,208 +1,282 @@
-import { MapPin, Mail, Linkedin, Github, ArrowRight, Code2, Database, Brain, User, Target } from 'lucide-react';
+import { useState } from 'react';
+import { MapPin, Mail, Linkedin, Github, ArrowRight, Database, Server, Activity, Layers, ToggleLeft, ToggleRight } from 'lucide-react';
 
 const coreSkills = [
-  { name: 'SQL', icon: Database },
-  { name: 'Python', icon: Code2 },
-  { name: 'R', icon: Brain },
-  { name: 'Power BI', icon: Target },
+  { name: 'SQL', category: 'query' },
+  { name: 'Python', category: 'lang' },
+  { name: 'R', category: 'lang' },
+  { name: 'Power BI', category: 'viz' },
+  { name: 'Databricks', category: 'platform' },
+  { name: 'Azure', category: 'cloud' },
 ];
 
 const focusAreas = [
-  'Healthcare Analytics',
-  'EHR/FHIR',
-  'Predictive Modeling',
-  'Women\'s Health',
+  { name: 'EHR/FHIR', type: 'standard' },
+  { name: 'Claims Analytics', type: 'domain' },
+  { name: 'SDOH', type: 'domain' },
+  { name: 'Predictive Models', type: 'method' },
 ];
 
-const techStack = [
-  'Databricks',
-  'Azure',
-  'Tableau',
-  'SDOH Analytics',
-  'Clinical Pipelines',
+const dataSources = [
+  'Epic/Cerner EHR',
+  'CMS Claims',
+  'HL7/FHIR',
+  'ICD-10/CPT',
+  'SDOH Indices',
 ];
 
-const aboutPoints = [
-  'Specialized in healthcare analytics with focus on EHR data pipelines and clinical decision support',
-  'Experience building predictive models for patient outcomes and operational efficiency',
-  'Skilled in creating dashboards and data visualizations for clinical stakeholders',
-  'Collaborative approach working with clinicians, IT teams, and leadership',
-  'Passionate about leveraging data to improve patient care and health equity',
+const systemMetrics = [
+  { label: 'Use Cases', value: '12+', detail: 'clinical workflows' },
+  { label: 'Datasets', value: '2.5M+', detail: 'patient records' },
+  { label: 'Experience', value: '3 yrs', detail: 'healthcare analytics' },
+];
+
+const clinicalSummary = [
+  'Builds production analytics pipelines for clinical decision support and population health',
+  'Designs predictive models for readmission risk, care gaps, and resource allocation',
+  'Creates stakeholder-facing dashboards for clinical ops and quality improvement',
+  'Integrates EHR, claims, and SDOH data for holistic patient analytics',
+];
+
+const technicalSummary = [
+  'ETL pipelines: Python, Spark, Databricks on Azure cloud infrastructure',
+  'Data modeling: FHIR R4, OMOP CDM, custom clinical schemas',
+  'ML stack: scikit-learn, XGBoost, logistic regression for clinical prediction',
+  'BI layer: Power BI, Tableau with DAX/SQL backend optimization',
 ];
 
 export function HeroSection() {
+  const [viewMode, setViewMode] = useState<'clinical' | 'technical'>('clinical');
+  const summaryPoints = viewMode === 'clinical' ? clinicalSummary : technicalSummary;
+
   return (
-    <section className="py-4 sm:py-6 relative">
-      {/* Subtle abstract background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 right-10 sm:right-20 w-48 sm:w-72 h-48 sm:h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 sm:bottom-20 left-5 sm:left-10 w-40 sm:w-64 h-40 sm:h-64 bg-[hsl(var(--ehr-lavender)/0.1)] rounded-full blur-3xl" />
-        <div className="absolute top-20 left-1/3 w-32 sm:w-48 h-32 sm:h-48 bg-[hsl(var(--ehr-blue)/0.05)] rounded-full blur-3xl" />
-      </div>
-
+    <section className="py-3 sm:py-4 relative">
       {/* Main Grid - Mobile first: single column, lg: 2 columns (8/4 split) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 w-full relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 w-full relative z-10">
         
-        {/* Left Column - Primary Identity + About Me */}
-        <div className="lg:col-span-8 space-y-4 sm:space-y-6 min-w-0">
+        {/* Left Column - Primary Identity + Profile Overview */}
+        <div className="lg:col-span-8 space-y-3 sm:space-y-4 min-w-0">
           
-          {/* Main Identity Card */}
-          <div className="glass-card p-4 sm:p-6 lg:p-8 animate-fade-in min-w-0">
-            {/* Top Row: Photo + Identity */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-4 sm:mb-5">
-              {/* Professional Photo Placeholder */}
-              <div className="w-16 h-20 sm:w-20 sm:h-24 lg:w-24 lg:h-28 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary/20 via-[hsl(var(--ehr-lavender)/0.3)] to-[hsl(var(--ehr-blue)/0.2)] flex items-center justify-center text-xl sm:text-2xl lg:text-3xl font-bold text-primary border-2 border-white/60 shadow-lg flex-shrink-0">
-                SM
+          {/* Main Identity Module */}
+          <div className="system-module animate-fade-in min-w-0">
+            <div className="system-module-header">
+              <div className="flex items-center gap-2">
+                <Activity className="w-3.5 h-3.5 text-primary" />
+                <span className="system-module-label">Profile Overview</span>
               </div>
-              
-              {/* Name & Role - Visually Dominant */}
-              <div className="flex-1 flex flex-col justify-center min-w-0">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground tracking-tight leading-tight mb-1 sm:mb-1.5 break-words">
-                  Srushti S. Madhure
-                </h1>
-                <p className="text-base sm:text-lg lg:text-xl font-medium text-primary mb-0.5 sm:mb-1">
-                  Health Informatics Specialist
-                </p>
-                <p className="text-xs sm:text-sm lg:text-base text-muted-foreground">
-                  Predictive Analytics • Data Engineering • Clinical Systems
-                </p>
+              <span className="text-[10px] text-muted-foreground">Active</span>
+            </div>
+            
+            <div className="system-module-content">
+              {/* Top Row: Photo + Identity */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-3">
+                {/* Professional Photo Placeholder */}
+                <div className="w-14 h-16 sm:w-16 sm:h-20 rounded-md bg-gradient-to-br from-primary/15 to-muted flex items-center justify-center text-lg sm:text-xl font-semibold text-primary border border-border flex-shrink-0">
+                  SM
+                </div>
+                
+                {/* Name & Role */}
+                <div className="flex-1 flex flex-col justify-center min-w-0">
+                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight leading-tight mb-0.5">
+                    Srushti S. Madhure
+                  </h1>
+                  <p className="text-sm sm:text-base font-medium text-primary mb-0.5">
+                    Health Informatics Specialist
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Clinical Analytics • Data Engineering • Decision Support Systems
+                  </p>
+                </div>
+              </div>
+
+              {/* Location + Status Row */}
+              <div className="flex flex-wrap items-center gap-2 mb-3 pb-3 border-b border-border">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <MapPin className="w-3 h-3 text-muted-foreground" />
+                  <span>Ann Arbor, MI</span>
+                </div>
+                <span className="text-border">|</span>
+                <span className="data-tag data-tag-active">Open to Opportunities</span>
+              </div>
+
+              {/* View Toggle */}
+              <div className="flex items-center justify-between mb-3">
+                <button 
+                  onClick={() => setViewMode(viewMode === 'clinical' ? 'technical' : 'clinical')}
+                  className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {viewMode === 'clinical' ? (
+                    <ToggleLeft className="w-4 h-4" />
+                  ) : (
+                    <ToggleRight className="w-4 h-4 text-primary" />
+                  )}
+                  <span className="font-medium">
+                    {viewMode === 'clinical' ? 'Clinical View' : 'Technical View'}
+                  </span>
+                </button>
+                <span className="text-[10px] text-muted-foreground">
+                  Toggle to see {viewMode === 'clinical' ? 'technical details' : 'clinical outcomes'}
+                </span>
+              </div>
+
+              {/* Summary Points - Dense */}
+              <ul className="space-y-1.5 mb-3">
+                {summaryPoints.map((point, index) => (
+                  <li key={index} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+                    <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                    <span className="min-w-0">{point}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 pt-2 border-t border-border">
+                <a 
+                  href="#projects" 
+                  className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors"
+                >
+                  View Clinical Use Cases
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+                <div className="flex flex-wrap gap-2">
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-muted border border-border text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
+                  >
+                    <Linkedin className="w-3.5 h-3.5" />
+                    <span>LinkedIn</span>
+                  </a>
+                  <a 
+                    href="https://github.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-muted border border-border text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
+                  >
+                    <Github className="w-3.5 h-3.5" />
+                    <span>GitHub</span>
+                  </a>
+                  <a 
+                    href="mailto:srushti@example.com"
+                    className="flex items-center justify-center px-2.5 py-2 rounded-md bg-muted border border-border text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* Location + Status */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-5">
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground">
-                <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
-                <span>Ann Arbor, MI</span>
-              </div>
-              <div className="hidden sm:block h-4 w-px bg-border" />
-              <span className="ehr-pill ehr-pill-cream text-xs py-1 sm:py-1.5 px-2.5 sm:px-3">Open to opportunities</span>
-            </div>
-
-            {/* Action Buttons - Stack on mobile, row on larger */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-3">
-              <a 
-                href="#projects" 
-                className="flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-5 lg:px-6 py-2.5 sm:py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all hover:shadow-lg text-sm sm:text-base"
-              >
-                View Projects
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                <a 
-                  href="https://linkedin.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 rounded-xl bg-white/50 backdrop-blur-sm border border-white/50 text-foreground font-medium hover:bg-white/70 transition-all text-sm"
-                >
-                  <Linkedin className="w-4 h-4 flex-shrink-0" />
-                  <span className="sm:inline">LinkedIn</span>
-                </a>
-                <a 
-                  href="https://github.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 lg:px-5 py-2.5 sm:py-3 rounded-xl bg-white/50 backdrop-blur-sm border border-white/50 text-foreground font-medium hover:bg-white/70 transition-all text-sm"
-                >
-                  <Github className="w-4 h-4 flex-shrink-0" />
-                  <span className="sm:inline">GitHub</span>
-                </a>
-                <a 
-                  href="mailto:srushti@example.com"
-                  className="w-10 sm:w-11 lg:w-12 flex items-center justify-center rounded-xl bg-white/50 backdrop-blur-sm border border-white/50 text-muted-foreground hover:bg-white/70 hover:text-foreground transition-all flex-shrink-0"
-                >
-                  <Mail className="w-4 h-4" />
-                </a>
-              </div>
+            <div className="system-module-footer flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span>Analytics layer: production-style</span>
+              <span>Primary domain: healthcare</span>
+              <span>Last updated: Jan 2026</span>
             </div>
           </div>
 
-          {/* About Me Card */}
-          <div className="glass-card p-4 sm:p-5 lg:p-6 animate-fade-in min-w-0" style={{ animationDelay: '0.1s' }}>
-            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <User className="w-4 h-4 text-primary flex-shrink-0" />
-              <h2 className="text-xs sm:text-sm font-semibold text-foreground uppercase tracking-wide">About Me</h2>
+          {/* System Metrics Module */}
+          <div className="system-module animate-fade-in min-w-0" style={{ animationDelay: '0.05s' }}>
+            <div className="system-module-header">
+              <div className="flex items-center gap-2">
+                <Layers className="w-3.5 h-3.5 text-primary" />
+                <span className="system-module-label">System Metrics</span>
+              </div>
             </div>
             
-            <ul className="space-y-2 sm:space-y-2.5 mb-4 sm:mb-5">
-              {aboutPoints.map((point, index) => (
-                <li key={index} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 sm:mt-2 flex-shrink-0" />
-                  <span className="min-w-0">{point}</span>
-                </li>
-              ))}
-            </ul>
-
-            {/* What I'm looking for */}
-            <div className="bg-white/40 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/50">
-              <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
-                <Target className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[hsl(var(--ehr-blue))] flex-shrink-0" />
-                <span className="text-[10px] sm:text-xs font-semibold text-foreground uppercase tracking-wide">What I'm Looking For</span>
+            <div className="system-module-content">
+              <div className="grid grid-cols-3 gap-3">
+                {systemMetrics.map((metric) => (
+                  <div key={metric.label} className="text-center p-2 bg-muted/30 rounded border border-border">
+                    <p className="metric-value">{metric.value}</p>
+                    <p className="metric-label">{metric.label}</p>
+                    <p className="text-[9px] text-muted-foreground mt-0.5">{metric.detail}</p>
+                  </div>
+                ))}
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground">
-                Data / Analytics roles in healthcare, digital health, or clinical operations.
-              </p>
+            </div>
+
+            <div className="system-module-footer">
+              <span>Metrics derived from portfolio analysis</span>
             </div>
           </div>
         </div>
 
-        {/* Right Column - Supporting Cards */}
-        <div className="lg:col-span-4 space-y-4 sm:space-y-5 min-w-0">
+        {/* Right Column - Supporting Modules */}
+        <div className="lg:col-span-4 space-y-3 sm:space-y-4 min-w-0">
           
-          {/* Core Skills Card */}
-          <div className="glass-card p-4 sm:p-5 animate-fade-in min-w-0" style={{ animationDelay: '0.15s' }}>
-            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <Code2 className="w-4 h-4 text-primary flex-shrink-0" />
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">Core Skills</h3>
+          {/* Core Skills Module */}
+          <div className="system-module animate-fade-in min-w-0" style={{ animationDelay: '0.1s' }}>
+            <div className="system-module-header">
+              <div className="flex items-center gap-2">
+                <Database className="w-3.5 h-3.5 text-primary" />
+                <span className="system-module-label">Core Skills</span>
+              </div>
+              <span className="text-[10px] text-muted-foreground">n=6</span>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              {coreSkills.map((skill) => (
-                <div 
-                  key={skill.name}
-                  className="flex items-center gap-2 p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-white/40 border border-white/50 hover:bg-white/60 transition-colors min-w-0"
-                >
-                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <skill.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
+            
+            <div className="system-module-content py-3">
+              <div className="flex flex-wrap gap-1.5">
+                {coreSkills.map((skill) => (
+                  <span key={skill.name} className="data-tag">
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="system-module-footer">
+              <span>Primary technical stack</span>
+            </div>
+          </div>
+
+          {/* Focus Areas Module */}
+          <div className="system-module animate-fade-in min-w-0" style={{ animationDelay: '0.15s' }}>
+            <div className="system-module-header">
+              <div className="flex items-center gap-2">
+                <Activity className="w-3.5 h-3.5 text-[hsl(var(--ehr-blue))]" />
+                <span className="system-module-label">Focus Areas</span>
+              </div>
+              <span className="text-[10px] text-muted-foreground">n=4</span>
+            </div>
+            
+            <div className="system-module-content py-3">
+              <div className="flex flex-wrap gap-1.5">
+                {focusAreas.map((area) => (
+                  <span key={area.name} className="data-tag data-tag-active">
+                    {area.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="system-module-footer">
+              <span>Domain specializations</span>
+            </div>
+          </div>
+
+          {/* Data Sources Module */}
+          <div className="system-module animate-fade-in min-w-0" style={{ animationDelay: '0.2s' }}>
+            <div className="system-module-header">
+              <div className="flex items-center gap-2">
+                <Server className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="system-module-label">Data Sources</span>
+              </div>
+              <span className="text-[10px] text-muted-foreground">n=5</span>
+            </div>
+            
+            <div className="system-module-content py-3">
+              <div className="space-y-1">
+                {dataSources.map((source) => (
+                  <div key={source} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span className="w-1 h-1 rounded-full bg-muted-foreground/50" />
+                    <span>{source}</span>
                   </div>
-                  <span className="text-xs sm:text-sm font-medium text-foreground truncate">{skill.name}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Focus Areas Card */}
-          <div className="glass-card p-4 sm:p-5 animate-fade-in min-w-0" style={{ animationDelay: '0.2s' }}>
-            <div className="flex items-center gap-2 mb-3 sm:mb-4">
-              <Brain className="w-4 h-4 text-[hsl(var(--ehr-lavender))] flex-shrink-0" />
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">Focus Areas</h3>
-            </div>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {focusAreas.map((domain) => (
-                <span 
-                  key={domain}
-                  className="ehr-pill ehr-pill-lavender text-[10px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 max-w-full truncate"
-                >
-                  {domain}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Tech Stack Card */}
-          <div className="glass-card p-4 sm:p-5 animate-fade-in min-w-0" style={{ animationDelay: '0.25s' }}>
-            <div className="flex items-center gap-2 mb-2 sm:mb-3">
-              <Database className="w-4 h-4 text-[hsl(var(--ehr-blue))] flex-shrink-0" />
-              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">Tech Stack</h3>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {techStack.map((tool) => (
-                <span 
-                  key={tool}
-                  className="ehr-pill ehr-pill-blue text-[10px] sm:text-xs py-1 sm:py-1.5 px-2 sm:px-3 max-w-full truncate"
-                >
-                  {tool}
-                </span>
-              ))}
+            <div className="system-module-footer">
+              <span>Healthcare data standards</span>
             </div>
           </div>
         </div>
