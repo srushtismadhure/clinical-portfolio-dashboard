@@ -6,26 +6,23 @@
 
 @layer base {
   :root {
-    /* Dark neutral gradient background */
-    --background: 220 20% 14%;
-    --foreground: 220 10% 94%;
+    --background: 210 20% 98%;
+    --foreground: 220 20% 16%;
 
-    /* Glass card surfaces */
-    --card: 220 15% 20%;
-    --card-foreground: 220 10% 94%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 16%;
 
-    --popover: 220 15% 18%;
-    --popover-foreground: 220 10% 94%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 16%;
 
-    /* Brand green - preserved exactly */
     --primary: 174 35% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 22%;
-    --secondary-foreground: 220 10% 90%;
+    --secondary: 220 14% 92%;
+    --secondary-foreground: 220 20% 16%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 46%;
 
     --accent: 174 35% 45%;
     --accent-foreground: 0 0% 100%;
@@ -33,35 +30,30 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 28%;
-    --input: 220 15% 24%;
+    --border: 220 14% 90%;
+    --input: 220 14% 90%;
     --ring: 174 35% 45%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Clinical System Palette - Dark mode */
+    /* Clinical System Palette - Restrained, authoritative */
     --ehr-teal: 174 35% 45%;
-    --ehr-lavender: 220 15% 35%;
-    --ehr-cream: 45 10% 25%;
+    --ehr-lavender: 220 14% 89%;
+    --ehr-cream: 45 30% 96%;
     --ehr-coral: 0 65% 55%;
     --ehr-blue: 215 70% 50%;
-    --ehr-soft-gray: 220 15% 20%;
-    --ehr-text: 220 10% 75%;
-    --ehr-heading: 220 10% 94%;
-    --ehr-meta: 220 10% 50%;
+    --ehr-soft-gray: 220 14% 96%;
+    --ehr-text: 220 10% 40%;
+    --ehr-heading: 220 20% 16%;
+    --ehr-meta: 220 10% 55%;
 
-    /* Glass effects */
-    --glass-bg: 220 15% 18%;
-    --glass-border: 220 15% 30%;
-    --glass-glow: 174 35% 45%;
-
-    --sidebar-background: 220 18% 12%;
-    --sidebar-foreground: 220 10% 70%;
+    --sidebar-background: 220 14% 97%;
+    --sidebar-foreground: 220 10% 40%;
     --sidebar-primary: 174 35% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 15% 18%;
-    --sidebar-accent-foreground: 220 10% 94%;
-    --sidebar-border: 220 15% 22%;
+    --sidebar-accent: 220 14% 94%;
+    --sidebar-accent-foreground: 220 20% 16%;
+    --sidebar-border: 220 14% 90%;
     --sidebar-ring: 174 35% 45%;
   }
 }
@@ -72,56 +64,25 @@
   }
 
   body {
-    @apply text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
     font-size: 13px;
     line-height: 1.5;
-    background: linear-gradient(145deg, 
-      hsl(220 20% 12%) 0%, 
-      hsl(220 18% 16%) 50%, 
-      hsl(215 20% 14%) 100%);
-    min-height: 100vh;
   }
 }
 
 @layer components {
-  /* Premium Glassmorphism Module */
+  /* Clinical System Module - Primary container */
   .system-module {
-    @apply relative overflow-hidden;
-    background: linear-gradient(
-      135deg,
-      hsla(220, 15%, 22%, 0.8) 0%,
-      hsla(220, 15%, 18%, 0.75) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsla(220, 15%, 35%, 0.4);
-    border-radius: 16px;
-    box-shadow: 
-      0 4px 24px -4px hsla(0, 0%, 0%, 0.3),
-      0 0 0 1px hsla(220, 15%, 40%, 0.1) inset,
-      0 1px 0 0 hsla(220, 15%, 50%, 0.1) inset;
-    transition: all 0.3s ease;
-  }
-
-  .system-module:hover {
-    box-shadow: 
-      0 8px 32px -4px hsla(0, 0%, 0%, 0.4),
-      0 0 0 1px hsla(220, 15%, 45%, 0.15) inset,
-      0 1px 0 0 hsla(220, 15%, 55%, 0.15) inset;
-    transform: translateY(-2px);
-    border-color: hsla(220, 15%, 40%, 0.5);
+    @apply bg-white/80 backdrop-blur-sm border border-border rounded-lg shadow-sm;
   }
 
   .system-module-header {
-    @apply flex items-center justify-between px-4 py-2.5;
-    border-bottom: 1px solid hsla(220, 15%, 35%, 0.3);
-    background: hsla(220, 15%, 25%, 0.3);
+    @apply flex items-center justify-between px-4 py-2.5 border-b border-border;
   }
 
   .system-module-label {
-    @apply text-[10px] font-semibold uppercase tracking-wider;
-    color: hsl(220 10% 60%);
+    @apply text-[10px] font-semibold text-muted-foreground uppercase tracking-wider;
   }
 
   .system-module-content {
@@ -129,279 +90,135 @@
   }
 
   .system-module-footer {
-    @apply px-4 py-2 text-[10px];
-    border-top: 1px solid hsla(220, 15%, 35%, 0.3);
-    background: hsla(220, 15%, 15%, 0.4);
-    color: hsl(220 10% 50%);
+    @apply px-4 py-2 border-t border-border bg-muted/30 text-[10px] text-muted-foreground;
   }
 
-  /* Data tags - glass style */
+  /* Data tags - minimal, clinical */
   .data-tag {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-medium;
-    background: hsla(220, 15%, 28%, 0.6);
-    border: 1px solid hsla(220, 15%, 40%, 0.3);
-    color: hsl(220 10% 75%);
-    backdrop-filter: blur(8px);
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border;
   }
 
   .data-tag-active {
-    background: hsla(174, 35%, 45%, 0.15);
-    border-color: hsla(174, 35%, 45%, 0.3);
-    color: hsl(174 35% 60%);
+    @apply bg-primary/10 text-primary border-primary/20;
   }
 
-  /* Premium glass cards */
+  /* Legacy glass styles - toned down */
   .glass {
-    background: linear-gradient(
-      135deg,
-      hsla(220, 15%, 22%, 0.75) 0%,
-      hsla(220, 15%, 18%, 0.7) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsla(220, 15%, 35%, 0.35);
-    box-shadow: 0 4px 24px -4px hsla(0, 0%, 0%, 0.25);
+    @apply bg-white/70 backdrop-blur-sm border border-border shadow-sm;
   }
 
   .glass-card {
-    @apply relative overflow-hidden rounded-2xl transition-all duration-300;
-    background: linear-gradient(
-      135deg,
-      hsla(220, 15%, 22%, 0.8) 0%,
-      hsla(220, 15%, 18%, 0.75) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsla(220, 15%, 35%, 0.4);
-    box-shadow: 
-      0 4px 24px -4px hsla(0, 0%, 0%, 0.3),
-      0 0 0 1px hsla(220, 15%, 40%, 0.1) inset;
+    @apply bg-white/80 backdrop-blur-sm border border-border rounded-lg shadow-sm transition-all duration-200;
   }
 
   .glass-card:hover {
-    box-shadow: 
-      0 8px 32px -4px hsla(0, 0%, 0%, 0.4),
-      0 0 0 1px hsla(220, 15%, 45%, 0.15) inset;
-    transform: translateY(-2px);
+    @apply shadow-md border-border;
   }
 
-  /* EHR cards - premium glass */
+  /* EHR cards - clinical density */
   .ehr-card {
-    @apply relative overflow-hidden rounded-xl p-4 transition-all duration-300;
-    background: linear-gradient(
-      135deg,
-      hsla(220, 15%, 22%, 0.8) 0%,
-      hsla(220, 15%, 18%, 0.75) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsla(220, 15%, 35%, 0.4);
-    box-shadow: 0 4px 20px -4px hsla(0, 0%, 0%, 0.25);
+    @apply bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-border transition-all duration-200;
   }
 
   .ehr-card:hover {
-    box-shadow: 0 8px 28px -4px hsla(0, 0%, 0%, 0.35);
-    transform: translateY(-1px);
+    @apply shadow-md;
   }
 
   .ehr-card-primary {
-    @apply relative overflow-hidden rounded-xl p-4 transition-all duration-300;
-    background: linear-gradient(
-      135deg,
-      hsla(220, 15%, 24%, 0.85) 0%,
-      hsla(220, 15%, 20%, 0.8) 100%
-    );
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid hsla(220, 15%, 38%, 0.45);
-    box-shadow: 
-      0 4px 24px -4px hsla(0, 0%, 0%, 0.3),
-      0 0 0 1px hsla(220, 15%, 45%, 0.1) inset;
+    @apply bg-white/85 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-border transition-all duration-200;
   }
 
   .ehr-card-primary:hover {
-    box-shadow: 
-      0 8px 32px -4px hsla(0, 0%, 0%, 0.4),
-      0 0 0 1px hsla(220, 15%, 50%, 0.12) inset;
-    transform: translateY(-2px);
+    @apply shadow-md;
   }
 
   .ehr-card-secondary {
-    @apply relative overflow-hidden rounded-lg p-3 transition-all duration-300;
-    background: hsla(220, 15%, 20%, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsla(220, 15%, 32%, 0.35);
-    box-shadow: 0 2px 16px -4px hsla(0, 0%, 0%, 0.2);
+    @apply bg-white/70 backdrop-blur-sm rounded-lg p-3 shadow-sm border border-border transition-all duration-200;
   }
 
   .ehr-card-secondary:hover {
-    box-shadow: 0 4px 20px -4px hsla(0, 0%, 0%, 0.3);
+    @apply shadow-md;
   }
 
-  /* Pills - glass style */
+  /* Pills - reduced, clinical */
   .ehr-pill {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200;
-    backdrop-filter: blur(8px);
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium transition-colors;
   }
 
   .ehr-pill-teal {
-    background: hsla(174, 35%, 45%, 0.15);
-    border: 1px solid hsla(174, 35%, 45%, 0.25);
-    color: hsl(174 35% 60%);
-  }
-
-  .ehr-pill-teal:hover {
-    background: hsla(174, 35%, 45%, 0.2);
-    box-shadow: 0 0 12px -2px hsla(174, 35%, 45%, 0.3);
+    @apply bg-[hsl(var(--primary)/0.08)] text-primary;
   }
 
   .ehr-pill-lavender {
-    background: hsla(220, 15%, 35%, 0.4);
-    border: 1px solid hsla(220, 15%, 45%, 0.3);
-    color: hsl(220 10% 80%);
+    @apply bg-muted text-foreground;
   }
 
   .ehr-pill-cream {
-    background: hsla(45, 15%, 30%, 0.4);
-    border: 1px solid hsla(45, 15%, 40%, 0.3);
-    color: hsl(45 15% 75%);
+    @apply bg-[hsl(var(--ehr-cream))] text-foreground;
   }
 
   .ehr-pill-coral {
-    background: hsla(0, 65%, 55%, 0.12);
-    border: 1px solid hsla(0, 65%, 55%, 0.25);
-    color: hsl(0 65% 65%);
+    @apply bg-[hsl(var(--ehr-coral)/0.1)] text-[hsl(var(--ehr-coral))];
   }
 
   .ehr-pill-blue {
-    background: hsla(215, 70%, 50%, 0.12);
-    border: 1px solid hsla(215, 70%, 50%, 0.25);
-    color: hsl(215 70% 65%);
+    @apply bg-[hsl(var(--ehr-blue)/0.1)] text-[hsl(var(--ehr-blue))];
   }
 
-  /* Navigation - glass style */
+  /* Navigation - clinical, minimal */
   .nav-item {
-    @apply flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] transition-all duration-200 cursor-pointer;
-    color: hsl(220 10% 60%);
-  }
-
-  .nav-item:hover {
-    background: hsla(220, 15%, 28%, 0.5);
-    color: hsl(220 10% 85%);
+    @apply flex items-center gap-2.5 px-3 py-2 rounded-md text-[13px] text-muted-foreground hover:bg-muted hover:text-foreground transition-colors cursor-pointer;
   }
 
   .nav-item.active {
-    background: hsla(174, 35%, 45%, 0.12);
-    color: hsl(174 35% 60%);
-    font-weight: 500;
-    box-shadow: 0 0 16px -4px hsla(174, 35%, 45%, 0.2);
+    @apply bg-[hsl(var(--primary)/0.08)] text-primary font-medium;
   }
 
   .table-row-hover {
-    @apply transition-colors duration-150;
+    @apply hover:bg-muted/50 transition-colors duration-150;
   }
 
-  .table-row-hover:hover {
-    background: hsla(220, 15%, 25%, 0.5);
-  }
-
-  /* Glass sidebar */
+  /* Glass sidebar - clinical */
   .glass-sidebar {
-    background: linear-gradient(
-      180deg,
-      hsla(220, 18%, 14%, 0.95) 0%,
-      hsla(220, 18%, 12%, 0.98) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-right: 1px solid hsla(220, 15%, 28%, 0.5);
+    @apply bg-white/90 backdrop-blur-sm border-r border-border;
   }
 
-  /* Glass topbar */
+  /* Glass topbar - clinical */
   .glass-topbar {
-    background: linear-gradient(
-      90deg,
-      hsla(220, 18%, 15%, 0.9) 0%,
-      hsla(220, 18%, 14%, 0.92) 100%
-    );
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid hsla(220, 15%, 28%, 0.5);
+    @apply bg-white/90 backdrop-blur-sm border-b border-border;
   }
 
   /* Section labels */
   .section-label {
-    @apply text-[10px] font-semibold uppercase tracking-wider;
-    color: hsl(220 10% 50%);
+    @apply text-[10px] font-semibold text-muted-foreground uppercase tracking-wider;
   }
 
-  /* Metric display - premium */
+  /* Metric display */
   .metric-value {
-    @apply text-lg font-semibold tabular-nums;
-    color: hsl(220 10% 94%);
+    @apply text-lg font-semibold text-foreground tabular-nums;
   }
 
   .metric-label {
-    @apply text-[10px] uppercase tracking-wide;
-    color: hsl(220 10% 55%);
+    @apply text-[10px] text-muted-foreground uppercase tracking-wide;
   }
 
   /* Divider line */
   .module-divider {
-    @apply my-3;
-    border-top: 1px solid hsla(220, 15%, 35%, 0.3);
-  }
-
-  /* Primary button with glow */
-  .btn-primary-glow {
-    @apply relative overflow-hidden;
-    background: linear-gradient(135deg, hsl(174 35% 42%) 0%, hsl(174 35% 48%) 100%);
-    box-shadow: 0 2px 12px -2px hsla(174, 35%, 45%, 0.4);
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary-glow:hover {
-    box-shadow: 0 4px 20px -2px hsla(174, 35%, 45%, 0.5);
-    transform: translateY(-1px);
-  }
-
-  /* Muted button glass */
-  .btn-muted-glass {
-    background: hsla(220, 15%, 25%, 0.6);
-    border: 1px solid hsla(220, 15%, 38%, 0.4);
-    backdrop-filter: blur(8px);
-    transition: all 0.2s ease;
-  }
-
-  .btn-muted-glass:hover {
-    background: hsla(220, 15%, 30%, 0.7);
-    border-color: hsla(220, 15%, 45%, 0.5);
-  }
-
-  /* Metric card glass */
-  .metric-card-glass {
-    background: hsla(220, 15%, 22%, 0.5);
-    border: 1px solid hsla(220, 15%, 35%, 0.3);
-    border-radius: 8px;
-    backdrop-filter: blur(8px);
+    @apply border-t border-border my-3;
   }
 }
 
 @layer utilities {
   .text-ehr-heading {
-    @apply font-semibold;
-    color: hsl(220 10% 94%);
+    @apply text-foreground font-semibold;
   }
 
   .text-ehr-body {
-    @apply text-[13px];
-    color: hsl(220 10% 70%);
+    @apply text-muted-foreground text-[13px];
   }
 
   .text-ehr-meta {
-    @apply text-[10px];
-    color: hsl(220 10% 50%);
+    @apply text-[10px] text-[hsl(var(--ehr-meta))];
   }
 
   .animate-fade-up {
@@ -417,14 +234,5 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  /* Subtle green glow for primary elements */
-  .glow-primary {
-    box-shadow: 0 0 20px -4px hsla(174, 35%, 45%, 0.3);
-  }
-
-  .glow-primary-hover:hover {
-    box-shadow: 0 0 24px -4px hsla(174, 35%, 45%, 0.4);
   }
 }

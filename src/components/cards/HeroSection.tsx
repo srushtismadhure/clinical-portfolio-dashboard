@@ -68,38 +68,34 @@ export function HeroSection() {
             </div>
             
             <div className="system-module-content">
-            {/* Top Row: Photo + Identity */}
+              {/* Top Row: Photo + Identity */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-3">
                 {/* Professional Photo Placeholder */}
-                <div className="w-14 h-16 sm:w-16 sm:h-20 rounded-lg flex items-center justify-center text-lg sm:text-xl font-semibold flex-shrink-0" style={{
-                  background: 'linear-gradient(135deg, hsla(174, 35%, 45%, 0.2) 0%, hsla(220, 15%, 25%, 0.8) 100%)',
-                  border: '1px solid hsla(174, 35%, 45%, 0.25)',
-                  color: 'hsl(174 35% 60%)'
-                }}>
+                <div className="w-14 h-16 sm:w-16 sm:h-20 rounded-md bg-gradient-to-br from-primary/15 to-muted flex items-center justify-center text-lg sm:text-xl font-semibold text-primary border border-border flex-shrink-0">
                   SM
                 </div>
                 
                 {/* Name & Role */}
                 <div className="flex-1 flex flex-col justify-center min-w-0">
-                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight leading-tight mb-0.5" style={{ color: 'hsl(220 10% 96%)' }}>
+                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight leading-tight mb-0.5">
                     Srushti S. Madhure
                   </h1>
-                  <p className="text-sm sm:text-base font-medium mb-0.5" style={{ color: 'hsl(174 35% 55%)' }}>
+                  <p className="text-sm sm:text-base font-medium text-primary mb-0.5">
                     Health Informatics Specialist
                   </p>
-                  <p className="text-xs" style={{ color: 'hsl(220 10% 60%)' }}>
+                  <p className="text-xs text-muted-foreground">
                     Clinical Analytics • Data Engineering • Decision Support Systems
                   </p>
                 </div>
               </div>
 
               {/* Location + Status Row */}
-              <div className="flex flex-wrap items-center gap-2 mb-3 pb-3" style={{ borderBottom: '1px solid hsla(220, 15%, 35%, 0.3)' }}>
-                <div className="flex items-center gap-1.5 text-xs" style={{ color: 'hsl(220 10% 60%)' }}>
-                  <MapPin className="w-3 h-3" style={{ color: 'hsl(220 10% 50%)' }} />
+              <div className="flex flex-wrap items-center gap-2 mb-3 pb-3 border-b border-border">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <MapPin className="w-3 h-3 text-muted-foreground" />
                   <span>Ann Arbor, MI</span>
                 </div>
-                <span style={{ color: 'hsla(220, 15%, 40%, 0.5)' }}>|</span>
+                <span className="text-border">|</span>
                 <span className="data-tag data-tag-active">Open to Opportunities</span>
               </div>
 
@@ -134,10 +130,10 @@ export function HeroSection() {
               </ul>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 pt-3" style={{ borderTop: '1px solid hsla(220, 15%, 35%, 0.3)' }}>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 pt-2 border-t border-border">
                 <a 
                   href="#projects" 
-                  className="btn-primary-glow flex items-center justify-center sm:justify-start gap-2 px-4 py-2 rounded-lg text-white text-xs font-medium"
+                  className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors"
                 >
                   View Clinical Use Cases
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -147,8 +143,7 @@ export function HeroSection() {
                     href="https://linkedin.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="btn-muted-glass flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium"
-                    style={{ color: 'hsl(220 10% 85%)' }}
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-muted border border-border text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
                   >
                     <Linkedin className="w-3.5 h-3.5" />
                     <span>LinkedIn</span>
@@ -157,16 +152,14 @@ export function HeroSection() {
                     href="https://github.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="btn-muted-glass flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium"
-                    style={{ color: 'hsl(220 10% 85%)' }}
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-md bg-muted border border-border text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
                   >
                     <Github className="w-3.5 h-3.5" />
                     <span>GitHub</span>
                   </a>
                   <a 
                     href="mailto:srushti@example.com"
-                    className="btn-muted-glass flex items-center justify-center px-2.5 py-2 rounded-lg"
-                    style={{ color: 'hsl(220 10% 70%)' }}
+                    className="flex items-center justify-center px-2.5 py-2 rounded-md bg-muted border border-border text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5" />
                   </a>
@@ -193,10 +186,10 @@ export function HeroSection() {
             <div className="system-module-content">
               <div className="grid grid-cols-3 gap-3">
                 {systemMetrics.map((metric) => (
-                  <div key={metric.label} className="metric-card-glass text-center p-2.5">
+                  <div key={metric.label} className="text-center p-2 bg-muted/30 rounded border border-border">
                     <p className="metric-value">{metric.value}</p>
                     <p className="metric-label">{metric.label}</p>
-                    <p className="text-[9px] mt-0.5" style={{ color: 'hsl(220 10% 50%)' }}>{metric.detail}</p>
+                    <p className="text-[9px] text-muted-foreground mt-0.5">{metric.detail}</p>
                   </div>
                 ))}
               </div>

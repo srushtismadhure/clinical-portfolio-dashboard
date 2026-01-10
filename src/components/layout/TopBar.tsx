@@ -15,83 +15,52 @@ export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: 
         {/* Hamburger menu for mobile */}
         <button 
           onClick={onMenuClick}
-          className="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
-          style={{ 
-            background: 'hsla(220, 15%, 25%, 0.6)', 
-            border: '1px solid hsla(220, 15%, 35%, 0.4)' 
-          }}
+          className="lg:hidden w-8 h-8 rounded-md bg-muted border border-border flex items-center justify-center hover:bg-muted/80 transition-colors flex-shrink-0"
         >
-          <Menu className="w-4 h-4" style={{ color: 'hsl(220 10% 85%)' }} />
+          <Menu className="w-4 h-4 text-foreground" />
         </button>
 
         <div className="min-w-0">
           {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav className="flex items-center gap-1 text-[10px] mb-0.5" style={{ color: 'hsl(220 10% 55%)' }}>
+            <nav className="flex items-center gap-1 text-[10px] text-muted-foreground mb-0.5">
               {breadcrumbs.map((crumb, i) => (
                 <span key={crumb.label} className="flex items-center gap-1 min-w-0">
                   {crumb.href ? (
                     <Link to={crumb.href} className="hover:text-foreground transition-colors truncate">{crumb.label}</Link>
                   ) : (
-                    <span className="truncate" style={{ color: 'hsl(220 10% 90%)' }}>{crumb.label}</span>
+                    <span className="text-foreground truncate">{crumb.label}</span>
                   )}
-                  {i < breadcrumbs.length - 1 && <span style={{ color: 'hsla(220, 15%, 40%, 0.5)' }}>/</span>}
+                  {i < breadcrumbs.length - 1 && <span className="text-border">/</span>}
                 </span>
               ))}
             </nav>
           )}
-          <h2 className="text-sm sm:text-base font-semibold tracking-tight truncate" style={{ color: 'hsl(220 10% 94%)' }}>{title}</h2>
+          <h2 className="text-sm sm:text-base font-semibold text-foreground tracking-tight truncate">{title}</h2>
         </div>
       </div>
 
       {/* Center: Search - Hidden on mobile */}
       <div className="flex-1 max-w-sm mx-4 lg:mx-6 hidden md:block">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: 'hsl(220 10% 50%)' }} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search records..."
-            className="w-full h-8 pl-9 pr-3 rounded-lg text-xs transition-colors focus:outline-none"
-            style={{ 
-              background: 'hsla(220, 15%, 22%, 0.7)',
-              border: '1px solid hsla(220, 15%, 35%, 0.4)',
-              color: 'hsl(220 10% 85%)'
-            }}
+            className="w-full h-8 pl-9 pr-3 rounded-md bg-muted border border-border text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/30 focus:border-primary/40 transition-colors"
           />
         </div>
       </div>
 
       {/* Right: Actions */}
       <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-        <button 
-          className="hidden sm:flex w-8 h-8 rounded-lg items-center justify-center transition-colors"
-          style={{ 
-            background: 'hsla(220, 15%, 25%, 0.6)', 
-            border: '1px solid hsla(220, 15%, 35%, 0.4)' 
-          }}
-        >
-          <Settings className="w-3.5 h-3.5" style={{ color: 'hsl(220 10% 60%)' }} />
+        <button className="hidden sm:flex w-8 h-8 rounded-md bg-muted border border-border items-center justify-center hover:bg-muted/80 transition-colors">
+          <Settings className="w-3.5 h-3.5 text-muted-foreground" />
         </button>
-        <button 
-          className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors relative"
-          style={{ 
-            background: 'hsla(220, 15%, 25%, 0.6)', 
-            border: '1px solid hsla(220, 15%, 35%, 0.4)' 
-          }}
-        >
-          <Bell className="w-3.5 h-3.5" style={{ color: 'hsl(220 10% 60%)' }} />
-          <span 
-            className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full text-[8px] text-white flex items-center justify-center font-medium"
-            style={{ background: 'hsl(0 65% 55%)' }}
-          >3</span>
+        <button className="w-8 h-8 rounded-md bg-muted border border-border flex items-center justify-center hover:bg-muted/80 transition-colors relative">
+          <Bell className="w-3.5 h-3.5 text-muted-foreground" />
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-[hsl(var(--ehr-coral))] rounded-full text-[8px] text-white flex items-center justify-center font-medium">3</span>
         </button>
-        <div 
-          className="w-8 h-8 rounded-lg flex items-center justify-center font-semibold text-xs glow-primary"
-          style={{ 
-            background: 'linear-gradient(135deg, hsla(174, 35%, 45%, 0.2) 0%, hsla(174, 35%, 45%, 0.1) 100%)',
-            border: '1px solid hsla(174, 35%, 45%, 0.3)',
-            color: 'hsl(174 35% 60%)'
-          }}
-        >SM</div>
+        <div className="w-8 h-8 rounded-md bg-primary/10 border border-border flex items-center justify-center text-primary font-semibold text-xs">SM</div>
       </div>
     </header>
   );
