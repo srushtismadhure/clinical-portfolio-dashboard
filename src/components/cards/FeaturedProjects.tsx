@@ -59,9 +59,9 @@ export function FeaturedProjects() {
           <span className="system-module-label">Clinical Use Cases</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[9px] text-muted-foreground tabular-nums">n=5</span>
-          <button className="w-5 h-5 rounded hover:bg-muted flex items-center justify-center transition-colors flex-shrink-0">
-            <ExternalLink className="w-2.5 h-2.5 text-muted-foreground" />
+          <span className="text-[9px] text-primary/70 tabular-nums">n=5</span>
+          <button className="w-5 h-5 rounded hover:bg-[hsl(var(--primary)/0.1)] flex items-center justify-center transition-colors flex-shrink-0">
+            <ExternalLink className="w-2.5 h-2.5 text-primary/60" />
           </button>
         </div>
       </div>
@@ -71,15 +71,15 @@ export function FeaturedProjects() {
           {projects.map((project) => (
             <div 
               key={project.id} 
-              className="p-2 rounded bg-muted/30 border border-border hover:border-primary/30 transition-colors min-w-0 cursor-pointer"
+              className="p-2 rounded bg-[hsl(var(--clinical-primary-muted)/0.5)] border border-[hsl(var(--clinical-border))] hover:border-primary/40 transition-colors min-w-0 cursor-pointer"
             >
               <div className="flex items-start gap-1.5 mb-1.5">
-                <div className="w-6 h-6 rounded bg-muted flex items-center justify-center flex-shrink-0 border border-border">
-                  <project.icon className="w-3 h-3 text-muted-foreground" />
+                <div className="w-6 h-6 rounded bg-[hsl(var(--clinical-primary-muted))] flex items-center justify-center flex-shrink-0 border border-[hsl(var(--clinical-border))]">
+                  <project.icon className="w-3 h-3 text-primary/70" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] font-medium text-foreground truncate leading-tight">{project.title}</p>
-                  <p className="text-[9px] text-muted-foreground truncate">{project.description}</p>
+                  <p className="text-[10px] font-medium text-[hsl(var(--clinical-text))] truncate leading-tight">{project.title}</p>
+                  <p className="text-[9px] text-[hsl(var(--clinical-text-muted))] truncate">{project.description}</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-1 text-[8px]">
