@@ -71,31 +71,31 @@ export function HeroSection() {
               {/* Identity Row */}
               <div className="flex flex-col sm:flex-row gap-2.5 mb-2.5">
                 {/* Photo */}
-                <div className="w-12 h-14 sm:w-14 sm:h-16 rounded bg-muted flex items-center justify-center text-sm font-medium text-muted-foreground border border-border flex-shrink-0">
+                <div className="w-12 h-14 sm:w-14 sm:h-16 rounded bg-[hsl(var(--clinical-primary-muted))] flex items-center justify-center text-sm font-medium text-primary border border-[hsl(var(--clinical-border))] flex-shrink-0">
                   SM
                 </div>
                 
                 {/* Name & Role */}
                 <div className="flex-1 flex flex-col justify-center min-w-0">
-                  <h1 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight leading-tight">
+                  <h1 className="text-lg sm:text-xl font-semibold text-[hsl(var(--clinical-text))] tracking-tight leading-tight">
                     Srushti S. Madhure
                   </h1>
                   <p className="text-xs font-medium text-primary">
                     Health Informatics Specialist
                   </p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                  <p className="text-[10px] text-[hsl(var(--clinical-text-muted))] mt-0.5">
                     Clinical Analytics · Data Engineering · Decision Support
                   </p>
                 </div>
               </div>
 
               {/* Location + Status */}
-              <div className="flex flex-wrap items-center gap-2 mb-2.5 pb-2.5 border-b border-border">
-                <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                  <MapPin className="w-2.5 h-2.5" />
+              <div className="flex flex-wrap items-center gap-2 mb-2.5 pb-2.5 border-b border-[hsl(var(--clinical-border))]">
+                <div className="flex items-center gap-1 text-[10px] text-[hsl(var(--clinical-text-muted))]">
+                  <MapPin className="w-2.5 h-2.5 text-primary" />
                   <span>Ann Arbor, MI</span>
                 </div>
-                <span className="text-border text-[10px]">|</span>
+                <span className="text-[hsl(var(--clinical-border))] text-[10px]">|</span>
                 <span className="data-tag data-tag-active">Open to Opportunities</span>
               </div>
 
@@ -103,7 +103,7 @@ export function HeroSection() {
               <div className="flex items-center justify-between mb-2">
                 <button 
                   onClick={() => setViewMode(viewMode === 'clinical' ? 'technical' : 'clinical')}
-                  className="flex items-center gap-1.5 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--clinical-text-muted))] hover:text-primary transition-colors"
                 >
                   {viewMode === 'clinical' ? (
                     <ToggleLeft className="w-3.5 h-3.5" />
@@ -114,7 +114,7 @@ export function HeroSection() {
                     {viewMode === 'clinical' ? 'Clinical View' : 'Technical View'}
                   </span>
                 </button>
-                <span className="text-[9px] text-muted-foreground">
+                <span className="text-[9px] text-[hsl(var(--clinical-text-muted))]">
                   Toggle for {viewMode === 'clinical' ? 'technical' : 'clinical'} details
                 </span>
               </div>
@@ -122,7 +122,7 @@ export function HeroSection() {
               {/* Summary Points */}
               <ul className="space-y-1 mb-2.5">
                 {summaryPoints.map((point, index) => (
-                  <li key={index} className="flex items-start gap-1.5 text-[11px] text-muted-foreground leading-snug">
+                  <li key={index} className="flex items-start gap-1.5 text-[11px] text-[hsl(var(--clinical-text-muted))] leading-snug">
                     <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
                     <span className="min-w-0">{point}</span>
                   </li>
@@ -130,10 +130,10 @@ export function HeroSection() {
               </ul>
 
               {/* Actions */}
-              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1.5 pt-2 border-t border-border">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1.5 pt-2 border-t border-[hsl(var(--clinical-border))]">
                 <a 
                   href="#projects" 
-                  className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-1.5 rounded bg-primary text-primary-foreground text-[11px] font-medium hover:bg-primary/90 transition-colors"
+                  className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-1.5 rounded bg-primary text-primary-foreground text-[11px] font-medium hover:bg-[hsl(var(--clinical-primary-hover))] transition-colors"
                 >
                   View Clinical Use Cases
                   <ArrowRight className="w-3 h-3" />
@@ -143,7 +143,7 @@ export function HeroSection() {
                     href="https://linkedin.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded bg-muted border border-border text-[11px] font-medium text-foreground hover:bg-muted/70 transition-colors"
+                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
                   >
                     <Linkedin className="w-3 h-3" />
                     <span>LinkedIn</span>
@@ -152,14 +152,14 @@ export function HeroSection() {
                     href="https://github.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded bg-muted border border-border text-[11px] font-medium text-foreground hover:bg-muted/70 transition-colors"
+                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
                   >
                     <Github className="w-3 h-3" />
                     <span>GitHub</span>
                   </a>
                   <a 
                     href="mailto:srushti@example.com"
-                    className="flex items-center justify-center px-2 py-1.5 rounded bg-muted border border-border text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors"
+                    className="flex items-center justify-center px-2 py-1.5 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
                   >
                     <Mail className="w-3 h-3" />
                   </a>
@@ -186,10 +186,10 @@ export function HeroSection() {
             <div className="system-module-content py-2">
               <div className="grid grid-cols-3 gap-2">
                 {systemMetrics.map((metric) => (
-                  <div key={metric.label} className="text-center p-2 bg-muted/30 rounded border border-border">
+                  <div key={metric.label} className="text-center p-2 bg-[hsl(var(--clinical-primary-muted)/0.5)] rounded border border-[hsl(var(--clinical-border))]">
                     <p className="metric-value">{metric.value}</p>
                     <p className="metric-label">{metric.label}</p>
-                    <p className="text-[8px] text-muted-foreground">{metric.detail}</p>
+                    <p className="text-[8px] text-[hsl(var(--clinical-text-muted))]">{metric.detail}</p>
                   </div>
                 ))}
               </div>
@@ -211,7 +211,7 @@ export function HeroSection() {
                 <Database className="w-3 h-3 text-primary" />
                 <span className="system-module-label">Core Skills</span>
               </div>
-              <span className="text-[9px] text-muted-foreground tabular-nums">n=6</span>
+              <span className="text-[9px] text-primary/70 tabular-nums">n=6</span>
             </div>
             
             <div className="system-module-content py-2">
@@ -236,7 +236,7 @@ export function HeroSection() {
                 <Activity className="w-3 h-3 text-primary" />
                 <span className="system-module-label">Focus Areas</span>
               </div>
-              <span className="text-[9px] text-muted-foreground tabular-nums">n=4</span>
+              <span className="text-[9px] text-primary/70 tabular-nums">n=4</span>
             </div>
             
             <div className="system-module-content py-2">
@@ -258,17 +258,17 @@ export function HeroSection() {
           <div className="system-module min-w-0">
             <div className="system-module-header">
               <div className="flex items-center gap-1.5">
-                <Server className="w-3 h-3 text-muted-foreground" />
+                <Server className="w-3 h-3 text-primary/70" />
                 <span className="system-module-label">Data Sources</span>
               </div>
-              <span className="text-[9px] text-muted-foreground tabular-nums">n=5</span>
+              <span className="text-[9px] text-primary/70 tabular-nums">n=5</span>
             </div>
             
             <div className="system-module-content py-2">
               <div className="space-y-0.5">
                 {dataSources.map((source) => (
-                  <div key={source} className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                    <span className="w-0.5 h-0.5 rounded-full bg-muted-foreground/50" />
+                  <div key={source} className="flex items-center gap-1.5 text-[10px] text-[hsl(var(--clinical-text-muted))]">
+                    <span className="w-0.5 h-0.5 rounded-full bg-primary/40" />
                     <span>{source}</span>
                   </div>
                 ))}

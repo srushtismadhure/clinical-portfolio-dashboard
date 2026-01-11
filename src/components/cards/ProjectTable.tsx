@@ -59,9 +59,9 @@ const projects = [
 ];
 
 const statusColors: Record<string, string> = {
-  production: 'text-primary bg-[hsl(var(--primary)/0.08)]',
-  development: 'text-[hsl(var(--ehr-blue))] bg-[hsl(var(--ehr-blue)/0.08)]',
-  archived: 'text-muted-foreground bg-muted',
+  production: 'text-primary bg-[hsl(var(--primary)/0.12)]',
+  development: 'text-[hsl(var(--clinical-text-muted))] bg-[hsl(var(--clinical-primary-muted))]',
+  archived: 'text-[hsl(var(--clinical-text-muted))] bg-[hsl(var(--clinical-primary-muted)/0.5)]',
 };
 
 export function ProjectTable() {
@@ -74,17 +74,17 @@ export function ProjectTable() {
             <button className="text-[9px] font-medium text-primary border-b border-primary pb-0.5">
               Recent
             </button>
-            <button className="text-[9px] text-muted-foreground hover:text-foreground transition-colors pb-0.5">
+            <button className="text-[9px] text-[hsl(var(--clinical-text-muted))] hover:text-primary transition-colors pb-0.5">
               Archived
             </button>
           </div>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
-          <span className="text-[9px] text-muted-foreground tabular-nums">n={projects.length}</span>
-          <button className="w-5 h-5 rounded hover:bg-muted flex items-center justify-center transition-colors">
-            <Search className="w-2.5 h-2.5 text-muted-foreground" />
+          <span className="text-[9px] text-primary/70 tabular-nums">n={projects.length}</span>
+          <button className="w-5 h-5 rounded hover:bg-[hsl(var(--primary)/0.1)] flex items-center justify-center transition-colors">
+            <Search className="w-2.5 h-2.5 text-primary/60" />
           </button>
-          <button className="w-5 h-5 rounded bg-primary hover:bg-primary/90 flex items-center justify-center transition-colors">
+          <button className="w-5 h-5 rounded bg-primary hover:bg-[hsl(var(--clinical-primary-hover))] flex items-center justify-center transition-colors">
             <Plus className="w-2.5 h-2.5 text-primary-foreground" />
           </button>
         </div>
@@ -95,14 +95,14 @@ export function ProjectTable() {
         {projects.map((project) => (
           <div 
             key={project.name} 
-            className="p-2 bg-muted/30 rounded border border-border"
+            className="p-2 bg-[hsl(var(--clinical-primary-muted)/0.5)] rounded border border-[hsl(var(--clinical-border))]"
           >
             <div className="flex items-start justify-between gap-1.5 mb-1">
               <div className="flex items-center gap-1.5 min-w-0">
-                <project.categoryIcon className="w-3 h-3 flex-shrink-0 text-muted-foreground" />
+                <project.categoryIcon className="w-3 h-3 flex-shrink-0 text-primary/70" />
                 <div className="min-w-0">
-                  <p className="text-[10px] font-medium text-foreground truncate">{project.name}</p>
-                  <p className="text-[9px] text-muted-foreground truncate">{project.category}</p>
+                  <p className="text-[10px] font-medium text-[hsl(var(--clinical-text))] truncate">{project.name}</p>
+                  <p className="text-[9px] text-[hsl(var(--clinical-text-muted))] truncate">{project.category}</p>
                 </div>
               </div>
               <span className={`text-[8px] font-medium px-1 py-0.5 rounded-sm ${statusColors[project.status]}`}>
@@ -122,13 +122,13 @@ export function ProjectTable() {
       <div className="hidden sm:block overflow-x-auto">
         <table className="w-full min-w-[650px]">
           <thead>
-            <tr className="border-b border-border">
-              <th className="text-left text-[8px] font-medium text-muted-foreground py-1.5 px-2.5 uppercase tracking-wide">Category</th>
-              <th className="text-left text-[8px] font-medium text-muted-foreground py-1.5 px-2.5 uppercase tracking-wide">Project</th>
-              <th className="text-left text-[8px] font-medium text-muted-foreground py-1.5 px-2.5 uppercase tracking-wide">Data Source</th>
-              <th className="text-left text-[8px] font-medium text-muted-foreground py-1.5 px-2.5 uppercase tracking-wide">Records</th>
-              <th className="text-left text-[8px] font-medium text-muted-foreground py-1.5 px-2.5 uppercase tracking-wide">Tools</th>
-              <th className="text-left text-[8px] font-medium text-muted-foreground py-1.5 px-2.5 uppercase tracking-wide">Outcome</th>
+            <tr className="border-b border-[hsl(var(--clinical-border))]">
+              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Category</th>
+              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Project</th>
+              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Data Source</th>
+              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Records</th>
+              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Tools</th>
+              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Outcome</th>
               <th className="w-6"></th>
             </tr>
           </thead>
@@ -136,32 +136,32 @@ export function ProjectTable() {
             {projects.map((project) => (
               <tr 
                 key={project.name} 
-                className="table-row-hover border-b border-border last:border-0 cursor-pointer"
+                className="table-row-hover border-b border-[hsl(var(--clinical-border))] last:border-0 cursor-pointer"
               >
                 <td className="py-1.5 px-2.5">
                   <div className="flex items-center gap-1 min-w-0">
-                    <project.categoryIcon className="w-3 h-3 flex-shrink-0 text-muted-foreground opacity-60" />
-                    <span className="text-[10px] text-foreground truncate">{project.category}</span>
+                    <project.categoryIcon className="w-3 h-3 flex-shrink-0 text-primary/60" />
+                    <span className="text-[10px] text-[hsl(var(--clinical-text))] truncate">{project.category}</span>
                   </div>
                 </td>
                 <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] font-medium text-foreground">{project.name}</span>
+                  <span className="text-[10px] font-medium text-[hsl(var(--clinical-text))]">{project.name}</span>
                 </td>
                 <td className="py-1.5 px-2.5">
                   <span className="data-tag text-[8px]">{project.dataSource}</span>
                 </td>
                 <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] text-muted-foreground tabular-nums">{project.records}</span>
+                  <span className="text-[10px] text-[hsl(var(--clinical-text-muted))] tabular-nums">{project.records}</span>
                 </td>
                 <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] text-muted-foreground">{project.tools}</span>
+                  <span className="text-[10px] text-[hsl(var(--clinical-text-muted))]">{project.tools}</span>
                 </td>
                 <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] text-foreground">{project.outcome}</span>
+                  <span className="text-[10px] text-[hsl(var(--clinical-text))]">{project.outcome}</span>
                 </td>
                 <td className="py-1.5 px-2.5">
-                  <button className="w-4 h-4 rounded hover:bg-muted flex items-center justify-center transition-colors">
-                    <ExternalLink className="w-2.5 h-2.5 text-muted-foreground" />
+                  <button className="w-4 h-4 rounded hover:bg-[hsl(var(--primary)/0.1)] flex items-center justify-center transition-colors">
+                    <ExternalLink className="w-2.5 h-2.5 text-primary/60" />
                   </button>
                 </td>
               </tr>

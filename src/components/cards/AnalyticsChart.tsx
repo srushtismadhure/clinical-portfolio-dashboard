@@ -22,52 +22,52 @@ export function AnalyticsChart() {
           <TrendingUp className="w-3 h-3 text-primary flex-shrink-0" />
           <span className="system-module-label">Portfolio Metrics</span>
         </div>
-        <span className="text-[9px] text-muted-foreground">Period: 2024</span>
+        <span className="text-[9px] text-primary/70">Period: 2024</span>
       </div>
 
       <div className="system-module-content">
         {/* Legend */}
-        <div className="flex items-center gap-3 mb-1.5 text-[9px] text-muted-foreground">
+        <div className="flex items-center gap-3 mb-1.5 text-[9px] text-[hsl(var(--clinical-text-muted))]">
           <span className="flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
             Projects
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+            <span className="w-1.5 h-1.5 rounded-full bg-primary/40" />
             Skills Applied
           </span>
         </div>
 
         {/* Chart */}
-        <div className="h-24 sm:h-28 bg-muted/20 rounded border border-border p-1.5">
+        <div className="h-24 sm:h-28 bg-[hsl(var(--clinical-primary-muted)/0.3)] rounded border border-[hsl(var(--clinical-border))] p-1.5">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
               <defs>
                 <linearGradient id="projectsGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(207, 55%, 45%)" stopOpacity={0.12}/>
-                  <stop offset="95%" stopColor="hsl(207, 55%, 45%)" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="hsl(227, 78%, 48%)" stopOpacity={0.15}/>
+                  <stop offset="95%" stopColor="hsl(227, 78%, 48%)" stopOpacity={0}/>
                 </linearGradient>
                 <linearGradient id="skillsGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(215, 12%, 50%)" stopOpacity={0.08}/>
-                  <stop offset="95%" stopColor="hsl(215, 12%, 50%)" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="hsl(227, 78%, 48%)" stopOpacity={0.06}/>
+                  <stop offset="95%" stopColor="hsl(227, 78%, 48%)" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(210, 12%, 90%)" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 25%, 88%)" vertical={false} />
               <XAxis 
                 dataKey="period" 
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: 'hsl(215, 12%, 50%)', fontSize: 8 }}
+                tick={{ fill: 'hsl(220, 15%, 50%)', fontSize: 8 }}
               />
               <YAxis 
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: 'hsl(215, 12%, 50%)', fontSize: 8 }}
+                tick={{ fill: 'hsl(220, 15%, 50%)', fontSize: 8 }}
               />
               <Tooltip 
                 contentStyle={{ 
-                  background: 'white', 
-                  border: '1px solid hsl(210, 12%, 88%)',
+                  background: 'hsl(220, 40%, 99%)', 
+                  border: '1px solid hsl(220, 25%, 88%)',
                   borderRadius: '4px',
                   boxShadow: 'none',
                   fontSize: '10px',
@@ -77,18 +77,18 @@ export function AnalyticsChart() {
               <Area 
                 type="monotone" 
                 dataKey="projects" 
-                stroke="hsl(207, 55%, 45%)" 
+                stroke="hsl(227, 78%, 48%)" 
                 strokeWidth={1.5}
                 fill="url(#projectsGradient)"
-                dot={{ fill: 'hsl(207, 55%, 45%)', strokeWidth: 0, r: 1.5 }}
+                dot={{ fill: 'hsl(227, 78%, 48%)', strokeWidth: 0, r: 1.5 }}
               />
               <Area 
                 type="monotone" 
                 dataKey="skills" 
-                stroke="hsl(215, 12%, 50%)" 
+                stroke="hsl(227, 78%, 65%)" 
                 strokeWidth={1}
                 fill="url(#skillsGradient)"
-                dot={{ fill: 'hsl(215, 12%, 50%)', strokeWidth: 0, r: 1.5 }}
+                dot={{ fill: 'hsl(227, 78%, 65%)', strokeWidth: 0, r: 1.5 }}
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -97,9 +97,9 @@ export function AnalyticsChart() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-1.5 mt-2">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center p-1.5 bg-muted/20 rounded border border-border min-w-0">
-              <p className="text-sm font-medium text-foreground tabular-nums">{stat.value}</p>
-              <p className="text-[8px] text-muted-foreground uppercase tracking-wide">{stat.label}</p>
+            <div key={stat.label} className="text-center p-1.5 bg-[hsl(var(--clinical-primary-muted)/0.5)] rounded border border-[hsl(var(--clinical-border))] min-w-0">
+              <p className="text-sm font-medium text-[hsl(var(--clinical-text))] tabular-nums">{stat.value}</p>
+              <p className="text-[8px] text-primary uppercase tracking-wide">{stat.label}</p>
             </div>
           ))}
         </div>
