@@ -5,12 +5,84 @@ import { TagChip } from './TagChip';
 export interface Project {
   id: string;
   title: string;
+  subtitle?: string;
   summary: string;
   category: string;
+  projectType: 'professional' | 'personal';
   status: 'Completed' | 'In Progress';
   lastUpdated: string;
+  layoutType?: 'paintools' | 'default';
   thumbnail?: string;
   tags?: string[];
+  heroImage?: string;
+  workstreams?: {
+    id: string;
+    title: string;
+    summary?: string;
+    desc?: string;
+    routeSlug?: string;
+    href?: string;
+    sections?: {
+      problem?: string[];
+      owned?: string[];
+      process?: string[];
+      artifacts?: string[];
+      results?: string[];
+    };
+  }[];
+  dataModel?: {
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    chips?: { label: string; value: string }[];
+    bullets?: string[];
+    image?: string;
+    caption?: string;
+    expandText?: string;
+
+    // model guide additions
+    guideTitle?: string;
+    guideBlocks?: { title: string; bullets: string[] }[];
+    leftLabel?: string;
+    rightLabel?: string;
+    executiveSummary?: {
+      narrative?: string;
+      metrics?: { label: string; value: string }[];
+    };
+    
+  };
+
+  // Optional, project-level executive summary (used by Value-Based Care page)
+  executiveSummary?: {
+    heading?: string;
+    narrative?: string;
+    metrics?: { label: string; value: string }[];
+  };
+
+  // Optional, project-level recommendations table (used by Value-Based Care page)
+  recommendations?: {
+    insight: string;
+    metric: string;
+    action: string;
+  }[];
+
+  heroSummary?: {
+    problem?: string;
+    solution?: string;
+    tools?: string;
+    outcome?: string;
+    recommendation?: string;
+    keyInsight?: string;
+    recommendationBullets?: string[];
+    evidence?: string[];
+  };
+
+  projectDoc?: {
+    title?: string;
+    description?: string;
+    url?: string;
+    bullets?: string[];
+  };
 }
 
 interface ProjectCardProps {
@@ -19,11 +91,11 @@ interface ProjectCardProps {
 }
 
 const categoryColors: Record<string, 'teal' | 'lavender' | 'cream' | 'coral' | 'blue'> = {
-  'Analytics': 'teal',
+  Analytics: 'teal',
   'AI/LLM': 'lavender',
   'Data Engineering': 'blue',
-  'UX': 'coral',
-  'Dashboards': 'cream',
+  UX: 'coral',
+  Dashboards: 'cream',
 };
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {

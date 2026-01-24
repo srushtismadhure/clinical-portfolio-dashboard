@@ -1,5 +1,5 @@
 import { Search, Bell, Menu, Settings } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface TopBarProps {
   title?: string;
@@ -8,14 +8,23 @@ interface TopBarProps {
 }
 
 export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: TopBarProps) {
+  const location = useLocation();
+
+  // ✅ NEW: Hide the TopBar title on project detail routes (/projects/:id)
+  // This prevents long project names from appearing in the nav bar,
+  // since the page already renders the project title in the content.
+  const isProjectDetailRoute = location.pathname.startsWith('/projects/');
+
   return (
     <header className="h-10 sm:h-11 bg-[hsl(var(--clinical-surface))] border-b border-[hsl(var(--clinical-border))] flex items-center justify-between px-3 sm:px-4 lg:px-5 sticky top-0 z-30">
-      {/* Left: Menu + Title */}
+      {/* Left: Menu + Breadcrumbs (+ optional Title) */}
       <div className="flex items-center gap-2 min-w-0">
-        {/* Hamburger menu for mobile */}
-        <button 
+        {/* Hamburger menu */}
+        <button
           onClick={onMenuClick}
-          className="lg:hidden w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] flex items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors flex-shrink-0"
+          className="w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] flex items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors flex-shrink-0"
+          aria-label="Open menu"
+          type="button"
         >
           <Menu className="w-3.5 h-3.5 text-primary" />
         </button>
@@ -24,18 +33,28 @@ export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: 
           {breadcrumbs && breadcrumbs.length > 0 && (
             <nav className="flex items-center gap-1 text-[9px] text-[hsl(var(--clinical-text-muted))] mb-0.5">
               {breadcrumbs.map((crumb, i) => (
-                <span key={crumb.label} className="flex items-center gap-1 min-w-0">
+                <span key={`${crumb.label}-${i}`} className="flex items-center gap-1 min-w-0">
                   {crumb.href ? (
-                    <Link to={crumb.href} className="hover:text-primary transition-colors truncate">{crumb.label}</Link>
+                    <Link to={crumb.href} className="hover:text-primary transition-colors truncate">
+                      {crumb.label}
+                    </Link>
                   ) : (
                     <span className="text-[hsl(var(--clinical-text))] truncate">{crumb.label}</span>
                   )}
-                  {i < breadcrumbs.length - 1 && <span className="text-[hsl(var(--clinical-border))]">/</span>}
+                  {i < breadcrumbs.length - 1 && (
+                    <span className="text-[hsl(var(--clinical-border))]">/</span>
+                  )}
                 </span>
               ))}
             </nav>
           )}
-          <h2 className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate">{title}</h2>
+
+          {/* ✅ CHANGED: hide title on project detail pages */}
+          {!isProjectDetailRoute && (
+            <h2 className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate">
+              {title}
+            </h2>
+          )}
         </div>
       </div>
 
@@ -53,14 +72,28 @@ export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: 
 
       {/* Right: Actions */}
       <div className="flex items-center gap-1 flex-shrink-0">
-        <button className="hidden sm:flex w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors">
+        <button
+          className="hidden sm:flex w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+          type="button"
+          aria-label="Settings"
+        >
           <Settings className="w-3 h-3 text-primary/70" />
         </button>
-        <button className="w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] flex items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors relative">
+
+        <button
+          className="w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] flex items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors relative"
+          type="button"
+          aria-label="Notifications"
+        >
           <Bell className="w-3 h-3 text-primary/70" />
-          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-primary rounded-full text-[7px] text-white flex items-center justify-center font-medium">3</span>
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-primary rounded-full text-[7px] text-white flex items-center justify-center font-medium">
+            3
+          </span>
         </button>
-        <div className="w-7 h-7 rounded bg-primary flex items-center justify-center text-primary-foreground font-medium text-[10px]">SM</div>
+
+        <div className="w-7 h-7 rounded bg-primary flex items-center justify-center text-primary-foreground font-medium text-[10px]">
+          SM
+        </div>
       </div>
     </header>
   );

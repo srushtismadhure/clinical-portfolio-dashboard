@@ -9,16 +9,36 @@ import { ProjectTable } from '@/components/cards/ProjectTable';
 const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => !prev);
+  };
+
   return (
-    <div className="min-h-screen flex w-full max-w-full overflow-x-hidden bg-background">
+    // ✅ CHANGED: switched from flex layout to a responsive grid on desktop
+    // This gives the sidebar its own column on lg+ screens, preventing overlap and keeping it visible.
+    <div className="min-h-screen w-full bg-white lg:grid lg:grid-cols-[240px_1fr]">
       {/* Left Sidebar */}
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      {/* ✅ CHANGED: added variant="persistent"
+          - Desktop (lg+): sidebar stays visible (persistent)
+          - Mobile: still uses isOpen/onClose as a drawer (hamburger controls it)
+      */}
+      <Sidebar
+        variant="persistent" // ✅ CHANGED
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 w-full">
-        <TopBar title="System Overview" onMenuClick={() => setSidebarOpen(true)} />
+      {/* ✅ CHANGED: removed flex-1 and w-full because we're inside a grid column now.
+          min-w-0 stays important to prevent horizontal overflow with wide cards/tables.
+      */}
+      <div className="min-w-0 flex flex-col">
+        <TopBar title="System Overview" onMenuClick={toggleSidebar} />
 
-        <main className="flex-1 p-3 sm:p-4 lg:p-5 overflow-x-hidden">
+        {/* ✅ CHANGED: added bg-white to keep the "white UI" consistent
+            (optional, but recommended if bg-background was tinted)
+        */}
+        <main className="flex-1 p-3 sm:p-4 lg:p-5 overflow-x-hidden bg-white">
           {/* Hero Section - Profile Overview */}
           <HeroSection />
 
@@ -28,7 +48,7 @@ const Index = () => {
             <div className="min-w-0">
               <FeaturedProjects />
             </div>
-            
+
             {/* Analytics Chart - Portfolio Metrics */}
             <div className="min-w-0">
               <AnalyticsChart />

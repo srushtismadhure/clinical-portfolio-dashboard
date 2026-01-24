@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
+import PainToolsWorkstreamDetail from "./pages/PainToolsWorkstreamDetail";
 import CaseStudies from "./pages/CaseStudies";
 import Analytics from "./pages/Analytics";
 import UXWork from "./pages/UXWork";
@@ -18,6 +19,8 @@ import Resume from "./pages/Resume";
 import Contact from "./pages/Contact";
 import Work from "./pages/Work";
 import Play from "./pages/Play";
+import DataModelDetail from "./pages/DataModelDetail";
+
 
 const queryClient = new QueryClient();
 
@@ -32,6 +35,7 @@ const App = () => (
           <Route path="/work" element={<Work />} />
           <Route path="/play" element={<Play />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:projectId/workstreams/:workstreamId" element={<PainToolsWorkstreamDetail />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/analytics" element={<Analytics />} />
@@ -42,6 +46,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/projects/:id/data-model" element={<DataModelDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
