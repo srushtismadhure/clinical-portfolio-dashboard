@@ -33,6 +33,18 @@ export default function DataModelDetail() {
           Back to Project
         </Link>
 
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-slate-900">
+            Data Cleaning &amp; Preparation
+          </h2>
+          <ul className="space-y-2 text-slate-600 list-disc pl-5">
+            <li>Standardized encounter dates, payer categories, and visit types across source systems.</li>
+            <li>Removed duplicate encounters and reconciled encounter-level records.</li>
+            <li>Validated cost, reimbursement, and LOS fields for consistency across reporting periods.</li>
+            <li>Created derived fields (readmission flags, LOS buckets, cost per encounter).</li>
+          </ul>
+        </section>
+
         <section className="space-y-6">
           <div className="flex items-center justify-center gap-4">
             <div className="h-px w-16 bg-slate-200" />

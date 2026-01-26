@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Lightbulb } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
@@ -7,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { DollarSign, Activity, Users } from 'lucide-react';
 import PainToolsDetail from '@/pages/PainToolsDetail';
 import { DataModelSection } from '@/components/sections/DataModelSection';
+import ProjectSidebarNav, { ProjectNavItem } from '@/components/project/ProjectSidebarNav';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -20,6 +23,29 @@ const sections = [
 
 
 const PROJECT_DOC_FALLBACK_URL = 'https://example.com/project-document.pdf';
+
+type PowerBIFrameProps = {
+  imageSrc: string;
+  alt: string;
+};
+
+function PowerBIFrame({ imageSrc, alt }: PowerBIFrameProps) {
+  return (
+    <div className="rounded-[18px] border-[4px] border-[#0B1E3A] bg-[#0B1E3A] p-3">
+      <div className="rounded-[14px] border-[3px] border-[#0B0F1A] bg-[#0B0F1A] p-2">
+        <div className="rounded-[10px] bg-white overflow-hidden">
+          <div className="relative w-full aspect-video">
+            <img
+              src={imageSrc}
+              alt={alt}
+              className="absolute inset-0 w-full h-full object-contain block"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
@@ -78,6 +104,22 @@ export default function ProjectDetail() {
     
     const builtWith = toolsLine;
     // File: src/pages/ProjectDetail.tsx  (after guard, with other derived vars)
+    const [showMoreActions, setShowMoreActions] = useState(false);
+    const navItems: ProjectNavItem[] = [
+      { id: 'overview', label: 'Overview' },
+      { id: 'executive-summary', label: 'Executive Summary' },
+      { id: 'key-metrics', label: 'Key Metrics' },
+      { id: 'dashboard', label: 'Dashboard' },
+      { id: 'recommendations', label: 'Recommendations' },
+      { id: 'data-model', label: 'Data Model' },
+      { id: 'data-cleaning', label: 'Data Cleaning' },
+      { id: 'insights-next-steps', label: 'Insights & Next Steps' },
+    ];
+    const activeId = useScrollSpy(navItems.map((item) => item.id));
+    const onJump = (sectionId: string) => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', `#${sectionId}`);
+    };
 
 
   // ✅ Custom layout branch: Predictive Modeling uses PainToolsDetail when layoutType === 'paintools'
@@ -105,10 +147,49 @@ if (project.layoutType === 'paintools') {
         { label: 'Home', href: '/' },
         { label: 'Projects', href: '/projects' },
       ]}
+      contentClassName="flex-1 overflow-auto p-0"
     >
-      <div className="flex gap-8">
+      <div className="min-h-screen bg-slate-50">
+        <div className="w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
+            <aside className="hidden lg:block bg-slate-50">
+              <div className="sticky top-0 h-screen overflow-hidden p-6">
+                <ProjectSidebarNav
+                  title={project.title}
+                  subtitle={project.subtitle}
+                  status={project.status}
+                  items={navItems}
+                  activeId={activeId}
+                  onJump={onJump}
+                />
+              </div>
+            </aside>
+
+            <main className="min-w-0">
+              <div className="h-screen overflow-y-auto">
+                <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-10 py-8">
+                  <div className="lg:hidden mb-4">
+                    <label
+                      htmlFor="project-sections"
+                      className="block text-xs font-semibold tracking-wide text-slate-500 mb-2"
+                  >
+                    Sections
+                  </label>
+                  <select
+                    id="project-sections"
+                    className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm"
+                    value={activeId}
+                    onChange={(event) => onJump(event.target.value)}
+                  >
+                    {navItems.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
         {/* Main Content */}
-        <div className="flex-1 max-w-full">
+        <div className="max-w-full">
           {/* Back Button */}
           <Link
             to="/projects"
@@ -134,6 +215,7 @@ if (project.layoutType === 'paintools') {
           {/* Project Background (above dashboard) */}
           {/* Project Background (FULL-WIDTH inside your page container) */}
 {/* Project Background */}
+{project.id === 'value-based-care' && <div id="overview" className="scroll-mt-24" />}
 <section className="mt-6 sm:mt-7 lg:mt-8 w-full">
   <div
     className="
@@ -171,107 +253,80 @@ if (project.layoutType === 'paintools') {
 
           {/* Hero Section (EHR-style two-column module) */}
           {/* Hero Section (EHR-style two-column module) */}
-<section className="mb-8">
-<div className="grid grid-cols-1 lg:grid-cols-10 gap-3 lg:gap-2">
-  {/* LEFT: Analytics Module */}
-  <div className="lg:col-span-7">
-    <div
-      className="
-        rounded-xl
-        bg-[#1F2937]
-        overflow-hidden
-        p-3 sm:p-4
-      "
-    >
-      {/* Inner mat — THIS is the key fix */}
-      <div
-        className="
-          rounded-md
-          bg-slate-900/80
-          px-4 py-3
-        "
-      >
-        <img
-          src={project.heroImage || '/images/powerbi.png'}
+<section id="dashboard" className="mb-8">
+  <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+    <div className="grid gap-8 lg:grid-cols-12 items-start">
+      {/* LEFT: Analytics Module */}
+      <div className="h-full lg:col-span-8 xl:col-span-9">
+        <PowerBIFrame
+          imageSrc="/images/powerbi.png"
           alt={`${project.title} dashboard`}
-          className="w-full h-auto object-contain rounded-sm"
         />
       </div>
-    </div>
-  </div>
 
-    {/* RIGHT: Clinical Summary Box (HIDDEN on mobile, shown on lg+) */}
-{/* RIGHT: Clinical Summary (Soft container, hidden on mobile) */}
-{/* RIGHT: Clinical Summary (white, fixed-width, hidden on mobile) */}
-{/* RIGHT: Clinical Summary (lg+ only) */}
-<div className="hidden lg:flex lg:col-span-3 justify-end">
-<aside className="w-[360px] xl:w-[390px] bg-white p-7">
-    <div className="space-y-7">
+      {/* RIGHT: Executive Summary Panel (lg+ only) */}
+      <div className="hidden lg:block lg:col-span-4 xl:col-span-3">
+        <aside className="rounded-2xl border border-slate-200 bg-white p-6 lg:p-5">
+          <div className="space-y-5">
 
-      {/* PROBLEM */}
-      <div>
-        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
-          Problem
-        </div>
-        <p className="mt-2 text-sm text-slate-700 leading-relaxed">
-          {project.heroSummary?.problem ?? details.problem}
-        </p>
-      </div>
+            {/* PROBLEM */}
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Problem
+              </div>
+              <p className="mt-2 text-sm text-slate-700 leading-relaxed">
+                Fragmented visibility into inpatient services and payer segments driving disproportionate cost and readmission risk under value-based contracts.
+              </p>
+            </div>
 
-      {/* KEY INSIGHT — ONLY HIGHLIGHT */}
-      <div className="pt-4 border-t border-slate-200">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-slate-600">
-          <span className="h-4 w-[3px] bg-sky-500/60 rounded-sm" />
-          <Lightbulb className="h-3.5 w-3.5 text-slate-600" />
-          Key Insight
-        </div>
+            {/* KEY INSIGHT */}
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Key Insight
+              </div>
 
-        <p className="mt-2 text-sm font-semibold text-slate-900 leading-snug">
-          {keyInsight}
-        </p>
-      </div>
+              <p className="mt-2 text-sm font-semibold text-slate-900 leading-snug">
+                Inpatient utilization concentrates cost and readmission exposure, with risk clustered in high-acuity service lines.
+              </p>
+            </div>
 
-      {/* RECOMMENDED ACTIONS */}
-      <div className="pt-4 border-t border-slate-200">
-        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
-          Recommended Actions
-        </div>
+            {/* RECOMMENDED ACTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowMoreActions((value) => !value)}
+                className="inline-flex items-center text-sm font-semibold text-slate-700 hover:text-slate-900"
+                aria-expanded={showMoreActions}
+                aria-controls="recommended-actions"
+              >
+                {showMoreActions ? 'Show less' : 'Show more'}
+              </button>
+              {showMoreActions && (
+                <div id="recommended-actions" className="mt-4 space-y-2">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Recommendations
+                  </div>
+                  <ul className="space-y-1 text-sm text-slate-700 list-disc pl-4">
+                    <li>Standardize discharge and post-acute workflows for inpatient services</li>
+                    <li>Deploy admission-time risk stratification for high-cost, high-LOS cases</li>
+                    <li>Prioritize ICU and inpatient pathways for care redesign</li>
+                  </ul>
+                </div>
+              )}
+            </div>
 
-        {recommendationBullets.length > 0 ? (
-          <ul className="mt-2 space-y-1 text-sm text-slate-700 list-disc pl-4">
-            {recommendationBullets.slice(0, 3).map((item, i) => (
-              <li key={i} className="leading-snug">
-                {item}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 text-sm text-slate-400">N/A</p>
-        )}
-      </div>
-
-      {/* BUILT WITH (FOOTER) */}
-      <div className="pt-4 border-t border-slate-200">
-        <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
-          Built With
-        </div>
-        <p className="mt-1 text-xs text-slate-500 leading-snug">
-          {toolsLine}
-        </p>
+          </div>
+        </aside>
       </div>
 
     </div>
-  </aside>
-</div>
-
-    {/* closes grid */}
   </div>
 </section>
 {/* Key Insights (below dashboard) — hidden on mobile */}
 {/* Key Insights — hidden on small screens */}
-<section className="hidden md:block mt-12 mb-12">
+<section id="key-metrics" className="mt-12 mb-12">
   <h2 className="text-lg font-semibold text-foreground mb-6">
-    Key Insights
+    Key Metrics
   </h2>
 
   <div className="grid grid-cols-3 gap-6">
@@ -282,8 +337,7 @@ if (project.layoutType === 'paintools') {
       <h3 className="text-sm font-semibold text-foreground mb-2">
         Inpatient Care Is the Primary Cost Driver
       </h3>
-
-      <p className="text-sm text-muted-foreground leading-relaxed">
+      <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">
         87% of total costs are concentrated in inpatient encounters, with
         significant variation by service line.
       </p>
@@ -296,8 +350,7 @@ if (project.layoutType === 'paintools') {
       <h3 className="text-sm font-semibold text-foreground mb-2">
         ICU Encounters Are Extreme Cost Outliers
       </h3>
-
-      <p className="text-sm text-muted-foreground leading-relaxed">
+      <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">
         ICU cost per encounter is ~3× the system average, driven by extended
         length of stay and acuity.
       </p>
@@ -310,8 +363,7 @@ if (project.layoutType === 'paintools') {
       <h3 className="text-sm font-semibold text-foreground mb-2">
         Medicare & Commercial Payers Concentrate Risk
       </h3>
-
-      <p className="text-sm text-muted-foreground leading-relaxed">
+      <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">
         68% of inpatient encounters are covered by Medicare or Commercial plans,
         concentrating value-based financial risk.
       </p>
@@ -323,11 +375,13 @@ if (project.layoutType === 'paintools') {
 {project.id === 'value-based-care' && (
   <>
     {/* Data Model */}
-    <DataModelSection model={project.dataModel} />
+    <section id="data-model" className="mt-6">
+      <DataModelSection model={project.dataModel} />
+    </section>
 
     {/* Executive Summary (project-level) */}
     {project.executiveSummary?.narrative && (
-      <section className="mt-6 rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] p-5 sm:p-6">
+      <section id="recommendations" className="mt-6 rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] p-5 sm:p-6">
         <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
           {project.executiveSummary.heading ?? 'Executive Summary'}
         </div>
@@ -412,6 +466,15 @@ if (project.layoutType === 'paintools') {
         </div>
       </section>
     )}
+
+    <section id="insights-next-steps" className="mt-6 rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] p-5 sm:p-6">
+      <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">Insights &amp; Next Steps</div>
+      <ul className="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-5">
+        <li>Prioritize inpatient service lines with elevated LOS and readmission risk.</li>
+        <li>Align payer strategy to mitigate financial exposure under VBC contracts.</li>
+        <li>Expand dashboard adoption with role-specific operational views.</li>
+      </ul>
+    </section>
   </>
 )}
 
@@ -453,6 +516,31 @@ if (project.layoutType === 'paintools') {
           {/* Long-form case study sections (hide for dashboard-style pages like Value-Based Care) */}
           {project.id !== 'value-based-care' && (
             <>
+          <section id="recommendations" className="ehr-card mb-6">
+            <h2 className="text-xl font-semibold mb-3 text-foreground">Recommendations</h2>
+            {recommendationBullets.length > 0 ? (
+              <ul className="space-y-2 text-muted-foreground list-disc pl-5">
+                {recommendationBullets.slice(0, 4).map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-muted-foreground">N/A</p>
+            )}
+          </section>
+
+          <section id="data-model" className="ehr-card mb-6">
+            <h2 className="text-xl font-semibold mb-3 text-foreground">Data Model</h2>
+            <p className="text-muted-foreground">N/A</p>
+          </section>
+
+          <section id="data-cleaning" className="ehr-card mb-6">
+            <h2 className="text-xl font-semibold mb-3 text-foreground">Data Cleaning</h2>
+            <p className="text-muted-foreground">
+              Standardized encounter fields, validated core metrics, and derived operational indicators.
+            </p>
+          </section>
+
           {/* Overview */}
           <section id="overview" className="ehr-card mb-6" style={{ animationDelay: '100ms' }}>
             <h2 className="text-xl font-semibold mb-3 text-foreground">Overview</h2>
@@ -500,9 +588,9 @@ if (project.layoutType === 'paintools') {
             </ul>
           </section>
 
-          {/* Lessons */}
-          <section id="lessons" className="ehr-card" style={{ animationDelay: '350ms' }}>
-            <h2 className="text-xl font-semibold mb-3 text-foreground">Lessons Learned</h2>
+          {/* Insights & Next Steps */}
+          <section id="insights-next-steps" className="ehr-card" style={{ animationDelay: '350ms' }}>
+            <h2 className="text-xl font-semibold mb-3 text-foreground">Insights & Next Steps</h2>
             <ul className="space-y-2">
               {details.lessons.map((lesson, i) => (
                 <li key={i} className="flex items-start gap-2">
@@ -517,28 +605,11 @@ if (project.layoutType === 'paintools') {
             </>
           )}
         </div>
-
-        {/* Sticky Sidebar (TOC) — hidden for dashboard-style pages */}
-        {project.id !== 'predictive-modeling' && project.id !== 'value-based-care' && (
-          <div className="hidden lg:block w-64">
-            <div className="sticky top-6">
-              <div className="ehr-card">
-                <h3 className="font-semibold text-foreground mb-4">Table of Contents</h3>
-                <nav className="space-y-2">
-                  {sections.map((section) => (
-                    <a
-                      key={section.id}
-                      href={`#${section.id}`}
-                      className="block text-sm text-muted-foreground hover:text-[hsl(var(--ehr-teal))] transition-colors py-1"
-                    >
-                      {section.label}
-                    </a>
-                  ))}
-                </nav>
+                </div>
               </div>
-            </div>
+            </main>
           </div>
-        )}
+        </div>
       </div>
     </Layout>
   );

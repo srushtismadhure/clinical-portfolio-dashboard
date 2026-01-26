@@ -7,6 +7,11 @@ import {
   Wrench,
   ShieldCheck,
   Radar,
+  Map,
+  PenTool,
+  Target,
+  CheckSquare,
+  ArrowLeft,
 } from 'lucide-react';
 import type { Project } from '@/components/shared/ProjectCard';
 
@@ -33,6 +38,17 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
 
   return (
     <div className="space-y-6">
+      {/* Back link */}
+      <div>
+        <Link
+          to="/projects"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Projects
+        </Link>
+      </div>
+
       {/* Header */}
       <header className="text-center space-y-2">
         <h1 className="text-3xl font-semibold text-slate-900">
@@ -64,7 +80,7 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
               </span>
             </div>
 
-            <div className="mt-5 border-t border-slate-200 pt-4">
+            <div className="mt-5 border-t border-slate-200 pt-4 hidden md:block">
               <div className="flex items-center gap-2 text-slate-700 font-medium">
                 <span>Skills at a glance</span>
               </div>
@@ -92,45 +108,105 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
           </div>
         </div>
 
-        {/* RIGHT: Stacked cards */}
+        {/* RIGHT: Workstreams + Capability stacks */}
         <div className="lg:col-span-2 space-y-4">
           {project.workstreams && project.workstreams.length > 0 ? (
-            project.workstreams.map((workstream) => {
-              // ✅ one canonical key for icon + routing
-              const slug = workstream.routeSlug ?? workstream.id;
+            <>
+              {/* Keep ONLY these two clickable workstreams */}
+              {project.workstreams
+                .filter((ws) => {
+                  const slug = ws.routeSlug ?? ws.id;
+                  return slug === 'data-backend' || slug === 'analytics-insights';
+                })
+                .map((workstream) => {
+                  const slug = workstream.routeSlug ?? workstream.id;
+                  const Icon = workstreamIcons[slug] ?? Lightbulb;
+                  const href = `/projects/${project.id}/workstreams/${slug}`;
 
-              // ✅ icon based on slug
-              const Icon = workstreamIcons[slug] ?? Lightbulb;
+                  return (
+                    <Link
+                      key={workstream.id}
+                      to={href}
+                      className="ehr-card flex items-start justify-between gap-4 group hover:bg-slate-50/60 transition-colors"
+                      aria-label={`View details: ${workstream.title}`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <Icon className="w-7 h-7 text-slate-700" />
+                        <div>
+                          <h3 className="text-lg font-semibold text-slate-900">
+                            {workstream.title}
+                          </h3>
+                          <p className="text-slate-600 mt-1">
+                            {workstream.desc ?? workstream.summary}
+                          </p>
+                        </div>
+                      </div>
 
-              // ✅ IMPORTANT: use CURRENT project id (prevents Workstream not found)
-              const href = `/projects/${project.id}/workstreams/${slug}`;
+                      <span className="text-slate-700 group-hover:text-slate-900 text-sm font-medium whitespace-nowrap">
+                        View Details →
+                      </span>
+                    </Link>
+                  );
+                })}
 
-              return (
-                <div
-                  key={workstream.id}
-                  className="ehr-card flex items-start justify-between gap-4"
-                >
-                  <div className="flex items-start gap-3">
-                    <Icon className="w-7 h-7 text-slate-700" />
-                    <div>
-                      <h3 className="text-lg font-semibold text-slate-900">
-                        {workstream.title}
-                      </h3>
-                      <p className="text-slate-600 mt-1">
-                        {workstream.desc ?? workstream.summary}
-                      </p>
-                    </div>
-                  </div>
+              {/* Capability stacks (new pages) */}
+              <div className="space-y-4">
+                {[
+                  {
+                    slug: 'user-data-workflow-mapping',
+                    icon: Map,
+                    title: 'User, Data & Workflow Mapping',
+                    description:
+                      'Established a shared understanding of users, workflows, and data touchpoints.',
+                  },
+                  {
+                    slug: 'human-centered-experience-design',
+                    icon: PenTool,
+                    title: 'Human-Centered Experience Design',
+                    description:
+                      'Created usable, patient- and provider-centered experiences informed by research.',
+                  },
+                  {
+                    slug: 'product-definition-feature-strategy',
+                    icon: Target,
+                    title: 'Product Definition & Feature Strategy',
+                    description:
+                      'Defined what to build, why it mattered, and what to deprioritize.',
+                  },
+                  {
+                    slug: 'execution-planning-delivery',
+                    icon: CheckSquare,
+                    title: 'Execution, Planning & Delivery',
+                    description:
+                      'Drove work forward through clear planning, ownership, and deadlines.',
+                  },
+                ].map((stack) => {
+                  const href = `/projects/${project.id}/workstreams/${stack.slug}`;
+                  const Icon = stack.icon;
 
-                  <Link
-                    to={href}
-                    className="text-slate-700 hover:text-slate-900 text-sm font-medium whitespace-nowrap"
-                  >
-                    View Details →
-                  </Link>
-                </div>
-              );
-            })
+                  return (
+                    <Link
+                      key={stack.slug}
+                      to={href}
+                      className="ehr-card flex items-start justify-between gap-4 group hover:bg-slate-50/60 transition-colors"
+                      aria-label={`View details: ${stack.title}`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <Icon className="w-7 h-7 text-slate-700" />
+                        <div className="min-w-0">
+                          <h3 className="text-lg font-semibold text-slate-900">{stack.title}</h3>
+                          <p className="text-slate-600 mt-1">{stack.description}</p>
+                        </div>
+                      </div>
+
+                      <span className="text-slate-700 group-hover:text-slate-900 text-sm font-medium whitespace-nowrap">
+                        View Details →
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </>
           ) : (
             <div className="ehr-card">
               <h3 className="text-lg font-semibold text-slate-900">Workstreams</h3>

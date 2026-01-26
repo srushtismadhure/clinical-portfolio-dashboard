@@ -3,9 +3,8 @@ import { Project } from '@/components/shared/ProjectCard';
 export const projects: Project[] = [
   {
     id: 'predictive-modeling',
-    title: 'Predictive Modeling for Healthcare',
-    summary:
-      'Risk prediction algorithms for patient outcomes using machine learning and clinical data pipelines.',
+    title: 'PainTools',
+    summary: 'Femtech startup for managing chronic pain.',
     category: 'Analytics',
     projectType: 'professional',
     status: 'Completed',
@@ -16,56 +15,349 @@ export const projects: Project[] = [
 
     // Drives the stacked cards layout
     workstreams: [
-      {
-        id: 'product-workflow',
-        routeSlug: 'product-workflow',
-        title: 'Product & Workflow Design',
-        desc: 'Designed patient journeys and clinical workflows for the care team experience.',
-        sections: {
-          problem: ['Workflow fragmentation across teams created inconsistent care delivery.'],
-          owned: ['Journey mapping', 'Workflow definitions', 'Requirements + specs'],
-          process: ['Mapped flows with stakeholders', 'Iterated on UX + requirements'],
-          artifacts: ['Workflow maps', 'Specs / PRDs', 'UX flows'],
-          results: ['Aligned workflows across teams', 'Reduced ambiguity in implementation'],
-        },
-      },
-      {
-        id: 'data-backend',
+      {id: 'data-backend',
         routeSlug: 'data-backend',
         title: 'Data & Backend Architecture',
         desc: 'Built event schemas and data pipelines to support analytics.',
+      
+        // NEW: page content (for the “reference image” layout)
+        overview:
+          'Structuring telemetry and clinical workflow signals for analytics required a standardized, queryable event model. I designed an NDA-safe data model that unified questionnaire responses and activity-based inputs into consistent, analytics-ready outputs while aligning with privacy constraints and auditability expectations.',
+      
+        cards: {
+          role: {
+            title: 'Data & Analytics Engineer',
+            bullets: [
+              'Owned event schema and model design',
+              'Defined grain, keys, and naming conventions',
+              'Partnered with product to align tracking to workflows',
+            ],
+          },
+          scope: {
+            title: 'Scope',
+            bullets: [
+              'Standardized questionnaire + activity telemetry',
+              'Designed shared vs instrument-specific structures',
+              'Enabled downstream analytics without exposing sensitive data',
+            ],
+          },
+          constraints: {
+            title: 'Constraints',
+            bullets: [
+              'NDA-safe abstraction (no PHI / production identifiers)',
+              'Privacy-first and audit-aware design',
+              'Extensible model for evolving care pathways',
+            ],
+          },
+        },
+      
+        diagram: {
+          src: '/images/erd.png',
+          alt: 'Conceptual data model diagram (NDA-safe)',
+          caption:
+            'Conceptual, NDA-safe model illustrating how standardized response records connect inputs to derived analytics outputs.',
+        },
+      
         sections: {
           problem: ['Telemetry was inconsistent and hard to analyze end-to-end.'],
           owned: ['Event schema design', 'Data model planning', 'Pipeline requirements'],
           process: ['Defined event taxonomy', 'Validated tracking with QA'],
           artifacts: ['Tracking plan', 'Schema docs', 'Data flow diagrams'],
           results: ['Cleaner analytics foundation', 'Reliable downstream reporting'],
+        
         },
       },
-      {
-        id: 'analytics-insights',
+      {id: 'analytics-insights',
         routeSlug: 'analytics-insights',
         title: 'Analytics & Insights',
         desc: 'Delivered insights on engagement and outcomes trends.',
+        analysisAreas: [
+          {
+            title: 'Engagement',
+            description: 'How users progressed through the experience and where drop-off occurred.',
+          },
+          {
+            title: 'Outcomes',
+            description: 'Trends in reported outcomes over time and differences by cohort.',
+          },
+          {
+            title: 'Cohorts',
+            description: 'Segmented patterns by usage intensity and timing to inform next experiments.',
+          },
+        ],
+        solutionSteps: [
+          {
+            step: 1,
+            title: 'Data De-identification & Cleaning',
+            subtitle: 'HIPAA-aligned preparation of beta user data',
+            bullets: [
+              'De-identified all user-level data to remove PHI and direct identifiers',
+              'Standardized response formats and timestamps across features',
+              'Validated data completeness and removed corrupted or partial records',
+            ],
+            icon: 'lock',
+          },
+          {
+            step: 2,
+            title: 'Segmentation & Baseline Normalization',
+            subtitle: 'Created a consistent baseline for comparison',
+            bullets: [
+              'Aggregated ~4 months of longitudinal beta data',
+              'Defined a normalized baseline pain score per user',
+              'Enabled comparison across users with different engagement frequencies',
+            ],
+            icon: 'bar-chart',
+          },
+          {
+            step: 3,
+            title: 'Segmentation & Pattern Detection',
+            subtitle: 'Identified meaningful usage and outcome patterns',
+            bullets: [
+              'Grouped users by engagement intensity and pain severity',
+              'Identified feature usage patterns by cohort',
+              'Surfaced early indicators of sustained engagement',
+            ],
+            icon: 'search',
+          },
+          {
+            step: 4,
+            title: 'Decision & Recommendations',
+            subtitle: 'Translated insights into product and business decisions',
+            bullets: [
+              'Determined which features to retain or sunset based on usage and outcomes',
+              'Informed pricing and market targeting decisions',
+              'Synthesized findings into stakeholder-ready summaries',
+            ],
+            icon: 'decision',
+          },
+        ],
         sections: {
-          problem: ['Stakeholders lacked a single source of truth for KPIs.'],
+          problem: [
+            'Stakeholders lacked a single source of truth for KPIs.',
+            'No baseline for valid comparison across users and start times.',
+            'Fragmented feature data with no grouping logic.',
+            'Qualitative/ordinal inputs lacked a consistent numeric representation.',
+            'Inconsistent logging conventions across features and sessions.',
+            'Missing or sparse timestamps made time-series trends hard to interpret.',
+            'Limited metadata made it difficult to attribute outcomes to specific interventions or touchpoints.',
+            'No single source of truth for KPI definitions, requiring standardization before analysis.',
+            'Stakeholders spent significant time reconciling numbers across tools instead of interpreting insights.',
+            'Inconsistent KPI definitions increased the risk of misaligned decisions across product, clinical, and research teams.',
+          ],
           owned: ['KPI definitions', 'Dashboard requirements', 'Insight reporting'],
           process: ['Built dashboards', 'Reviewed insights with stakeholders'],
           artifacts: ['KPI dashboard', 'Weekly insight summaries'],
           results: ['Faster decision-making', 'More consistent KPI tracking'],
+        
         },
       },
       {
-        id: 'experimentation-testing',
-        routeSlug: 'experimentation-testing',
-        title: 'Experimentation & Testing',
-        desc: 'Tested interventions to improve engagement and adherence.',
+        id: 'user-data-workflow-mapping',
+        routeSlug: 'user-data-workflow-mapping',
+        title: 'User, Data & Workflow Mapping',
+        summary: 'Synthesized persona + workflow touchpoint mapping (NDA-safe).',
+        desc: 'Established a shared understanding of users, workflows, and data touchpoints.',
+        hero: {
+          quotePrefix: 'Meaningful product design starts with understanding',
+          strikeWord: 'users',
+          overlayWord: 'people',
+          quoteSuffix:
+            '—how pain shapes their lives, what motivates them each day, and the fears they navigate.',
+          subquote:
+            'To design with this level of intention, we grounded our work in a synthesized, de-identified persona based on aggregated insights (NDA-safe).',
+        },
+        persona: {
+          leftBullets: [
+            'Age range: adult (mid-career), balancing work and family responsibilities',
+            'Daily constraint: variable pain levels that impact energy and planning',
+            'Digital comfort level: medium (prefers simple, guided flows)',
+            'Accessibility preference: larger text, low-glare / dark-friendly UI',
+          ],
+          contextBullets: [
+            'Managing chronic pain alongside a demanding schedule',
+            'Navigating conflicting guidance and many treatment options',
+            'Needs quick clarity during flare-ups and high-friction days',
+          ],
+          interactionBullets: [
+            'Uses short sessions (morning / breaks / evening)',
+            'Logs pain and symptoms, then looks for actionable suggestions',
+            'Prefers reminders that are supportive, not noisy',
+          ],
+          questionsBullets: [
+            '“What should I do today that will actually help?”',
+            '“How is my pain changing over time?”',
+            '“Which activities make things better or worse?”',
+          ],
+          goalsBullets: [
+            'Reduce pain enough to stay engaged with daily life',
+            'Find trustworthy guidance that feels doable',
+            'Build consistency without feeling overwhelmed',
+          ],
+          behaviorsBullets: [
+            'Skips long forms during flare-ups',
+            'Returns when content feels personalized and short',
+            'Responds best to small wins and progress cues',
+          ],
+          motivationsBullets: [
+            'Maintaining independence and stability for family/work',
+            'Feeling believed and supported (not judged)',
+            'Having a clear plan for difficult days',
+          ],
+          influencesBullets: [
+            'Clinician guidance and prior treatment experiences',
+            'Community advice and peer recommendations',
+          ],
+        },
+        processImage: {
+          src: '/images/process.png',
+          alt: 'Experience design process overview (NDA-safe)',
+        },
+        processMappingBox: {
+          whatIDid:
+            'Designed a layered data flow to map how information moves through the system—from platform-level inputs to core processes and supporting sub-processes. The system was decomposed into Level 0 (system boundary), Level 1 (core processes), and Level 2 (sub-processes) to clarify data ownership and flow while remaining implementation-agnostic.',
+          whyItMatters:
+            'Clear data flow boundaries reduce ambiguity in complex health systems and enable teams to reason about scale, privacy, and reuse. This structure supports cross-functional alignment without exposing proprietary logic or workflows.',
+          impactAI:
+            'Defining explicit data flow levels made it clear where information is generated, structured, and reused. This allowed downstream intelligence to rely on stable, well-scoped inputs for personalization and pattern detection, while preserving privacy boundaries and decoupling AI capabilities from UI and feature design.',
+        },
+        journey: {
+          title: 'User Journey & Navigation (Experience Layer)',
+          subtitle:
+            'Mapped the end-to-end journey to understand decision points and engagement risks.',
+          boxes: [
+            {
+              id: 'onboarding',
+              title: 'Onboarding',
+              subtitle: 'Basic Profile',
+              bullets: ['Name, goals, preferences', 'Complete profile in one short flow'],
+              risk: 'Cognitive overload',
+              icon: 'clipboard',
+            },
+            {
+              id: 'checkin',
+              title: 'Check-in',
+              subtitle: 'Daily Questionnaires',
+              bullets: ['Answer daily check-ins', 'Minimize form fatigue with smart defaults'],
+              risk: 'Form fatigue',
+              icon: 'check',
+            },
+            {
+              id: 'activity',
+              title: 'Activity',
+              subtitle: 'Guided Exercises',
+              bullets: ['Track goal', 'Start exercise', 'View progress'],
+              risk: 'Low engagement',
+              icon: 'activity',
+            },
+            {
+              id: 'feedback',
+              title: 'Feedback',
+              subtitle: 'Reflections & Ratings',
+              bullets: ['Submit feedback', 'Personalize plan', 'Get support'],
+              risk: 'Feedback gap',
+              icon: 'message',
+            },
+            {
+              id: 'followup',
+              title: 'Follow-up',
+              subtitle: 'Reminders, Next Steps',
+              bullets: ['Session reminder', 'Track progress', 'Set new goal'],
+              risk: 'Engagement drop-off',
+              icon: 'bell',
+            },
+          ],
+        },
+        methodsTools: {
+          title: 'Experience Design Methods & Tools',
+          whatIDid:
+            'Mapped the end-to-end user journey to understand user intent, decision points, and friction across the experience, with a focus on sustaining engagement in a healthcare context.',
+          howIDidIt: [
+            'Journey mapping to identify emotional and cognitive load at each stage',
+            'User flow analysis to understand continuation, skip, and exit paths',
+            'Low-fidelity UX wireframes to validate sequencing and information hierarchy',
+          ],
+          toolsUsed: [
+            {
+              name: 'Miro',
+              description: 'Journey mapping, experience flows, and friction annotation',
+              icon: 'miro',
+            },
+            {
+              name: 'Figma',
+              description: 'Low-fidelity wireframes and navigation sequencing',
+              icon: 'figma',
+            },
+            {
+              name: 'Docs / Notes',
+              description: 'Synthesis of insights and iteration tracking (NDA-safe)',
+              icon: 'docs',
+            },
+          ],
+          outcome:
+            'Enabled stakeholders to understand the journey end-to-end, clarify design decisions, and streamline workflows—supporting a more effective, low-burden experience.',
+          whyItMatters:
+            'This approach keeps the experience supportive, low-friction, and adaptive—critical for sustained engagement in health and wellness applications.',
+        },
         sections: {
-          problem: ['Unknown which interventions actually improved outcomes.'],
-          owned: ['Experiment design', 'Success metrics', 'Results analysis'],
-          process: ['A/B testing', 'Cohort evaluation'],
-          artifacts: ['Experiment briefs', 'Readouts', 'Decision logs'],
-          results: ['Improved engagement in pilots', 'Repeatable testing cadence'],
+          problem: [
+            'Needed a shared, de-identified view of user context, workflow friction, and data touchpoints to align product and analytics decisions.',
+          ],
+          owned: ['Persona synthesis (NDA-safe)', 'Workflow + touchpoint mapping', 'Insights translation into requirements'],
+          process: ['Synthesized aggregated insights', 'Mapped key journeys and pain points', 'Validated with stakeholders'],
+          artifacts: ['Persona card (synthesized)', 'Workflow/touchpoint map (illustrative)', 'Questions + assumptions log'],
+          results: ['Aligned teams on user needs and constraints', 'Reduced ambiguity in what to measure and build'],
+        },
+      },
+      {
+        id: 'human-centered-experience-design',
+        routeSlug: 'human-centered-experience-design',
+        title: 'Human-Centered Experience Design',
+        summary: 'Research-informed UX patterns for patients and care teams (NDA-safe).',
+        desc: 'Created usable, patient- and provider-centered experiences informed by research.',
+        wireframes: {
+          images: [
+            {
+              src: '/images/wireframes/human-centered-onboarding.png',
+              alt: 'Onboarding and authentication wireframes',
+            },
+          ],
+        },
+        sections: {
+          problem: ['Needed an experience that stayed usable during pain flare-ups and low-energy moments.'],
+          owned: ['UX requirements', 'Information architecture', 'Interaction patterns'],
+          process: [
+            'Low-fidelity wireframes illustrating the onboarding, login, sign-up, post-registration confirmation flow. Designed to minimize cognitive load and support informed consent.',
+          ],
+          artifacts: ['Wireframes (illustrative)', 'UX specs', 'Accessibility notes'],
+          results: ['Clearer onboarding and guided flows', 'Reduced cognitive load in key tasks'],
+        },
+      },
+      {
+        id: 'product-definition-feature-strategy',
+        routeSlug: 'product-definition-feature-strategy',
+        title: 'Product Definition & Feature Strategy',
+        summary: 'Defined what to build, why it mattered, and what to deprioritize.',
+        desc: 'Defined what to build, why it mattered, and what to deprioritize.',
+        sections: {
+          problem: ['Needed a focused roadmap aligned to measurable outcomes and stakeholder priorities.'],
+          owned: ['Feature strategy', 'Prioritization decisions', 'Success metrics'],
+          process: ['Clarified goals + constraints', 'Evaluated trade-offs', 'Aligned stakeholders on scope'],
+          artifacts: ['Prioritization notes (NDA-safe)', 'Success metrics list', 'Release plan outline'],
+          results: ['Improved focus on high-impact features', 'Clear deprioritization rationale'],
+        },
+      },
+      {
+        id: 'execution-planning-delivery',
+        routeSlug: 'execution-planning-delivery',
+        title: 'Execution, Planning & Delivery',
+        summary: 'Drove work forward through clear planning, ownership, and deadlines.',
+        desc: 'Drove work forward through clear planning, ownership, and deadlines.',
+        sections: {
+          problem: ['Needed reliable delivery across cross-functional workstreams with clear ownership.'],
+          owned: ['Planning cadence', 'Milestone tracking', 'Cross-functional coordination'],
+          process: ['Broke work into milestones', 'Tracked risks + decisions', 'Shipped iteratively'],
+          artifacts: ['Milestone plan (illustrative)', 'Decision log (NDA-safe)', 'Weekly status format'],
+          results: ['Improved delivery predictability', 'Reduced coordination overhead'],
         },
       },
     ],
@@ -111,6 +403,9 @@ export const projects: Project[] = [
     projectType: 'personal',
     status: 'In Progress',
     lastUpdated: 'Dec 2024',
+    thumbnail: '/images/powerbifinal.png',
+    thumbnailAlt: 'Value-Based Care dashboard preview',
+
     heroImage: '/images/powerbifinal.png',
     tags: ['Power BI', 'SQL', 'Synthetic EHR', 'Value-Based Care'],
 

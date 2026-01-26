@@ -12,7 +12,11 @@ export interface Project {
   status: 'Completed' | 'In Progress';
   lastUpdated: string;
   layoutType?: 'paintools' | 'default';
+  // Thumbnail image (served from /public)
   thumbnail?: string;
+  thumbnailAlt?: string;
+  // Backward/alternate naming support
+  thumbnailSrc?: string;
   tags?: string[];
   heroImage?: string;
   workstreams?: {
@@ -22,6 +26,55 @@ export interface Project {
     desc?: string;
     routeSlug?: string;
     href?: string;
+    // NEW: workstream-level content for custom layouts (e.g., data-backend)
+    overview?: string;
+    cards?: {
+      role?: { title?: string; bullets?: string[] };
+      scope?: { title?: string; bullets?: string[] };
+      constraints?: { title?: string; bullets?: string[] };
+    };
+    diagram?: { src?: string; alt?: string; caption?: string };
+    // Analytics workstream additions (data-driven cards + timeline)
+    analysisAreas?: {
+      title: string;
+      description: string;
+    }[];
+    solutionSteps?: {
+      step: number;
+      title: string;
+      subtitle?: string;
+      bullets: string[];
+      icon?: string;
+    }[];
+
+    // Journey mapping boxes (experience layer)
+    journey?: {
+      title: string;
+      subtitle: string;
+      boxes: {
+        id: string;
+        title: string;
+        subtitle: string;
+        bullets: string[];
+        risk: string;
+        icon?: string;
+      }[];
+    };
+
+    // Experience Design Methods & Tools table
+    methodsTools?: {
+      title: string;
+      whatIDid: string;
+      howIDidIt: string[];
+      toolsUsed: {
+        name: string;
+        description: string;
+        icon?: string;
+      }[];
+      outcome: string;
+      whyItMatters: string;
+    };
+
     sections?: {
       problem?: string[];
       owned?: string[];
@@ -99,16 +152,33 @@ const categoryColors: Record<string, 'teal' | 'lavender' | 'cream' | 'coral' | '
 };
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const thumbnailSrc = project.thumbnail ?? project.thumbnailSrc;
+  const thumbnailAlt = project.thumbnailAlt ?? `${project.title} preview`;
+  const resolvedThumbnailSrc = thumbnailSrc
+    ? `${import.meta.env.BASE_URL}${thumbnailSrc.replace(/^\//, '')}`
+    : undefined;
+
+  const isDarkCard = project.id === 'value-based-care';
+
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="ehr-card group block"
+      className={
+        isDarkCard
+          ? 'ehr-card group block bg-[#0F1E36] text-white border border-slate-700/60'
+          : 'ehr-card group block'
+      }
       style={{ animationDelay: `${index * 100}ms` }}
     >
       {/* Thumbnail */}
-      <div className="aspect-video rounded-xl bg-gradient-to-br from-[hsl(var(--ehr-teal)/0.1)] to-[hsl(var(--ehr-lavender)/0.2)] mb-4 overflow-hidden">
-        {project.thumbnail ? (
-          <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+      <div className={`aspect-video rounded-xl mb-4 overflow-hidden ${isDarkCard ? 'bg-[#0B162A]' : 'bg-[#0F1E36]'} p-3`}>
+        {resolvedThumbnailSrc ? (
+          <img
+            src={resolvedThumbnailSrc}
+            alt={thumbnailAlt}
+            className="w-full h-full object-contain rounded-lg bg-white shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]"
+            loading="lazy"
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <div className="w-16 h-16 rounded-2xl bg-[hsl(var(--ehr-teal)/0.2)] flex items-center justify-center">
@@ -121,25 +191,29 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       {/* Content */}
       <div className="space-y-3">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-semibold text-foreground group-hover:text-[hsl(var(--ehr-teal))] transition-colors line-clamp-1">
+          <h3 className={`font-semibold ${isDarkCard ? 'text-white' : 'text-foreground'} group-hover:text-[hsl(var(--ehr-teal))] transition-colors line-clamp-1`}>
             {project.title}
           </h3>
           <span
             className={`text-xs px-2 py-1 rounded-full font-medium ${
               project.status === 'Completed'
-                ? 'bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))]'
-                : 'bg-[hsl(var(--ehr-coral)/0.15)] text-[hsl(var(--ehr-coral))]'
+                ? isDarkCard
+                  ? 'bg-emerald-400/15 text-emerald-200'
+                  : 'bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))]'
+                : isDarkCard
+                  ? 'bg-amber-400/15 text-amber-200'
+                  : 'bg-[hsl(var(--ehr-coral)/0.15)] text-[hsl(var(--ehr-coral))]'
             }`}
           >
             {project.status}
           </span>
         </div>
 
-        <p className="text-sm text-muted-foreground line-clamp-2">{project.summary}</p>
+        <p className={`text-sm ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'} line-clamp-2`}>{project.summary}</p>
 
         <div className="flex items-center justify-between">
           <TagChip label={project.category} variant={categoryColors[project.category] || 'teal'} size="sm" />
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+          <span className={`flex items-center gap-1 text-xs ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'}`}>
             <Calendar className="w-3 h-3" />
             {project.lastUpdated}
           </span>

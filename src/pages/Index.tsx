@@ -48,11 +48,6 @@ const Index = () => {
             <div className="min-w-0">
               <FeaturedProjects />
             </div>
-
-            {/* Analytics Chart - Portfolio Metrics */}
-            <div className="min-w-0">
-              <AnalyticsChart />
-            </div>
           </div>
 
           {/* Projects Section - Record View */}

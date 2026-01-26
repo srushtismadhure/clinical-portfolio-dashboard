@@ -7,6 +7,7 @@ interface LayoutProps {
   title?: string;
   breadcrumbs?: { label: string; href?: string }[];
   sidebarVariant?: 'drawer' | 'persistent';
+  contentClassName?: string;
 }
 
 export function Layout({
@@ -14,6 +15,7 @@ export function Layout({
   title = 'Dashboard',
   breadcrumbs,
   sidebarVariant = 'drawer',
+  contentClassName = 'px-4 sm:px-6 lg:px-8 py-6',
 }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -40,14 +42,7 @@ export function Layout({
         />
 
         {/* Page Content */}
-        <main
-          className="
-            flex-1
-            overflow-auto
-            px-4 sm:px-6 lg:px-8
-            py-6
-          "
-        >
+        <main className={`flex-1 overflow-auto ${contentClassName}`}>
           {children}
         </main>
       </div>
