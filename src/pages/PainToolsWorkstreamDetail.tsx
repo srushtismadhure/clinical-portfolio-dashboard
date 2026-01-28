@@ -33,6 +33,25 @@ const renderSectionList = (items?: string[]) => {
   );
 };
 
+// Helper to resolve image src for local/public/prod/dev consistency (Vite-aware)
+const resolveImageSrc = (src?: string) => {
+  if (!src) return undefined;
+
+  // Allow fully-qualified URLs + data URIs as-is
+  if (/^(https?:)?\/\//i.test(src) || src.startsWith('data:')) return src;
+
+  // Vite uses BASE_URL for sub-path deployments (e.g., GitHub Pages)
+  const base = import.meta.env.BASE_URL ?? '/';
+
+  // Normalize: remove leading './' and '/' so we can safely join with base
+  const cleaned = src.replace(/^\.\/?/, '').replace(/^\//, '');
+
+  // Ensure base ends with a single '/'
+  const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+
+  return `${normalizedBase}${cleaned}`;
+};
+
 type PersonaSectionProps = {
   title: string;
   bullets: string[];
@@ -183,6 +202,7 @@ function WireframesSection({
 }) {
   const hasImages = (images?.length ?? 0) > 0;
   const firstImage = hasImages ? images![0] : null;
+  const resolvedFirstImageSrc = resolveImageSrc(firstImage?.src);
 
   return (
     <section id="wireframes" className="scroll-mt-24">
@@ -200,10 +220,10 @@ function WireframesSection({
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white" />
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-            {firstImage ? (
+            {resolvedFirstImageSrc ? (
               <img
-                src={firstImage.src}
-                alt={firstImage.alt ?? 'Wireframe'}
+                src={resolvedFirstImageSrc}
+                alt={firstImage?.alt ?? 'Wireframe'}
                 className="w-full h-auto object-cover"
                 loading="lazy"
               />
@@ -322,6 +342,14 @@ export default function PainToolsWorkstreamDetail() {
     const id = (w.id ?? '').trim().toLowerCase();
     return slug === normalizedWorkstreamId || id === normalizedWorkstreamId;
   });
+  // Prefer diagram on the workstream; fall back to a project-level diagram if present.
+  const diagram = (workstream as any)?.diagram ?? (project as any)?.diagram;
+  // Step 03 is defined on the backend workstream
+  const step3 =
+    (workstream as any)?.steps?.step3 ??
+    project?.workstreams?.find(
+      (w) => (w.id ?? '').toLowerCase() === 'data-backend' || (w.routeSlug ?? '').toLowerCase() === 'data-backend'
+    )?.steps?.step3;
 
   const isBackend = workstream?.id === 'data-backend' || workstream?.routeSlug === 'data-backend';
   const isAnalyticsInsights =
@@ -490,55 +518,109 @@ export default function PainToolsWorkstreamDetail() {
                   <div className="space-y-6">
                     {/* ✅ Back to project hub */}
                     <Link
-                      to={`/projects/${project.id}`}
-                      className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      ← Back to {project.title}
-                    </Link>
+  to={`/projects/${project.id}`}
+  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+>
+  ← Back to {project.title}
+</Link>
 
-                    <header className="ehr-card">
-                      <div className="text-sm text-slate-500">
-                        <Link to={`/projects/${project.id}`} className="hover:text-slate-700">
-                          {project.title}
-                        </Link>
-                      </div>
+<header className="ehr-card">
+  <h1 className="mt-2 text-2xl font-semibold text-slate-900">{workstream.title}</h1>
+  <p className="mt-1 text-slate-600">{workstream.desc ?? workstream.summary ?? ''}</p>
+</header>
 
-                      <h1 className="mt-2 text-2xl font-semibold text-slate-900">{workstream.title}</h1>
-                      <p className="mt-1 text-slate-600">{workstream.desc ?? workstream.summary ?? ''}</p>
-                    </header>
+{isBackend ? (
+  <>
+    {/* Project + Problem (explicit) */}
+    {workstream.sections?.overview?.[0] ? (
+      <section id="overview" className="scroll-mt-24">
+        <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
+          Overview
+        </h2>
+        <p className="mt-0 text-sm sm:text-[15px] leading-relaxed text-slate-700">
+          {workstream.sections.overview[0]}
+        </p>
+      </section>
+    ) : null}
 
-                    {isBackend ? (
-                      <>
-                        {/* Overview (borderless) */}
-                        {workstream.overview ? (
-                          <section id="overview" className="pt-1 scroll-mt-24">
-                            <p className="text-sm sm:text-[15px] leading-relaxed text-slate-600">
-                              {workstream.overview}
-                            </p>
-                          </section>
-                        ) : null}
+    {workstream.sections?.problem?.[0] ? (
+      <section id="problem" className="scroll-mt-24">
+        <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
+          Problem
+        </h2>
+        <p className="mt-0 text-sm sm:text-[15px] leading-relaxed text-slate-700 font-semibold">
+          {workstream.sections.problem[0]}
+        </p>
+      </section>
+    ) : null}
 
-                        {/* Three cards */}
+                        {/* Three cards (system-architecture style: sharp corners + header bars + edge arrows) */}
                         <section id="cards" className="grid grid-cols-1 md:grid-cols-3 gap-4 scroll-mt-24">
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                              {workstream.cards?.role?.title ?? 'Role'}
+                          {/* Card 1 */}
+                          <div className="relative z-30 overflow-visible bg-white border border-slate-300 rounded-none">
+                            {/* Header bar */}
+                            <div className="bg-[#DCEBFF] border-b border-slate-300 px-4 py-2">
+                              <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
+                                {workstream.cards?.role?.title ?? 'Role'}
+                              </div>
                             </div>
-                            {renderSectionList(workstream.cards?.role?.bullets)}
+
+                            {/* Body */}
+                            <div className="px-4 py-4">
+                              {renderSectionList(workstream.cards?.role?.bullets)}
+                            </div>
+
+                            {/* Arrow: Left → Center (desktop only) */}
+                            <div className="hidden md:block absolute top-1/2 -right-[25px] -translate-y-1/2 z-50 pointer-events-none">
+                              <svg width="30" height="14" viewBox="0 0 30 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="0" y1="7" x2="24" y2="7" stroke="#64748B" strokeWidth="1.5" />
+                                <path d="M24 2 L30 7 L24 12" fill="none" stroke="#64748B" strokeWidth="1.5" />
+                              </svg>
+                            </div>
                           </div>
 
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                              {workstream.cards?.scope?.title ?? 'Scope'}
+                          {/* Card 2 */}
+                          <div className="relative z-0 overflow-visible bg-white border border-slate-300 rounded-none">
+                            {/* Header bar */}
+                            <div className="bg-[#DCEBFF] border-b border-slate-300 px-4 py-2">
+                              <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
+                                {workstream.cards?.scope?.title ?? 'Scope'}
+                              </div>
                             </div>
-                            {renderSectionList(workstream.cards?.scope?.bullets)}
+
+                            {/* Body */}
+                            <div className="px-4 py-4">
+                              {renderSectionList(workstream.cards?.scope?.bullets)}
+                            </div>
+
+                            {/* Arrow: Center → Right (desktop only) */}
+                            <div className="hidden md:block absolute top-1/2 left-full -translate-y-1/2">
+                              <svg
+                                width="22"
+                                height="14"
+                                viewBox="0 0 22 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <line x1="0" y1="7" x2="16" y2="7" stroke="#64748B" strokeWidth="1.5" />
+                                <path d="M16 2 L22 7 L16 12" fill="none" stroke="#64748B" strokeWidth="1.5" />
+                              </svg>
+                            </div>
                           </div>
 
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                              {workstream.cards?.constraints?.title ?? 'Constraints'}
+                          {/* Card 3 */}
+                          <div className="bg-white border border-slate-300 rounded-none">
+                            {/* Header bar */}
+                            <div className="bg-[#DCEBFF] border-b border-slate-300 px-4 py-2">
+                              <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
+                                {workstream.cards?.constraints?.title ?? 'Constraints'}
+                              </div>
                             </div>
-                            {renderSectionList(workstream.cards?.constraints?.bullets)}
+
+                            {/* Body */}
+                            <div className="px-4 py-4">
+                              {renderSectionList(workstream.cards?.constraints?.bullets)}
+                            </div>
                           </div>
                         </section>
 
@@ -547,82 +629,114 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Step 1 — Requirements & Constraints */}
                         <section className="scroll-mt-24" id="requirements">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm font-semibold">
-                              01
+                          <div className="rounded-none bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] overflow-hidden">
+                            <div className="px-5 py-3 bg-gradient-to-b from-[#E7F0FF] to-[#DDEAFF] border-b border-slate-200">
+                              <div className="text-[13px] font-semibold tracking-wide text-slate-800">
+                                Step 01 — Requirements &amp; Constraints
+                              </div>
                             </div>
-
-                            <div className="min-w-0 flex-1">
-                              <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-                                Step 1 — Requirements &amp; Constraints
-                              </h2>
-                              <p className="mt-1 text-slate-600">
+                            <div className="p-5 sm:p-6">
+                              <p className="text-slate-600">
                                 Gathered inputs from researchers, clinicians, and product &amp; engineering partners
                               </p>
 
-                              <div className="mt-4 rounded-2xl bg-white border border-slate-200 shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-5 sm:p-6">
-                                <div className="space-y-3">
-                                  {(
-                                    // Prefer the constraints bullets; fall back to scope bullets; finally fall back to the old Problem bullets
-                                    workstream.cards?.constraints?.bullets ??
-                                    workstream.cards?.scope?.bullets ??
-                                    workstream.sections?.problem ??
-                                    []
-                                  ).map((item) => (
-                                    <div key={item} className="flex items-start gap-3">
-                                      <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
-                                      <p className="text-slate-800">{item}</p>
-                                    </div>
-                                  ))}
-                                  {(
-                                    (workstream.cards?.constraints?.bullets?.length ?? 0) === 0 &&
-                                    (workstream.cards?.scope?.bullets?.length ?? 0) === 0 &&
-                                    (workstream.sections?.problem?.length ?? 0) === 0
-                                  ) ? (
-                                    <p className="text-sm text-slate-500">N/A</p>
-                                  ) : null}
-                                </div>
+                              <div className="mt-4 space-y-3">
+                                {(
+                                  // Prefer the constraints bullets; fall back to scope bullets; finally fall back to the old Problem bullets
+                                  workstream.cards?.constraints?.bullets ??
+                                  workstream.cards?.scope?.bullets ??
+                                  workstream.sections?.problem ??
+                                  []
+                                ).map((item) => (
+                                  <div key={item} className="flex items-start gap-3">
+                                    <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
+                                    <p className="text-slate-800">{item}</p>
+                                  </div>
+                                ))}
+                                {(
+                                  (workstream.cards?.constraints?.bullets?.length ?? 0) === 0 &&
+                                  (workstream.cards?.scope?.bullets?.length ?? 0) === 0 &&
+                                  (workstream.sections?.problem?.length ?? 0) === 0
+                                ) ? (
+                                  <p className="text-sm text-slate-500">N/A</p>
+                                ) : null}
                               </div>
                             </div>
                           </div>
                         </section>
 
-                        <div className="my-6" />
+                        <div className="my-6 flex flex-col items-center">
+                          <div className="w-px h-6 bg-slate-200" />
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="text-slate-400"
+                          >
+                            <path
+                              d="M12 5V19"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M7 14L12 19L17 14"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
 
                         {/* Step 2 — Unified Data Model (NDA-Safe) */}
                         <section id="step-2" className="scroll-mt-24">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm font-semibold">
-                              02
+                          <div className="rounded-none bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] overflow-hidden">
+                            <div className="px-5 py-3 bg-gradient-to-b from-[#E7F0FF] to-[#DDEAFF] border-b border-slate-200">
+                              <div className="text-[13px] font-semibold tracking-wide text-slate-800">
+                                Step 02 — Unified Data Model (NDA-Safe)
+                              </div>
                             </div>
-
-                            <div className="min-w-0 flex-1">
-                              <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-                                Step 2 — Unified Data Model (NDA-Safe)
-                              </h2>
-                              <p className="mt-1 text-slate-600">
+                            <div className="p-5 sm:p-6">
+                              <p className="text-slate-600">
                                 Standardized diverse data sources into one analyzable schema
                               </p>
 
                               {/* Image slot */}
-                              <div className="mt-4 rounded-2xl border border-slate-200 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-4 sm:p-5">
-                                <div className="overflow-hidden rounded-xl border border-slate-200 bg-[#0F1E36] p-3">
-                                  {workstream.diagram?.src ? (
+                              <div className="mt-4 overflow-hidden border border-slate-200 bg-white">
+                                {/* Header strip (schema-box style) */}
+                                <div className="bg-[#DCEBFF] border-b border-slate-200 px-4 py-2">
+                                  <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
+                                    Schema Preview (NDA-safe)
+                                  </div>
+                                </div>
+
+                                {/* Image body */}
+                                <div className="p-4 sm:p-5">
+                                  {resolveImageSrc(diagram?.src) ? (
                                     <img
-                                      src={workstream.diagram.src}
-                                      alt={workstream.diagram.alt ?? 'Unified data model diagram (NDA-safe)'}
-                                      className="w-full h-auto rounded-lg bg-white object-contain"
+                                      src={resolveImageSrc(diagram?.src)}
+                                      onError={(e) => {
+                                        // eslint-disable-next-line no-console
+                                        console.warn('Diagram failed to load:', resolveImageSrc(diagram?.src));
+                                        (e.currentTarget as HTMLImageElement).style.display = 'none';
+                                      }}
+                                      alt={diagram?.alt ?? 'Unified data model diagram (NDA-safe)'}
+                                      className="w-full h-auto object-contain rounded-none bg-white"
                                       loading="lazy"
                                     />
                                   ) : (
-                                    <div className="w-full aspect-video rounded-lg bg-slate-100 flex items-center justify-center">
+                                    <div className="w-full aspect-video bg-slate-50 border border-slate-200 flex items-center justify-center">
                                       <span className="text-sm text-slate-500">Add data model image</span>
                                     </div>
                                   )}
                                 </div>
 
-                                <p className="mt-4 text-sm sm:text-[15px] leading-relaxed text-slate-600">
-                                  {workstream.diagram?.caption ??
+                                {/* Caption */}
+                                <p className="px-4 sm:px-5 pb-4 text-sm sm:text-[15px] leading-relaxed text-slate-600">
+                                  {diagram?.caption ??
                                     'I standardized questionnaire responses and activity-based inputs into a consistent, encounter-like response envelope so downstream analytics could operate on a single schema. The model separates identity/context from response instances and item-level values, enabling versioning, partial completion, and auditable derived outputs—while maintaining NDA-safe abstractions and privacy boundaries.'}
                                 </p>
                               </div>
@@ -630,38 +744,58 @@ export default function PainToolsWorkstreamDetail() {
                           </div>
                         </section>
 
-                        <div className="my-6" />
+                        <div className="my-6 flex flex-col items-center">
+                          <div className="w-px h-6 bg-slate-200" />
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="text-slate-400"
+                          >
+                            <path
+                              d="M12 5V19"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                            />
+                            <path
+                              d="M7 14L12 19L17 14"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
 
                         {/* Step 3 — Privacy, Compliance & Governance */}
                         <section id="step-3" className="scroll-mt-24">
-                          <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm font-semibold">
-                              03
+                          <div className="rounded-none bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] overflow-hidden">
+                            <div className="px-5 py-3 bg-gradient-to-b from-[#E7F0FF] to-[#DDEAFF] border-b border-slate-200">
+                              <div className="text-[13px] font-semibold tracking-wide text-slate-800">
+                                {step3?.title ?? 'Step 03 — Privacy, Compliance & Governance'}
+                              </div>
                             </div>
-
-                            <div className="min-w-0 flex-1">
-                              <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-                                Step 3 — Privacy, Compliance &amp; Governance
-                              </h2>
-                              <p className="mt-1 text-slate-600">
-                                Implemented HIPAA-aligned controls and NDA-safe governance for analytics-ready data
+                            <div className="p-5 sm:p-6">
+                              <p className="text-slate-600">
+                                {step3?.subtitle ?? 'Implemented HIPAA-aligned controls and NDA-safe governance for analytics-ready data'}
                               </p>
-
-                              <div className="mt-4 rounded-2xl bg-white border border-slate-200 shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-5 sm:p-6">
-                                <p className="text-sm sm:text-[15px] leading-relaxed text-slate-600">
-                                  Because this work was performed under NDA, the implementation details are intentionally abstracted. At a high level, I ensured the data model and downstream usage patterns aligned with HIPAA expectations and organizational policies by enforcing role-based access, auditability, and vendor governance.
-                                </p>
-
-                                <ul className="mt-4 space-y-2 text-sm text-slate-700 list-disc pl-5">
-                                  <li><span className="font-medium text-slate-900">Authorization:</span> access was restricted by role and least-privilege principles; sensitive fields were segmented from analytics-ready outputs.</li>
-                                  <li><span className="font-medium text-slate-900">De-identification posture:</span> analytics outputs were designed to avoid direct identifiers and to support NDA-safe reporting patterns.</li>
-                                  <li><span className="font-medium text-slate-900">Auditability:</span> model structures and response state changes supported traceability (e.g., versioning, completion state, timestamps) to enable compliant review.</li>
-                                  <li><span className="font-medium text-slate-900">Secure handling:</span> data was handled within approved environments and standard security practices (e.g., encryption in transit/at rest) were assumed as baseline controls.</li>
-                                  <li><span className="font-medium text-slate-900">BAA governance:</span> work operated under Business Associate Agreement (BAA) constraints and vendor/service access was governed accordingly.</li>
-                                </ul>
-
-                                <p className="mt-4 text-xs text-slate-500 leading-relaxed">
-                                  Note: This section is written at a conceptual level to remain NDA-safe while conveying the compliance design intent.
+                              <div className="mt-4 space-y-3">
+                                {step3?.bullets?.map((item: any) => (
+                                  <div key={item.title} className="flex items-start gap-3">
+                                    <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
+                                    <p className="text-slate-800">
+                                      <span className="font-medium text-slate-900">{item.title}:</span> {item.body}
+                                    </p>
+                                  </div>
+                                ))}
+                                {!step3?.bullets?.length && (
+                                  <p className="text-sm text-slate-500">No compliance details defined.</p>
+                                )}
+                                <p className="pt-2 text-xs text-slate-500 leading-relaxed">
+                                  {step3?.note ?? 'Note: This section is written at a conceptual level to remain NDA-safe while conveying the compliance design intent.'}
                                 </p>
                               </div>
                             </div>
@@ -1201,7 +1335,7 @@ export default function PainToolsWorkstreamDetail() {
                               <div className="mx-auto max-w-[1000px]">
                                 <div className="mt-6">
                                   <img
-                                    src="/images/process.png"
+                                    src={`${import.meta.env.BASE_URL}images/process.png`}
                                     alt="Experience design process overview (NDA-safe)"
                                     className="w-full h-auto rounded-xl object-contain"
                                     loading="lazy"

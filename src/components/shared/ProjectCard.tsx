@@ -7,6 +7,8 @@ export interface Project {
   title: string;
   subtitle?: string;
   summary: string;
+  overviewTitle?: string;
+  overview?: string;
   category: string;
   projectType: 'professional' | 'personal';
   status: 'Completed' | 'In Progress';
@@ -27,6 +29,7 @@ export interface Project {
     routeSlug?: string;
     href?: string;
     // NEW: workstream-level content for custom layouts (e.g., data-backend)
+    overviewTitle?: string;
     overview?: string;
     cards?: {
       role?: { title?: string; bullets?: string[] };
@@ -34,6 +37,15 @@ export interface Project {
       constraints?: { title?: string; bullets?: string[] };
     };
     diagram?: { src?: string; alt?: string; caption?: string };
+    // NEW: step-level content blocks (used by PainToolsWorkstreamDetail)
+    steps?: {
+      step3?: {
+        title?: string;
+        subtitle?: string;
+        bullets?: { title: string; body: string }[];
+        note?: string;
+      };
+    };
     // Analytics workstream additions (data-driven cards + timeline)
     analysisAreas?: {
       title: string;
@@ -75,7 +87,12 @@ export interface Project {
       whyItMatters: string;
     };
 
+    wireframes?: {
+      images: { src: string; alt?: string }[];
+    };
+
     sections?: {
+      overview?: string[];
       problem?: string[];
       owned?: string[];
       process?: string[];
@@ -209,7 +226,20 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </span>
         </div>
 
-        <p className={`text-sm ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'} line-clamp-2`}>{project.summary}</p>
+        {project.overview ? (
+          <div>
+            <h3 className={`text-[11px] font-semibold uppercase tracking-wide ${isDarkCard ? 'text-slate-300' : 'text-slate-500'}`}>
+              {project.overviewTitle ?? 'Project'}
+            </h3>
+            <p className={`mt-1 text-sm ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'} leading-relaxed line-clamp-2`}>
+              {project.overview}
+            </p>
+          </div>
+        ) : (
+          <p className={`text-sm ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'} leading-relaxed line-clamp-2`}>
+            {project.summary}
+          </p>
+        )}
 
         <div className="flex items-center justify-between">
           <TagChip label={project.category} variant={categoryColors[project.category] || 'teal'} size="sm" />

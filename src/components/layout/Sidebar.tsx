@@ -4,7 +4,6 @@ import {
   Activity,
   X,
   LayoutGrid,
-  Briefcase,
   FolderKanban,
   FlaskConical,
   User,
@@ -14,7 +13,6 @@ import {
 
 const navItems = [
   { icon: LayoutGrid, label: 'System Overview', path: '/' },
-  { icon: Briefcase, label: 'Clinical Use Cases', path: '/work', badge: '6' },
   { icon: FolderKanban, label: 'Project Archive', path: '/projects' },
   { icon: FlaskConical, label: 'Research & Labs', path: '/labs' },
   { icon: User, label: 'About', path: '/about' },

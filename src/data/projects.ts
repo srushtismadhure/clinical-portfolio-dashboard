@@ -17,10 +17,9 @@ export const projects: Project[] = [
     workstreams: [
       {id: 'data-backend',
         routeSlug: 'data-backend',
-        title: 'Data & Backend Architecture',
+        title: 'HIPAA Compliant Database Architecture',
         desc: 'Built event schemas and data pipelines to support analytics.',
-      
-        // NEW: page content (for the “reference image” layout)
+        overviewTitle: 'Overview',
         overview:
           'Structuring telemetry and clinical workflow signals for analytics required a standardized, queryable event model. I designed an NDA-safe data model that unified questionnaire responses and activity-based inputs into consistent, analytics-ready outputs while aligning with privacy constraints and auditability expectations.',
       
@@ -44,22 +43,49 @@ export const projects: Project[] = [
           constraints: {
             title: 'Constraints',
             bullets: [
-              'NDA-safe abstraction (no PHI / production identifiers)',
-              'Privacy-first and audit-aware design',
-              'Extensible model for evolving care pathways',
+              'Gathered requirements from clinical, engineering, and product stakeholders',
+              'Defined planned data sources and downstream analytics / personalization use cases',
+              'Established HIPAA-aware, privacy-first, audit-ready data constraints',
+              'Set data grain, primary keys, access boundaries, and extensibility standards',
             ],
           },
         },
       
         diagram: {
-          src: '/images/erd.png',
+          src: '/images/erddata.png',
           alt: 'Conceptual data model diagram (NDA-safe)',
           caption:
             'Conceptual, NDA-safe model illustrating how standardized response records connect inputs to derived analytics outputs.',
         },
+        steps: {
+          step3: {
+            title: 'Step 03 — Privacy, Compliance & Deployment',
+            subtitle: 'Implemented HIPAA-aligned controls for analytics-ready data.',
+            bullets: [
+              {
+                title: 'Authorization',
+                body: 'Role-based, least-privilege access enforced; sensitive fields segmented from analytics-ready outputs (admin-restricted).',
+              },
+              {
+                title: 'Auditability',
+                body: 'Model structures and response state changes supported traceability (versioning, completion state, timestamps) to enable compliant review.',
+              },
+              {
+                title: 'BAA governance',
+                body: 'Operated under Business Associate Agreement (BAA) constraints, including vendor access controls for Google-managed services.',
+              },
+            ],
+            note: 'Note: This section is intentionally described at a conceptual level to remain NDA-safe while conveying compliance design intent.',
+          },
+        },
       
         sections: {
-          problem: ['Telemetry was inconsistent and hard to analyze end-to-end.'],
+          overview: [
+            'PainTools needed a single, unified data structure to collect heterogeneous inputs including questionnaire responses, activity completions, wearable signals, and user preferences captured longitudinally over time. This structure had to support AI-driven personalization and recommendations while remaining interoperable, scalable, and compliant with HIPAA requirements, including authorization controls in Google Firebase and Business Associate Agreement (BAA) constraints.',
+          ],
+          problem: [
+            'How could PainTools design a single, queryable data structure that unified data from diverse sources to enable AI-driven personalization while maintaining HIPAA compliance, privacy, and strict authorization controls?',
+          ],
           owned: ['Event schema design', 'Data model planning', 'Pipeline requirements'],
           process: ['Defined event taxonomy', 'Validated tracking with QA'],
           artifacts: ['Tracking plan', 'Schema docs', 'Data flow diagrams'],
@@ -209,7 +235,7 @@ export const projects: Project[] = [
           ],
         },
         processImage: {
-          src: '/images/process.png',
+          src: `${import.meta.env.BASE_URL}images/process.png`,
           alt: 'Experience design process overview (NDA-safe)',
         },
         processMappingBox: {
@@ -317,8 +343,8 @@ export const projects: Project[] = [
         wireframes: {
           images: [
             {
-              src: '/images/wireframes/human-centered-onboarding.png',
-              alt: 'Onboarding and authentication wireframes',
+              src: '/images/onboarding.png',
+              alt: 'Onboarding wireframes',
             },
           ],
         },
