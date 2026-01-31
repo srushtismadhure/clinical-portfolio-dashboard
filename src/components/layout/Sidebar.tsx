@@ -52,21 +52,21 @@ export function Sidebar({
   const asideClassName =
     variant === 'drawer'
       ? [
-          'fixed inset-y-0 left-0 z-50',
-          'w-60 min-h-screen',
+          'fixed inset-y-0 left-0 z-50 shrink-0',
+          'w-56 min-h-screen',
           frostedPanel, // ✅ CHANGED (was bg-white border-slate-200)
           'flex flex-col',
           'transform transition-transform duration-300 ease-out',
           isOpen ? 'translate-x-0' : '-translate-x-full',
         ].join(' ')
       : [
-          'fixed inset-y-0 left-0 z-50',
-          'w-60 min-h-screen',
+          'fixed inset-y-0 left-0 z-50 shrink-0',
+          'w-56 min-h-screen',
           frostedPanel, // ✅ CHANGED (was bg-white border-slate-200)
           'flex flex-col',
           'transform transition-transform duration-300 ease-out',
           isOpen ? 'translate-x-0' : '-translate-x-full',
-          'lg:static lg:translate-x-0 lg:h-screen',
+          'lg:static lg:translate-x-0 lg:h-full',
         ].join(' ');
 
   return (

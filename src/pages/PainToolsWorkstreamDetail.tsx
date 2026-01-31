@@ -200,9 +200,7 @@ function WireframesSection({
   caption: string;
   images?: { src: string; alt?: string }[];
 }) {
-  const hasImages = (images?.length ?? 0) > 0;
-  const firstImage = hasImages ? images![0] : null;
-  const resolvedFirstImageSrc = resolveImageSrc(firstImage?.src);
+  const resolvedFirstImageSrc = `${import.meta.env.BASE_URL}images/wireframe.png`;
 
   return (
     <section id="wireframes" className="scroll-mt-24">
@@ -220,16 +218,12 @@ function WireframesSection({
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white" />
 
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-            {resolvedFirstImageSrc ? (
-              <img
-                src={resolvedFirstImageSrc}
-                alt={firstImage?.alt ?? 'Wireframe'}
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
-            ) : (
-              <div className="w-full aspect-[16/9] bg-slate-50" />
-            )}
+            <img
+              src={resolvedFirstImageSrc}
+              alt="Wireframe"
+              className="w-full h-auto object-cover"
+              loading="lazy"
+            />
           </div>
         </div>
 
@@ -266,11 +260,11 @@ function PersonaCard(props: PersonaCardProps) {
 
   return (
     <section id="persona" className="scroll-mt-24">
-      <div className="mx-auto max-w-[1100px] px-4 sm:px-6 pb-10">
-        <div className="rounded-[20px] bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_30px_rgba(15,23,42,0.08)] p-6 sm:p-8">
+      <div className="mx-auto w-full px-4 sm:px-6 pb-10">
+        <div className="rounded-[20px] bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_30px_rgba(15,23,42,0.08)] p-5 sm:p-6">
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
             <div>
-              <div className="text-xl sm:text-2xl font-semibold text-slate-900">
+              <div className="text-[16px] font-semibold text-slate-900">
                 Primary User Persona <span className="font-normal text-slate-600">(Synthesized &amp; De-Identified)</span>
               </div>
               <div className="mt-1 text-sm text-slate-600">
@@ -279,12 +273,17 @@ function PersonaCard(props: PersonaCardProps) {
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            {/* Column 1 */}
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+            {/* Column 1: Primary Persona */}
             <div className="space-y-4">
-              <div className="overflow-hidden rounded-2xl border border-[#D6E6FF] bg-white">
-                <div className="aspect-square bg-gradient-to-br from-slate-100 to-slate-50 flex items-center justify-center">
-                  <div className="text-xs text-slate-500">Avatar (illustrative)</div>
+              <div className="overflow-hidden rounded-2xl border border-[#D6E6FF] bg-white max-w-[180px] mx-auto">
+                <div className="aspect-square bg-slate-50 flex items-center justify-center">
+                  <img
+                    src={`${import.meta.env.BASE_URL}images/icon.png`}
+                    alt="Avatar (illustrative)"
+                    className="h-16 w-16 object-contain"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
@@ -298,31 +297,17 @@ function PersonaCard(props: PersonaCardProps) {
                     </div>
                   ))}
                 </div>
-                <div className="mt-4 text-xs text-slate-500">
-                  De-identified composite persona (NDA-safe)
-                </div>
               </div>
             </div>
 
-            {/* Column 2 */}
+            {/* Column 2: Motivations + Behaviors + Goals */}
             <div className="space-y-5">
-              <PersonaSection title="Context & obstacles" bullets={contextBullets} />
-              <PersonaSection title="How they interact with the product" bullets={interactionBullets} />
-              <PersonaSection title="Questions they will ask" bullets={questionsBullets} />
-            </div>
-
-            {/* Column 3 */}
-            <div className="space-y-5">
-              <PersonaSection title="Goals" bullets={goalsBullets} />
-              <PersonaSection title="Behaviors" bullets={behaviorsBullets} />
               <PersonaSection title="Motivations" bullets={motivationsBullets} />
-              <PersonaSection title="Influences" bullets={influencesBullets} />
+              <PersonaSection title="Behaviors" bullets={behaviorsBullets} />
+              <PersonaSection title="Goals" bullets={goalsBullets} />
             </div>
           </div>
 
-          <div className="mt-6 text-xs text-slate-500">
-            All persona content is synthesized/illustrative and intentionally NDA-safe.
-          </div>
         </div>
       </div>
     </section>
@@ -703,6 +688,10 @@ export default function PainToolsWorkstreamDetail() {
                               <p className="text-slate-600">
                                 Standardized diverse data sources into one analyzable schema
                               </p>
+
+                              <div className="mt-3 text-[13px] font-semibold text-slate-800 uppercase tracking-wide">
+                                Data Flow
+                              </div>
 
                               {/* Image slot */}
                               <div className="mt-4 overflow-hidden border border-slate-200 bg-white">
@@ -1094,8 +1083,6 @@ export default function PainToolsWorkstreamDetail() {
                           leftBullets={[
                             'Age range: adult (mid-career), balancing work and family responsibilities',
                             'Daily constraint: variable pain levels that impact energy and planning',
-                            'Digital comfort level: medium (prefers simple, guided flows)',
-                            'Accessibility preference: larger text, low-glare / dark-friendly UI',
                           ]}
                           contextBullets={[
                             'Managing chronic pain alongside a demanding schedule',
@@ -1118,9 +1105,9 @@ export default function PainToolsWorkstreamDetail() {
                             'Build consistency without feeling overwhelmed',
                           ]}
                           behaviorsBullets={[
-                            'Skips long forms during flare-ups',
-                            'Returns when content feels personalized and short',
-                            'Responds best to small wins and progress cues',
+                            'Struggles with consistency when symptoms escalate',
+                            'Engages best with clear, actionable steps',
+                            'Seeks gentle support rather than self-discipline alone',
                           ]}
                           motivationsBullets={[
                             'Maintaining independence and stability for family/work',
@@ -1135,94 +1122,28 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* --- User Journey & Navigation section --- */}
                         <section id="journey" className="scroll-mt-24">
-                          <div className="mx-auto max-w-[1100px] px-4 sm:px-6 pb-12">
-                            <div className="text-center">
-                              <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-                                User Journey &amp; Navigation{' '}
-                                <span className="font-normal text-slate-600 italic">(Experience Layer)</span>
-                              </h2>
-                              <p className="mt-2 text-slate-600 leading-relaxed">
-                                Mapped the end-to-end journey to understand decision points and engagement risks.
-                              </p>
-                            </div>
-
-                            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                              {[
-                                {
-                                  title: 'Onboarding',
-                                  icon: ClipboardList,
-                                  subtitle: 'Basic Profile',
-                                  bullets: ['Name, goals, preferences', 'Complete profile in one short flow'],
-                                  risk: 'Cognitive overload',
-                                },
-                                {
-                                  title: 'Check-in',
-                                  icon: CheckSquare,
-                                  subtitle: 'Daily Questionnaires',
-                                  bullets: ['Answer daily check-ins', 'Minimize form fatigue with smart defaults'],
-                                  risk: 'Form fatigue',
-                                },
-                                {
-                                  title: 'Activity',
-                                  icon: Dumbbell,
-                                  subtitle: 'Guided Exercises',
-                                  bullets: ['Track goal', 'Start exercise', 'View progress'],
-                                  risk: 'Low engagement',
-                                },
-                                {
-                                  title: 'Feedback',
-                                  icon: MessageSquare,
-                                  subtitle: 'Reflections & Ratings',
-                                  bullets: ['Submit feedback', 'Personalize plan', 'Get support'],
-                                  risk: 'Feedback gap',
-                                },
-                                {
-                                  title: 'Follow-up',
-                                  icon: Bell,
-                                  subtitle: 'Reminders, Next Steps',
-                                  bullets: ['Session reminder', 'Track progress', 'Set new goal'],
-                                  risk: 'Engagement drop-off',
-                                },
-                              ].map((box) => {
-                                const Icon = box.icon;
-                                return (
-                                  <div
-                                    key={box.title}
-                                    className="rounded-2xl bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_24px_rgba(15,23,42,0.06)] overflow-hidden"
-                                  >
-                                    <div className="px-4 py-3 bg-white/70 border-b border-[#D6E6FF]">
-                                      <div className="flex items-center gap-2">
-                                        <Icon className="w-5 h-5 text-[#2B6CB0]" />
-                                        <div className="text-[16px] font-semibold text-slate-900">{box.title}</div>
-                                      </div>
-                                    </div>
-
-                                    <div className="p-4">
-                                      <div className="text-[13px] font-semibold text-slate-800">{box.subtitle}</div>
-                                      <div className="mt-3 space-y-2">
-                                        {box.bullets.map((b) => (
-                                          <div key={b} className="flex items-start gap-2">
-                                            <CheckCircle2 className="w-4 h-4 text-[#2B6CB0] mt-0.5 flex-shrink-0" />
-                                            <p className="text-[13px] leading-relaxed text-slate-700">{b}</p>
-                                          </div>
-                                        ))}
-                                      </div>
-
-                                      <div className="mt-4 pt-3 border-t border-[#D6E6FF] text-[12px] text-slate-600">
-                                        <span className="font-semibold text-slate-700">Risk:</span> {box.risk}
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-
-                            <div className="mt-6 flex items-center justify-center">
-                              <div className="rounded-full bg-[#EEF5FF] border border-[#D6E6FF] px-5 py-2 text-sm text-slate-700">
-                                Tap to navigate between app sections (illustrative)
-                              </div>
-                            </div>
+                          <div className="mx-auto w-full px-4 sm:px-6 pb-12">
+                          <div className="text-center">
+                            <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
+                              User Journey &amp; Navigation{' '}
+                              <span className="font-normal text-slate-600 italic">(Experience Layer)</span>
+                            </h2>
                           </div>
+
+                          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                              {['Onboarding','Check-in','Activity','Feedback','Follow-up'].map((title) => (
+                                <div
+                                  key={title}
+                                  className="rounded-2xl bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_24px_rgba(15,23,42,0.06)] overflow-hidden"
+                                >
+                                  <div className="px-4 py-5 bg-white/70 border-b border-[#D6E6FF] text-center">
+                                    <div className="text-[16px] font-semibold text-slate-900">{title}</div>
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
+
+                        </div>
                         </section>
                         {/* --- End User Journey & Navigation section --- */}
 
@@ -1332,10 +1253,15 @@ export default function PainToolsWorkstreamDetail() {
                             </div>
                             {/* Process visualization */}
                             <div className="mt-10">
+                              <div className="text-center">
+                                <h3 className="text-2xl sm:text-3xl font-semibold text-slate-900">
+                                  Data Flow
+                                </h3>
+                              </div>
                               <div className="mx-auto max-w-[1000px]">
                                 <div className="mt-6">
                                   <img
-                                    src={`${import.meta.env.BASE_URL}images/process.png`}
+                                    src={`${import.meta.env.BASE_URL}images/processpain.png`}
                                     alt="Experience design process overview (NDA-safe)"
                                     className="w-full h-auto rounded-xl object-contain"
                                     loading="lazy"

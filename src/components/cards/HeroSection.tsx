@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, Linkedin, Github, ArrowRight, Database, Server, Activity, Layers, ToggleLeft, ToggleRight, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3 } from 'lucide-react';
+import { MapPin, Mail, Linkedin, Github, ArrowRight, Database, Activity, Layers, ToggleLeft, ToggleRight, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, FileText } from 'lucide-react';
 
 const coreSkills = [
   { name: 'SQL', category: 'query' },
@@ -21,6 +21,14 @@ const toolkitItems = [
   { name: 'Azure', icon: Cloud },
 ];
 
+const interestAreas = [
+  { label: 'Healthcare Data Engineering (ETL & Pipelines)', icon: Database },
+  { label: 'Predictive Analytics & Risk Modeling', icon: BarChart3 },
+  { label: 'Claims Analytics & Quality Measurement', icon: FileText },
+  { label: 'Clinical & Operational Dashboard Development', icon: Layers3 },
+  { label: 'Process & Quality Improvement Analytics', icon: Activity },
+];
+
 type Tool = { label: string; Icon: React.ElementType };
 
 const tools: Tool[] = [
@@ -33,47 +41,45 @@ const tools: Tool[] = [
 ];
 
 export function ClinicalAnalyticsToolkit() {
-  return (
-    <section className="toolkit-cabinet relative rounded-2xl border border-slate-200 bg-white shadow-[0_1px_0_rgba(15,23,42,0.05),0_12px_24px_rgba(15,23,42,0.08)] overflow-hidden">
-      {/* Corner screws */}
-      <span className="toolkit-screw absolute left-3 top-3 h-2.5 w-2.5 rounded-full" />
-      <span className="toolkit-screw absolute right-3 top-3 h-2.5 w-2.5 rounded-full" />
-      <span className="toolkit-screw absolute left-3 bottom-3 h-2.5 w-2.5 rounded-full" />
-      <span className="toolkit-screw absolute right-3 bottom-3 h-2.5 w-2.5 rounded-full" />
+  const iconMap = toolkitItems.reduce<Record<string, React.ElementType>>(
+    (acc, item) => {
+      acc[item.name] = item.icon;
+      return acc;
+    },
+    {}
+  );
 
-      {/* Header strip */}
-      <div className="toolkit-bevel border-b border-slate-200 px-4 py-3">
-        <p className="text-[11px] font-semibold tracking-[0.22em] text-slate-700 uppercase">
-          Analytics Toolkit
-        </p>
-        <p className="text-sm text-slate-500">For clinical decisions</p>
+  return (
+    <section className="w-full rounded-md border border-slate-300 bg-white shadow-none">
+      <div className="flex items-center justify-between border-b border-slate-300 bg-slate-100/70 px-3 py-2">
+        <div className="flex items-center gap-2">
+          <Database className="h-3.5 w-3.5 text-slate-500" />
+          <span className="text-[11px] font-medium tracking-wide text-slate-600 uppercase">
+            Core Skills
+          </span>
+        </div>
+        <span className="text-[10px] text-slate-400">n={coreSkills.length}</span>
       </div>
 
-      {/* Inner recessed tray */}
-      <div className="p-4">
-        <div className="toolkit-inset rounded-xl border border-slate-200 p-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {tools.map(({ label, Icon }) => (
+      <div className="px-3 py-2">
+        <div className="flex flex-wrap gap-2">
+          {coreSkills.map((skill) => {
+            const Icon = iconMap[skill.name] ?? Layers;
+            return (
               <div
-                key={label}
-                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2"
+                key={skill.name}
+                className="flex items-center gap-2 rounded-sm border border-slate-300 bg-white px-2.5 py-1.5 text-[11px] text-slate-600"
               >
-                <Icon className="h-4 w-4 text-slate-600" aria-hidden="true" />
-                <span className="text-sm font-medium text-slate-700">{label}</span>
+                <Icon className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
+                <span className="font-medium">{skill.name}</span>
               </div>
-            ))}
-          </div>
-
-          {/* Status bar */}
-          <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] tracking-widest text-slate-500 uppercase">Status</span>
-              <span className="text-[11px] font-semibold tracking-widest text-slate-700 uppercase">
-                Operational
-              </span>
-            </div>
-          </div>
+            );
+          })}
         </div>
+      </div>
+
+      <div className="border-t border-slate-300 bg-slate-50 px-3 py-2">
+        <p className="text-[10px] text-slate-500">Primary technical stack</p>
       </div>
     </section>
   );
@@ -86,14 +92,6 @@ const focusAreas = [
   { name: 'Predictive Models', type: 'method' },
 ];
 
-const dataSources = [
-  'Epic/Cerner EHR',
-  'CMS Claims',
-  'HL7/FHIR',
-  'ICD-10/CPT',
-  'SDOH Indices',
-];
-
 const systemMetrics = [
   { label: 'Use Cases', value: '12+', detail: 'clinical workflows' },
   { label: 'Datasets', value: '2.5M+', detail: 'patient records' },
@@ -101,11 +99,13 @@ const systemMetrics = [
 ];
 
 const clinicalSummary = [
-  'Builds production analytics pipelines for clinical decision support and population health',
-  'Designs predictive models for readmission risk, care gaps, and resource allocation',
-  'Creates stakeholder-facing dashboards for clinical ops and quality improvement',
-  'Integrates EHR, claims, and SDOH data for holistic patient analytics',
+  'Builds end-to-end ETL pipelines for clinical decision support',
+  'Creates executive-facing dashboards for operations and quality improvement',
+  'Designs data models and writes complex SQL for analytics',
+  'Defines KPIs through market and workflow analysis',
+  'Applies statistical analysis and root-cause investigation to drive improvements',
 ];
+
 
 const technicalSummary = [
   'ETL pipelines: Python, Spark, Databricks on Azure cloud infrastructure',
@@ -127,26 +127,28 @@ export function HeroSection() {
   return (
     <section className="py-2 relative">
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 w-full relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-2.5 w-full relative z-10">
         
         {/* Left Column - Primary Identity */}
-        <div className="lg:col-span-8 space-y-2.5 min-w-0">
+        <div className="lg:col-span-1 space-y-2.5 min-w-0">
           
           {/* Profile Overview Module */}
           <div className="system-module min-w-0">
             <div className="system-module-header">
               <div className="flex items-center gap-1.5">
-                <User className="w-3 h-3 text-primary" />
-                <span className="system-module-label">Profile Overview</span>
+              <User className="w-3 h-3 text-primary" />
+              <span className="system-module-label font-semibold tracking-wide text-slate-700 uppercase">
+                  Profile Overview
+                </span>
               </div>
               <span className="status-badge status-active">Active</span>
             </div>
             
-            <div className="system-module-content">
+            <div className="system-module-content pb-2">
               {/* Identity Row */}
               <div className="flex flex-col sm:flex-row gap-2.5 mb-2.5">
                 {/* Photo */}
-                <div className="w-12 h-14 sm:w-14 sm:h-16 rounded border border-[hsl(var(--clinical-border))] flex-shrink-0 overflow-hidden bg-white">
+                <div className="w-18 h-18 sm:w-20 sm:h-24 rounded border border-[hsl(var(--clinical-border))] flex-shrink-0 overflow-hidden bg-white">
                   <img
                     src={`${import.meta.env.BASE_URL}images/profile.png`}
                     alt="Profile photo"
@@ -156,20 +158,46 @@ export function HeroSection() {
                 
                 {/* Name & Role */}
                 <div className="flex-1 flex flex-col justify-center min-w-0">
-                  <h1 className="text-2xl sm:text-xl font-semibold text-[hsl(var(--clinical-text))] tracking-tight leading-tight">
-                    Srushti Madhure
-                  </h1>
-                  <p className="text-lg sm:text-xs font-medium text-primary">
-                     Healthcare Data Analyst & Analytics Engineer
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-900 tracking-tight leading-tight">
+  Srushti Madhure
+</h1>
+                  
+
+                     {/* <p className="hidden sm:block text-[10px] text-[hsl(var(--clinical-text-muted))] mt-0.5">
+                        — Stable, high-functioning, caffeine-adjacent.
+                        </p> */}
+                  
+  {/* Diagnosis */}
+  <p className="text-[11px] sm:text-[10px] text-[hsl(var(--clinical-text-muted))] uppercase tracking-wide">
+    Diagnosis
+  </p>
+  <p className="text-[0.95rem] sm:text-sm lg:!text-[0.95rem] font-semibold text-primary leading-[1.4]">
+    Healthcare Data Analyst & Analytics Engineer
+  </p>
+                  {/* Prognosis */}
+                  <p className="hidden sm:block text-[10px] sm:text-[9px] text-[hsl(var(--clinical-text-muted))] mt-1">
+                    Prognosis
                   </p>
-                  <p className="hidden sm:block text-[10px] text-[hsl(var(--clinical-text-muted))] mt-0.5">
-                   
+                  <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.95rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
+                    Chronic multitasking tendencies. 
                   </p>
-                </div>
-              </div>
+                 {/* <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.95rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
+                    Rapid context switching across domains.
+                  </p> */}
+                  <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.95rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
+                    Multilingual communication ability, including Spanish.
+                  </p>
+
+  {/* Clinician note (desktop only) 
+  <p className="hidden sm:block text-[10px] text-[hsl(var(--clinical-text-muted))] mt-1 italic">
+    — Stable, high-functioning, caffeine-adjacent.
+  </p>*/}
+
+          </div>
+        </div>
 
               {/* Location + Status */}
-              <div className="flex flex-wrap items-center gap-2 mb-2.5 pb-2.5 border-b border-[hsl(var(--clinical-border))]">
+              <div className="flex flex-wrap items-center gap-1.5 mb-1.5 pb-1.5 border-b border-[hsl(var(--clinical-border))]">
                 <a
                   href="mailto:srushti@example.com"
                   className="flex items-center gap-1 text-base sm:text-[10px] text-primary hover:underline underline-offset-4 transition-colors"
@@ -181,24 +209,27 @@ export function HeroSection() {
                 <span className="data-tag data-tag-active">Open to Remote & Hybrid Opportunities</span>
               </div>
 
-              {/* View Toggle */}
-              <div className="flex items-center justify-between mb-2">
-                <button 
-                  onClick={() => setViewMode(viewMode === 'clinical' ? 'technical' : 'clinical')}
-                  className="flex items-center gap-1.5 text-base sm:text-[10px] text-[hsl(var(--clinical-text-muted))] hover:text-primary transition-colors"
-                >
-                  {viewMode === 'clinical' ? (
-                    <ToggleLeft className="w-3.5 h-3.5" />
-                  ) : (
-                    <ToggleRight className="w-3.5 h-3.5 text-primary" />
-                  )}
-                  <span className="font-medium">
-                    {viewMode === 'clinical' ? 'Clinical View' : 'Technical View'}
+              {/* Signs & Symptoms + Toggle */}
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <h3 className="text-sm sm:text-sm lg:!text-sm font-semibold text-primary leading-[1.45] lg:!leading-[1.4]">
+                  Signs &amp; Symptoms
+                </h3>
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => setViewMode(viewMode === 'clinical' ? 'technical' : 'clinical')}
+                    className="flex items-center gap-1.5 text-base sm:text-[10px] text-[hsl(var(--clinical-text-muted))] hover:text-primary transition-colors"
+                  >
+                    {viewMode === 'clinical' ? (
+                      <ToggleLeft className="w-3.5 h-3.5" />
+                    ) : (
+                      <ToggleRight className="w-3.5 h-3.5 text-primary" />
+                    )}
+                    <span className="font-medium">Toggle view</span>
+                  </button>
+                  <span className="hidden sm:inline text-[9px] text-[hsl(var(--clinical-text-muted))]">
+                    Toggle for {viewMode === 'clinical' ? 'technical' : 'clinical'} details
                   </span>
-                </button>
-                <span className="hidden sm:inline text-[9px] text-[hsl(var(--clinical-text-muted))]">
-                  Toggle for {viewMode === 'clinical' ? 'technical' : 'clinical'} details
-                </span>
+                </div>
               </div>
 
               {/* Summary Points */}
@@ -210,10 +241,11 @@ export function HeroSection() {
                   return (
                     <li
                       key={index}
-                      className={
-                        "flex items-start gap-1.5 text-lg sm:text-[11px] text-[hsl(var(--clinical-text-muted))] leading-relaxed " +
-                        (showThis ? "" : "hidden sm:flex")
-                      }
+                      className={[
+                        "flex items-start gap-1.5",
+                        "text-[0.95rem] sm:text-[10px] text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]",
+                        showThis ? "" : "hidden sm:flex",
+                      ].join(" ")}
                     >
                       <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
                       <span className="min-w-0">{point}</span>
@@ -236,7 +268,7 @@ export function HeroSection() {
               ) : null}
 
               {/* Actions */}
-              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-1.5 pt-2 border-t border-[hsl(var(--clinical-border))]">
+              <div className="hidden sm:flex sm:flex-row sm:flex-wrap gap-1.5 pt-2 border-t border-[hsl(var(--clinical-border))]">
                 <Link
                   to="/projects"
                   className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded bg-primary text-primary-foreground text-base sm:text-[11px] font-medium hover:bg-[hsl(var(--clinical-primary-hover))] transition-colors"
@@ -280,64 +312,46 @@ export function HeroSection() {
               <span>Updated: Jan 2026</span>
             </div>
           </div>
+
         </div>
 
         {/* Right Column - Clinical Snapshot */}
-        <div className="lg:col-span-4 space-y-2.5 min-w-0">
+        <div className="lg:col-span-1 space-y-2.5 min-w-0">
           
           {/* Analytics Toolkit */}
           <ClinicalAnalyticsToolkit />
 
-          {/* Focus Areas */}
-          <div className="system-module min-w-0">
-            <div className="system-module-header">
-              <div className="flex items-center gap-1.5">
-                <Activity className="w-3 h-3 text-primary" />
-                <span className="system-module-label">Focus Areas</span>
+          {/* Areas of Interest */}
+          <section className="interest-panel w-full rounded-md border border-slate-300 bg-white shadow-none">
+            <div className="flex items-center justify-between border-b border-slate-300 bg-slate-100/70 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <Activity className="h-3.5 w-3.5 text-slate-500" />
+                <span className="text-[11px] font-normal tracking-wide text-slate-600 uppercase">
+                  Areas of Interest
+                </span>
               </div>
-              <span className="text-sm sm:text-[9px] text-primary/70 tabular-nums">n=4</span>
+              <span className="text-[10px] text-slate-400">n={interestAreas.length}</span>
             </div>
-            
-            <div className="system-module-content py-2">
-              <div className="flex flex-wrap gap-1">
-                {focusAreas.map((area) => (
-                  <span key={area.name} className="data-tag data-tag-active">
-                    {area.name}
+
+            <div className="px-3 py-2">
+              <div className="flex flex-wrap gap-2">
+                {interestAreas.map((area) => (
+                  <span
+                    key={area.label}
+                    className="inline-flex items-center gap-1.5 rounded-sm border border-slate-300 bg-white px-2 py-1 text-lg sm:text-[11px] font-normal text-[hsl(var(--clinical-text-muted))] hover:bg-slate-50 transition-colors"
+                  >
+                    <area.icon className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
+                    <span>{area.label}</span>
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="system-module-footer">
-              <span>Domain specializations</span>
+            <div className="border-t border-slate-300 bg-slate-50 px-3 py-2">
+              <p className="text-[10px] text-slate-500">Analytical focus areas</p>
             </div>
-          </div>
+          </section>
 
-          {/* Data Sources */}
-          <div className="system-module min-w-0">
-            <div className="system-module-header">
-              <div className="flex items-center gap-1.5">
-                <Server className="w-3 h-3 text-primary/70" />
-                <span className="system-module-label">Data Sources</span>
-              </div>
-              <span className="text-sm sm:text-[9px] text-primary/70 tabular-nums">n=5</span>
-            </div>
-            
-            <div className="system-module-content py-2">
-              <div className="space-y-0.5">
-                {dataSources.map((source) => (
-                  <div key={source} className="flex items-center gap-1.5 text-base sm:text-[10px] text-[hsl(var(--clinical-text-muted))]">
-                    <span className="w-0.5 h-0.5 rounded-full bg-primary/40" />
-                    <span>{source}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="system-module-footer">
-              <span>Healthcare data standards</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>

@@ -20,6 +20,8 @@ import Resume from "./pages/Resume";
 import Contact from "./pages/Contact";
 import Play from "./pages/Play";
 import DataModelDetail from "./pages/DataModelDetail";
+import SethoChatWidget from "@/components/chat/SethoChatWidget";
+import { Footer } from "@/components/layout/Footer";
 
 const queryClient = new QueryClient();
 
@@ -29,30 +31,38 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/play" element={<Play />} />
+      <div className="min-h-screen flex flex-col bg-white">
+        <main className="flex-1 flex flex-col">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/play" element={<Play />} />
 
-        <Route path="/projects" element={<Projects />} />
-        <Route
-          path="/projects/:projectId/workstreams/:workstreamId"
-          element={<PainToolsWorkstreamDetail />}
-        />
-        <Route path="/projects/:id/data-model" element={<DataModelDetail />} />
-        <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route
+              path="/projects/:projectId/workstreams/:workstreamId"
+              element={<PainToolsWorkstreamDetail />}
+            />
+            <Route path="/projects/:id/data-model" element={<DataModelDetail />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
 
-        <Route path="/case-studies" element={<CaseStudies />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/ux-work" element={<UXWork />} />
-        <Route path="/labs" element={<Labs />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/contact" element={<Contact />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/ux-work" element={<UXWork />} />
+            <Route path="/labs" element={<Labs />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="/contact" element={<Contact />} />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+
+          <SethoChatWidget />
+        </main>
+
+        <Footer />
+      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );

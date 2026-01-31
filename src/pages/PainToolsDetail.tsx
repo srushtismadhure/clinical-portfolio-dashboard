@@ -64,8 +64,8 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
           <div className="ehr-card">
             <h2 className="text-xl font-semibold text-slate-900 mb-3">Overview</h2>
             <p className="text-slate-600 leading-relaxed">
-              Built and led a patient-centric chronic pain management platform, owning product decisions,
-              backend data design, and analytics.
+              Led product analytics and experience design at PainTools, owning data models and translating
+              user needs into digital care workflows.
             </p>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -173,13 +173,13 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
                     description:
                       'Defined what to build, why it mattered, and what to deprioritize.',
                   },
-                  {
-                    slug: 'execution-planning-delivery',
-                    icon: CheckSquare,
-                    title: 'Execution, Planning & Delivery',
-                    description:
-                      'Drove work forward through clear planning, ownership, and deadlines.',
-                  },
+                  // {
+                  //   slug: 'execution-planning-delivery',
+                  //   icon: CheckSquare,
+                  //   title: 'Execution, Planning & Delivery',
+                  //   description:
+                  //     'Drove work forward through clear planning, ownership, and deadlines.',
+                  // },
                 ].map((stack) => {
                   const href = `/projects/${project.id}/workstreams/${stack.slug}`;
                   const Icon = stack.icon;

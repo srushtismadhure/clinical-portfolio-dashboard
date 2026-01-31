@@ -10,9 +10,11 @@ export interface Project {
   overviewTitle?: string;
   overview?: string;
   category: string;
+  dataSource?: string;
   projectType: 'professional' | 'personal';
   status: 'Completed' | 'In Progress';
   lastUpdated: string;
+  featured?: boolean;
   layoutType?: 'paintools' | 'default';
   // Thumbnail image (served from /public)
   thumbnail?: string;

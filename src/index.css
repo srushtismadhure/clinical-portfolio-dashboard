@@ -5,6 +5,52 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+}
+
+/* Homepage-only type scaling */
+.home-typescale {
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+  /* Desktop-only readability (System Overview) */
+  .home-typescale .system-module-header .system-module-label {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .home-typescale .system-module-content :where(p:not(.text-[11px]):not(.text-[10px]), li) {
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+
+  /* Core Skills (ClinicalAnalyticsToolkit) */
+  .home-typescale .toolkit-cabinet .toolkit-frame > div.mb-4 > p:first-child,
+  .home-typescale .toolkit-cabinet .toolkit-frame > div.mb-3 > p:first-child {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .home-typescale .toolkit-cabinet .toolkit-frame > div.mb-4 > p:nth-child(2),
+  .home-typescale .toolkit-cabinet .toolkit-frame > div.mb-3 > p:nth-child(2) {
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+  .home-typescale .toolkit-cabinet .toolkit-tray .grid span {
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+
+  /* Areas of Interest panel */
+  .home-typescale .interest-panel > div:first-child span.text-[11px] {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .home-typescale .interest-panel .flex.flex-wrap span {
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+}
 @layer base {
   :root {
     --background: 220 30% 98%;
