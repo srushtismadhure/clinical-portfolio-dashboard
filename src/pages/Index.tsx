@@ -36,7 +36,7 @@ const Index = () => {
         {/* ✅ CHANGED: added bg-white to keep the "white UI" consistent
             (optional, but recommended if bg-background was tinted)
         */}
-        <main className="home-typescale flex-1 p-3 sm:p-4 lg:p-5 overflow-x-hidden bg-transparent">
+        <main className="home-typescale flex-1 p-3 sm:p-4 lg:p-5 overflow-x-hidden bg-transparent w-full">
           {/* Hero Section - Profile Overview */}
           <HeroSection />
 

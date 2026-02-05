@@ -55,7 +55,7 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
         'De-identified all user-level data to remove PHI and direct identifiers from beta analysis.',
         'Defined a normalized baseline period and outcome score for that period.',
         'Segmented users based on stakeholders requirement.',
-        'Informed feature and stakeholder decisions with NDA-safe readouts.',
+        'Informed feature and stakeholder decisions for product direction.',
       ],
     },
     {
@@ -113,7 +113,7 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
         {/* Header */}
         <div className="rounded-lg border border-[#E3D9CB] bg-[#FBF8F2] p-4 sm:p-5 mb-6 sm:mb-7 shadow-[0_6px_16px_rgba(15,23,42,0.06)]">
           <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 leading-tight">
-            PainTools — Digital Health Platform
+            PainTools – Femtech startup
           </h1>
           <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4 text-sm text-slate-700">

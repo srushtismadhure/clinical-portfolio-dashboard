@@ -1,7 +1,7 @@
 import { projects as allProjects } from '@/data/projects';
-import type { Project } from '@/components/shared/ProjectCard';
+import type { Project } from '@/components/projects/ProjectCard';
+import { ProjectCard } from '@/components/projects/ProjectCard';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Image } from 'lucide-react';
 
 function parseLastUpdated(value?: string) {
   if (!value) return 0;
@@ -30,75 +30,78 @@ function selectProjects(projects: Project[], count = 4) {
 }
 
 function resolveThumbnailSrc(project: Project) {
-  const src = project.thumbnail ?? project.thumbnailSrc ?? project.heroImage;
+  const src =
+    (project as any).thumbnail ??
+    (project as any).thumbnailSrc ??
+    (project as any).heroImage ??
+    project.imageSrc;
   return src ? `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}` : undefined;
 }
 
 export function SelectedProjectsGrid() {
-  const selectedProjects = selectProjects(allProjects, 4);
+  const featuredIds = ['predictive-modeling', 'health-numerics'];
+  const featured = allProjects.filter((p) => featuredIds.includes(p.id ?? ''));
+  const remaining = allProjects.filter((p) => !featuredIds.includes(p.id ?? ''));
+  const selectedProjects = selectProjects(remaining, remaining.length);
 
   return (
     <section className="w-full">
+      {/* Featured */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5 sm:gap-3 mb-4">
+        {featured.map((project) => {
+          const thumbnailSrc = resolveThumbnailSrc(project);
+          const href = project.href ?? (project.id ? `/projects/${project.id}` : '#');
+          const cardProject: Project = {
+            ...project,
+            featured: true,
+            variant: 'dashboard',
+            href,
+            imageSrc: thumbnailSrc ?? `${import.meta.env.BASE_URL}images/placeholder.png`,
+            ctaLabel: project.ctaLabel ?? (project.isNDA ? 'Open Summary →' : 'Open Case Study →'),
+            isNDA: project.isNDA,
+          };
+          return (
+            <Link
+              key={project.id ?? project.title}
+              to={href}
+              className="block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-300 rounded-lg"
+              aria-label={`Open case study: ${project.title}`}
+            >
+              <ProjectCard project={cardProject} wrapHref />
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Divider */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-[11px] uppercase tracking-wide text-slate-500">Independent Projects</span>
+        <div className="h-px flex-1 bg-slate-200" />
+      </div>
+
+      {/* All Projects */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5 sm:gap-3">
         {selectedProjects.map((project) => {
           const thumbnailSrc = resolveThumbnailSrc(project);
-          const link = project.id ? `/projects/${project.id}` : undefined;
-
-          const CardTag = link ? Link : 'div';
-          const cardProps = link ? { to: link } : {};
+          const href = project.href ?? (project.id ? `/projects/${project.id}` : '#');
+          const cardProject: Project = {
+            ...project,
+            variant: 'dashboard',
+            href,
+            imageSrc: thumbnailSrc ?? `${import.meta.env.BASE_URL}images/placeholder.png`,
+            ctaLabel: project.ctaLabel ?? (project.isNDA ? 'Open Summary →' : 'Open Case Study →'),
+            isNDA: project.isNDA,
+          };
 
           return (
-            <CardTag
-              key={project.id}
-              {...cardProps}
-              className={[
-                'group block w-full overflow-hidden',
-                'rounded-[6px] border border-slate-300 bg-white',
-                'shadow-[0_1px_2px_rgba(16,24,40,0.06)]',
-                'transition-colors hover:border-slate-400',
-                link ? 'cursor-pointer' : '',
-              ].join(' ')}
+            <Link
+              key={project.id ?? project.title}
+              to={href}
+              className="block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-300 rounded-lg"
+              aria-label={`Open case study: ${project.title}`}
             >
-              <div className="flex h-8 items-center justify-between bg-slate-100 px-2.5 border-b border-slate-300">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="h-4 w-0.5 bg-slate-400/70" />
-                  <span className="text-[10px] lg:text-[1.02rem] font-medium text-slate-700 truncate">
-                    {project.title}
-                  </span>
-                </div>
-                <ExternalLink className="h-3 w-3 text-slate-400" />
-              </div>
-
-              <div className="border-y border-slate-300 bg-white p-1">
-                <div className="w-full border border-slate-300 bg-white overflow-hidden">
-                  <div className="aspect-[16/8] w-full bg-[hsl(var(--clinical-surface))]">
-                  {thumbnailSrc ? (
-                    <img
-                      src={thumbnailSrc}
-                      alt={project.thumbnailAlt ?? `${project.title} preview`}
-                      className="block h-full w-full object-cover grayscale contrast-[0.97] brightness-[0.98] transition-[filter] duration-200 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <Image className="h-6 w-6 text-slate-300" />
-                    </div>
-                  )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white px-2.5 py-1">
-                <div className="text-[11px] lg:text-[1.02rem] text-slate-800">
-                  {project.title}
-                </div>
-                <div className="text-[9px] lg:text-[0.95rem] text-slate-500 truncate">
-                  <span className="opacity-0 select-none" aria-hidden="true">
-                    4 highlights (click to open)
-                  </span>
-                </div>
-              </div>
-            </CardTag>
+              <ProjectCard project={cardProject} wrapHref />
+            </Link>
           );
         })}
       </div>

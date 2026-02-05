@@ -192,12 +192,15 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       {/* Thumbnail */}
       <div className="relative w-full h-36 sm:h-40 lg:h-44 overflow-hidden rounded-lg mb-2 border border-slate-200 bg-white">
         {resolvedThumbnailSrc ? (
-          <img
-            src={resolvedThumbnailSrc}
-            alt={thumbnailAlt}
-            className="w-full h-full object-contain"
-            loading="lazy"
-          />
+          <div className="relative h-full w-full overflow-hidden">
+            <img
+              src={resolvedThumbnailSrc}
+              alt={thumbnailAlt}
+              className="w-full h-full object-contain md:transition md:duration-200 md:ease-out md:group-hover:scale-[1.01] motion-reduce:transition-none motion-reduce:hover:transform-none"
+              loading="lazy"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-white/30 md:bg-slate-900/5 md:opacity-100 md:group-hover:opacity-0 transition-opacity duration-200 ease-out" />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--ehr-teal)/0.2)] flex items-center justify-center">

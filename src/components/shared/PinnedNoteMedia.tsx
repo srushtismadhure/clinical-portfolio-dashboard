@@ -19,6 +19,7 @@ type PinnedNoteMediaProps = {
   images?: NoteImage[];
   video?: NoteVideo;
   layoutMode?: 'grid' | 'strip';
+  videoComponent?: React.ReactNode;
 };
 
 function isEmbedUrl(url: string) {
@@ -31,6 +32,7 @@ export function PinnedNoteMedia({
   images = [],
   video,
   layoutMode = 'grid',
+  videoComponent,
 }: PinnedNoteMediaProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -44,11 +46,8 @@ export function PinnedNoteMedia({
   }, [open]);
 
   const mediaItems = video ? [{ type: 'video' as const }, ...images.map((img) => ({ type: 'image' as const, img }))] : images.map((img) => ({ type: 'image' as const, img }));
-
-  const gridClass =
-    layoutMode === 'strip'
-      ? 'grid grid-cols-1 sm:grid-cols-3 gap-3'
-      : 'grid grid-cols-1 sm:grid-cols-2 gap-3';
+  const videoItems = mediaItems.filter((m) => m.type === 'video');
+  const imageItems = mediaItems.filter((m) => m.type === 'image');
 
   return (
     <div className="relative rounded-lg border border-[#E6D8C6] bg-[#FFF8EC] p-4 shadow-[0_4px_10px_rgba(15,23,42,0.06)]">
@@ -62,49 +61,61 @@ export function PinnedNoteMedia({
         <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
       </div>
       <div className="border-t border-slate-200/70 pt-3">
-        <div className={gridClass}>
-          {mediaItems.slice(0, 4).map((item, idx) => {
-            if (item.type === 'video' && video) {
-              return (
-                <button
-                  key={`video-${idx}`}
-                  type="button"
-                  onClick={() => setOpen(true)}
-                  className="relative aspect-[4/3] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)]"
-                  aria-label={video.title || 'Play pinned note video'}
-                >
-                  {video.poster ? (
-                    <img src={video.poster} alt={video.title || 'Pinned note video'} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="h-full w-full bg-slate-100" />
-                  )}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm">
-                      <Play className="h-4 w-4 text-slate-700" />
-                    </span>
+        {/* Images grid */}
+        {imageItems.length > 0 && (
+          <div className="mt-0 grid grid-cols-2 gap-3 sm:grid-cols-2 max-sm:grid-cols-1">
+            {imageItems.map((item, idx) => {
+              if (item.type === 'image') {
+                const resolvedSrc = item.img?.src
+                  ? `${import.meta.env.BASE_URL}${item.img.src.replace(/^\//, '')}`
+                  : undefined;
+                return (
+                  <div
+                    key={`img-${idx}`}
+                    className="aspect-[4/3] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)]"
+                  >
+                    {resolvedSrc ? (
+                      <img
+                        src={resolvedSrc}
+                        alt={item.img.alt}
+                        className="h-full w-full object-cover"
+                        onError={() => console.error('Pinned image failed to load:', resolvedSrc)}
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-slate-100" />
+                    )}
                   </div>
-                </button>
-              );
-            }
+                );
+              }
+              return null;
+            })}
+          </div>
+        )}
 
-            if (item.type === 'image') {
-              return (
-                <div
-                  key={`img-${idx}`}
-                  className="aspect-[4/3] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)]"
-                >
-                  {item.img?.src ? (
-                    <img src={item.img.src} alt={item.img.alt} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="h-full w-full bg-slate-100" />
-                  )}
-                </div>
-              );
-            }
-
-            return null;
-          })}
-        </div>
+        {/* Video hero (first video only) */}
+        {videoItems[0] && video ? (
+          videoComponent ? (
+            <div className="mt-3">{videoComponent}</div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="mt-3 relative aspect-[4/3] md:aspect-[16/9] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)]"
+              aria-label={video.title || 'Play pinned note video'}
+            >
+              {video.poster ? (
+                <img src={video.poster} alt={video.title || 'Pinned note video'} className="h-full w-full object-cover" />
+              ) : (
+                <div className="h-full w-full bg-slate-100" />
+              )}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-sm">
+                  <Play className="h-5 w-5 text-slate-700" />
+                </span>
+              </div>
+            </button>
+          )
+        ) : null}
 
         {noteText ? (
           <p className="mt-3 text-xs text-slate-500 italic">{noteText}</p>

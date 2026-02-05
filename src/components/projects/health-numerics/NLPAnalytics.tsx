@@ -29,9 +29,9 @@ export default function NLPAnalytics() {
       ]}
       contentClassName="bg-slate-50"
     >
-      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-10 py-8 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-0">
-        <aside className="hidden lg:block pr-6 border-r border-slate-200 bg-transparent">
-          <div className="sticky top-0 h-screen overflow-hidden py-6">
+      <div className="w-full px-4 sm:px-6 lg:px-10 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+          <aside className="hidden lg:block sticky top-[72px] h-[calc(100vh-72px)] overflow-y-auto pr-2 self-start">
             <ProjectSidebarNav
               title="Clinical NLP"
               subtitle="Unstructured → Signals"
@@ -39,10 +39,9 @@ export default function NLPAnalytics() {
               activeId={activeId}
               onJump={onJump}
             />
-          </div>
-        </aside>
+          </aside>
 
-        <main className="min-w-0 space-y-8 lg:pl-6">
+          <main className="min-w-0 space-y-8">
             <Link
               to="/projects/health-numerics"
               className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 transition-colors"
@@ -124,8 +123,9 @@ export default function NLPAnalytics() {
               </div>
             </section>
 
-      </main>
-    </div>
-  </Layout>
+          </main>
+        </div>
+      </div>
+    </Layout>
   );
 }

@@ -1,10 +1,11 @@
-import { Project } from '@/components/shared/ProjectCard';
+import { Project } from '@/components/projects/ProjectCard';
 const erdImage = '/images/erd.png';
 
 export const projects: Project[] = [
   {
     id: 'predictive-modeling',
     title: 'PainTools',
+    problem: 'Built an end-to-end data model and analytics layer for symptom tracking and decision support.',
     summary: 'Femtech startup for managing chronic pain.',
     category: 'Analytics',
     dataSource: 'Questionnaires + Wearables',
@@ -16,6 +17,11 @@ export const projects: Project[] = [
     tags: ['Python', 'Scikit-learn', 'Healthcare'],
     thumbnail: '/images/ptool.png',
     heroImage: '/images/powerbi.png',
+    href: '/projects/predictive-modeling',
+    imageSrc: '/images/ptool.png',
+    ctaLabel: 'Open Case Study →',
+    featured: true,
+    skills: ['SQL', 'Python', 'FHIR', 'Power BI'],
 
     // Drives the stacked cards layout
     workstreams: [
@@ -25,7 +31,7 @@ export const projects: Project[] = [
         desc: 'Built event schemas and data pipelines to support analytics.',
         overviewTitle: 'Overview',
         overview:
-          'Structuring telemetry and clinical workflow signals for analytics required a standardized, queryable event model. I designed an NDA-safe data model that unified questionnaire responses and activity-based inputs into consistent, analytics-ready outputs while aligning with privacy constraints and auditability expectations.',
+          'Structuring telemetry and clinical workflow signals for analytics required a standardized, queryable event model. I designed a data model that unified questionnaire responses and activity-based inputs into consistent, analytics-ready outputs while aligning with privacy constraints and auditability expectations.',
       
         cards: {
           role: {
@@ -57,9 +63,9 @@ export const projects: Project[] = [
       
         diagram: {
           src: '/images/erddata.png',
-          alt: 'Conceptual data model diagram (NDA-safe)',
+          alt: 'Conceptual data model diagram',
           caption:
-            'Conceptual, NDA-safe model illustrating how standardized response records connect inputs to derived analytics outputs.',
+            'Conceptual model illustrating how standardized response records connect inputs to derived analytics outputs.',
         },
         steps: {
           step3: {
@@ -79,7 +85,7 @@ export const projects: Project[] = [
                 body: 'Operated under Business Associate Agreement (BAA) constraints, including vendor access controls for Google-managed services.',
               },
             ],
-            note: 'Note: This section is intentionally described at a conceptual level to remain NDA-safe while conveying compliance design intent.',
+            note: 'Note: This section is intentionally described at a conceptual level to convey compliance design intent.',
           },
         },
       
@@ -177,7 +183,7 @@ export const projects: Project[] = [
           owned: ['KPI definitions', 'Dashboard requirements', 'Insight reporting'],
           process: ['Built dashboards', 'Reviewed insights with stakeholders'],
           artifacts: ['KPI dashboard', 'Weekly insight summaries'],
-          results: ['Faster decision-making', 'More consistent KPI tracking'],
+          results: ['Faster decision-making', 'More consistent KPI tracking for product direction'],
         
         },
       },
@@ -185,7 +191,7 @@ export const projects: Project[] = [
         id: 'user-data-workflow-mapping',
         routeSlug: 'user-data-workflow-mapping',
         title: 'User, Data & Workflow Mapping',
-        summary: 'Synthesized persona + workflow touchpoint mapping (NDA-safe).',
+        summary: 'Synthesized persona + workflow touchpoint mapping.',
         desc: 'Established a shared understanding of users, workflows, and data touchpoints.',
         hero: {
           quotePrefix: 'Meaningful product design starts with understanding',
@@ -194,7 +200,7 @@ export const projects: Project[] = [
           quoteSuffix:
             '—how pain shapes their lives, what motivates them each day, and the fears they navigate.',
           subquote:
-            'To design with this level of intention, we grounded our work in a synthesized, de-identified persona based on aggregated insights (NDA-safe).',
+            'To design with this level of intention, we grounded our work in a synthesized, de-identified persona based on aggregated insights.',
         },
         persona: {
           leftBullets: [
@@ -240,7 +246,7 @@ export const projects: Project[] = [
         },
         processImage: {
           src: `${import.meta.env.BASE_URL}images/process.png`,
-          alt: 'Experience design process overview (NDA-safe)',
+          alt: 'Experience design process overview',
         },
         processMappingBox: {
           whatIDid:
@@ -319,7 +325,7 @@ export const projects: Project[] = [
             },
             {
               name: 'Docs / Notes',
-              description: 'Synthesis of insights and iteration tracking (NDA-safe)',
+              description: 'Synthesis of insights and iteration tracking',
               icon: 'docs',
             },
           ],
@@ -332,7 +338,7 @@ export const projects: Project[] = [
           problem: [
             'Needed a shared, de-identified view of user context, workflow friction, and data touchpoints to align product and analytics decisions.',
           ],
-          owned: ['Persona synthesis (NDA-safe)', 'Workflow + touchpoint mapping', 'Insights translation into requirements'],
+          owned: ['Persona synthesis', 'Workflow + touchpoint mapping', 'Insights translation into requirements'],
           process: ['Synthesized aggregated insights', 'Mapped key journeys and pain points', 'Validated with stakeholders'],
           artifacts: ['Persona card (synthesized)', 'Workflow/touchpoint map (illustrative)', 'Questions + assumptions log'],
           results: ['Aligned teams on user needs and constraints', 'Reduced ambiguity in what to measure and build'],
@@ -342,7 +348,7 @@ export const projects: Project[] = [
         id: 'human-centered-experience-design',
         routeSlug: 'human-centered-experience-design',
         title: 'Human-Centered Experience Design',
-        summary: 'Research-informed UX patterns for patients and care teams (NDA-safe).',
+        summary: 'Research-informed UX patterns for patients and care teams.',
         desc: 'Created usable, patient- and provider-centered experiences informed by research.',
         wireframes: {
           images: [
@@ -372,7 +378,7 @@ export const projects: Project[] = [
           problem: ['Needed a focused roadmap aligned to measurable outcomes and stakeholder priorities.'],
           owned: ['Feature strategy', 'Prioritization decisions', 'Success metrics'],
           process: ['Clarified goals + constraints', 'Evaluated trade-offs', 'Aligned stakeholders on scope'],
-          artifacts: ['Prioritization notes (NDA-safe)', 'Success metrics list', 'Release plan outline'],
+          artifacts: ['Prioritization notes', 'Success metrics list', 'Release plan outline'],
           results: ['Improved focus on high-impact features', 'Clear deprioritization rationale'],
         },
       },
@@ -386,7 +392,7 @@ export const projects: Project[] = [
           problem: ['Needed reliable delivery across cross-functional workstreams with clear ownership.'],
           owned: ['Planning cadence', 'Milestone tracking', 'Cross-functional coordination'],
           process: ['Broke work into milestones', 'Tracked risks + decisions', 'Shipped iteratively'],
-          artifacts: ['Milestone plan (illustrative)', 'Decision log (NDA-safe)', 'Weekly status format'],
+          artifacts: ['Milestone plan (illustrative)', 'Decision log', 'Weekly status format'],
           results: ['Improved delivery predictability', 'Reduced coordination overhead'],
         },
       },
@@ -407,6 +413,7 @@ export const projects: Project[] = [
   {
     id: 'health-numerics',
     title: 'Health Numerics',
+    problem: 'Designed dashboards and data pipelines to monitor patient risk signals and operational KPIs.',
     subtitle: 'Predictive Analyst',
     summary: 'SDOH insights and care optimization dashboard for maternal health outcomes.',
     category: 'Analytics',
@@ -418,6 +425,11 @@ export const projects: Project[] = [
     thumbnail: '/images/hn.png',
     thumbnailAlt: 'Health Numerics preview',
     tags: ['Power BI', 'SQL', 'SDOH'],
+    href: '/projects/health-numerics',
+    imageSrc: '/images/hn.png',
+    ctaLabel: 'Open Case Study →',
+    featured: true,
+    skills: ['Power BI', 'SQL', 'FHIR', 'SDOH', 'Azure'],
   },
   // {
   //   id: 'ehr-data-engineering',
@@ -433,6 +445,7 @@ export const projects: Project[] = [
   {
     id: 'value-based-care',
     title: 'Value-Based Care Analytics (Mayo Clinic–Style Health System)',
+    problem: 'Analyzed utilization and cost drivers to identify quality improvement and savings opportunities.',
     subtitle: 'Simulated enterprise dashboard using synthetic EHR data',
     summary: 'Value-based care KPI dashboard analyzing readmissions, utilization, cost, and payer mix.',
     category: 'Analytics',
@@ -445,6 +458,13 @@ export const projects: Project[] = [
 
     heroImage: '/images/powerbifinal.png',
     tags: ['Power BI', 'SQL', 'Synthetic EHR', 'Value-Based Care'],
+    href: '/projects/value-based-care',
+    imageSrc: '/images/powerbifinal.png',
+    ctaLabel: 'Open Summary →',
+    imagePosition: 'center',
+    isNDA: false,
+    skills: ['Power BI', 'SQL', 'Synthetic EHR', 'Payer Mix'],
+    showFullThumb: true,
 
     heroSummary: {
       problem:

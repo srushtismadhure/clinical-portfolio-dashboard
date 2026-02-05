@@ -57,7 +57,7 @@ export default function HealthNumericsTemplate() {
       {/* Hero */}
       <header className="rounded-lg border border-[#E3D9CB] bg-[#FBF8F2] p-4 sm:p-5 mb-6 sm:mb-7 shadow-[0_6px_16px_rgba(15,23,42,0.06)] text-left">
         <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 leading-tight">
-          Health Numerics — Advanced Healthcare Analytics Platform
+          Health Numerics – Remote Patient Monitoring
         </h1>
         <p className="mt-2 text-sm text-slate-700">
           Predictive modeling and NLP-driven insights for population health and care optimization

@@ -34,16 +34,15 @@ function PillTag({ text }: { text: string }) {
 
 function FilePillar({ variant, title, subtitle, primaryFile, secondaryFiles, details }: FilePillarProps) {
   const expanded = true; // always open
-  const headerColor =
-    variant === 'risk' ? 'bg-blue-50 border-blue-200 text-blue-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900';
-  const icon = variant === 'risk' ? <ShieldCheck className="h-5 w-5" /> : <Sparkles className="h-5 w-5" />;
+  const headerColor = 'bg-[#E7EDF2] border-[#D8DEE6] text-[#1F2933]';
+  const icon = variant === 'risk' ? <ShieldCheck className="h-5 w-5 text-[#3F556B]" /> : <Sparkles className="h-5 w-5 text-[#3F556B]" />;
   return (
-    <div className="h-full rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+    <div className="h-full rounded-md border border-[#D8DEE6] bg-[#F6F8FA] shadow-sm overflow-hidden">
       <div
-        className={`flex items-start justify-between gap-3 border-b px-5 py-4 ${headerColor}`}
+        className={`flex items-start justify-between gap-3 border-b px-4 py-3 ${headerColor}`}
       >
         <div className="flex items-start gap-3">
-          <div className="mt-0.5 rounded-lg bg-white/80 p-2 shadow-sm">{icon}</div>
+          <div className="mt-0.5 rounded-md bg-white/90 p-2 shadow-sm">{icon}</div>
           <div className="min-w-0">
             <h3 className="text-lg font-semibold">{title}</h3>
             <p className="text-sm text-slate-600">{subtitle}</p>
@@ -51,13 +50,9 @@ function FilePillar({ variant, title, subtitle, primaryFile, secondaryFiles, det
         </div>
       </div>
 
-      <div className="relative px-5 pb-5 pt-6">
-        {/* folder tab illusion */}
-        <div className="absolute -top-2 left-4 h-3 w-16 rounded-t-md bg-slate-100 shadow-sm" aria-hidden />
-        <div className="absolute -top-1 left-8 h-3 w-14 rounded-t-md bg-slate-50 shadow-sm" aria-hidden />
-
-        <div className="relative rounded-xl border border-slate-200 bg-white shadow-sm p-4">
-          <div className="flex items-start gap-3">
+      <div className="relative px-4 pb-4 pt-5">
+                <div className="relative rounded-md border border-[#D8DEE6] bg-white shadow-sm p-3">
+                  <div className="flex items-start gap-3">
             <div className="rounded-md bg-slate-100 p-2">
               <FileText className="h-4 w-4 text-slate-600" />
             </div>
@@ -69,55 +64,49 @@ function FilePillar({ variant, title, subtitle, primaryFile, secondaryFiles, det
                 </div>
               </div>
               {expanded && (
-                <div className="mt-4 space-y-3 text-sm text-slate-700">
+                <div className="mt-3 space-y-3 text-sm text-slate-700">
                   {details ? (
                     details
                   ) : (
                     <>
                       <div>
-                        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">Overview</p>
-                        <p className="text-sm text-slate-600">
-                          This project focuses on the risk prediction and profiling of Type 2 Diabetes (T2DM) complications using longitudinal clinical and claims data to enable proactive, data-driven care. The resulting risk insights directly informed intervention planning and recommendation models for personalized diabetes care.
+                        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">Overview</p>
+                        <p className="text-sm text-[#5B6773]">
+                          This project focused on the risk prediction and profiling of Type 2 Diabetes (T2DM) complications using longitudinal clinical and claims data to enable proactive, data-driven care.
                         </p>
                       </div>
                       <div>
-                        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">Data & Features</p>
-                        <ul className="list-disc list-inside space-y-1 text-sm">
+                        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">Data & Features</p>
+                        <ul className="list-disc list-inside space-y-1 text-sm text-[#5B6773]">
                           <li>Longitudinal patient-level EHR data with repeated visits.</li>
                           <li>Diagnoses, medications, lab, and outcomes across time.</li>
                         </ul>
                       </div>
                       <div>
-                        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">Model</p>
-                        <ul className="list-disc list-inside space-y-2 text-sm text-slate-700">
+                        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">Model</p>
+                        <ul className="list-disc list-inside space-y-2 text-sm text-[#5B6773]">
                           <li>
-                            Applied a <span className="font-bold">hierarchical Bayesian framework</span>(TREFLES-inspired) to capture:
-                            <ul className="list-disc list-inside ml-6 mt-1 space-y-1">
-                              <li>Relationships between different diabetes complications</li>
-                              <li>Shared and overlapping risk factors across outcomes</li>
-                              <li>Temporal risk factor selection patterns over longitudinal visits</li>
-                            </ul>
+                            Applied a <span className="font-bold">hierarchical Bayesian framework</span> to capture risk relationships and shared factors across complications.
                           </li>
                           <li>
-                            Incorporated clinical domain knowledge as <span className="font-bold">Bayesian priors</span> to stabilize learning
-                            in high-dimensional data.
+                            Integrated clinical priors into Bayesian models to improve stability and reliability of risk predictions.
                           </li>
                           <li>
-                            Estimated posterior risk distributions using <span className="font-bold">Monte Carlo–based inference</span>.
+                            Generated probabilistic risk scores using <span className="font-bold">Monte Carlo inference</span>.
                           </li>
                         </ul>
                       </div>
                       <div>
-                        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">Outputs</p>
-                        <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+                        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">Outputs</p>
+                        <ul className="list-disc list-inside space-y-1 text-sm text-[#5B6773]">
                           <li>
-                            <span className="font-semibold">Patient-level risk scores</span> (0–1) for each complication, refreshed per visit or time window.
+                            Generated patient-level risk scores for each complication.
                           </li>
                           <li>
-                            <span className="font-semibold">Reason codes / top risk drivers</span> explaining why risk is elevated.
+                            Explained predictions using top contributing risk factors.
                           </li>
                           <li>
-                            <span className="font-semibold">Operational risk tiers</span> (Low / Medium / High) to support care prioritization and intervention workflows.
+                            Translated predictions into Low/Medium/High tiers to guide care prioritization.
                           </li>
                         </ul>
                       </div>
@@ -179,8 +168,7 @@ export default function PredictiveAnalytics() {
             Predictive Analytics & Risk Modeling
           </h1>
           <p className="text-sm text-slate-600 max-w-3xl">
-            Built and validated predictive models to identify risk, cost drivers, and outcome gaps across patient populations
-            with clear handoffs to decision support dashboards.
+            Predictive modeling to surface risk, reduce costs, and improve outcomes across populations.
           </p>
         </header>
 
@@ -200,7 +188,7 @@ export default function PredictiveAnalytics() {
 <FilePillar
   variant="treatment"
   title="Treatment Optimization"
-  subtitle="Recommend treatments to optimize long-term outcomes."
+          subtitle="Recommend treatments to optimize long-term outcomes."
   primaryFile={{
     title: "Offline RL Treatment Recommendation (CQL-lite)",
     description:
@@ -210,72 +198,47 @@ export default function PredictiveAnalytics() {
   secondaryFiles={[]}
   details={
     <>
-      {/* Overview */}
       <div>
-        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">
+        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">
           Overview
         </p>
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-[#5B6773]">
           Built a reinforcement learning prototype to recommend treatment actions for
           Type 2 Diabetes management across three domains glycemic control, blood pressure,
           and lipid management.
         </p>
       </div>
 
-      {/* Data & Features */}
       <div>
-        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">
+        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">
           Data & Features
         </p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-[#5B6773]">
           <li>
             Longitudinal visit-level dataset (one row per visit) with train/test split at the patient level
             (80/20) to prevent leakage.
           </li>
-          <li>
-            State representation includes static phenotype + dynamic visit features:
-            HbA1c, SBP/DBP, LDL/HDL/TG, eGFR, BMI, adherence, hypoglycemia events, and time since last visit,
-            plus diagnosis history flags (ICD groups).
-          </li>
-          <li>
-            Discrete action spaces per domain: <span className="font-semibold">a_gly</span>,{" "}
-            <span className="font-semibold">a_bp</span>,{" "}
-            <span className="font-semibold">a_lipid</span> 
-          </li>
         </ul>
       </div>
 
-      {/* Model */}
       <div>
-        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">
+        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">
           Model
         </p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
+        <ul className="list-disc list-inside space-y-1 text-sm text-[#5B6773]">
           <li>
-            Trained three separate offline RL models (glycemic, BP, lipid), each learning a Q-function{" "}
-            <span className="font-semibold">Q(s, a)</span> over discrete treatment actions.
-          </li>
-          <li>
-            The Q-network outputs a vector of Q-scores per action:
-            <span className="font-semibold"> Q(s) = [Q(s,a0), Q(s,a1), ...]</span>, and recommendations are produced by{" "}
-            <span className="font-semibold">argmax</span>.
+            Trained three offline RL models (glycemic, BP, lipid). Each Q-network produces scores for all treatment options and ranks them to suggest the best next action.
           </li>
         </ul>
       </div>
 
-      {/* Outputs */}
       <div>
-        <p className="text-base font-semibold text-slate-900 leading-snug mb-1">
+        <p className="text-sm font-semibold text-[#1F2933] leading-snug mb-1">
           Outputs
         </p>
-        <ul className="list-disc list-inside space-y-1 text-sm text-slate-700">
-          <li>
-            Ranked Top-K treatment actions per domain (gly / BP / lipid) with associated Q-scores
-            (interpreted as relative long-term value, not probabilities).
-          </li>
-          <li>
-            Evaluation summary table and plots (saved artifacts) for transparency and reproducibility.
-          </li>
+        <ul className="list-disc list-inside space-y-1 text-sm text-[#5B6773]">
+          <li>Ranked treatment options with supporting scores.</li>
+          <li>Evaluation dashboards for monitoring performance.</li>
         </ul>
       </div>
     </>

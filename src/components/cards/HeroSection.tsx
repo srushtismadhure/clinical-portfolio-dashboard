@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, Linkedin, Github, ArrowRight, Database, Activity, Layers, ToggleLeft, ToggleRight, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, FileText } from 'lucide-react';
+import { MapPin, Mail, Linkedin, Github, ArrowRight, Database, Activity, Layers, ToggleLeft, ToggleRight, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, FileText, ShieldCheck, GitMerge } from 'lucide-react';
 
 const coreSkills = [
   { name: 'SQL', category: 'query' },
@@ -40,6 +40,42 @@ const tools: Tool[] = [
   { label: 'Azure', Icon: Cloud },
 ];
 
+type PillProps = {
+  icon: React.ElementType;
+  label: string;
+};
+
+const Pill = ({ icon: Icon, label }: PillProps) => (
+  <span className="inline-flex items-center justify-start gap-2 rounded-sm border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-600 leading-5 md:leading-[1.35] min-w-0 max-w-full">
+    <Icon className="h-4 w-4 text-slate-600 shrink-0" aria-hidden="true" />
+    <span className="min-w-0 break-words whitespace-normal">{label}</span>
+  </span>
+);
+
+export const ProblemsISolve = () => (
+  <section className="mt-3 rounded-md border border-[hsl(var(--clinical-border))] bg-[hsl(var(--clinical-surface))] px-3 py-3">
+    <div className="flex items-center justify-between mb-2">
+      <h4 className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
+        Problems I Solve
+      </h4>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3">
+      {problemsISolve.map(({ title, subtitle, Icon }) => (
+        <div
+          key={title}
+          className="flex items-start gap-2 rounded-sm border border-[hsl(var(--clinical-border))] bg-white/80 px-3 py-2"
+        >
+          <Icon className="h-4 w-4 text-slate-600 mt-0.5" aria-hidden="true" />
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-slate-800 leading-tight">{title}</p>
+            <p className="text-[12px] text-slate-600 leading-snug">{subtitle}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
 export function ClinicalAnalyticsToolkit() {
   const iconMap = toolkitItems.reduce<Record<string, React.ElementType>>(
     (acc, item) => {
@@ -50,8 +86,8 @@ export function ClinicalAnalyticsToolkit() {
   );
 
   return (
-    <section className="w-full rounded-md border border-slate-300 bg-white shadow-none">
-      <div className="flex items-center justify-between border-b border-slate-300 bg-slate-100/70 px-3 py-2">
+    <section className="system-module min-w-0 rounded-lg overflow-hidden">
+      <div className="system-module-header px-6 py-3">
         <div className="flex items-center gap-2">
           <Database className="h-3.5 w-3.5 text-slate-500" />
           <span className="text-[11px] font-medium tracking-wide text-slate-600 uppercase">
@@ -61,24 +97,18 @@ export function ClinicalAnalyticsToolkit() {
         <span className="text-[10px] text-slate-400">n={coreSkills.length}</span>
       </div>
 
-      <div className="px-3 py-2">
-        <div className="flex flex-wrap gap-2">
+      <div className="system-module-content px-5 py-4">
+        <div className="flex flex-wrap items-start justify-start gap-2.5 min-w-0">
           {coreSkills.map((skill) => {
             const Icon = iconMap[skill.name] ?? Layers;
             return (
-              <div
-                key={skill.name}
-                className="flex items-center gap-2 rounded-sm border border-slate-300 bg-white px-2.5 py-1.5 text-[11px] text-slate-600"
-              >
-                <Icon className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
-                <span className="font-medium">{skill.name}</span>
-              </div>
+              <Pill key={skill.name} icon={Icon} label={skill.name} />
             );
           })}
         </div>
       </div>
 
-      <div className="border-t border-slate-300 bg-slate-50 px-3 py-2">
+      <div className="system-module-footer px-6 py-3">
         <p className="text-[10px] text-slate-500">Primary technical stack</p>
       </div>
     </section>
@@ -100,6 +130,7 @@ const systemMetrics = [
 
 type SummaryItem = { label: string };
 type TechnicalSkill = { title: string; details: string };
+type Problem = { title: string; subtitle: string; Icon: React.ElementType };
 
 const summaryItems: SummaryItem[] = [
   { label: 'Builds end-to-end ETL pipelines for decision support' },
@@ -129,6 +160,24 @@ const technicalSkills: TechnicalSkill[] = [
   },
 ];
 
+const problemsISolve: Problem[] = [
+  {
+    title: 'HIPAA-Compliant Data Pipelines',
+    subtitle: 'Secure, audit-ready workflows for PHI',
+    Icon: ShieldCheck,
+  },
+  {
+    title: 'FHIR & Interoperability Integration',
+    subtitle: 'Normalize fragmented EHR data into unified models',
+    Icon: GitMerge,
+  },
+  {
+    title: 'Scalable Clinical Databases',
+    subtitle: 'Query-optimized systems for analytics at scale',
+    Icon: Database,
+  },
+];
+
 export function HeroSection() {
   const [viewMode, setViewMode] = useState<'summary' | 'technical'>('summary');
   const [showTechDetails, setShowTechDetails] = useState(false);
@@ -144,16 +193,14 @@ export function HeroSection() {
   }
 
   return (
-    <section className="py-2 relative">
+    <section className="py-2 px-4 sm:px-4 lg:px-0 relative overflow-visible">
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] gap-2.5 w-full relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] items-start lg:items-start gap-5 lg:gap-x-2 lg:gap-y-2 w-full relative z-10 overflow-visible">
         
-        {/* Left Column - Primary Identity */}
-        <div className="lg:col-span-1 space-y-2.5 min-w-0">
-          
-          {/* Profile Overview Module */}
-          <div className="system-module min-w-0">
-            <div className="system-module-header">
+        {/* Left Column */}
+        <div className="min-w-0 flex flex-col gap-2">
+          <div className="system-module min-w-0 rounded-lg">
+            <div className="system-module-header px-6 py-3">
               <div className="flex items-center gap-1.5">
               <User className="w-3 h-3 text-primary" />
               <span className="system-module-label text-xs uppercase tracking-widest font-medium text-slate-500">
@@ -163,11 +210,11 @@ export function HeroSection() {
               <span className="status-badge status-active">Active</span>
             </div>
             
-            <div className="system-module-content pb-2">
+            <div className="system-module-content pb-2 px-6 pt-6">
               {/* Identity Row */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2.5">
+              <div className="flex flex-col md:flex-row md:items-center items-center gap-2 mb-2.5">
                 {/* Photo */}
-                <div className="relative shrink-0 rounded-full overflow-hidden border-2 border-slate-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] w-[100px] h-[100px] -mt-1.5">
+                <div className="relative shrink-0 rounded-full overflow-hidden border-2 border-slate-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] w-24 h-24 md:w-[100px] md:h-[100px] -mt-2 md:-mt-7">
                   <img
                     src={`${import.meta.env.BASE_URL}images/profile.png`}
                     alt="Profile photo"
@@ -176,8 +223,8 @@ export function HeroSection() {
                 </div>
                 
                 {/* Name & Role */}
-                <div className="flex-1 flex flex-col justify-center min-w-0 max-w-[520px]">
-                <h1 className="text-[24px] sm:text-[28px] font-semibold text-slate-900 leading-tight tracking-tight mb-1">
+                <div className="flex-1 flex flex-col justify-center min-w-0 w-full items-center md:items-start text-center md:text-left">
+                <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 leading-tight tracking-tight mb-1">
   Srushti Madhure
 </h1>
                   
@@ -187,10 +234,10 @@ export function HeroSection() {
                         </p> */}
                   
                 <div className="flex flex-col">
-                  <p className="text-[11px] uppercase tracking-widest text-slate-500 mb-0.5">
+                  <p className="text-xs uppercase tracking-wide text-slate-500 leading-5 md:leading-4 mb-0.5">
                     Diagnosis
                   </p>
-                  <p className="text-[15px] sm:text-[17px] font-medium text-slate-700 mb-1 leading-snug lg:whitespace-nowrap">
+                  <p className="text-[15px] leading-7 md:text-sm md:leading-6 font-medium text-slate-700 mb-1 lg:whitespace-nowrap">
                     Healthcare Data & Analytics Engineer
                   </p>
                   {/* Prognosis
@@ -257,19 +304,19 @@ export function HeroSection() {
               </div>
 
               <div className="border-t border-slate-200/70 mt-1 mb-1.5" />
-              <div className="grid grid-cols-1 sm:grid-cols-[1fr_1px_1fr] gap-2 sm:gap-6 text-[13px] sm:text-[14px] font-medium text-slate-600 leading-[1.35] mb-2.5">
-                <ul className="space-y-1.5">
+              <div className="grid grid-cols-1 sm:grid-cols-[1fr_1px_1fr] gap-2 sm:gap-6 text-sm font-medium text-slate-600 leading-6 md:leading-5 mb-2.5">
+                <ul className="space-y-0">
                   {(viewMode === 'summary' ? summaryItems.slice(0, 3) : technicalSkills.slice(0, 2)).map((item) => {
                     const itemKey = 'label' in item ? item.label : item.title;
                     return (
-                      <li key={itemKey} className="flex items-start gap-2">
+                      <li key={itemKey} className="flex items-start gap-2 mb-2 md:mb-1 last:mb-0">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
                         <div className="min-w-0">
                           <span className="skillTitle font-medium">
                             {'label' in item ? item.label : item.title}
                           </span>
                           {viewMode === 'technical' && showTechDetails && 'details' in item ? (
-                            <span className="skillDetails ml-1 text-[12px] sm:text-[13px] font-normal text-slate-500 whitespace-normal">
+                            <span className="skillDetails ml-1 text-sm font-normal text-slate-500 leading-6 md:leading-5 whitespace-normal">
                               → {item.details}
                             </span>
                           ) : null}
@@ -279,18 +326,18 @@ export function HeroSection() {
                   })}
                 </ul>
                 <div className="hidden sm:block bg-[#E5E7EB] w-px" />
-                <ul className="space-y-1.5">
+                <ul className="space-y-0">
                   {(viewMode === 'summary' ? summaryItems.slice(3, 6) : technicalSkills.slice(2, 4)).map((item) => {
                     const itemKey = 'label' in item ? item.label : item.title;
                     return (
-                      <li key={itemKey} className="flex items-start gap-2">
+                      <li key={itemKey} className="flex items-start gap-2 mb-2 md:mb-1 last:mb-0">
                         <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
                         <div className="min-w-0">
                           <span className="skillTitle font-medium">
                             {'label' in item ? item.label : item.title}
                           </span>
                           {viewMode === 'technical' && showTechDetails && 'details' in item ? (
-                            <span className="skillDetails ml-1 text-[12px] sm:text-[13px] font-normal text-slate-500 whitespace-normal">
+                            <span className="skillDetails ml-1 text-sm font-normal text-slate-500 leading-6 md:leading-5 whitespace-normal">
                               → {item.details}
                             </span>
                           ) : null}
@@ -302,66 +349,65 @@ export function HeroSection() {
               </div>
 
               {/* Actions */}
-              <div className="hidden sm:flex sm:flex-row sm:flex-wrap gap-1.5 pt-2 border-t border-[hsl(var(--clinical-border))]">
-                <Link
-                  to="/projects"
-                  className="flex items-center justify-center sm:justify-start gap-1.5 px-2.5 py-1.5 rounded-sm bg-primary text-primary-foreground text-[11px] font-medium hover:bg-[hsl(var(--clinical-primary-hover))] transition-colors"
-                >
-                  View Projects
-                  <ArrowRight className="w-3 h-3" />
-                </Link>
-                <div className="flex flex-wrap gap-1.5">
-                  <a 
-                    href="https://www.linkedin.com/in/srushti-madhure/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between pt-2 mt-1.5 border-t border-[hsl(var(--clinical-border))]">
+                <div className="w-full flex flex-col gap-2 md:w-auto md:flex-row md:gap-2">
+                  <Link
+                    to="/projects"
+                    className="flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-[hsl(var(--clinical-primary-hover))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--clinical-primary-hover))] focus-visible:ring-offset-2 transition-colors w-full md:w-auto"
                   >
-                    <Linkedin className="w-3 h-3" />
-                    <span>LinkedIn</span>
-                  </a>
-                  <a 
-                    href="https://github.com/srushtismadhure" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
-                  >
-                    <Github className="w-3 h-3" />
-                    <span>GitHub</span>
-                  </a>
-                  <a 
-                    href="mailto:srushtisunilmadhure@gmail.com" 
-                    className="flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
-                  >
-                    <Mail className="w-3 h-3" />
-                    <span>Let’s talk.</span>
-                  </a>
+                    View Projects
+                  </Link>
                   <a
                     href={`${import.meta.env.BASE_URL}BI_Analyst_Master.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+                    className="flex items-center justify-center h-9 px-4 rounded-md border border-slate-300 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 transition-colors w-full md:w-auto"
                   >
-                    <span>Resume</span>
+                    Resume
                   </a>
                 </div>
+              <div className="w-full flex flex-wrap items-center gap-x-4 gap-y-2 md:w-auto md:justify-end text-sm text-muted-foreground">
+                <a
+                  href="https://www.linkedin.com/in/srushti-madhure/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                  >
+                    <Linkedin className="h-4 w-4 text-muted-foreground" />
+                    <span>LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://github.com/srushtismadhure"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                  >
+                    <Github className="h-4 w-4 text-muted-foreground" />
+                    <span>GitHub</span>
+                  </a>
+                  <a
+                    href="mailto:srushtisunilmadhure@gmail.com"
+                    className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                  >
+                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <span>Contact</span>
+                </a>
               </div>
+            </div>
+
           </div>
 
             <div className="system-module-footer flex flex-wrap items-center gap-x-3 gap-y-0.5" />
           </div>
-
+          <ProblemsISolve />
         </div>
 
-        {/* Right Column - Clinical Snapshot */}
-        <div className="lg:col-span-1 space-y-2.5 min-w-0">
-          
-          {/* Analytics Toolkit */}
+        {/* Right Column */}
+        <div className="min-w-0 w-full overflow-hidden lg:pr-2 lg:pl-1 flex flex-col gap-2">
           <ClinicalAnalyticsToolkit />
 
-          {/* Areas of Interest */}
-          <section className="interest-panel w-full rounded-md border border-slate-300 bg-white shadow-none">
-            <div className="flex items-center justify-between border-b border-slate-300 bg-slate-100/70 px-3 py-2">
+          <section className="system-module min-w-0 rounded-lg overflow-hidden">
+            <div className="system-module-header px-6 py-3">
               <div className="flex items-center gap-2">
                 <Activity className="h-3.5 w-3.5 text-slate-500" />
                 <span className="text-[11px] font-normal tracking-wide text-slate-600 uppercase">
@@ -371,25 +417,18 @@ export function HeroSection() {
               <span className="text-[10px] text-slate-400">n={interestAreas.length}</span>
             </div>
 
-            <div className="px-3 py-2">
-              <div className="flex flex-wrap gap-2">
+            <div className="system-module-content px-5 py-4">
+              <div className="flex flex-wrap items-start justify-start gap-2.5 min-w-0">
                 {interestAreas.map((area) => (
-                  <span
-                    key={area.label}
-                    className="inline-flex items-center gap-1.5 rounded-sm border border-slate-300 bg-white px-2 py-1 text-lg sm:text-[11px] font-normal text-[hsl(var(--clinical-text-muted))] hover:bg-slate-50 transition-colors"
-                  >
-                    <area.icon className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
-                    <span>{area.label}</span>
-                  </span>
+                  <Pill key={area.label} icon={area.icon} label={area.label} />
                 ))}
               </div>
             </div>
 
-            <div className="border-t border-slate-300 bg-slate-50 px-3 py-2">
+            <div className="system-module-footer px-6 py-3">
               <p className="text-[10px] text-slate-500">Analytical focus areas</p>
             </div>
           </section>
-
         </div>
       </div>
     </section>

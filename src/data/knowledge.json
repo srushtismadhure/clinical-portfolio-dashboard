@@ -1,0 +1,186 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-02-05",
+  "owner": {
+    "name": "Srushti Madhure",
+    "title": "Healthcare Data & Analytics Engineer",
+    "tagline": "Define • Collect • Model • Deploy",
+    "links": {
+      "linkedin": "https://linkedin.com/in/your-handle",
+      "github": "https://github.com/your-handle",
+      "resume": "/resume.pdf",
+      "contact": "/#/access"
+    }
+  },
+  "skills": [
+    {
+      "name": "SQL",
+      "category": "Core",
+      "keywords": [
+        "sql",
+        "postgres",
+        "query",
+        "joins",
+        "ctes",
+        "window functions"
+      ]
+    },
+    {
+      "name": "Python",
+      "category": "Core",
+      "keywords": [
+        "python",
+        "pandas",
+        "etl",
+        "ml",
+        "apis"
+      ]
+    },
+    {
+      "name": "R",
+      "category": "Core",
+      "keywords": [
+        "r",
+        "stats",
+        "modeling",
+        "ggplot"
+      ]
+    },
+    {
+      "name": "Power BI",
+      "category": "Core",
+      "keywords": [
+        "power bi",
+        "powerbi",
+        "dashboard",
+        "dax",
+        "kpi"
+      ]
+    },
+    {
+      "name": "Databricks",
+      "category": "Platform",
+      "keywords": [
+        "databricks",
+        "spark",
+        "delta",
+        "lakehouse"
+      ]
+    },
+    {
+      "name": "Azure",
+      "category": "Cloud",
+      "keywords": [
+        "azure",
+        "adf",
+        "synapse",
+        "functions"
+      ]
+    }
+  ],
+  "areas_of_interest": [
+    {
+      "name": "Healthcare Data Engineering (ETL & Pipelines)",
+      "keywords": [
+        "etl",
+        "pipelines",
+        "data engineering",
+        "orchestration"
+      ]
+    },
+    {
+      "name": "Predictive Analytics & Risk Modeling",
+      "keywords": [
+        "predictive",
+        "risk",
+        "modeling",
+        "bayesian"
+      ]
+    },
+    {
+      "name": "Claims Analytics & Quality Measurement",
+      "keywords": [
+        "claims",
+        "quality",
+        "hedis",
+        "risk adjustment"
+      ]
+    },
+    {
+      "name": "Clinical & Operational Dashboard Development",
+      "keywords": [
+        "dashboards",
+        "kpis",
+        "operations",
+        "monitoring"
+      ]
+    },
+    {
+      "name": "Process & Quality Improvement Analytics",
+      "keywords": [
+        "qi",
+        "lean",
+        "root cause",
+        "improvement"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "paintools",
+      "name": "PainTools",
+      "one_liner": "Digital health platform focused on women’s health and chronic pain.",
+      "role": "Data architecture + analytics + product design",
+      "highlights": [
+        "Designed the data model + analytics layer for symptom tracking",
+        "Defined KPI framework and clinical-style dashboard structure",
+        "Built a cohesive EHR-grade UI system for the portfolio demo"
+      ],
+      "keywords": [
+        "women's health",
+        "femtech",
+        "chronic pain",
+        "analytics",
+        "product"
+      ],
+      "links": {
+        "case_study": "/#/projects/paintools"
+      }
+    },
+    {
+      "id": "healthnumerics",
+      "name": "Health Numerics",
+      "one_liner": "Predictive analytics integration into a chatbot platform for care support.",
+      "role": "Predictive analytics roadmap + data pipeline planning",
+      "highlights": [
+        "Defined high-value use cases (e.g., medication non-adherence)",
+        "Outlined data collection + labeling approach using EHR + SDOH inputs",
+        "Planned API integration patterns for real-time risk outputs"
+      ],
+      "keywords": [
+        "predictive",
+        "chatbot",
+        "sdoh",
+        "risk",
+        "analytics"
+      ],
+      "links": {
+        "case_study": "/#/projects/healthnumerics"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "q": "what do you do",
+      "a": "I build end-to-end healthcare analytics systems: ETL pipelines, clinical data models, and decision-support dashboards."
+    },
+    {
+      "q": "how can i contact you",
+      "a": "Use the Contact section on the left nav, or reach me via LinkedIn/GitHub links on the Profile Overview."
+    },
+    {
+      "q": "what are your core skills",
+      "a": "SQL, Python, R, Power BI, Databricks, and Azure — mostly focused on pipelines, modeling, and analytics for healthcare workflows."
+    }
+  ]
+}

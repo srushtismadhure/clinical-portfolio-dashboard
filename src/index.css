@@ -8,6 +8,10 @@
 :root {
 }
 
+.font-hand {
+  font-family: 'Caveat', 'Segoe UI', ui-rounded, cursive;
+}
+
 /* Homepage-only type scaling */
 .home-typescale {
   font-size: 0.82rem;
