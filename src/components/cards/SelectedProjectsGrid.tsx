@@ -17,12 +17,16 @@ function sortByLastUpdatedDesc(projects: Project[]) {
 }
 
 function selectProjects(projects: Project[], count = 4) {
-  const featured = projects.filter((project) => project.featured);
-  const nonFeatured = projects.filter((project) => !project.featured);
-  return [
-    ...sortByLastUpdatedDesc(featured),
-    ...sortByLastUpdatedDesc(nonFeatured),
-  ].slice(0, count);
+  const preferredOrder = ['predictive-modeling', 'health-numerics', 'value-based-care'];
+  const ordered = preferredOrder
+    .map((id) => projects.find((project) => project.id === id))
+    .filter((project): project is Project => Boolean(project));
+
+  const remaining = projects.filter(
+    (project) => !preferredOrder.includes(project.id)
+  );
+
+  return [...ordered, ...sortByLastUpdatedDesc(remaining)].slice(0, count);
 }
 
 function resolveThumbnailSrc(project: Project) {
@@ -35,7 +39,7 @@ export function SelectedProjectsGrid() {
 
   return (
     <section className="w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5 sm:gap-3">
         {selectedProjects.map((project) => {
           const thumbnailSrc = resolveThumbnailSrc(project);
           const link = project.id ? `/projects/${project.id}` : undefined;
@@ -55,7 +59,7 @@ export function SelectedProjectsGrid() {
                 link ? 'cursor-pointer' : '',
               ].join(' ')}
             >
-              <div className="flex h-9 items-center justify-between bg-slate-100 px-2.5 border-b border-slate-300">
+              <div className="flex h-8 items-center justify-between bg-slate-100 px-2.5 border-b border-slate-300">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="h-4 w-0.5 bg-slate-400/70" />
                   <span className="text-[10px] lg:text-[1.02rem] font-medium text-slate-700 truncate">
@@ -65,14 +69,14 @@ export function SelectedProjectsGrid() {
                 <ExternalLink className="h-3 w-3 text-slate-400" />
               </div>
 
-              <div className="border-y border-slate-300 bg-white p-1.5">
+              <div className="border-y border-slate-300 bg-white p-1">
                 <div className="w-full border border-slate-300 bg-white overflow-hidden">
-                  <div className="aspect-[16/10] w-full bg-[hsl(var(--clinical-surface))]">
+                  <div className="aspect-[16/8] w-full bg-[hsl(var(--clinical-surface))]">
                   {thumbnailSrc ? (
                     <img
                       src={thumbnailSrc}
                       alt={project.thumbnailAlt ?? `${project.title} preview`}
-                      className="h-full w-full object-cover grayscale contrast-[0.97] brightness-[0.98] transition-[filter] duration-200 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
+                      className="block h-full w-full object-cover grayscale contrast-[0.97] brightness-[0.98] transition-[filter] duration-200 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
                       loading="lazy"
                     />
                   ) : (
@@ -84,12 +88,14 @@ export function SelectedProjectsGrid() {
                 </div>
               </div>
 
-              <div className="bg-white px-2.5 py-1.5">
+              <div className="bg-white px-2.5 py-1">
                 <div className="text-[11px] lg:text-[1.02rem] text-slate-800">
                   {project.title}
                 </div>
                 <div className="text-[9px] lg:text-[0.95rem] text-slate-500 truncate">
-                  4 highlights (click to open)
+                  <span className="opacity-0 select-none" aria-hidden="true">
+                    4 highlights (click to open)
+                  </span>
                 </div>
               </div>
             </CardTag>

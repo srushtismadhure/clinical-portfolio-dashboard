@@ -14,9 +14,10 @@ import {
 const navItems = [
   { icon: LayoutGrid, label: 'System Overview', path: '/' },
   { icon: FolderKanban, label: 'Project Archive', path: '/projects' },
-  { icon: FlaskConical, label: 'Research & Labs', path: '/labs' },
+  // { icon: FlaskConical, label: 'Research & Labs', path: '/labs' },
   { icon: User, label: 'About', path: '/about' },
-  { icon: FileText, label: 'Credentials', path: '/resume' },
+  // TODO: Re-enable Credentials when we have non-redundant proof content (certifications, publications, awards, verification links).
+  // { icon: FileText, label: 'Credentials', path: '/resume' },
   { icon: Mail, label: 'Access / Contact', path: '/contact' },
 ];
 
@@ -84,8 +85,12 @@ export function Sidebar({
         {/* Header */}
         <div className="px-3 py-3 border-b border-white/20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2" onClick={handleNavClick}>
-            <div className="w-8 h-8 rounded-md bg-slate-900 flex items-center justify-center">
-              <Activity className="w-4 h-4 text-white" />
+            <div className="w-10 h-10 rounded-md bg-transparent flex items-center justify-center overflow-hidden">
+              <img
+                src={`${import.meta.env.BASE_URL}images/logo.svg`}
+                alt="Healthcare Analytics logo"
+                className="h-7 w-7 object-contain"
+              />
             </div>
             <div className="leading-tight">
               <h1 className="font-semibold text-[13px] text-slate-900">

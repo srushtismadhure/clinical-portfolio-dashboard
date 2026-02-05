@@ -1,5 +1,3 @@
-import { Link, useParams } from 'react-router-dom';
-
 
 export type DataModelGuideBlock = {
   title: string;
@@ -37,8 +35,6 @@ type DataModelSectionProps = {
 export function DataModelSection({ model }: DataModelSectionProps) {
   if (!model) return null;
 
-  const { id } = useParams<{ id: string }>();
-
   const {
     title = "Data Model",
     subtitle = "(EHR Star Schema)",
@@ -61,10 +57,13 @@ export function DataModelSection({ model }: DataModelSectionProps) {
       <div className="rounded-2xl bg-white border border-slate-200 px-5 sm:px-6 lg:px-8 py-5 sm:py-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
-            {title}{" "}
-            <span className="text-slate-500 font-normal text-base sm:text-lg">
-              {subtitle}
-            </span>
+            {title}
+            {subtitle ? (
+              <span className="text-slate-500 font-normal text-base sm:text-lg">
+                {" "}
+                {subtitle}
+              </span>
+            ) : null}
           </h2>
         </div>
 
@@ -88,9 +87,9 @@ export function DataModelSection({ model }: DataModelSectionProps) {
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="mt-4 grid grid-cols-1 lg:grid-cols-12 items-start gap-6">
           {/* LEFT: Schema */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-9">
             {bullets.length > 0 && (
               <ul className="mb-4 space-y-2 text-sm sm:text-[15px] text-slate-700 list-disc pl-5">
                 {bullets.map((b, idx) => (
@@ -106,27 +105,29 @@ export function DataModelSection({ model }: DataModelSectionProps) {
                 <div className="flex items-center justify-between gap-3 mb-2">
                   <div className="text-xs sm:text-sm text-slate-500">{caption ?? ""}</div>
 
-                  {id && (
-  <Link
-    to={`/projects/${id}/data-model`}
-    className="
-      inline-flex items-center gap-1.5
-      rounded-full border border-slate-200 bg-white
-      px-3 py-1.5
-      text-xs sm:text-sm font-medium text-slate-700
-      hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900
-      focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2
-      transition
-    "
-    aria-label="View data model details"
-  >
-    <span>Details</span>
-    <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
-  </Link>
-)}
+                  {image && (
+                    <a
+                      href={image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        inline-flex items-center gap-1.5
+                        rounded-full border border-slate-200 bg-white
+                        px-3 py-1.5
+                        text-xs sm:text-sm font-medium text-slate-700
+                        hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900
+                        focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2
+                        transition
+                      "
+                      aria-label="View data model details"
+                    >
+                      <span>Details</span>
+                      <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+                    </a>
+                  )}
                 </div>
 
-                <div className="rounded-2xl bg-slate-50 p-4 sm:p-6 lg:p-8">
+                <div className="rounded-2xl bg-slate-50 p-3 sm:p-4 lg:p-5 max-w-[900px]">
                   <img
                     src={image}
                     alt="Data Model"
@@ -139,22 +140,22 @@ export function DataModelSection({ model }: DataModelSectionProps) {
           </div>
 
           {/* RIGHT: Model Guide — desktop only + collapsible */}
-          <div className="hidden lg:block lg:col-span-4">
-            <div className="rounded-2xl bg-white border border-slate-200 p-5">
+          <div className="hidden lg:block lg:col-span-3">
+            <div className="rounded-2xl bg-white border border-slate-200 p-4 lg:max-h-[420px] overflow-hidden">
               <details open className="group">
                 <summary className="list-none cursor-pointer flex items-center justify-between">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
+                  <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-600">
                     {guideTitle}
                   </div>
                   <span className="text-slate-500 transition-transform group-open:rotate-180">▾</span>
                 </summary>
 
                 {guideBlocks.length ? (
-                  <div className="mt-4 space-y-6">
+                  <div className="mt-2 max-h-[340px] space-y-3 overflow-auto">
                     {guideBlocks.map((block) => (
                       <div key={block.title}>
-                        <div className="text-sm font-semibold text-slate-900">{block.title}</div>
-                        <ul className="mt-2 space-y-2 text-sm text-slate-700 list-disc pl-4">
+                        <div className="text-xs font-semibold text-slate-800">{block.title}</div>
+                        <ul className="mt-1 space-y-0 text-[11px] text-slate-500 list-disc pl-4 leading-tight">
                           {block.bullets.map((b) => (
                             <li key={b} className="leading-relaxed">
                               {b}

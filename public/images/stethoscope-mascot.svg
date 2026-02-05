@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc" fill="none">
+  <title id="title">Friendly stethoscope mascot</title>
+  <desc id="desc">A smiling, cartoon stethoscope with big eyes and a coiled tube.</desc>
+
+  <!-- shadow -->
+  <ellipse cx="320" cy="360" rx="140" ry="16" fill="#dfe6ee" />
+
+  <!-- tube -->
+  <path d="M248 250c-6 46 26 92 80 92 72 0 96-64 153-64 48 0 74 34 74 66 0 24-14 46-39 46-32 0-40-28-40-46"
+        stroke="#3e5168" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M248 250c-6 46 26 92 80 92 72 0 96-64 153-64 48 0 74 34 74 66 0 24-14 46-39 46-32 0-40-28-40-46"
+        stroke="#526b88" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- chestpiece rings -->
+  <circle cx="522" cy="306" r="52" fill="#f5f8fc" stroke="#3e5168" stroke-width="14" />
+  <circle cx="522" cy="306" r="38" fill="#e2e8f0" stroke="#f5f8fc" stroke-width="12" />
+  <circle cx="522" cy="306" r="24" fill="#c7d3de" />
+
+  <!-- U-bridge -->
+  <path d="M236 232c-30 0-52-22-52-52v-50" stroke="#3e5168" stroke-width="18" stroke-linecap="round" />
+  <path d="M236 232c-30 0-52-22-52-52v-50" stroke="#526b88" stroke-width="8" stroke-linecap="round" />
+
+  <!-- stems -->
+  <path d="M180 130c0-40 16-68 48-68s48 28 48 68" stroke="#c4ccd7" stroke-width="16" stroke-linecap="round" />
+  <path d="M180 130c0-40 16-68 48-68s48 28 48 68" stroke="#aab5c2" stroke-width="6" stroke-linecap="round" />
+
+  <!-- ear tubes -->
+  <path d="M176 142c4 30 24 52 48 52s44-22 48-52" stroke="#3e5168" stroke-width="20" stroke-linecap="round" />
+  <path d="M176 142c4 30 24 52 48 52s44-22 48-52" stroke="#526b88" stroke-width="8" stroke-linecap="round" />
+
+  <!-- eyes -->
+  <g transform="translate(186 54)">
+    <circle cx="0" cy="0" r="40" fill="#f7fafd" stroke="#3e5168" stroke-width="10" />
+    <circle cx="0" cy="0" r="26" fill="#2f3f52" />
+    <circle cx="-8" cy="-10" r="10" fill="#f7fafd" />
+  </g>
+  <g transform="translate(282 54)">
+    <circle cx="0" cy="0" r="40" fill="#f7fafd" stroke="#3e5168" stroke-width="10" />
+    <circle cx="0" cy="0" r="26" fill="#2f3f52" />
+    <circle cx="-8" cy="-10" r="10" fill="#f7fafd" />
+  </g>
+
+  <!-- eyebrows -->
+  <path d="M152 22c22-12 42-12 60 0" stroke="#3e5168" stroke-width="8" stroke-linecap="round" />
+  <path d="M250 22c22-12 42-12 60 0" stroke="#3e5168" stroke-width="8" stroke-linecap="round" />
+
+  <!-- smile -->
+  <path d="M225 98c12 16 32 16 44 0" stroke="#3e5168" stroke-width="6" stroke-linecap="round" />
+</svg>

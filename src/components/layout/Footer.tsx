@@ -1,8 +1,8 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 
-const LINKEDIN_URL = "https://linkedin.com";
-const GITHUB_URL = "https://github.com";
-const EMAIL_ADDRESS = "mailto:srushti@example.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/srushti-madhure/";
+const GITHUB_URL = "https://github.com/srushtismadhure";
+const EMAIL_ADDRESS = "mailto:srushtisunilmadhure@gmail.com";
 
 export function Footer() {
   const year = new Date().getFullYear();

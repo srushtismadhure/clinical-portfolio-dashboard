@@ -20,7 +20,7 @@ export default function ProjectSidebarNav({
   onJump,
 }: ProjectSidebarNavProps) {
   return (
-    <aside className="h-full rounded-none border-r border-slate-200 bg-slate-50 px-3 py-6">
+    <aside className="h-full rounded-none bg-transparent px-3 py-6">
       <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
         Project Index
       </div>

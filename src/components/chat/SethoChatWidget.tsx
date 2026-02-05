@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SethoIcon from './SethoIcon';
+import sethoBotUrl from './stethochat.svg';
 
 type Msg = {
   id: string;
@@ -79,9 +79,6 @@ export default function SethoChatWidget() {
         <div className="mb-3 w-[360px] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
           <div className="flex items-start justify-between gap-3 border-b border-slate-100 bg-slate-50 px-4 py-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white">
-                <SethoIcon className="h-6 w-6 text-slate-700" />
-              </div>
               <div className="leading-tight">
                 <div className="text-sm font-semibold text-slate-900">Setho</div>
                 <div className="text-xs text-slate-600">
@@ -153,16 +150,18 @@ export default function SethoChatWidget() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="group relative flex h-14 w-14 items-center justify-center rounded-full border border-slate-200 bg-white shadow-lg hover:shadow-xl"
+        className="group relative bg-transparent p-0 rounded-none overflow-visible border-0 cursor-pointer transition-transform duration-200 hover:scale-105"
         aria-label={open ? 'Close Setho chat' : 'Open Setho chat'}
         title={open ? 'Close' : 'Chat with Setho'}
       >
-        <SethoIcon className="h-8 w-8 text-slate-800" />
-
-        <span className="absolute -right-0.5 -top-0.5 flex h-3 w-3">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-30" />
-          <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
-        </span>
+        <div className="relative w-14 sm:w-16 md:w-20 lg:w-[7.5rem] shadow-sm">
+          <img
+            src={sethoBotUrl}
+            className="w-full h-auto object-contain block pointer-events-none"
+            alt="Setho"
+          />
+          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 ring-1 ring-white" />
+        </div>
       </button>
     </div>
   );

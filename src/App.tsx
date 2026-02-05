@@ -12,7 +12,6 @@ import PainToolsWorkstreamDetail from "./pages/PainToolsWorkstreamDetail";
 import CaseStudies from "./pages/CaseStudies";
 import Analytics from "./pages/Analytics";
 import UXWork from "./pages/UXWork";
-import Labs from "./pages/Labs";
 import Blog from "./pages/Blog";
 import Skills from "./pages/Skills";
 import About from "./pages/About";
@@ -22,6 +21,9 @@ import Play from "./pages/Play";
 import DataModelDetail from "./pages/DataModelDetail";
 import SethoChatWidget from "@/components/chat/SethoChatWidget";
 import { Footer } from "@/components/layout/Footer";
+import PredictiveAnalytics from "@/components/projects/health-numerics/PredictiveAnalytics";
+import NLPAnalytics from "@/components/projects/health-numerics/NLPAnalytics";
+import Labs from "./pages/Labs";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +44,8 @@ const App = () => (
               path="/projects/:projectId/workstreams/:workstreamId"
               element={<PainToolsWorkstreamDetail />}
             />
+            <Route path="/projects/health-numerics/predictive-analytics" element={<PredictiveAnalytics />} />
+            <Route path="/projects/health-numerics/nlp" element={<NLPAnalytics />} />
             <Route path="/projects/:id/data-model" element={<DataModelDetail />} />
             <Route path="/projects/:id" element={<ProjectDetail />} />
 

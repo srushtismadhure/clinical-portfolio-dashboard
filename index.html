@@ -8,6 +8,8 @@
     <meta name="author" content="Srushti S. Madhure" />
     <meta name="keywords" content="health informatics, predictive analytics, EHR, data engineering, machine learning, digital health, UX design" />
 
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+
     <meta property="og:title" content="Srushti Madhure | Health Informatics Portfolio" />
     <meta property="og:description" content="Health Informatics professional specializing in predictive analytics, EHR data engineering, and digital health UX." />
     <meta property="og:type" content="website" />
@@ -23,6 +25,18 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const redirect = params.get('redirect');
+        if (redirect) {
+          params.delete('redirect');
+          const cleanSearch = params.toString();
+          const newUrl = redirect + (cleanSearch ? '?' + cleanSearch : '');
+          window.history.replaceState(null, '', newUrl);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

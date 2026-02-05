@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Calendar, ExternalLink } from 'lucide-react';
-import { TagChip } from './TagChip';
+import { ExternalLink } from 'lucide-react';
 
 export interface Project {
   id: string;
@@ -121,7 +120,6 @@ export interface Project {
       narrative?: string;
       metrics?: { label: string; value: string }[];
     };
-    
   };
 
   // Optional, project-level executive summary (used by Value-Based Care page)
@@ -155,20 +153,15 @@ export interface Project {
     url?: string;
     bullets?: string[];
   };
+
+  // Optional context label for the role line (e.g., domain/system type)
+  contextLabel?: string;
 }
 
 interface ProjectCardProps {
   project: Project;
   index?: number;
 }
-
-const categoryColors: Record<string, 'teal' | 'lavender' | 'cream' | 'coral' | 'blue'> = {
-  Analytics: 'teal',
-  'AI/LLM': 'lavender',
-  'Data Engineering': 'blue',
-  UX: 'coral',
-  Dashboards: 'cream',
-};
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const thumbnailSrc = project.thumbnail ?? project.thumbnailSrc;
@@ -177,80 +170,65 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     ? `${import.meta.env.BASE_URL}${thumbnailSrc.replace(/^\//, '')}`
     : undefined;
 
-  const isDarkCard = project.id === 'value-based-care';
+  const isDarkCard = true; // apply unified dark style to all cards
+  const roleLine = [
+    project.subtitle ?? (project as any).role ?? undefined,
+    project.contextLabel ?? undefined,
+  ]
+    .filter(Boolean)
+    .join(' · ');
 
   return (
-    <Link
-      to={`/projects/${project.id}`}
-      className={
-        isDarkCard
-          ? 'ehr-card group block bg-[#0F1E36] text-white border border-slate-700/60'
-          : 'ehr-card group block'
-      }
-      style={{ animationDelay: `${index * 100}ms` }}
-    >
+    <div className="w-full max-w-[460px] mx-auto">
+      <Link
+        to={`/projects/${project.id}`}
+        className={`ehr-card group block h-full transition-colors duration-200 ease-out p-3 ${
+          isDarkCard
+            ? 'bg-[#0F1E36] text-white border border-slate-700/60 hover:bg-slate-50 hover:text-[#0F1E36] hover:border-slate-200'
+            : 'bg-white text-foreground hover:bg-slate-50 hover:text-[#0F1E36]'
+        }`}
+        style={{ animationDelay: `${index * 100}ms` }}
+      >
       {/* Thumbnail */}
-      <div className={`aspect-video rounded-xl mb-4 overflow-hidden ${isDarkCard ? 'bg-[#0B162A]' : 'bg-[#0F1E36]'} p-3`}>
+      <div className="relative w-full h-36 sm:h-40 lg:h-44 overflow-hidden rounded-lg mb-2 border border-slate-200 bg-white">
         {resolvedThumbnailSrc ? (
           <img
             src={resolvedThumbnailSrc}
             alt={thumbnailAlt}
-            className="w-full h-full object-contain rounded-lg bg-white shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]"
+            className="w-full h-full object-contain"
             loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="w-16 h-16 rounded-2xl bg-[hsl(var(--ehr-teal)/0.2)] flex items-center justify-center">
-              <ExternalLink className="w-8 h-8 text-[hsl(var(--ehr-teal))]" />
+            <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--ehr-teal)/0.2)] flex items-center justify-center">
+              <ExternalLink className="w-7 h-7 text-[hsl(var(--ehr-teal))]" />
             </div>
           </div>
         )}
       </div>
 
       {/* Content */}
-      <div className="space-y-3">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className={`font-semibold ${isDarkCard ? 'text-white' : 'text-foreground'} group-hover:text-[hsl(var(--ehr-teal))] transition-colors line-clamp-1`}>
-            {project.title}
-          </h3>
-          <span
-            className={`text-xs px-2 py-1 rounded-full font-medium ${
-              project.status === 'Completed'
-                ? isDarkCard
-                  ? 'bg-emerald-400/15 text-emerald-200'
-                  : 'bg-[hsl(var(--ehr-teal)/0.15)] text-[hsl(var(--ehr-teal))]'
-                : isDarkCard
-                  ? 'bg-amber-400/15 text-amber-200'
-                  : 'bg-[hsl(var(--ehr-coral)/0.15)] text-[hsl(var(--ehr-coral))]'
-            }`}
-          >
-            {project.status}
-          </span>
-        </div>
-
-        {project.overview ? (
-          <div>
-            <h3 className={`text-[11px] font-semibold uppercase tracking-wide ${isDarkCard ? 'text-slate-300' : 'text-slate-500'}`}>
-              {project.overviewTitle ?? 'Project'}
-            </h3>
-            <p className={`mt-1 text-sm ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'} leading-relaxed line-clamp-2`}>
-              {project.overview}
-            </p>
+      <div className="px-4 pb-4 pt-2 space-y-2">
+        <div className="mt-1">
+          <div className="flex items-start gap-3">
+            <span className="mt-1 h-6 w-1 rounded-full bg-emerald-400/70" />
+            <div className="min-w-0 min-h-[96px]">
+              <h3 className="text-lg font-semibold leading-tight text-white group-hover:text-[#0F1E36] transition-colors duration-200 ease-out">
+                {project.title}
+              </h3>
+              {roleLine && (
+                <p className="mt-1 text-sm font-medium text-white/70 group-hover:text-slate-600 transition-colors duration-200 ease-out">
+                  {roleLine}
+                </p>
+              )}
+              <p className="mt-1 text-sm leading-snug text-white/70 group-hover:text-slate-500 transition-colors duration-200 ease-out line-clamp-2">
+                {project.summary}
+              </p>
+            </div>
           </div>
-        ) : (
-          <p className={`text-sm ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'} leading-relaxed line-clamp-2`}>
-            {project.summary}
-          </p>
-        )}
-
-        <div className="flex items-center justify-between">
-          <TagChip label={project.category} variant={categoryColors[project.category] || 'teal'} size="sm" />
-          <span className={`flex items-center gap-1 text-xs ${isDarkCard ? 'text-slate-200' : 'text-muted-foreground'}`}>
-            <Calendar className="w-3 h-3" />
-            {project.lastUpdated}
-          </span>
         </div>
       </div>
-    </Link>
+      </Link>
+    </div>
   );
 }

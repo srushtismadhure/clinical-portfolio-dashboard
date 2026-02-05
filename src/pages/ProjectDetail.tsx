@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, CheckCircle2, Lightbulb } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Lightbulb, RefreshCcw, Building2, BarChart3 } from 'lucide-react';
 import { Layout } from '@/components/layout/Layout';
 import { TagChip } from '@/components/shared/TagChip';
 import { projects, projectDetails } from '@/data/projects';
@@ -10,6 +10,7 @@ import PainToolsDetail from '@/pages/PainToolsDetail';
 import { DataModelSection } from '@/components/sections/DataModelSection';
 import ProjectSidebarNav, { ProjectNavItem } from '@/components/project/ProjectSidebarNav';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
+import HealthNumericsTemplate from '@/components/projects/templates/HealthNumericsTemplate';
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -21,6 +22,7 @@ const sections = [
 ];
 
 
+const POWER_BI_IMAGE_URL = `${import.meta.env.BASE_URL}images/powerbifinal.png`;
 
 const PROJECT_DOC_FALLBACK_URL = 'https://example.com/project-document.pdf';
 
@@ -31,14 +33,14 @@ type PowerBIFrameProps = {
 
 function PowerBIFrame({ imageSrc, alt }: PowerBIFrameProps) {
   return (
-    <div className="rounded-[18px] border-[4px] border-[#0B1E3A] bg-[#0B1E3A] p-3">
-      <div className="rounded-[14px] border-[3px] border-[#0B0F1A] bg-[#0B0F1A] p-2">
-        <div className="rounded-[10px] bg-white overflow-hidden">
-          <div className="relative w-full aspect-video">
+    <div className="w-full">
+      <div className="rounded-[14px] border-[3px] border-slate-900 bg-[#0B1220] p-3">
+        <div className="rounded-[10px] border-[2px] border-[#0B0F1A] bg-[#0B1220] overflow-hidden">
+          <div className="w-full aspect-video">
             <img
               src={imageSrc}
               alt={alt}
-              className="absolute inset-0 w-full h-full object-contain block"
+              className="w-full h-full block object-contain"
             />
           </div>
         </div>
@@ -46,6 +48,24 @@ function PowerBIFrame({ imageSrc, alt }: PowerBIFrameProps) {
     </div>
   );
 }
+
+function CopilotNoteCard() {
+  return (
+    <aside className="w-full max-w-[320px] rounded-xl border border-slate-300 bg-slate-50 p-4 shadow-sm">
+      <div className="flex items-center gap-2 text-slate-900">
+        <Lightbulb className="h-4 w-4 text-slate-600" />
+        <div className="text-xs font-semibold uppercase tracking-wide">
+          Copilot Usage
+        </div>
+      </div>
+      <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-slate-700">
+        <li>Drafted initial DAX measures and KPI calculations</li>
+        <li>Helped refactor/clean query logic and naming for consistency</li>
+      </ul>
+    </aside>
+  );
+}
+
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
@@ -139,6 +159,22 @@ if (project.layoutType === 'paintools') {
   );
 }
 
+// ✅ Custom template branch: Health Numerics uses its own layout when template is set
+if (project.template === 'health-numerics') {
+  return (
+    <Layout
+      title="Health Numerics"
+      breadcrumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Projects', href: '/projects' },
+        { label: 'Health Numerics' },
+      ]}
+    >
+      <HealthNumericsTemplate project={project} details={details} />
+    </Layout>
+  );
+}
+
   // ✅ Default layout for all other projects
   return (
     <Layout
@@ -167,7 +203,8 @@ if (project.layoutType === 'paintools') {
 
             <main className="min-w-0">
               <div className="h-screen overflow-y-auto">
-                <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-10 py-8">
+                {/* Narrative wrapper (includes background, dashboard, and rest) */}
+                <div className="mx-auto max-w-[1200px] w-full px-4 sm:px-6 lg:px-10 pb-10 pt-8">
                   <div className="lg:hidden mb-4">
                     <label
                       htmlFor="project-sections"
@@ -177,7 +214,7 @@ if (project.layoutType === 'paintools') {
                   </label>
                   <select
                     id="project-sections"
-                    className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
                     value={activeId}
                     onChange={(event) => onJump(event.target.value)}
                   >
@@ -193,7 +230,7 @@ if (project.layoutType === 'paintools') {
           {/* Back Button */}
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Projects
@@ -202,14 +239,18 @@ if (project.layoutType === 'paintools') {
           {/* Standard Project Header */}
           {/* Standard Project Header */}
 <div className="mb-2 md:mb-3">
-  <h1 className="text-lg md:text-xl font-semibold text-foreground">
+  <h1 className="text-lg md:text-xl font-semibold text-slate-900">
     {project.title}
   </h1>
 
-  <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+  <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
     {project.subtitle && <span className="truncate">{project.subtitle}</span>}
     {project.subtitle && project.status && <span className="hidden sm:inline">•</span>}
-    {project.status && <span>Status: {project.status}</span>}
+    {project.status && (
+      <span className="inline-flex items-center rounded-full border border-slate-300 bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700">
+        Status: {project.status}
+      </span>
+    )}
   </div>
 </div>
           {/* Project Background (above dashboard) */}
@@ -225,11 +266,11 @@ if (project.layoutType === 'paintools') {
       py-5 sm:py-6
     "
   >
-    <h2 className="text-base sm:text-lg font-semibold text-foreground">
+    <h2 className="text-base sm:text-lg font-semibold text-slate-900">
       Project Background
     </h2>
 
-    <div className="mt-3 space-y-4 text-sm sm:text-[15px] leading-relaxed sm:leading-[1.7] text-muted-foreground">
+    <div className="mt-3 space-y-4 text-sm sm:text-[15px] leading-relaxed sm:leading-[1.7] text-slate-700">
       <p>
         Value-based care shifts healthcare reimbursement from volume to outcomes,
         requiring health systems to actively manage inpatient utilization, length
@@ -249,83 +290,49 @@ if (project.layoutType === 'paintools') {
   </div>
 </section>
 
-<div className="mt-6 sm:mt-8 lg:mt-10" />
-
-          {/* Hero Section (EHR-style two-column module) */}
-          {/* Hero Section (EHR-style two-column module) */}
-<section id="dashboard" className="mb-8">
-  <div className="mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-    <div className="grid gap-8 lg:grid-cols-12 items-start">
-      {/* LEFT: Analytics Module */}
-      <div className="h-full lg:col-span-8 xl:col-span-9">
-        <PowerBIFrame
-          imageSrc="/images/powerbi.png"
-          alt={`${project.title} dashboard`}
-        />
+<section id="dashboard" className="mt-8 mb-10">
+  <div className="grid gap-6 lg:grid-cols-[4fr_1fr] items-start">
+    <div className="h-full">
+      <PowerBIFrame
+        imageSrc={POWER_BI_IMAGE_URL}
+        alt={`${project.title} dashboard`}
+      />
+      <div className="mt-2 px-1 text-[11px] text-slate-500">
+        Data: Synthetic EHR • Period: 2024 • Refresh: Jan 2026
       </div>
+      <div className="mt-4 lg:hidden">
+        <CopilotNoteCard />
+      </div>
+    </div>
 
-      {/* RIGHT: Executive Summary Panel (lg+ only) */}
-      <div className="hidden lg:block lg:col-span-4 xl:col-span-3">
-        <aside className="rounded-2xl border border-slate-200 bg-white p-6 lg:p-5">
-          <div className="space-y-5">
-
-            {/* PROBLEM */}
-            <div>
+    <div className="hidden lg:block">
+      <div className="sticky top-6 space-y-4">
+        <aside className="rounded-2xl border border-slate-300 bg-white p-6 lg:p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <div className="space-y-6">
+            {/* Problem */}
+            <div className="space-y-1">
               <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Problem
               </div>
-              <p className="mt-2 text-sm text-slate-700 leading-relaxed">
-                Fragmented visibility into inpatient services and payer segments driving disproportionate cost and readmission risk under value-based contracts.
+              <p className="text-sm text-slate-700 leading-relaxed">
+                {project.heroSummary?.problem ?? details.problem?.[0] ?? 'N/A'}
               </p>
-            </div>
-
-            {/* KEY INSIGHT */}
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Key Insight
-              </div>
-
-              <p className="mt-2 text-sm font-semibold text-slate-900 leading-snug">
-                Inpatient utilization concentrates cost and readmission exposure, with risk clustered in high-acuity service lines.
-              </p>
-            </div>
-
-            {/* RECOMMENDED ACTIONS */}
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowMoreActions((value) => !value)}
-                className="inline-flex items-center text-sm font-semibold text-slate-700 hover:text-slate-900"
-                aria-expanded={showMoreActions}
-                aria-controls="recommended-actions"
-              >
-                {showMoreActions ? 'Show less' : 'Show more'}
-              </button>
-              {showMoreActions && (
-                <div id="recommended-actions" className="mt-4 space-y-2">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Recommendations
-                  </div>
-                  <ul className="space-y-1 text-sm text-slate-700 list-disc pl-4">
-                    <li>Standardize discharge and post-acute workflows for inpatient services</li>
-                    <li>Deploy admission-time risk stratification for high-cost, high-LOS cases</li>
-                    <li>Prioritize ICU and inpatient pathways for care redesign</li>
-                  </ul>
-                </div>
-              )}
             </div>
 
           </div>
         </aside>
+        <CopilotNoteCard />
       </div>
-
     </div>
   </div>
 </section>
-{/* Key Insights (below dashboard) — hidden on mobile */}
-{/* Key Insights — hidden on small screens */}
+
+<div className="mt-6 sm:mt-8 lg:mt-10" />
+
+          {/* Key Insights (below dashboard) — hidden on mobile */}
+          {/* Key Insights — hidden on small screens */}
 <section id="key-metrics" className="mt-12 mb-12">
-  <h2 className="text-lg font-semibold text-foreground mb-6">
+  <h2 className="text-lg font-semibold text-slate-900 mb-6">
     Key Metrics
   </h2>
 
@@ -334,10 +341,10 @@ if (project.layoutType === 'paintools') {
     <div className="rounded-xl bg-white p-6">
       <DollarSign className="h-5 w-5 text-slate-700 stroke-[1.5] mb-4" />
 
-      <h3 className="text-sm font-semibold text-foreground mb-2">
+      <h3 className="text-sm font-semibold text-slate-900 mb-2">
         Inpatient Care Is the Primary Cost Driver
       </h3>
-      <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">
+      <p className="hidden sm:block text-sm text-slate-700 leading-relaxed">
         87% of total costs are concentrated in inpatient encounters, with
         significant variation by service line.
       </p>
@@ -347,10 +354,10 @@ if (project.layoutType === 'paintools') {
     <div className="rounded-xl bg-white p-6">
       <Activity className="h-5 w-5 text-slate-700 stroke-[1.5] mb-4" />
 
-      <h3 className="text-sm font-semibold text-foreground mb-2">
+      <h3 className="text-sm font-semibold text-slate-900 mb-2">
         ICU Encounters Are Extreme Cost Outliers
       </h3>
-      <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">
+      <p className="hidden sm:block text-sm text-slate-700 leading-relaxed">
         ICU cost per encounter is ~3× the system average, driven by extended
         length of stay and acuity.
       </p>
@@ -360,10 +367,10 @@ if (project.layoutType === 'paintools') {
     <div className="rounded-xl bg-white p-6">
       <Users className="h-5 w-5 text-slate-700 stroke-[1.5] mb-4" />
 
-      <h3 className="text-sm font-semibold text-foreground mb-2">
+      <h3 className="text-sm font-semibold text-slate-900 mb-2">
         Medicare & Commercial Payers Concentrate Risk
       </h3>
-      <p className="hidden sm:block text-sm text-muted-foreground leading-relaxed">
+      <p className="hidden sm:block text-sm text-slate-700 leading-relaxed">
         68% of inpatient encounters are covered by Medicare or Commercial plans,
         concentrating value-based financial risk.
       </p>
@@ -386,9 +393,10 @@ if (project.layoutType === 'paintools') {
           {project.executiveSummary.heading ?? 'Executive Summary'}
         </div>
 
-        <p className="mt-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 whitespace-pre-line">
-          {project.executiveSummary.narrative}
-        </p>
+        <p
+          className="mt-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 whitespace-pre-line"
+          dangerouslySetInnerHTML={{ __html: project.executiveSummary.narrative }}
+        />
 
         {project.executiveSummary.metrics?.length ? (
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -412,68 +420,110 @@ if (project.layoutType === 'paintools') {
       <section className="mt-6 rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] p-5 sm:p-6">
         <div className="flex items-baseline justify-between gap-4">
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
-              {project.recommendations?.title ?? 'Recommendations'}
-            </div>
+            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">Recommendations</div>
             <div className="mt-1 text-xs text-slate-500">
               {project.recommendations?.subtitle ?? 'Based on 2024 Power BI drill-down analysis'}
             </div>
           </div>
         </div>
 
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                <th className="py-2 pr-4">Focus</th>
-                <th className="py-2 pr-4">Metric</th>
-                <th className="py-2">Action</th>
-              </tr>
-            </thead>
+        <div className="mt-4">
+          <div className="hidden lg:grid lg:grid-cols-[1.2fr_1.4fr_2fr] text-left text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            <div className="py-2 pr-4">Focus</div>
+            <div className="py-2 pr-4">Metric</div>
+            <div className="py-2">Action</div>
+          </div>
 
-            <tbody className="text-slate-700">
-              {/* If you have explicit table rows in projects.ts, use them */}
-              {project.recommendations?.rows?.length ? (
-                project.recommendations.rows.slice(0, 3).map((row, idx) => (
-                  <tr key={idx} className="border-t border-slate-100 align-top">
-                    <td className="py-3 pr-4 font-medium text-slate-900">{row.focus}</td>
-                    <td className="py-3 pr-4 text-slate-600">{row.metric}</td>
-                    <td className="py-3 text-slate-700">{row.action}</td>
-                  </tr>
-                ))
-              ) : (
-                // Otherwise fall back to bullets (your existing pattern)
-                (project.heroSummary?.recommendationBullets ?? recommendationBullets)
-                  .slice(0, 3)
-                  .map((action, idx) => (
-                    <tr key={idx} className="border-t border-slate-100 align-top">
-                      <td className="py-3 pr-4 font-medium text-slate-900">
-                        {idx === 0 ? 'Readmissions' : idx === 1 ? 'ICU / High-LOS' : 'Payer mix / Seasonality'}
-                      </td>
-                      <td className="py-3 pr-4 text-slate-600">
-                        {idx === 0
-                          ? '30-day readmission rate + avoidable cost'
-                          : idx === 1
-                          ? 'ICU cost per case + LOS outliers'
-                          : 'Medicare/Commercial concentration + Jan spike'}
-                      </td>
-                      <td className="py-3 text-slate-700">{action}</td>
-                    </tr>
-                  ))
-              )}
-            </tbody>
-          </table>
+          <div className="divide-y divide-slate-200 text-slate-700">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1.4fr_2fr] gap-3 lg:gap-4 py-4">
+              <div className="flex items-start gap-3">
+                <RefreshCcw className="h-5 w-5 text-slate-500 mt-0.5" />
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">Readmissions</div>
+                  <span className="mt-1 inline-flex items-center rounded-full bg-rose-50 px-2 py-0.5 text-[10px] font-medium text-rose-700">
+                    High impact
+                  </span>
+                </div>
+              </div>
+              <div className="text-sm text-slate-700">30-day readmission rate + avoidable cost</div>
+              <div>
+                <div className="text-sm font-semibold text-slate-900">Standardize discharge planning</div>
+                <div className="text-xs text-slate-600">Post-acute follow-up + care transitions</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1.4fr_2fr] gap-3 lg:gap-4 py-4">
+              <div className="flex items-start gap-3">
+                <Building2 className="h-5 w-5 text-slate-500 mt-0.5" />
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">ICU / High-LOS</div>
+                  <span className="mt-1 inline-flex items-center rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-medium text-sky-700">
+                    High cost
+                  </span>
+                </div>
+              </div>
+              <div className="text-sm text-slate-700">ICU cost per case + LOS outliers</div>
+              <div>
+                <div className="text-sm font-semibold text-slate-900">Flag high-risk admissions early</div>
+                <div className="text-xs text-slate-600">Risk stratification at intake</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1.4fr_2fr] gap-3 lg:gap-4 py-4">
+              <div className="flex items-start gap-3">
+                <BarChart3 className="h-5 w-5 text-slate-500 mt-0.5" />
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">Payer mix / Seasonality</div>
+                </div>
+              </div>
+              <div className="text-sm text-slate-700">Medicare/Commercial concentration + Jan spike</div>
+              <div>
+                <div className="text-sm font-semibold text-slate-900">Prioritize ICU + high-LOS pathways</div>
+                <div className="text-xs text-slate-600">Reduce cost volatility and payer exposure</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     )}
 
     <section id="insights-next-steps" className="mt-6 rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] p-5 sm:p-6">
       <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">Insights &amp; Next Steps</div>
-      <ul className="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-5">
-        <li>Prioritize inpatient service lines with elevated LOS and readmission risk.</li>
-        <li>Align payer strategy to mitigate financial exposure under VBC contracts.</li>
-        <li>Expand dashboard adoption with role-specific operational views.</li>
-      </ul>
+      <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+        <div className="space-y-3">
+          <div className="flex items-start gap-2">
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <div>
+              <div className="text-sm font-semibold text-slate-900">Target high-LOS units</div>
+              <div className="text-xs text-slate-600">Focus on services driving readmission risk</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <div>
+              <div className="text-sm font-semibold text-slate-900">Reduce payer exposure</div>
+              <div className="text-xs text-slate-600">Align contracts to Medicare/Commercial concentration</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3 lg:border-l lg:border-slate-200 lg:pl-6">
+          <div className="flex items-start gap-2">
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <div>
+              <div className="text-sm font-semibold text-slate-900">Reduce payer exposure</div>
+              <div className="text-xs text-slate-600">Align contracts to Medicare/Commercial concentration</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
+            <div>
+              <div className="text-sm font-semibold text-slate-900">Increase dashboard adoption</div>
+              <div className="text-xs text-slate-600">Role-specific operational views for leaders</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </>
 )}

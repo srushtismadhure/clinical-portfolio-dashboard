@@ -98,31 +98,50 @@ const systemMetrics = [
   { label: 'Experience', value: '3 yrs', detail: 'healthcare analytics' },
 ];
 
-const clinicalSummary = [
-  'Builds end-to-end ETL pipelines for clinical decision support',
-  'Creates executive-facing dashboards for operations and quality improvement',
-  'Designs data models and writes complex SQL for analytics',
-  'Defines KPIs through market and workflow analysis',
-  'Applies statistical analysis and root-cause investigation to drive improvements',
+type SummaryItem = { label: string };
+type TechnicalSkill = { title: string; details: string };
+
+const summaryItems: SummaryItem[] = [
+  { label: 'Builds end-to-end ETL pipelines for decision support' },
+  { label: 'Creates executive-facing dashboards' },
+  { label: 'Designs clinical data models & complex SQL' },
+  { label: 'Defines KPIs & workflow analytics' },
+  { label: 'Integrates EHR & claims data' },
+  { label: 'Applies statistical & root-cause analysis' },
 ];
 
-
-const technicalSummary = [
-  'ETL pipelines: Python, Spark, Databricks on Azure cloud infrastructure',
-  'Data modeling: FHIR R4, OMOP CDM, custom clinical schemas',
-  'ML stack: scikit-learn, XGBoost, logistic regression for clinical prediction',
-  'BI layer: Power BI, Tableau with DAX/SQL backend optimization',
+const technicalSkills: TechnicalSkill[] = [
+  {
+    title: 'ETL pipelines',
+    details: 'Python, Spark, Databricks on Azure cloud infrastructure',
+  },
+  {
+    title: 'Data modeling',
+    details: 'FHIR R4, OMOP CDM, custom clinical schemas',
+  },
+  {
+    title: 'ML stack',
+    details: 'scikit-learn, XGBoost, logistic regression for clinical prediction',
+  },
+  {
+    title: 'BI layer',
+    details: 'Power BI, Tableau with DAX/SQL backend optimization',
+  },
 ];
 
 export function HeroSection() {
-  const [viewMode, setViewMode] = useState<'clinical' | 'technical'>('clinical');
-  const [showMobileDetails, setShowMobileDetails] = useState(false);
-  const summaryPoints = viewMode === 'clinical' ? clinicalSummary : technicalSummary;
+  const [viewMode, setViewMode] = useState<'summary' | 'technical'>('summary');
+  const [showTechDetails, setShowTechDetails] = useState(false);
 
   useEffect(() => {
-    // When switching between Clinical/Technical, collapse details on mobile
-    setShowMobileDetails(false);
+    // When switching between Summary/Technical, show details by default for Technical.
+    setShowTechDetails(viewMode === 'technical');
   }, [viewMode]);
+
+  if (viewMode === 'technical') {
+    // Temporary debug check
+    console.log('technicalSkills', technicalSkills);
+  }
 
   return (
     <section className="py-2 relative">
@@ -137,7 +156,7 @@ export function HeroSection() {
             <div className="system-module-header">
               <div className="flex items-center gap-1.5">
               <User className="w-3 h-3 text-primary" />
-              <span className="system-module-label font-semibold tracking-wide text-slate-700 uppercase">
+              <span className="system-module-label text-xs uppercase tracking-widest font-medium text-slate-500">
                   Profile Overview
                 </span>
               </div>
@@ -146,19 +165,19 @@ export function HeroSection() {
             
             <div className="system-module-content pb-2">
               {/* Identity Row */}
-              <div className="flex flex-col sm:flex-row gap-2.5 mb-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2.5">
                 {/* Photo */}
-                <div className="w-18 h-18 sm:w-20 sm:h-24 rounded border border-[hsl(var(--clinical-border))] flex-shrink-0 overflow-hidden bg-white">
+                <div className="relative shrink-0 rounded-full overflow-hidden border-2 border-slate-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] w-[100px] h-[100px] -mt-1.5">
                   <img
                     src={`${import.meta.env.BASE_URL}images/profile.png`}
                     alt="Profile photo"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 
                 {/* Name & Role */}
-                <div className="flex-1 flex flex-col justify-center min-w-0">
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-slate-900 tracking-tight leading-tight">
+                <div className="flex-1 flex flex-col justify-center min-w-0 max-w-[520px]">
+                <h1 className="text-[24px] sm:text-[28px] font-semibold text-slate-900 leading-tight tracking-tight mb-1">
   Srushti Madhure
 </h1>
                   
@@ -167,26 +186,28 @@ export function HeroSection() {
                         — Stable, high-functioning, caffeine-adjacent.
                         </p> */}
                   
-  {/* Diagnosis */}
-  <p className="text-[11px] sm:text-[10px] text-[hsl(var(--clinical-text-muted))] uppercase tracking-wide">
-    Diagnosis
-  </p>
-  <p className="text-[0.95rem] sm:text-sm lg:!text-[0.95rem] font-semibold text-primary leading-[1.4]">
-    Healthcare Data Analyst & Analytics Engineer
-  </p>
-                  {/* Prognosis */}
+                <div className="flex flex-col">
+                  <p className="text-[11px] uppercase tracking-widest text-slate-500 mb-0.5">
+                    Diagnosis
+                  </p>
+                  <p className="text-[15px] sm:text-[17px] font-medium text-slate-700 mb-1 leading-snug lg:whitespace-nowrap">
+                    Healthcare Data & Analytics Engineer
+                  </p>
+                  {/* Prognosis
                   <p className="hidden sm:block text-[10px] sm:text-[9px] text-[hsl(var(--clinical-text-muted))] mt-1">
                     Prognosis
                   </p>
-                  <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.95rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
+                  <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.85rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
                     Chronic multitasking tendencies. 
                   </p>
+                  */}
                  {/* <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.95rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
                     Rapid context switching across domains.
                   </p> */}
-                  <p className="hidden sm:block text-[0.95rem] sm:text-[10px] lg:!text-[0.95rem] font-normal text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]">
-                    Multilingual communication ability, including Spanish.
+                  <p className="hidden sm:block text-[13px] text-slate-500 mt-0 mb-4 leading-snug">
+                    Define • Collect • Model • Deploy
                   </p>
+                </div>
 
   {/* Clinician note (desktop only) 
   <p className="hidden sm:block text-[10px] text-[hsl(var(--clinical-text-muted))] mt-1 italic">
@@ -196,121 +217,138 @@ export function HeroSection() {
           </div>
         </div>
 
-              {/* Location + Status */}
-              <div className="flex flex-wrap items-center gap-1.5 mb-1.5 pb-1.5 border-b border-[hsl(var(--clinical-border))]">
-                <a
-                  href="mailto:srushti@example.com"
-                  className="flex items-center gap-1 text-base sm:text-[10px] text-primary hover:underline underline-offset-4 transition-colors"
-                >
-                  <Mail className="w-2.5 h-2.5" />
-                  <span>Let’s talk</span>
-                </a>
-                <span className="text-[hsl(var(--clinical-border))] text-base sm:text-[10px]">|</span>
-                <span className="data-tag data-tag-active">Open to Remote & Hybrid Opportunities</span>
-              </div>
+              <div className="border-b border-[hsl(var(--clinical-border))] mt-1 mb-2" />
 
               {/* Signs & Symptoms + Toggle */}
-              <div className="flex flex-wrap items-center gap-2 mb-2">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h3 className="text-sm sm:text-sm lg:!text-sm font-semibold text-primary leading-[1.45] lg:!leading-[1.4]">
                   Signs &amp; Symptoms
                 </h3>
                 <div className="flex items-center gap-2">
                   <button 
-                    onClick={() => setViewMode(viewMode === 'clinical' ? 'technical' : 'clinical')}
-                    className="flex items-center gap-1.5 text-base sm:text-[10px] text-[hsl(var(--clinical-text-muted))] hover:text-primary transition-colors"
+                    onClick={() => setViewMode(viewMode === 'summary' ? 'technical' : 'summary')}
+                    aria-pressed={viewMode === 'technical'}
+                    className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-primary transition-colors"
                   >
-                    {viewMode === 'clinical' ? (
+                    {viewMode === 'summary' ? (
                       <ToggleLeft className="w-3.5 h-3.5" />
                     ) : (
                       <ToggleRight className="w-3.5 h-3.5 text-primary" />
                     )}
                     <span className="font-medium">Toggle view</span>
                   </button>
-                  <span className="hidden sm:inline text-[9px] text-[hsl(var(--clinical-text-muted))]">
-                    Toggle for {viewMode === 'clinical' ? 'technical' : 'clinical'} details
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (viewMode !== 'technical') return;
+                      setShowTechDetails((v) => !v);
+                    }}
+                    aria-pressed={showTechDetails}
+                    className={[
+                      'hidden sm:inline text-[10px] transition-colors',
+                      viewMode === 'technical'
+                        ? 'text-slate-400 hover:text-slate-500'
+                        : 'text-slate-300 cursor-default',
+                    ].join(' ')}
+                  >
+                    Toggle for technical details
+                  </button>
                 </div>
               </div>
 
-              {/* Summary Points */}
-              <ul className="space-y-1 mb-2.5">
-                {summaryPoints.map((point, index) => {
-                  const isFirst = index === 0;
-                  const showThis = isFirst || showMobileDetails;
-
-                  return (
-                    <li
-                      key={index}
-                      className={[
-                        "flex items-start gap-1.5",
-                        "text-[0.95rem] sm:text-[10px] text-[hsl(var(--clinical-text-muted))] leading-[1.45] lg:!leading-[1.5]",
-                        showThis ? "" : "hidden sm:flex",
-                      ].join(" ")}
-                    >
-                      <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                      <span className="min-w-0">{point}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {/* Mobile-only: View more / View less */}
-              {summaryPoints.length > 1 ? (
-                <div className="sm:hidden -mt-1 mb-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowMobileDetails((v) => !v)}
-                    className="text-base font-medium text-primary underline underline-offset-4 hover:opacity-90"
-                  >
-                    {showMobileDetails ? "View less" : "View more"}
-                  </button>
-                </div>
-              ) : null}
+              <div className="border-t border-slate-200/70 mt-1 mb-1.5" />
+              <div className="grid grid-cols-1 sm:grid-cols-[1fr_1px_1fr] gap-2 sm:gap-6 text-[13px] sm:text-[14px] font-medium text-slate-600 leading-[1.35] mb-2.5">
+                <ul className="space-y-1.5">
+                  {(viewMode === 'summary' ? summaryItems.slice(0, 3) : technicalSkills.slice(0, 2)).map((item) => {
+                    const itemKey = 'label' in item ? item.label : item.title;
+                    return (
+                      <li key={itemKey} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
+                        <div className="min-w-0">
+                          <span className="skillTitle font-medium">
+                            {'label' in item ? item.label : item.title}
+                          </span>
+                          {viewMode === 'technical' && showTechDetails && 'details' in item ? (
+                            <span className="skillDetails ml-1 text-[12px] sm:text-[13px] font-normal text-slate-500 whitespace-normal">
+                              → {item.details}
+                            </span>
+                          ) : null}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className="hidden sm:block bg-[#E5E7EB] w-px" />
+                <ul className="space-y-1.5">
+                  {(viewMode === 'summary' ? summaryItems.slice(3, 6) : technicalSkills.slice(2, 4)).map((item) => {
+                    const itemKey = 'label' in item ? item.label : item.title;
+                    return (
+                      <li key={itemKey} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-400" />
+                        <div className="min-w-0">
+                          <span className="skillTitle font-medium">
+                            {'label' in item ? item.label : item.title}
+                          </span>
+                          {viewMode === 'technical' && showTechDetails && 'details' in item ? (
+                            <span className="skillDetails ml-1 text-[12px] sm:text-[13px] font-normal text-slate-500 whitespace-normal">
+                              → {item.details}
+                            </span>
+                          ) : null}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
 
               {/* Actions */}
               <div className="hidden sm:flex sm:flex-row sm:flex-wrap gap-1.5 pt-2 border-t border-[hsl(var(--clinical-border))]">
                 <Link
                   to="/projects"
-                  className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded bg-primary text-primary-foreground text-base sm:text-[11px] font-medium hover:bg-[hsl(var(--clinical-primary-hover))] transition-colors"
+                  className="flex items-center justify-center sm:justify-start gap-1.5 px-2.5 py-1.5 rounded-sm bg-primary text-primary-foreground text-[11px] font-medium hover:bg-[hsl(var(--clinical-primary-hover))] transition-colors"
                 >
                   View Projects
                   <ArrowRight className="w-3 h-3" />
                 </Link>
                 <div className="flex flex-wrap gap-1.5">
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/in/srushti-madhure/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-2 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-base sm:text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
                   >
                     <Linkedin className="w-3 h-3" />
                     <span>LinkedIn</span>
                   </a>
                   <a 
-                    href="https://github.com" 
+                    href="https://github.com/srushtismadhure" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1 px-2.5 py-2 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-base sm:text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
                   >
                     <Github className="w-3 h-3" />
                     <span>GitHub</span>
                   </a>
                   <a 
-                    href="mailto:srushti@example.com"
-                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-base sm:text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+                    href="mailto:srushtisunilmadhure@gmail.com" 
+                    className="flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--primary)/0.2)] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
                   >
                     <Mail className="w-3 h-3" />
                     <span>Let’s talk.</span>
                   </a>
+                  <a
+                    href={`${import.meta.env.BASE_URL}BI_Analyst_Master.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-sm bg-[hsl(var(--clinical-primary-muted))] text-[11px] font-medium text-primary hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
+                  >
+                    <span>Resume</span>
+                  </a>
                 </div>
               </div>
-            </div>
+          </div>
 
-            <div className="system-module-footer flex flex-wrap items-center gap-x-3 gap-y-0.5">
-              <span>Domain: healthcare</span>
-              <span>Layer: production</span>
-              <span>Updated: Jan 2026</span>
-            </div>
+            <div className="system-module-footer flex flex-wrap items-center gap-x-3 gap-y-0.5" />
           </div>
 
         </div>

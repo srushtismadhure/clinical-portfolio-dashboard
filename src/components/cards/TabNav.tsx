@@ -5,7 +5,7 @@ const tabs = [
   { icon: MessageSquare, label: 'Communication', count: 8 },
   { icon: FileText, label: 'Notes', count: 2 },
   { icon: FileText, label: 'Docs', count: 12 },
-  { icon: FlaskConical, label: 'Labs', count: 8 },
+  // { icon: FlaskConical, label: 'Labs', count: 8 },
 ];
 
 export function TabNav() {

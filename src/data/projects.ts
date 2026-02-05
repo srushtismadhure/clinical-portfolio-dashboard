@@ -1,4 +1,5 @@
 import { Project } from '@/components/shared/ProjectCard';
+const erdImage = '/images/erd.png';
 
 export const projects: Project[] = [
   {
@@ -11,8 +12,9 @@ export const projects: Project[] = [
     status: 'Completed',
     layoutType: 'paintools',
     lastUpdated: 'Nov 2024',
+    role: 'Data & Analytics Engineer',
     tags: ['Python', 'Scikit-learn', 'Healthcare'],
-    thumbnail: '/images/process.png',
+    thumbnail: '/images/ptool.png',
     heroImage: '/images/powerbi.png',
 
     // Drives the stacked cards layout
@@ -403,27 +405,31 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 'womens-health-analytics',
-    title: "Women's Health Analytics Platform",
+    id: 'health-numerics',
+    title: 'Health Numerics',
+    subtitle: 'Predictive Analyst',
     summary: 'SDOH insights and care optimization dashboard for maternal health outcomes.',
     category: 'Analytics',
     dataSource: 'Claims + SDOH',
     projectType: 'professional',
     status: 'Completed',
     lastUpdated: 'Oct 2024',
+    template: 'health-numerics',
+    thumbnail: '/images/hn.png',
+    thumbnailAlt: 'Health Numerics preview',
     tags: ['Power BI', 'SQL', 'SDOH'],
   },
-  {
-    id: 'ehr-data-engineering',
-    title: 'EHR Data Engineering Pipeline',
-    summary: 'ETL pipelines and health data normalization system for multi-source clinical data.',
-    category: 'Data Engineering',
-    dataSource: 'HL7/FHIR',
-    projectType: 'professional',
-    status: 'Completed',
-    lastUpdated: 'Sep 2024',
-    tags: ['Databricks', 'Spark', 'FHIR'],
-  },
+  // {
+  //   id: 'ehr-data-engineering',
+  //   title: 'EHR Data Engineering Pipeline',
+  //   summary: 'ETL pipelines and health data normalization system for multi-source clinical data.',
+  //   category: 'Data Engineering',
+  //   dataSource: 'HL7/FHIR',
+  //   projectType: 'professional',
+  //   status: 'Completed',
+  //   lastUpdated: 'Sep 2024',
+  //   tags: ['Databricks', 'Spark', 'FHIR'],
+  // }, // Temporarily hidden from UI
   {
     id: 'value-based-care',
     title: 'Value-Based Care Analytics (Mayo Clinic–Style Health System)',
@@ -464,49 +470,32 @@ export const projects: Project[] = [
 
     // NOTE: If your Project type does not yet include `executiveSummary`, keep the cast (`as any`).
     dataModel: {
-      title: 'Data Model',
-      subtitle: '(EHR Star Schema)',
+      title: 'Data Model (Encounter-Centric Star Schema)',
+      subtitle: '',
       description:
         'Encounter-centric star schema supporting value-based care analytics across utilization, cost, and outcomes.',
 
       // Keep bullets defined so components that reference it never crash.
       bullets: [],
 
-      image: '/images/erd.png',
+      image: erdImage,
       caption:
         'Star schema centered on Encounter, linking claims-based cost, throughput events, staffing levels, and department outcomes.',
       expandText: 'Click to expand',
 
-      guideTitle: 'Model Guide',
+      guideTitle: 'Model Snapshot',
       guideBlocks: [
-        { title: 'Grain', bullets: ['Encounter-level (one row per patient encounter)'] },
+        { title: 'Grain', bullets: ['Encounter-level (1 row per patient encounter)'] },
         {
           title: 'Fact Tables',
           bullets: [
-            'Encounter: utilization, LOS, readmissions, outcomes',
-            'Claims / VBC Metrics: cost, reimbursement, penalties',
-            'Throughput Events: patient flow milestones and bottlenecks',
-            'Staffing Levels: operational staffing snapshots',
+            'Encounter',
+            'Claims / VBC Metrics',
+            'Throughput Events',
+            'Staffing Levels',
           ],
         },
-        {
-          title: 'Why Multiple Fact Tables',
-          bullets: [
-            'Separates clinical, financial, and operational signals',
-            'Prevents metric duplication',
-            'Preserves encounter-level alignment',
-          ],
-        },
-        { title: 'Dimensions (Conformed)', bullets: ['Patients', 'Departments', 'Payers', 'Time'] },
-        {
-          title: 'Primary Analytic Use Cases',
-          bullets: [
-            'Cost drivers by service line and payer mix',
-            'ICU and high-LOS outlier identification',
-            'Readmission exposure and VBC financial risk',
-            'Operational bottleneck analysis vs staffing',
-          ],
-        },
+        { title: 'Dimensions', bullets: ['Patients', 'Departments', 'Payers', 'Time'] },
       ],
 
       leftLabel: 'Star schema',
@@ -515,13 +504,12 @@ export const projects: Project[] = [
     },
   
     executiveSummary: {
-      heading: 'Executive Summary (Portfolio Version)',
-      narrative: `In 2024, value-based care performance delivered a positive net financial impact of $92.2K,
-improving by approximately $29K over 2023, driven by $868.9K in bonuses that exceeded $713.5K in penalties.
-Despite this improvement, utilization and quality pressures remain, with the 30-day readmission rate rising
-to 17.53% and avoidable readmissions generating $382.2K in costs. Cost concentration remains highest in
-inpatient and ICU settings, while 68% of reimbursement exposure comes from Medicare and Commercial payers,
-creating sensitivity to utilization spikes and seasonal demand.`,
+      heading: 'Executive Summary',
+      narrative: `In 2024, the value-based care program generated a <strong>$92.2K positive net financial impact</strong>, improving <strong>$29K year-over-year</strong> as incentive bonuses outpaced penalties.
+
+However, gains were partially offset by rising utilization pressure. The 30-day readmission rate increased by <strong>1.4 percentage points</strong>, contributing <strong>$382K in avoidable costs</strong> and signaling persistent quality risk. Costs remain concentrated in <strong>inpatient and ICU services</strong>, which drive the highest per-encounter spending.
+
+Medicare and Commercial plans account for <strong>68% of total reimbursement</strong>, concentrating the majority of value-based financial exposure within these populations.`,
       metrics: [
         { label: 'Net VBC impact (2024)', value: '$92.2K (+$29K YoY)' },
         { label: 'Bonuses vs penalties', value: '$868.9K vs $713.5K' },
@@ -550,28 +538,28 @@ creating sensitivity to utilization spikes and seasonal demand.`,
       },
     ],
   },
-  {
-    id: 'dashboards-reporting',
-    title: 'Clinical Dashboards & Reporting',
-    summary: 'Interactive Power BI and Tableau dashboards for healthcare metrics and KPIs.',
-    category: 'Dashboards',
-    dataSource: 'Operational KPIs',
-    projectType: 'professional',
-    status: 'Completed',
-    lastUpdated: 'Aug 2024',
-    tags: ['Power BI', 'Tableau', 'SQL'],
-  },
-  {
-    id: 'patient-journey-ux',
-    title: 'Patient Journey Mapping',
-    summary: 'UX research and design for improving patient experience in digital health apps.',
-    category: 'UX',
-    dataSource: 'User Research',
-    projectType: 'professional',
-    status: 'Completed',
-    lastUpdated: 'Jul 2024',
-    tags: ['Figma', 'User Research', 'Prototyping'],
-  },
+  // {
+  //   id: 'dashboards-reporting',
+  //   title: 'Clinical Dashboards & Reporting',
+  //   summary: 'Interactive Power BI and Tableau dashboards for healthcare metrics and KPIs.',
+  //   category: 'Dashboards',
+  //   dataSource: 'Operational KPIs',
+  //   projectType: 'professional',
+  //   status: 'Completed',
+  //   lastUpdated: 'Aug 2024',
+  //   tags: ['Power BI', 'Tableau', 'SQL'],
+  // }, // Temporarily hidden from UI
+  // {
+  //   id: 'patient-journey-ux',
+  //   title: 'Patient Journey Mapping',
+  //   summary: 'UX research and design for improving patient experience in digital health apps.',
+  //   category: 'UX',
+  //   dataSource: 'User Research',
+  //   projectType: 'professional',
+  //   status: 'Completed',
+  //   lastUpdated: 'Jul 2024',
+  //   tags: ['Figma', 'User Research', 'Prototyping'],
+  // }, // Temporarily hidden from UI
 ];
 
 export const projectDetails: Record<
@@ -608,11 +596,11 @@ export const projectDetails: Record<
       'Model interpretability is essential for clinical adoption',
       'Regular retraining needed to handle data drift',
     ],
-    github: 'https://github.com',
+    github: 'https://github.com/srushtismadhure',
   },
-  'womens-health-analytics': {
+  'health-numerics': {
     overview:
-      'Created an analytics platform focused on maternal health outcomes and social determinants of health (SDOH) factors.',
+      'Created an analytics platform focused on population health outcomes and social determinants of health (SDOH) factors.',
     problem:
       'Disparities in maternal health outcomes were difficult to track and address without consolidated data and actionable insights.',
     approach:
@@ -640,7 +628,7 @@ export const projectDetails: Record<
     tools: ['Databricks', 'Apache Spark', 'FHIR', 'HL7', 'Python', 'SQL'],
     results: ['Processed 50M+ records daily', '99.9% data quality score', 'Reduced integration time from months to weeks'],
     lessons: ['Healthcare data standards are complex but essential', 'Incremental processing beats full refreshes', 'Documentation is critical for maintainability'],
-    github: 'https://github.com',
+    github: 'https://github.com/srushtismadhure',
   },
   'value-based-care': {
     overview:
