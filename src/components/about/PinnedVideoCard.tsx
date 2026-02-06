@@ -9,6 +9,9 @@ type PinnedVideoCardProps = {
 export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false }: PinnedVideoCardProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const resolvedSrc = src.startsWith("http")
+    ? src
+    : `${import.meta.env.BASE_URL}${src.replace(/^\//, "")}`;
 
   const togglePlay = () => {
     const video = videoRef.current;
@@ -41,7 +44,7 @@ export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false 
       <div className={tileMode ? "absolute inset-0" : "relative aspect-[4/3] bg-slate-100"}>
         <video
           ref={videoRef}
-          src={src}
+          src={resolvedSrc}
           preload="metadata"
           playsInline
           autoPlay
