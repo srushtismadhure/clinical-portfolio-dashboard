@@ -2,16 +2,19 @@ import { Layout } from '@/components/layout/Layout';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { ClipboardPad } from '@/components/shared/ClipboardPad';
 import { PinnedNoteMedia } from '@/components/shared/PinnedNoteMedia';
-import { Highlight } from '@/components/shared/Highlight';
+import { AnimatedHighlight } from '@/components/shared/AnimatedHighlight';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 import { PinnedVideoCard } from '@/components/about/PinnedVideoCard';
 import { SystemAccessBadge } from '@/components/about/SystemAccessBadge';
+import VolunteerStrip from '@/components/VolunteerStrip';
 import { GraduationCap, Briefcase, Search } from 'lucide-react';
 
 export default function About() {
   const pinnedNoteData = {
-    title: 'Pinned note',
+    title: 'Life Dashboard',
+    subtitle: 'Full-time analyst, part-time artist.',
     noteText:
-      'Outside work, I track habits, sketch ideas, and experiment with small systems — personal and professional.',
+      "In my free time, I'm pulling the messy, half-baked ideas out of my brain and trying to make sense of them through sketching, oil painting, and abstract work.",
     images: [
       { src: '/images/snow.webp', alt: 'Pinned note image 1' },
       { src: '/images/b.webp', alt: 'Pinned note image 2' },
@@ -50,45 +53,42 @@ export default function About() {
               </div>
               {/* Bio */}
               <div className="ehr-card animate-fade-up">
-                <h2 className="text-xl font-semibold text-foreground mb-2">Background</h2>
-                <div className="space-y-3 text-muted-foreground">
-                  <p className="text-[14px] leading-6 lg:text-[15px]">
-                    I'm a healthcare business analyst with a Master's degree in Health Informatics and formal training in integrative medicine. I taught myself to code and discovered that diagnostic reasoning and debugging share the same foundation underneath: <Highlight>pattern recognition, forming hypotheses, and systematic problem-solving</Highlight>. I transitioned from working in healthcare systems to building the data systems that support them.
+                <SectionHeader title="Background" />
+                <div className="space-y-3 text-slate-600">
+                  <p className="text-[14px] lg:text-[15px] text-slate-600 leading-relaxed tracking-[0.01em]">
+                    I taught myself how to code out of frustration. I was manually entering patient data into outdated legacy systems daily, really just doing work that should and could have been automated. This pushed me to find an unconventional solution—coding. I went from diagnostics to debugging and realized they share the same foundation: <AnimatedHighlight>pattern recognition, systematic problem-solving, and root-cause analysis.</AnimatedHighlight>
                   </p>
-                  <p className="text-[14px] leading-6 lg:text-[15px]">
-                    My background enables me to work at the intersection of <Highlight>clinical workflows</Highlight>, data systems, and product strategy. I understand clinical operations, regulatory requirements, and what drives change management and product adoption, so I shape products that are clinically sound, data-informed, and actually get used. I work upstream, bringing clinical insight from day one.
+                  <p className="text-[14px] lg:text-[15px] text-slate-600 leading-relaxed tracking-[0.01em]">
+                    Today, I work at the intersection of healthcare, data, and product. With a <strong className="font-bold text-slate-900">Master’s degree in Health Informatics from the University of Michigan</strong> <AnimatedHighlight color="rgba(30, 64, 175, 0.18)">(Go Blue)</AnimatedHighlight> and formal training in <strong className="font-bold text-slate-900">integrative medicine</strong>, I bridge clinical thinking with data engineering to build systems and tools that are clinically sound, data-informed, and actually used in real care settings.
                   </p>
-                  <p className="text-[14px] leading-6 lg:text-[15px]">
-                    I handle the full spectrum of data work: defining what to measure, building <Highlight>ETL pipelines</Highlight>, running analyses, and delivering dashboards and predictive models, plus the unglamorous but critical pieces like <Highlight>HIPAA compliance</Highlight>, FHIR standards, data governance, and regulatory requirements. If it touches data in a healthcare context, I can help make it work.
+                  <p className="text-[14px] lg:text-[15px] text-slate-600 leading-relaxed tracking-[0.01em]">
+                    I handle the full spectrum of data work: defining what to measure, building <AnimatedHighlight>ETL pipelines</AnimatedHighlight>, running analyses, and delivering dashboards and predictive models, plus the unglamorous but critical pieces like <AnimatedHighlight>HIPAA compliance</AnimatedHighlight>, FHIR standards, data governance, and regulatory requirements. If it touches data in a healthcare context, I can help make it work.
                   </p>
                 </div>
               </div>
 
               {/* Experience */}
               <div className="ehr-card animate-fade-up" style={{ animationDelay: '100ms' }}>
-                <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <Briefcase className="w-5 h-5 text-[hsl(var(--ehr-teal))]" />
-                  Experience
-                </h2>
+                <SectionHeader title="Experience" icon={Briefcase} />
                 <div className="space-y-4">
                   <div className="border-l-2 border-[hsl(var(--ehr-teal))] pl-4">
-                    <h3 className="font-medium text-foreground">Healthcare Data Engineer</h3>
-                    <p className="text-sm text-muted-foreground">PainTools • 2025 – 2026</p>
-                    <p className="text-sm text-muted-foreground mt-2">
+                    <h3 className="text-lg font-semibold leading-tight text-slate-900">Business Analyst</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">PainTools • 2025 – 2026</p>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
                       Built end-to-end clinical data pipelines and analytics workflows to enable decision support and product insights.
                     </p>
                   </div>
                   <div className="border-l-2 border-[hsl(var(--ehr-lavender))] pl-4">
-                    <h3 className="font-medium text-foreground">Data Analytics Engineer</h3>
-                    <p className="text-sm text-muted-foreground">Health Numerics • Remote Patient Monitoring • 2024 – 2024</p>
-                    <p className="text-sm text-muted-foreground mt-2">
+                    <h3 className="text-lg font-semibold leading-tight text-slate-900">Data Analyst</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Health Numerics • Remote Patient Monitoring • 2024 – 2024</p>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
                       Developed predictive models and dashboards to support population health risk assessment and operational strategy.
                     </p>
                   </div>
                   <div className="border-l-2 border-[hsl(var(--ehr-teal))] pl-4">
-                    <h3 className="font-medium text-foreground">Healthcare Data Intern</h3>
-                    <p className="text-sm text-muted-foreground">Michigan Medicine — OBI Initiative • 2024 – 2024</p>
-                    <p className="text-sm text-muted-foreground mt-2">
+                    <h3 className="text-lg font-semibold leading-tight text-slate-900">Healthcare Data Intern</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Michigan Medicine — OBI Initiative • 2024 – 2024</p>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
                       Analyzed Medicaid claims data to inform maternal health quality improvement initiatives.
                     </p>
                   </div>
@@ -97,26 +97,23 @@ export default function About() {
 
               {/* Education */}
               <div className="ehr-card animate-fade-up" style={{ animationDelay: '200ms' }}>
-                <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5 text-[hsl(var(--ehr-lavender))]" />
-                  Education &amp; Credentials
-                </h2>
+                <SectionHeader title="Education & Credentials" icon={GraduationCap} />
                 <div className="space-y-4">
                   <div className="border-l-2 border-[hsl(var(--ehr-lavender))] pl-4 space-y-4">
                     {/* Master - primary */}
                     <div className="space-y-1">
-                      <h3 className="text-base font-semibold text-slate-900 leading-tight">Master of Health Informatics</h3>
+                      <h3 className="text-lg font-semibold leading-tight text-slate-900">Master of Health Informatics</h3>
                       <p className="text-sm text-slate-600">University of Michigan • 2025</p>
-                      <p className="text-xs text-slate-500">
+                      <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">
                         Clinical Data Systems • EHR • Analytics • Interoperability
                       </p>
                     </div>
 
                     {/* Bachelor - secondary */}
                     <div className="space-y-1 mt-6 pt-4 border-t border-slate-100">
-                      <h3 className="text-sm font-medium text-slate-700">B.S. Integrative Medicine &amp; Health Sciences</h3>
-                      <p className="text-xs text-slate-500">S-VYASA University • 2023</p>
-                      <p className="text-xs text-slate-400">
+                      <h3 className="text-lg font-semibold leading-tight text-slate-900">B.S. Integrative Medicine &amp; Health Sciences</h3>
+                      <p className="text-sm text-slate-600">S-VYASA University • 2023</p>
+                      <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">
                         Foundation in health sciences &amp; research
                       </p>
                     </div>
@@ -136,6 +133,7 @@ export default function About() {
           {/* Pinned note media */}
           <PinnedNoteMedia
             title={pinnedNoteData.title}
+            subtitle={pinnedNoteData.subtitle}
             noteText={pinnedNoteData.noteText}
             images={pinnedNoteData.images}
             video={pinnedNoteData.video}
@@ -143,6 +141,8 @@ export default function About() {
               <PinnedVideoCard title="Pinned note video" src="/videos/animation.mp4" tileMode />
             }
           />
+
+          <VolunteerStrip />
         </div>
       </div>
     </Layout>

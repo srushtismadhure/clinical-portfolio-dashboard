@@ -2,26 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 
 type HighlightProps = {
   children: React.ReactNode;
+  color?: string;
 };
 
-export function Highlight({ children }: HighlightProps) {
+export function Highlight({ children, color }: HighlightProps) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const [progress, setProgress] = useState(0);
-  const initialScrollY = useRef<number | null>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     let rafId: number | null = null;
-
     const clamp = (n: number) => Math.min(1, Math.max(0, n));
 
     const measure = () => {
       if (!el) return;
-      if (initialScrollY.current === null) {
-        initialScrollY.current = window.scrollY || 0;
-      }
 
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
@@ -29,13 +25,11 @@ export function Highlight({ children }: HighlightProps) {
       const endPx = vh * 0.3; // finish when bottom hits ~30% viewport
       const total = (startPx - endPx) + rect.height;
       const raw = (startPx - rect.top) / total;
+      setProgress(clamp(raw));
+    };
 
-      // Force zero until a tiny scroll has occurred
-      if (initialScrollY.current !== null && window.scrollY <= initialScrollY.current + 2) {
-        setProgress(0);
-      } else {
-        setProgress(clamp(raw));
-      }
+    const schedule = () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(measure);
     };
 
@@ -43,14 +37,17 @@ export function Highlight({ children }: HighlightProps) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            if (rafId === null) {
-              rafId = requestAnimationFrame(measure);
-            }
+            setProgress(0);
+            schedule();
+            window.addEventListener('scroll', schedule, { passive: true });
+            window.addEventListener('resize', schedule);
           } else {
             if (rafId !== null) {
               cancelAnimationFrame(rafId);
               rafId = null;
             }
+            window.removeEventListener('resize', schedule);
+            window.removeEventListener('scroll', schedule);
           }
         });
       },
@@ -61,6 +58,8 @@ export function Highlight({ children }: HighlightProps) {
 
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
       observer.disconnect();
     };
   }, []);
@@ -68,16 +67,15 @@ export function Highlight({ children }: HighlightProps) {
   return (
     <span
       ref={ref}
-      className="relative inline-block"
+      className="relative inline-block px-1 py-0.5 rounded [box-decoration-break:clone]"
       style={{ position: 'relative', display: 'inline-block', '--p': progress } as React.CSSProperties}
     >
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 rounded-sm"
         style={{
-          backgroundColor: 'rgba(247, 231, 163, 0.7)',
-          transformOrigin: 'left center',
-          transform: `scaleX(${progress})`,
+          backgroundColor: color ?? 'rgba(247, 231, 163, 0.7)',
+          transform: `translateY(1px) rotate(-0.3deg) scaleX(${progress})`,
           transition: 'transform 60ms linear',
           zIndex: 0,
         }}

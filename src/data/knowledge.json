@@ -129,12 +129,12 @@
     {
       "id": "paintools",
       "name": "PainTools",
-      "one_liner": "Digital health platform focused on women’s health and chronic pain.",
+      "one_liner": "Digital health platform focused on women’s health.",
       "role": "Data architecture + analytics + product design",
       "highlights": [
-        "Designed the data model + analytics layer for symptom tracking",
-        "Defined KPI framework and clinical-style dashboard structure",
-        "Built a cohesive EHR-grade UI system for the portfolio demo"
+        "Designed the data model + analytics layer",
+        "Processed and de-identified high-volume beta user data, then performed trend analysis to identify patterns that guided product strategy.",
+        "Led UX/UI strategy for PainTools, applying human-centered design principles to create an intuitive, accessible experience"
       ],
       "keywords": [
         "women's health",
@@ -151,11 +151,10 @@
       "id": "healthnumerics",
       "name": "Health Numerics",
       "one_liner": "Predictive analytics integration into a chatbot platform for care support.",
-      "role": "Predictive analytics roadmap + data pipeline planning",
+      "role": "Predictive analytics roadmap",
       "highlights": [
-        "Defined high-value use cases (e.g., medication non-adherence)",
-        "Outlined data collection + labeling approach using EHR + SDOH inputs",
-        "Planned API integration patterns for real-time risk outputs"
+        "Built NLP pipelines to extract clinical and SDOH signals from unstructured patient data",
+  "Developed predictive risk models to identify medication non-adherence and care gaps"
       ],
       "keywords": [
         "predictive",
@@ -180,7 +179,7 @@
     },
     {
       "q": "what are your core skills",
-      "a": "SQL, Python, R, Power BI, Databricks, and Azure — mostly focused on pipelines, modeling, and analytics for healthcare workflows."
+      "a": "SQL, Python, R, Power BI, Databricks, and Azure. Mostly focused on modeling, and analytics for healthcare workflows."
     }
   ]
 }

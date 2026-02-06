@@ -77,6 +77,25 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
+        brand: {
+          DEFAULT: '#1E3A5F',
+          primary: '#1E3A5F',
+          hover: '#17324F',
+          active: '#2C5C8A',
+          soft: '#E8F0F6',
+        },
+        surface: {
+          page: '#F3F6F9',
+          hero: '#E6EEF5',
+          card: '#FFFFFF',
+        },
+        status: {
+          successBg: '#E6F7EE',
+          successText: '#2FBF71',
+        },
+        border: {
+          default: '#E2E8F0',
+        },
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar-background))',
           foreground: 'hsl(var(--sidebar-foreground))',

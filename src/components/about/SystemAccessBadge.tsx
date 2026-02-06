@@ -18,7 +18,7 @@ export function SystemAccessBadge() {
       {/* Plastic holder frame */}
       <div className="pt-10 rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         {/* Header band */}
-        <div className="h-14 bg-slate-500 px-5 flex items-center text-white text-lg font-semibold tracking-wide">
+        <div className="h-14 bg-[#1E3A5F] px-5 flex items-center text-white text-lg font-semibold tracking-wide">
           HEALTHCARE ANALYTICS
         </div>
 
@@ -57,10 +57,6 @@ export function SystemAccessBadge() {
           <div className="space-y-0.5">
             <div className="text-[10px] uppercase tracking-wider text-slate-500">Service Line</div>
             <div className="text-[12px] font-medium text-slate-900">Health Informatics</div>
-          </div>
-          <div className="space-y-0.5">
-            <div className="text-[10px] uppercase tracking-wider text-slate-500">Location</div>
-            <div className="text-[12px] font-medium text-slate-900">Ann Arbor, MI</div>
           </div>
         </div>
 

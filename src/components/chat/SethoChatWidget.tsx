@@ -113,7 +113,7 @@ export default function SethoChatWidget() {
           <div className="flex items-start justify-between gap-3 border-b border-slate-100 bg-slate-50 px-4 py-3">
             <div className="flex items-center gap-3">
               <div className="leading-tight">
-                <div className="text-sm font-semibold text-slate-900">Setho</div>
+                <div className="text-sm font-semibold text-slate-900">Echo</div>
                 <div className="text-xs text-slate-600">
                   Clinical analytics assistant
                 </div>
@@ -231,18 +231,18 @@ export default function SethoChatWidget() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="group relative bg-transparent p-0 rounded-none overflow-visible border-0 cursor-pointer transition-transform duration-200 hover:scale-105"
-        aria-label={open ? 'Close Setho chat' : 'Open Setho chat'}
-        title={open ? 'Close' : 'Chat with Setho'}
+        aria-label={open ? 'Close Echo chat' : 'Open Echo chat'}
+        title="Chat with Echo"
+        className="group relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-visible border-0 cursor-pointer transition-transform duration-200 hover:scale-105"
       >
-        <div className="relative w-14 sm:w-16 md:w-20 lg:w-[7.5rem] shadow-sm">
+        <div className="relative w-full h-full rounded-full bg-white/15 border border-white/30 backdrop-blur-xl shadow-lg/70 group-hover:shadow-xl transition-all duration-200 flex items-center justify-center">
           <img
             src={sethoBotUrl}
-            className="w-full h-auto object-contain block pointer-events-none"
-            alt="Setho"
+            alt="Echo"
+            className="w-[76px] h-[76px] sm:w-[80px] sm:h-[80px] md:w-[88px] md:h-[88px] object-contain pointer-events-none"
           />
-          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 ring-1 ring-white" />
         </div>
+        <span className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-[#2FBF71] rounded-full border-2 border-white shadow-sm" />
       </button>
     </div>
   );

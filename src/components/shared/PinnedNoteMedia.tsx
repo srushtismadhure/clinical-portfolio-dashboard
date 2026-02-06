@@ -15,6 +15,7 @@ type NoteVideo = {
 
 type PinnedNoteMediaProps = {
   title?: string;
+  subtitle?: string;
   noteText?: string;
   images?: NoteImage[];
   video?: NoteVideo;
@@ -28,6 +29,7 @@ function isEmbedUrl(url: string) {
 
 export function PinnedNoteMedia({
   title = 'Pinned note',
+  subtitle,
   noteText = 'Outside work, I track habits, sketch ideas, and experiment with small systems — personal and professional.',
   images = [],
   video,
@@ -60,6 +62,9 @@ export function PinnedNoteMedia({
       <div className="flex items-center justify-between pb-2">
         <h3 className="text-sm font-semibold text-slate-800">{title}</h3>
       </div>
+      {subtitle ? (
+        <p className="mt-1 text-xs sm:text-sm text-slate-500 italic mb-2">{subtitle}</p>
+      ) : null}
       <div className="border-t border-slate-200/70 pt-3">
         {/* Images grid */}
         {imageItems.length > 0 && (

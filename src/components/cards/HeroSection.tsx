@@ -22,11 +22,11 @@ const toolkitItems = [
 ];
 
 const interestAreas = [
+  { label: 'Women’s Health & Maternal Outcomes Analytics', icon: Activity },
   { label: 'Healthcare Data Engineering (ETL & Pipelines)', icon: Database },
-  { label: 'Predictive Analytics & Risk Modeling', icon: BarChart3 },
-  { label: 'Claims Analytics & Quality Measurement', icon: FileText },
-  { label: 'Clinical & Operational Dashboard Development', icon: Layers3 },
-  { label: 'Process & Quality Improvement Analytics', icon: Activity },
+  { label: 'Predictive & Preventive Care Modeling', icon: BarChart3 },
+  { label: 'Digital Health & Remote Patient Monitoring', icon: FileText },
+  { label: 'Clinical Decision Support Systems', icon: Layers3 },
 ];
 
 type Tool = { label: string; Icon: React.ElementType };
@@ -46,14 +46,14 @@ type PillProps = {
 };
 
 const Pill = ({ icon: Icon, label }: PillProps) => (
-  <span className="inline-flex items-center justify-start gap-2 rounded-sm border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-600 leading-5 md:leading-[1.35] min-w-0 max-w-full">
+  <span className="inline-flex items-center justify-start gap-2 rounded-md border border-[#E2E8F0] bg-[#E8F0F6] px-3 py-2 text-sm font-medium text-slate-700 leading-5 md:leading-[1.35] min-w-0 max-w-full transition-colors hover:bg-[#F3F6F9] hover:border-[#CBD5E1]">
     <Icon className="h-4 w-4 text-slate-600 shrink-0" aria-hidden="true" />
-    <span className="min-w-0 break-words whitespace-normal">{label}</span>
+    <span className="min-w-0 break-words whitespace-normal text-slate-700">{label}</span>
   </span>
 );
 
 export const ProblemsISolve = () => (
-  <section className="mt-3 rounded-md border border-[hsl(var(--clinical-border))] bg-[hsl(var(--clinical-surface))] px-3 py-3">
+  <section className="mt-3 rounded-xl border border-[#E2E8F0] bg-white shadow-sm px-3 py-3">
     <div className="flex items-center justify-between mb-2">
       <h4 className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
         Problems I Solve
@@ -63,7 +63,7 @@ export const ProblemsISolve = () => (
       {problemsISolve.map(({ title, subtitle, Icon }) => (
         <div
           key={title}
-          className="flex items-start gap-2 rounded-sm border border-[hsl(var(--clinical-border))] bg-white/80 px-3 py-2"
+          className="flex items-start gap-2 rounded-md border border-[#E2E8F0] bg-white px-3 py-2"
         >
           <Icon className="h-4 w-4 text-slate-600 mt-0.5" aria-hidden="true" />
           <div className="min-w-0">
@@ -86,8 +86,8 @@ export function ClinicalAnalyticsToolkit() {
   );
 
   return (
-    <section className="system-module min-w-0 rounded-lg overflow-hidden">
-      <div className="system-module-header px-6 py-3">
+    <section className="system-module min-w-0 rounded-xl border border-[#E2E8F0] bg-white shadow-sm overflow-hidden">
+      <div className="system-module-header px-6 py-3 bg-[#E6EEF5] border-b border-[#E2E8F0]">
         <div className="flex items-center gap-2">
           <Database className="h-3.5 w-3.5 text-slate-500" />
           <span className="text-[11px] font-medium tracking-wide text-slate-600 uppercase">
@@ -108,7 +108,7 @@ export function ClinicalAnalyticsToolkit() {
         </div>
       </div>
 
-      <div className="system-module-footer px-6 py-3">
+      <div className="system-module-footer px-6 py-3 border-t border-[#E2E8F0]">
         <p className="text-[10px] text-slate-500">Primary technical stack</p>
       </div>
     </section>
@@ -199,8 +199,8 @@ export function HeroSection() {
         
         {/* Left Column */}
         <div className="min-w-0 flex flex-col gap-2">
-          <div className="system-module min-w-0 rounded-lg">
-            <div className="system-module-header px-6 py-3">
+          <div className="system-module min-w-0 rounded-xl border border-[#E2E8F0] bg-white shadow-sm">
+            <div className="system-module-header px-6 py-3 bg-[#E6EEF5] border-b border-[#E2E8F0]">
               <div className="flex items-center gap-1.5">
               <User className="w-3 h-3 text-primary" />
               <span className="system-module-label text-xs uppercase tracking-widest font-medium text-slate-500">
@@ -214,7 +214,7 @@ export function HeroSection() {
               {/* Identity Row */}
               <div className="flex flex-col md:flex-row md:items-center items-center gap-2 mb-2.5">
                 {/* Photo */}
-                <div className="relative shrink-0 rounded-full overflow-hidden border-2 border-slate-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] w-24 h-24 md:w-[100px] md:h-[100px] -mt-2 md:-mt-7">
+                <div className="relative shrink-0 rounded-full overflow-hidden border-2 border-[#E2E8F0] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] w-24 h-24 md:w-[100px] md:h-[100px] -mt-2 md:-mt-7">
                   <img
                     src={`${import.meta.env.BASE_URL}images/profile.png`}
                     alt="Profile photo"
@@ -303,7 +303,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="border-t border-slate-200/70 mt-1 mb-1.5" />
+              <div className="border-t border-[#E2E8F0] mt-1 mb-1.5" />
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_1px_1fr] gap-2 sm:gap-6 text-sm font-medium text-slate-600 leading-6 md:leading-5 mb-2.5">
                 <ul className="space-y-0">
                   {(viewMode === 'summary' ? summaryItems.slice(0, 3) : technicalSkills.slice(0, 2)).map((item) => {
@@ -325,7 +325,7 @@ export function HeroSection() {
                     );
                   })}
                 </ul>
-                <div className="hidden sm:block bg-[#E5E7EB] w-px" />
+                <div className="hidden sm:block bg-[#E2E8F0] w-px" />
                 <ul className="space-y-0">
                   {(viewMode === 'summary' ? summaryItems.slice(3, 6) : technicalSkills.slice(2, 4)).map((item) => {
                     const itemKey = 'label' in item ? item.label : item.title;
@@ -353,7 +353,7 @@ export function HeroSection() {
                 <div className="w-full flex flex-col gap-2 md:w-auto md:flex-row md:gap-2">
                   <Link
                     to="/projects"
-                    className="flex items-center justify-center h-9 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-[hsl(var(--clinical-primary-hover))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--clinical-primary-hover))] focus-visible:ring-offset-2 transition-colors w-full md:w-auto"
+                    className="flex items-center justify-center h-9 px-4 rounded-xl bg-[color:var(--brand)] text-white text-sm font-medium hover:bg-[color:var(--brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand-hover)] focus-visible:ring-offset-2 transition-colors w-full md:w-auto shadow-sm"
                   >
                     View Projects
                   </Link>
@@ -361,7 +361,7 @@ export function HeroSection() {
                     href={`${import.meta.env.BASE_URL}BI_Analyst_Master.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center h-9 px-4 rounded-md border border-slate-300 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 transition-colors w-full md:w-auto"
+                    className="flex items-center justify-center h-9 px-4 rounded-xl border border-[#E2E8F0] text-sm font-medium text-[#0F172A] bg-white hover:bg-[#F3F6F9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A5F] focus-visible:ring-offset-2 transition-colors w-full md:w-auto"
                   >
                     Resume
                   </a>
@@ -406,8 +406,8 @@ export function HeroSection() {
         <div className="min-w-0 w-full overflow-hidden lg:pr-2 lg:pl-1 flex flex-col gap-2">
           <ClinicalAnalyticsToolkit />
 
-          <section className="system-module min-w-0 rounded-lg overflow-hidden">
-            <div className="system-module-header px-6 py-3">
+          <section className="system-module min-w-0 rounded-xl border border-[#E2E8F0] bg-white shadow-sm overflow-hidden">
+            <div className="system-module-header px-6 py-3 bg-[#E6EEF5] border-b border-[#E2E8F0]">
               <div className="flex items-center gap-2">
                 <Activity className="h-3.5 w-3.5 text-slate-500" />
                 <span className="text-[11px] font-normal tracking-wide text-slate-600 uppercase">

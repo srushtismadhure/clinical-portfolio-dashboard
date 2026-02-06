@@ -24,7 +24,7 @@ export function Layout({
 
   return (
     /* APP CANVAS */
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[color:var(--surface-page,theme(colors.surface.page))]">
       {/* Sidebar */}
       <Sidebar
         variant={sidebarVariant}

@@ -80,8 +80,7 @@
   left: 0;
   right: 0;
   height: 52px;
-  background: linear-gradient(180deg, #7e8fb1 0%, #6e7fa0 100%);
-  opacity: 0.9;
+  background: #1e3a5f;
 }
 
 .content {

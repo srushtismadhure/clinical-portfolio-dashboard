@@ -32,8 +32,8 @@ export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false 
     <article
       className={
         tileMode
-          ? "aspect-[16/9] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)] relative"
-          : "rounded-md border bg-white overflow-hidden"
+          ? "w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)] relative h-auto"
+          : "rounded-md border bg-white overflow-hidden h-auto"
       }
     >
       {!tileMode && (
@@ -41,7 +41,7 @@ export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false 
           {title}
         </header>
       )}
-      <div className={tileMode ? "absolute inset-0" : "relative aspect-[4/3] bg-slate-100"}>
+      <div className={tileMode ? "relative w-full bg-slate-100 overflow-hidden" : "relative bg-slate-100 h-auto overflow-hidden"}>
         <video
           ref={videoRef}
           src={resolvedSrc}
@@ -50,7 +50,7 @@ export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false 
           autoPlay
           muted
           loop
-          className="w-full h-full object-cover origin-center rotate-[360deg]"
+          className={tileMode ? "w-full h-auto max-h-[200px] sm:max-h-[220px] object-cover origin-center rotate-[360deg] rounded-xl" : "w-full h-auto object-cover origin-center rotate-[360deg] rounded-xl"}
           onPlay={handlePlay}
           onPause={handlePause}
           controls={isPlaying}
