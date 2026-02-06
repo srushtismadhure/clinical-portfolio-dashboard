@@ -406,7 +406,7 @@ export function HeroSection() {
         <div className="min-w-0 w-full overflow-hidden lg:pr-2 lg:pl-1 flex flex-col gap-2">
           <ClinicalAnalyticsToolkit />
 
-          <section className="system-module min-w-0 rounded-xl border border-[#E2E8F0] bg-white shadow-sm overflow-hidden">
+          <section className="hidden md:block system-module min-w-0 rounded-xl border border-[#E2E8F0] bg-white shadow-sm overflow-hidden">
             <div className="system-module-header px-6 py-3 bg-[#E6EEF5] border-b border-[#E2E8F0]">
               <div className="flex items-center gap-2">
                 <Activity className="h-3.5 w-3.5 text-slate-500" />
