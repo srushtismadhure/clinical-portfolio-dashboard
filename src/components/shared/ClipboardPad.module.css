@@ -80,7 +80,8 @@
   left: 0;
   right: 0;
   height: 52px;
-  background: #1e3a5f;
+  background: #eaf3f7;
+  border-bottom: 1px solid #e3e8ee;
 }
 
 .content {

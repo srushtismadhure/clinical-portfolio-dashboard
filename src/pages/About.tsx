@@ -42,7 +42,7 @@ export default function About() {
           <ClipboardPad>
             <div className="space-y-6">
               <div className="space-y-1">
-                <h2 className="text-2xl lg:text-3xl font-semibold text-slate-900">Clinical Profile</h2>
+                <h2 className="text-2xl lg:text-3xl font-semibold text-[#1E3A5F]">Clinical Profile</h2>
                 <div className="text-base md:text-lg leading-snug text-slate-600 flex items-baseline gap-2 max-w-[70ch]">
                   <span>Building analytics for</span>
                   <span className="whitespace-nowrap flex items-baseline gap-2">

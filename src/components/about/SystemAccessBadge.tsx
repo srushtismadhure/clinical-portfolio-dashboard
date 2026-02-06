@@ -18,7 +18,7 @@ export function SystemAccessBadge() {
       {/* Plastic holder frame */}
       <div className="pt-10 rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         {/* Header band */}
-        <div className="h-14 bg-[#1E3A5F] px-5 flex items-center text-white text-lg font-semibold tracking-wide">
+        <div className="h-14 bg-[#EAF3F7] border-b border-[#E3E8EE] px-5 flex items-center text-[#1E3A5F] text-lg font-semibold tracking-wide">
           HEALTHCARE ANALYTICS
         </div>
 
