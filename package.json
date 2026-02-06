@@ -8,9 +8,10 @@
     "build": "vite build",
     "build:v2": "vite build --base=/clinical-portfolio-dashboard/v2/",
     "build:dev": "vite build --mode development",
+    "build:ghpages": "vite build --mode ghpages",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build:ghpages && gh-pages -d dist",
     "deploy:v2": "gh-pages -d dist --dest v2"
   },
   "dependencies": {

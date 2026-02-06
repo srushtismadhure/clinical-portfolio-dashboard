@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/clinical-portfolio-dashboard/",
+  base: mode === "ghpages" ? "/clinical-portfolio-dashboard/" : "/",
   server: {
     host: "::",
     port: 8080,
