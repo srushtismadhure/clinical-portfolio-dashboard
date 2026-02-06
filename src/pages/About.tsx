@@ -13,10 +13,10 @@ export default function About() {
     noteText:
       'Outside work, I track habits, sketch ideas, and experiment with small systems — personal and professional.',
     images: [
-      { src: '/images/ocean.png', alt: 'Pinned note image 2' },
-      { src: '/images/chalk.png', alt: 'Pinned note image 3' },
-      { src: '/images/stitch.png', alt: 'Pinned note image 3' },
-      { src: '/images/fish.png', alt: 'Pinned note image 4' },
+      { src: '/images/snow.webp', alt: 'Pinned note image 1' },
+      { src: '/images/b.webp', alt: 'Pinned note image 2' },
+      { src: '/images/goat.webp', alt: 'Pinned note image 3' },
+      { src: '/images/fish.webp', alt: 'Pinned note image 4' },
     ],
     video: {
       src: '/videos/animation.mp4',

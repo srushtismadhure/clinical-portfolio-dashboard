@@ -29,7 +29,7 @@ export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false 
     <article
       className={
         tileMode
-          ? "aspect-[4/3] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)] relative"
+          ? "aspect-[16/9] w-full overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.08)] relative"
           : "rounded-md border bg-white overflow-hidden"
       }
     >
