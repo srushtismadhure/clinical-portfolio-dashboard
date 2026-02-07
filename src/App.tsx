@@ -17,6 +17,7 @@ import Skills from "./pages/Skills";
 import About from "./pages/About";
 import Resume from "./pages/Resume";
 import Contact from "./pages/Contact";
+import ThankYou from "./pages/ThankYou";
 import Play from "./pages/Play";
 import DataModelDetail from "./pages/DataModelDetail";
 import SethoChatWidget from "@/components/chat/SethoChatWidget";
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/thank-you" element={<ThankYou />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

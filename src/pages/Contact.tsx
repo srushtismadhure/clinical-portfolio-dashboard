@@ -1,33 +1,17 @@
-import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, Linkedin, Github, Send, MapPin } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Mail, Linkedin, Github } from 'lucide-react';
 
 export default function Contact() {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: 'Message sent!',
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: '', email: '', message: '' });
-  };
+  const nextUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${import.meta.env.BASE_URL}thank-you`
+      : `${import.meta.env.BASE_URL}thank-you`;
 
   const socialLinks = [
-    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/srushti-madhure/', color: 'blue' },
-    { icon: Github, label: 'GitHub', href: 'https://github.com/srushtismadhure', color: 'teal' },
-    { icon: Mail, label: 'Email', href: 'mailto:srushtisunilmadhure@gmail.com', color: 'coral' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/srushti-madhure/' },
+    { icon: Github, label: 'GitHub', href: 'https://github.com/srushtismadhure' },
+    { icon: Mail, label: 'Email', href: 'mailto:srushtisunilmadhure@gmail.com' },
   ];
 
   return (
@@ -35,98 +19,111 @@ export default function Contact() {
       <div className="flex min-h-full flex-col">
         <div className="flex-1">
           <PageHeader
-            title="Get in Touch"
-            subtitle="I'd love to hear from you. Let's connect!"
+            title="Contact"
+            subtitle="Send a message and I’ll get back to you."
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl">
             {/* Contact Form */}
-            <div className="ehr-card animate-fade-up">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Send a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Name</label>
-                  <Input
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            <div className="bg-white border border-[#E3E8EE] rounded-xl shadow-sm p-6">
+              <form
+                action="https://formsubmit.co/srushtisunilmadhure@gmail.com"
+                method="POST"
+                className="space-y-4"
+              >
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">Name</label>
+                  <input
+                    name="name"
+                    type="text"
+                    required
+                    className="w-full rounded-xl border border-[#E3E8EE] bg-white px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1E3A5F] focus:border-[#1E3A5F]"
                     placeholder="Your name"
-                    className="rounded-xl"
-                    required
                   />
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Email</label>
-                  <Input
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">Email</label>
+                  <input
+                    name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    className="w-full rounded-xl border border-[#E3E8EE] bg-white px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1E3A5F] focus:border-[#1E3A5F]"
                     placeholder="your@email.com"
-                    className="rounded-xl"
-                    required
                   />
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1 block">Message</label>
-                  <Textarea
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-700">Message</label>
+                  <textarea
+                    name="message"
+                    required
+                    className="w-full rounded-xl border border-[#E3E8EE] bg-white px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#1E3A5F] focus:border-[#1E3A5F] min-h-[140px]"
                     placeholder="Your message..."
-                    className="rounded-xl min-h-[120px]"
-                    required
                   />
                 </div>
-                <Button
+
+                {/* Hidden fields for FormSubmit */}
+                <input type="hidden" name="_subject" value="Portfolio Contact Form - New Message" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" value={nextUrl} />
+
+                <button
                   type="submit"
-                  className="w-full gap-2 bg-[hsl(var(--ehr-teal))] hover:bg-[hsl(var(--ehr-teal)/0.9)] rounded-xl"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#1E3A5F] hover:bg-[#17324F] text-white px-4 py-2.5 text-sm font-medium shadow-sm transition-colors"
                 >
-                  <Send className="w-4 h-4" />
                   Send Message
-                </Button>
+                </button>
               </form>
+
+              <p className="mt-4 text-sm text-slate-600">
+                Prefer email?{' '}
+                <a
+                  href="mailto:srushtisunilmadhure@gmail.com"
+                  className="text-[#1E3A5F] hover:underline"
+                >
+                  srushtisunilmadhure@gmail.com
+                </a>
+              </p>
             </div>
 
-            {/* Contact Info */}
-            <div className="space-y-6">
-              <div className="ehr-card animate-fade-up" style={{ animationDelay: '100ms' }}>
-                <h2 className="text-lg font-semibold text-foreground mb-4">Connect</h2>
-                <div className="space-y-3">
-                  {socialLinks.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-xl hover:bg-[hsl(var(--ehr-teal)/0.1)] transition-colors group"
-                    >
-                      <div className={`w-10 h-10 rounded-xl bg-[hsl(var(--ehr-${link.color})/0.15)] flex items-center justify-center`}>
-                        <link.icon className={`w-5 h-5 text-[hsl(var(--ehr-${link.color}))]`} />
-                      </div>
-                      <span className="font-medium text-foreground group-hover:text-[hsl(var(--ehr-teal))] transition-colors">
-                        {link.label}
-                      </span>
-                    </a>
-                  ))}
-                </div>
+            {/* Connect panel */}
+            <div className="bg-white border border-[#E3E8EE] rounded-xl shadow-sm p-6 space-y-4">
+              <h2 className="text-lg font-semibold text-slate-900">Connect</h2>
+              <div className="space-y-3">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-[#F3F6F9] transition-colors group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#EAF3F7] flex items-center justify-center">
+                      <link.icon className="w-5 h-5 text-[#1E3A5F]" />
+                    </div>
+                    <span className="font-medium text-slate-800 group-hover:text-[#1E3A5F] transition-colors">
+                      {link.label}
+                    </span>
+                  </a>
+                ))}
               </div>
-
             </div>
           </div>
-        </div>
 
-        {/* Let’s connect strip */}
-        <section className="mt-6 w-full">
-          <a
-            href="mailto:srushtisunilmadhure@gmail.com"
-            className="group relative block h-16 overflow-hidden rounded-md border border-slate-800 bg-[#0B1510] [--ecg-speed:4.6s] hover:[--ecg-speed:2.6s]"
-            aria-label="Let's connect"
-          >
-            <svg
-              className="absolute inset-0 h-full w-full"
-              viewBox="0 0 400 64"
-              preserveAspectRatio="none"
-              aria-hidden="true"
+          {/* Let’s connect strip (ECG/pulse) */}
+          <section className="mt-6 w-full">
+            <a
+              href="mailto:srushtisunilmadhure@gmail.com"
+              className="group relative block h-16 overflow-hidden rounded-md border border-slate-800 bg-[#0B1510] [--ecg-speed:4.6s] hover:[--ecg-speed:2.6s]"
+              aria-label="Let's connect"
             >
-              <style>{`
+              <svg
+                className="absolute inset-0 h-full w-full"
+                viewBox="0 0 400 64"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <style>{`
                 @keyframes ecg-draw {
                   0% { stroke-dashoffset: 1200; }
                   30% { stroke-dashoffset: 980; }
@@ -151,69 +148,70 @@ export default function Contact() {
                   animation: ecg-reveal var(--ecg-speed) linear infinite;
                 }
               `}</style>
-              <defs>
-                <pattern id="ecg-grid" width="16" height="16" patternUnits="userSpaceOnUse">
-                  <path d="M16 0H0V16" fill="none" stroke="#0F2A1B" strokeWidth="1" />
-                </pattern>
-                <linearGradient id="ecg-scan" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stopColor="#22C55E" stopOpacity="0" />
-                  <stop offset="0.5" stopColor="#22C55E" stopOpacity="0.12" />
-                  <stop offset="1" stopColor="#22C55E" stopOpacity="0" />
-                </linearGradient>
-                <clipPath id="ecg-reveal-clip">
-                  <rect className="ecg-reveal" x="0" y="0" width="400" height="64" />
-                </clipPath>
-              </defs>
-              <rect width="400" height="64" fill="url(#ecg-grid)" />
-              <g clipPath="url(#ecg-reveal-clip)">
-                <path
-                  d="M0 32 L40 32 C44 32 46 30 50 32 L70 32 L74 34 L78 6 L82 58 L86 32 L100 32 C104 32 110 26 118 32 L140 32 L150 32 L154 34 L158 6 L162 58 L166 32 L180 32 L220 32 C224 32 226 30 230 32 L250 32 L254 34 L258 6 L262 58 L266 32 L280 32 L320 32 C324 32 326 30 330 32 L350 32 L354 34 L358 6 L362 58 L366 32 L400 32"
-                  fill="none"
-                  stroke="#1D7A43"
-                  strokeWidth="1.0"
-                  strokeLinejoin="miter"
-                  strokeLinecap="butt"
-                  opacity="0.28"
-                />
-                <path
-                  d="M0 32 L40 32 C44 32 46 30 50 32 L70 32 L74 34 L78 6 L82 58 L86 32 L100 32 C104 32 110 26 118 32 L140 32 L150 32 L154 34 L158 6 L162 58 L166 32 L180 32 L220 32 C224 32 226 30 230 32 L250 32 L254 34 L258 6 L262 58 L266 32 L280 32 L320 32 C324 32 326 30 330 32 L350 32 L354 34 L358 6 L362 58 L366 32 L400 32"
-                  fill="none"
-                  stroke="#22C55E"
-                  strokeWidth="1.8"
-                  strokeLinejoin="miter"
-                  strokeLinecap="butt"
-                  opacity="0.18"
-                />
-                <path
-                  d="M0 32 L40 32 C44 32 46 30 50 32 L70 32 L74 34 L78 6 L82 58 L86 32 L100 32 C104 32 110 26 118 32 L140 32 L150 32 L154 34 L158 6 L162 58 L166 32 L180 32 L220 32 C224 32 226 30 230 32 L250 32 L254 34 L258 6 L262 58 L266 32 L280 32 L320 32 C324 32 326 30 330 32 L350 32 L354 34 L358 6 L362 58 L366 32 L400 32"
-                  fill="none"
-                  stroke="#22C55E"
-                  strokeWidth="1.2"
-                  strokeLinejoin="miter"
-                  strokeLinecap="butt"
-                  strokeDasharray="1200"
-                  style={{
+                <defs>
+                  <pattern id="ecg-grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                    <path d="M16 0H0V16" fill="none" stroke="#0F2A1B" strokeWidth="1" />
+                  </pattern>
+                  <linearGradient id="ecg-scan" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stopColor="#22C55E" stopOpacity="0" />
+                    <stop offset="0.5" stopColor="#22C55E" stopOpacity="0.12" />
+                    <stop offset="1" stopColor="#22C55E" stopOpacity="0" />
+                  </linearGradient>
+                  <clipPath id="ecg-reveal-clip">
+                    <rect className="ecg-reveal" x="0" y="0" width="400" height="64" />
+                  </clipPath>
+                </defs>
+                <rect width="400" height="64" fill="url(#ecg-grid)" />
+                <g clipPath="url(#ecg-reveal-clip)">
+                  <path
+                    d="M0 32 L40 32 C44 32 46 30 50 32 L70 32 L74 34 L78 6 L82 58 L86 32 L100 32 C104 32 110 26 118 32 L140 32 L150 32 L154 34 L158 6 L162 58 L166 32 L180 32 L220 32 C224 32 226 30 230 32 L250 32 L254 34 L258 6 L262 58 L266 32 L280 32 L320 32 C324 32 326 30 330 32 L350 32 L354 34 L358 6 L362 58 L366 32 L400 32"
+                    fill="none"
+                    stroke="#1D7A43"
+                    strokeWidth="1.0"
+                    strokeLinejoin="miter"
+                    strokeLinecap="butt"
+                    opacity="0.28"
+                  />
+                  <path
+                    d="M0 32 L40 32 C44 32 46 30 50 32 L70 32 L74 34 L78 6 L82 58 L86 32 L100 32 C104 32 110 26 118 32 L140 32 L150 32 L154 34 L158 6 L162 58 L166 32 L180 32 L220 32 C224 32 226 30 230 32 L250 32 L254 34 L258 6 L262 58 L266 32 L280 32 L320 32 C324 32 326 30 330 32 L350 32 L354 34 L358 6 L362 58 L366 32 L400 32"
+                    fill="none"
+                    stroke="#22C55E"
+                    strokeWidth="1.8"
+                    strokeLinejoin="miter"
+                    strokeLinecap="butt"
+                    opacity="0.18"
+                  />
+                  <path
+                    d="M0 32 L40 32 C44 32 46 30 50 32 L70 32 L74 34 L78 6 L82 58 L86 32 L100 32 C104 32 110 26 118 32 L140 32 L150 32 L154 34 L158 6 L162 58 L166 32 L180 32 L220 32 C224 32 226 30 230 32 L250 32 L254 34 L258 6 L262 58 L266 32 L280 32 L320 32 C324 32 326 30 330 32 L350 32 L354 34 L358 6 L362 58 L366 32 L400 32"
+                    fill="none"
+                    stroke="#22C55E"
+                    strokeWidth="1.2"
+                    strokeLinejoin="miter"
+                    strokeLinecap="butt"
+                    strokeDasharray="1200"
+                    style={{
                     animation: 'ecg-draw var(--ecg-speed) cubic-bezier(0.35, 0.1, 0.65, 0.9) infinite',
                     filter: 'drop-shadow(0 0 0.4px rgba(34,197,94,0.18))',
-                  }}
+                    }}
+                  />
+                </g>
+                <rect
+                  x="-40"
+                  y="0"
+                  width="40"
+                  height="64"
+                  fill="url(#ecg-scan)"
+                  style={{ animation: 'ecg-scan var(--ecg-speed) linear infinite' }}
                 />
-              </g>
-              <rect
-                x="-40"
-                y="0"
-                width="40"
-                height="64"
-                fill="url(#ecg-scan)"
-                style={{ animation: 'ecg-scan var(--ecg-speed) linear infinite' }}
-              />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-medium text-[#7BE3A1] bg-black/30 px-2 py-0.5 rounded-sm">
-                Let’s connect
-              </span>
-            </div>
-          </a>
-        </section>
+              </svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-sm font-medium text-[#7BE3A1] bg-black/30 px-2 py-0.5 rounded-sm">
+                  Let’s connect
+                </span>
+              </div>
+            </a>
+          </section>
+        </div>
       </div>
     </Layout>
   );
