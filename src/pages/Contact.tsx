@@ -1,12 +1,17 @@
 import { Layout } from '@/components/layout/Layout';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { Mail, Linkedin, Github } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Contact() {
-  const nextUrl =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}${import.meta.env.BASE_URL}thank-you`
-      : `${import.meta.env.BASE_URL}thank-you`;
+  // Default to production thank-you URL; update on client for local/other hosts
+  const [nextUrl, setNextUrl] = useState('https://www.srushtimadhure.com/thank-you');
+
+  useEffect(() => {
+    const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
+    const origin = window.location.origin;
+    setNextUrl(`${origin}${base}/thank-you`);
+  }, []);
 
   const socialLinks = [
     { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/srushti-madhure/' },
