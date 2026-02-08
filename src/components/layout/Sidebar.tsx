@@ -48,7 +48,7 @@ export function Sidebar({
 
   // ✅ CHANGED: frosted-glass base styles
   const frostedPanel =
-    'bg-[color:var(--brand)] text-[#E6EDF3] border-r border-[color:var(--brand)] shadow-xl';
+    'bg-[#1E3A5F] text-[#E6EDF3] border-r border-[#1E3A5F] shadow-md';
 
   const asideClassName =
     variant === 'drawer'
@@ -85,7 +85,8 @@ export function Sidebar({
         {/* Header */}
         <div className="px-3 py-3 border-b border-[color:var(--brand-hover)] flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2" onClick={handleNavClick}>
-            <div className="w-20 h-20 rounded-md bg-transparent flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 rounded-md bg-transparent flex items-center justify-center overflow-hidden relative">
+              <span className="absolute inset-0 bg-white/4 rounded-md pointer-events-none" aria-hidden="true" />
               <img
                 src={`${import.meta.env.BASE_URL}images/logo.svg`}
                 alt="Healthcare Analytics logo"
@@ -112,7 +113,8 @@ export function Sidebar({
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-2 space-y-1 overflow-y-auto relative">
+          <span className="absolute inset-0 bg-white/3 pointer-events-none" aria-hidden="true" />
           <div className="px-2 py-1">
             <span className="text-[10px] font-medium text-[#CBD5E1] uppercase tracking-wide">
               Navigation
@@ -131,7 +133,7 @@ export function Sidebar({
                   'flex items-center gap-2 px-3 py-2 rounded-md text-[13px] transition-colors w-full',
                   isActive
                     ? 'bg-[color:var(--brand)] text-white font-medium'
-                    : 'text-[#E6EDF3] hover:bg-[color:var(--brand-hover)]',
+                    : 'text-[#E6EDF3] hover:bg-[#17324F]',
                 ].join(' ')}
               >
                 <item.icon

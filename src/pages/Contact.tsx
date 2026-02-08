@@ -1,16 +1,11 @@
 import { Layout } from '@/components/layout/Layout';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { Mail, Linkedin, Github } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 export default function Contact() {
-  // Default to production thank-you URL; update on client for local/other hosts (FormSubmit requires absolute URL)
-  const [nextUrl, setNextUrl] = useState('https://www.srushtimadhure.com/#/thank-you');
-
-  useEffect(() => {
-    const origin = window.location.origin;
-    setNextUrl(`${origin}/#/thank-you`);
-  }, []);
+  // Absolute hash URL for FormSubmit redirect (works on localhost + production)
+  const nextUrl = useMemo(() => `${window.location.origin}/#/thank-you`, []);
 
   const socialLinks = [
     { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/srushti-madhure/' },
@@ -66,7 +61,7 @@ export default function Contact() {
                 </div>
 
                 {/* Hidden fields for FormSubmit */}
-                <input type="hidden" name="_subject" value="Portfolio Contact Form - New Message" />
+                <input type="hidden" name="_subject" value="Portfolio Contact Form" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_template" value="table" />
                 <input type="hidden" name="_next" value={nextUrl} />
