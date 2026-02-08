@@ -4,12 +4,12 @@ import { Mail, Linkedin, Github } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Contact() {
-  // Default to production thank-you URL; update on client for local/other hosts
-  const [nextUrl, setNextUrl] = useState('https://www.srushtimadhure.com/thank-you');
+  // Default to production thank-you URL; update on client for local/other hosts (FormSubmit requires absolute URL)
+  const [nextUrl, setNextUrl] = useState('https://www.srushtimadhure.com/#/thank-you');
 
   useEffect(() => {
     const origin = window.location.origin;
-    setNextUrl(`${origin}/thank-you`);
+    setNextUrl(`${origin}/#/thank-you`);
   }, []);
 
   const socialLinks = [
