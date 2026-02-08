@@ -40,13 +40,47 @@ export function getPortfolioAnswer(userInput: string): string {
 
   // 0) Contact intent (early)
   if (includesAny(q, ["contact", "reach", "email", "linkedin", "github", "connect", "message"])) {
+    // Specific link intents
+    if (includesAny(q, ["linkedin"])) {
+      return "Connect with me on <a href='https://www.linkedin.com/in/srushtimadhure' target='_blank' class='text-[#1E3A5F] underline'>LinkedIn</a>.";
+    }
+    if (includesAny(q, ["github"])) {
+      return "See my code on <a href='https://github.com/srushtismadhure' target='_blank' class='text-[#1E3A5F] underline'>GitHub</a>.";
+    }
+    if (includesAny(q, ["email"])) {
+      return "Email me directly at <a href='mailto:srushtisunilmadhure@gmail.com' class='text-[#1E3A5F] underline'>srushtisunilmadhure@gmail.com</a>.";
+    }
+    if (includesAny(q, ["resume"])) {
+      return "Download my resume <a href='/resume.pdf' target='_blank' class='text-[#1E3A5F] underline'>here</a>.";
+    }
+    if (includesAny(q, ["projects"])) {
+      return "Browse my work in the <a href='/#/projects' class='text-[#1E3A5F] underline'>Projects section</a>.";
+    }
+
     const contactLines = getContactLines(kb);
     if (contactLines.length) {
-      return `Absolutely — here’s the best way to reach me:\n\n${contactLines.join(
+      return `Absolutely, here’s the best way to reach me:\n\n${contactLines.join(
         "\n"
       )}\n\nIf you share what you’re looking for (role, project, collaboration), I can point you to the most relevant work too.`;
     }
-    return `Absolutely — you can reach me via the Contact section in the left nav, or through my LinkedIn/GitHub links in the Profile Overview.`;
+    return `Absolutely, you can reach me via the Contact section in the left nav, or through my LinkedIn/GitHub links in the Profile Overview.`;
+  }
+
+  // 0b) Simple "yes" intent -> surface projects with links
+  if (includesAny(q, ["yes", "yeah", "yep", "sure", "okay", "ok"])) {
+    const projects: Array<AnyRecord> = kb.projects ?? [];
+    if (projects.length) {
+      const lines = projects.map((p) => {
+        const name = (p.name ?? "").toString();
+        const desc = (p.one_liner ?? p.summary ?? "Project details are available in the case study.").toString();
+        const href = (p.links?.case_study ?? "").toString();
+        const link = href
+          ? `<a href='${href}' class='text-[#1E3A5F] underline' target='_blank'>${name}</a>`
+          : name;
+        return `• ${link} — ${desc}`;
+      });
+      return `Here are a few projects to explore:\n\n${lines.join("\n")}`;
+    }
   }
 
   // 1) "What can you solve?" / capabilities intent (NEW)
@@ -76,7 +110,13 @@ export function getPortfolioAnswer(userInput: string): string {
     const fq = normalize(f.q);
     return fq === q || (fq.length > 0 && q.includes(fq));
   });
-  if (faqHit?.a) return `Sure — ${faqHit.a}`;
+  if (faqHit?.a) return `Sure, ${faqHit.a}`;
+
+  // 3a) Core skills catch-all (handles slight typos like "core skils")
+  if (includesAny(q, ["core skill", "core skills", "skills", "core strength"])) {
+    const coreEntry = faq.find((f) => normalize(f.q) === "what are your core skills");
+    if (coreEntry?.a) return `Sure, ${coreEntry.a}`;
+  }
 
   // 3) Project match by name/keywords
   const projects: Array<AnyRecord> = kb.projects ?? [];
@@ -97,7 +137,7 @@ export function getPortfolioAnswer(userInput: string): string {
 
     // Keyword match
     if (keywords.length && includesAny(q, keywords)) {
-      return `That sounds like one of my projects — **${name}**:\n\n${body}\n\nIf you tell me what you care about (NLP, dashboards, UX, prediction), I’ll tailor the details.`;
+      return `That sounds like one of my projects: **${name}**:\n\n${body}\n\nIf you tell me what you care about (NLP, dashboards, UX, prediction), I’ll tailor the details.`;
     }
 
     // (kept from your original logic) keywords against additional text
@@ -107,18 +147,6 @@ export function getPortfolioAnswer(userInput: string): string {
     }
   }
 
-  // 4) Skills match (friendlier + tied to impact)
-  const skills: Array<any> = kb.skills ?? [];
-  const skillStrings: string[] = skills
-    .map((s) => (typeof s === "string" ? s : s?.name))
-    .filter(Boolean)
-    .map((s) => s.toString());
-
-  const skillHit = skillStrings.find((s) => q.includes(normalize(s)));
-  if (skillHit) {
-    return `Yes — **${skillHit}** is one of my core strengths.\n\nI use it to build healthcare data pipelines, predictive models, and dashboards that support real decisions.\n\nWant me to show you projects where I used ${skillHit}?`;
-  }
-
-  // 5) Friendly fallback
-  return `Hey — I can help you explore my portfolio 👇\n\n• Projects (PainTools, predictive analytics, dashboards)\n• What I can help solve (NLP, modeling, pipelines)\n• Skills & tech stack\n• Contact info\n\nTry asking:\n• "What problems can you solve?"\n• "Tell me about PainTools"\n• "What are your core skills?"\n• "How can I contact you?"`;
+  // 4) Friendly fallback
+  return `Hey, I can help you explore my portfolio 👇\n\n• Projects (PainTools, predictive analytics, dashboards)\n• What I can help solve (NLP, modeling, pipelines)\n• Skills & tech stack\n• Contact info\n\nTry asking:\n• "What problems can you solve?"\n• "Tell me about PainTools"\n• "What are your core skills?"\n• "How can I contact you?"`;
 }

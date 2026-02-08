@@ -85,11 +85,11 @@ export function Sidebar({
         {/* Header */}
         <div className="px-3 py-3 border-b border-[color:var(--brand-hover)] flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2" onClick={handleNavClick}>
-            <div className="w-10 h-10 rounded-md bg-transparent flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 rounded-md bg-transparent flex items-center justify-center overflow-hidden">
               <img
                 src={`${import.meta.env.BASE_URL}images/logo.svg`}
                 alt="Healthcare Analytics logo"
-                className="h-7 w-7 object-contain"
+                className="h-18 w-18 object-contain"
               />
             </div>
             <div className="leading-tight">

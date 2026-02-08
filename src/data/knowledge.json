@@ -179,7 +179,31 @@
     },
     {
       "q": "what are your core skills",
-      "a": "SQL, Python, R, Power BI, Databricks, and Azure. Mostly focused on modeling, and analytics for healthcare workflows."
+      "a": "My core strengths are data analysis, database design, and healthcare data engineering. I use Python, R, and SQL to transform complex clinical data into dashboards and decision-support tools that drive real decisions. Want to explore projects where I applied these?"
+    },
+    {
+      "q": "linkedin",
+      "a": "Connect with me on <a href='https://www.linkedin.com/in/srushtimadhure' target='_blank' class='text-[#1E3A5F] underline'>LinkedIn</a>."
+    },
+    {
+      "q": "github",
+      "a": "See my code on <a href='https://github.com/srushtismadhure' target='_blank' class='text-[#1E3A5F] underline'>GitHub</a>."
+    },
+    {
+      "q": "email",
+      "a": "Email me directly at <a href='mailto:srushtisunilmadhure@gmail.com' class='text-[#1E3A5F] underline'>srushtisunilmadhure@gmail.com</a>."
+    },
+    {
+      "q": "resume",
+      "a": "Download my resume <a href='/resume.pdf' target='_blank' class='text-[#1E3A5F] underline'>here</a>."
+    },
+    {
+      "q": "projects",
+      "a": "Browse my work in the <a href='/#/projects' class='text-[#1E3A5F] underline'>Projects section</a>."
+    },
+    {
+      "q": "ehr design",
+      "a": "Good product thinking starts with understanding the problem space. That's why I designed my portfolio like an EHR, to put you directly in it: the clunky interfaces, fractured workflows, and cognitive overload that clinicians, nurse and patients navigate during care delivery. This is my creative way of highlighting healthcare's most expensive problem while showcasing the analytical work I do to improve patient care and workflows within it"
     }
   ]
 }
