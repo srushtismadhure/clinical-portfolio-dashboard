@@ -4,8 +4,11 @@ import { Mail, Linkedin, Github } from 'lucide-react';
 import { useMemo } from 'react';
 
 export default function Contact() {
-  // Absolute hash URL for FormSubmit redirect (works on localhost + production)
-  const nextUrl = useMemo(() => `${window.location.origin}/#/thank-you`, []);
+  // Absolute URL for FormSubmit redirect (works on localhost + production)
+  const nextUrl = useMemo(() => {
+    const base = import.meta.env.BASE_URL || '/';
+    return `${window.location.origin}${base}#/thank-you`;
+  }, []);
 
   const socialLinks = [
     { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/srushti-madhure/' },
