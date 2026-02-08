@@ -8,9 +8,8 @@ export default function Contact() {
   const [nextUrl, setNextUrl] = useState('https://www.srushtimadhure.com/thank-you');
 
   useEffect(() => {
-    const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
     const origin = window.location.origin;
-    setNextUrl(`${origin}${base}/thank-you`);
+    setNextUrl(`${origin}/thank-you`);
   }, []);
 
   const socialLinks = [
