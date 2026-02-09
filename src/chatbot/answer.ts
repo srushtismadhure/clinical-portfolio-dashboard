@@ -37,6 +37,8 @@ const getContactLines = (kb: AnyRecord) => {
 export function getPortfolioAnswer(userInput: string): string {
   const q = normalize(userInput);
   const kb = knowledge as unknown as AnyRecord;
+  const faq: Array<{ q: string; a: string }> = kb.faq ?? [];
+  const designFaq = faq.find((f) => normalize(f.q) === "ehr design");
 
   // 0) Contact intent (early)
   if (includesAny(q, ["contact", "reach", "email", "linkedin", "github", "connect", "message"])) {
@@ -64,6 +66,27 @@ export function getPortfolioAnswer(userInput: string): string {
       )}\n\nIf you share what you’re looking for (role, project, collaboration), I can point you to the most relevant work too.`;
     }
     return `Absolutely, you can reach me via the Contact section in the left nav, or through my LinkedIn/GitHub links in the Profile Overview.`;
+  }
+
+  // 0c) Portfolio design intent (why it looks like an EHR)
+  if (
+    includesAny(q, [
+      "ehr design",
+      "designed like an ehr",
+      "portfolio design",
+      "design of your portfolio",
+      "portfolio this way",
+      "designed my portfolio",
+      "why this design",
+      "electronic health record",
+      "ehr style",
+      "clinical theme",
+      "hospital interface",
+      "clinical workflow ui"
+    ])
+  ) {
+    if (designFaq?.a) return `Sure, ${designFaq.a}`;
+    return "I designed the portfolio to feel like an EHR so you can see the workflow pain points clinicians handle daily.";
   }
 
   // 0b) Simple "yes" intent -> surface projects with links
@@ -105,7 +128,6 @@ export function getPortfolioAnswer(userInput: string): string {
   }
 
   // 2) FAQ exact/near match
-  const faq: Array<{ q: string; a: string }> = kb.faq ?? [];
   const faqHit = faq.find((f) => {
     const fq = normalize(f.q);
     return fq === q || (fq.length > 0 && q.includes(fq));

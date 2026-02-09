@@ -1,0 +1,81 @@
+<svg width="1050" height="600" viewBox="0 0 1050 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fdfefe"/>
+      <stop offset="1" stop-color="#f5fafb"/>
+    </linearGradient>
+    <linearGradient id="strap" x1="0" y1="0" x2="0" y2="140" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#128e84"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#e23a3a"/>
+      <stop offset="1" stop-color="#f46d5e"/>
+    </linearGradient>
+    <pattern id="micro-cross" width="52" height="52" patternUnits="userSpaceOnUse" patternTransform="translate(0 0)">
+      <rect x="0" y="0" width="52" height="52" fill="transparent"/>
+      <path d="M26 10h6v12h12v6H32v12h-6V28H14v-6h12V10z" fill="#0f766e" opacity="0.06"/>
+    </pattern>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="14" stdDeviation="20" flood-color="#0b1c1a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500&display=swap');
+    .card { filter: url(#shadow); }
+    .kit-body { fill: url(#body); stroke: #0f766e; stroke-width: 6; }
+    .strap { fill: url(#strap); }
+    .handle { fill: #0f766e; }
+    .cross-ring { fill: #ffffff; stroke: #e23a3a; stroke-width: 6; }
+    .cross-symbol { fill: url(#accent); }
+    .grid { fill: url(#micro-cross); }
+    .title { font-family: 'Space Grotesk', 'Manrope', 'Helvetica Neue', sans-serif; font-size: 42px; font-weight: 700; letter-spacing: -0.5px; fill: #0a3b35; }
+    .subtitle { font-family: 'Manrope', 'Helvetica Neue', sans-serif; font-size: 22px; font-weight: 600; fill: #0f766e; }
+    .body { font-family: 'Manrope', 'Helvetica Neue', sans-serif; font-size: 19px; font-weight: 500; fill: #1c1f26; }
+    .muted { fill: #4a5b5a; font-size: 16px; }
+    .pill { fill: #0f766e; }
+    .pill-text { font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif; font-size: 16px; font-weight: 600; fill: #f3fffe; letter-spacing: 0.4px; }
+    .divider { stroke: #d0e5e2; stroke-width: 2.5; stroke-dasharray: 6 6; }
+  </style>
+
+  <!-- card body -->
+  <g class="card">
+    <rect x="40" y="35" width="970" height="530" rx="36" class="kit-body"/>
+
+    <!-- micro pattern -->
+    <rect x="40" y="305" width="970" height="260" class="grid" rx="0" opacity="0.35"/>
+
+    <!-- top strap and handle -->
+    <rect x="40" y="35" width="970" height="140" rx="36" class="strap"/>
+    <path class="handle" d="M465 46c-22 0-40 18-40 40v32h28v-28c0-7 5-12 12-12h130c7 0 12 5 12 12v28h28v-32c0-22-18-40-40-40H465z" opacity="0.96"/>
+
+    <!-- pill tag -->
+    <g transform="translate(72 78)">
+      <rect width="150" height="44" rx="22" class="pill"/>
+      <text x="22" y="28" class="pill-text">MED KIT</text>
+    </g>
+
+    <!-- cross emblem -->
+    <g transform="translate(150 180)">
+      <circle cx="120" cy="120" r="108" class="cross-ring"/>
+      <path class="cross-symbol" d="M120 54h36v66h66v36h-66v66h-36v-66H54v-36h66V54z"/>
+    </g>
+
+    <!-- divider line -->
+    <line x1="380" y1="120" x2="380" y2="500" class="divider"/>
+
+    <!-- identity block -->
+    <g transform="translate(420 170)">
+      <text class="title">Dr. ______ ______</text>
+      <text y="44" class="subtitle">Emergency &amp; Trauma Care</text>
+      <text y="110" class="body">Direct: (000) 000-0000</text>
+      <text y="146" class="body">Email: you@example.com</text>
+      <text y="182" class="body">Clinic: 123 Vitality Ave, Suite 12</text>
+      <text y="218" class="muted">Board Certified · ACLS · ATLS · PALS</text>
+    </g>
+
+    <!-- bottom accent bar -->
+    <rect x="40" y="515" width="970" height="22" fill="url(#accent)" rx="12"/>
+  </g>
+</svg>

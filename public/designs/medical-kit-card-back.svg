@@ -1,0 +1,92 @@
+<svg width="1050" height="600" viewBox="0 0 1050 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8fbfc"/>
+      <stop offset="1" stop-color="#f2f8f7"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#15a394"/>
+    </linearGradient>
+    <linearGradient id="plus" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#e23a3a"/>
+      <stop offset="1" stop-color="#f26d5e"/>
+    </linearGradient>
+    <pattern id="mesh" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="translate(0 0)">
+      <path d="M30 6h6v18h18v6h-18v18h-6V30H6v-6h18V6z" fill="#0f766e" opacity="0.04"/>
+    </pattern>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="14" stdDeviation="20" flood-color="#0b1c1a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap');
+    .card { filter: url(#shadow); }
+    .body-rect { fill: url(#body); stroke: #0f766e; stroke-width: 6; }
+    .pattern { fill: url(#mesh); }
+    .heading { font-family: 'Space Grotesk', 'Manrope', 'Helvetica Neue', sans-serif; font-size: 34px; font-weight: 700; letter-spacing: -0.25px; fill: #0c3e37; }
+    .item { font-family: 'Manrope', 'Helvetica Neue', sans-serif; font-size: 20px; font-weight: 600; fill: #1c1f26; }
+    .muted { font-family: 'Manrope', 'Helvetica Neue', sans-serif; font-size: 17px; fill: #4a5b5a; }
+    .chip { fill: url(#accent); }
+    .chip-text { font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; fill: #f5fffe; }
+  </style>
+
+  <g class="card">
+    <rect x="40" y="35" width="970" height="530" rx="36" class="body-rect"/>
+    <rect x="40" y="35" width="970" height="530" rx="36" class="pattern" opacity="0.6"/>
+
+    <!-- miniature kit graphic -->
+    <g transform="translate(80 120)">
+      <rect x="0" y="0" width="220" height="180" rx="26" fill="#ffffff" stroke="#0f766e" stroke-width="5"/>
+      <rect x="0" y="0" width="220" height="60" rx="26" fill="url(#accent)"/>
+      <path d="M72 0h76c16 0 30 12 32 28l3 14h-24l-2-8c-1-4-5-8-10-8H105c-5 0-9 4-10 8l-2 8H69l3-14c2-16 16-28 32-28z" fill="#0f766e"/>
+      <circle cx="110" cy="98" r="46" fill="#ffffff" stroke="#e23a3a" stroke-width="5"/>
+      <path d="M110 66h24v26h26v24h-26v26h-24v-26H84v-24h26V66z" fill="url(#plus)"/>
+    </g>
+
+    <!-- contact stack -->
+    <g transform="translate(350 120)">
+      <text class="heading">Rapid, calm, clinically precise.</text>
+      <g transform="translate(0 56)">
+        <circle cx="16" cy="14" r="8" fill="#0f766e"/>
+        <text x="36" y="20" class="item">Same-day consults · Telehealth · On-call coverage</text>
+      </g>
+      <g transform="translate(0 102)">
+        <circle cx="16" cy="14" r="8" fill="#e23a3a"/>
+        <text x="36" y="20" class="item">Critical response playbooks tailored to your facility</text>
+      </g>
+      <g transform="translate(0 148)">
+        <circle cx="16" cy="14" r="8" fill="#0f766e"/>
+        <text x="36" y="20" class="item">Point-of-care ultrasound · Airway · Procedures</text>
+      </g>
+      <g transform="translate(0 194)">
+        <circle cx="16" cy="14" r="8" fill="#e23a3a"/>
+        <text x="36" y="20" class="item">Team training: ACLS / trauma simulations</text>
+      </g>
+    </g>
+
+    <!-- chips -->
+    <g transform="translate(80 360)">
+      <rect width="182" height="40" rx="20" class="chip"/>
+      <text x="20" y="26" class="chip-text">LICENSED · INSURED</text>
+    </g>
+    <g transform="translate(280 360)">
+      <rect width="210" height="40" rx="20" class="chip" opacity="0.9"/>
+      <text x="22" y="26" class="chip-text">READY 24 / 7 / 365</text>
+    </g>
+    <g transform="translate(520 360)">
+      <rect width="260" height="40" rx="20" class="chip" opacity="0.9"/>
+      <text x="22" y="26" class="chip-text">CLINIC · FIELD · VIRTUAL</text>
+    </g>
+
+    <!-- footer details -->
+    <g transform="translate(80 445)">
+      <text class="muted">@yourhandle · linkedin.com/in/you · yoursite.com</text>
+    </g>
+    <g transform="translate(80 482)">
+      <text class="muted">Preferred hospitals: ______ · ______ · ______</text>
+    </g>
+    <rect x="40" y="515" width="970" height="22" fill="url(#plus)" rx="12"/>
+  </g>
+</svg>
