@@ -30,7 +30,7 @@ export function Sidebar({
 
   // ✅ CHANGED: frosted-glass base styles
   const frostedPanel =
-    'bg-[#1E3A5F] text-[#E6EDF3] border-r border-[#1E3A5F] shadow-md';
+    'bg-[#1E2F4D] text-white border-r border-white/10 shadow-md';
 
   const asideClassName =
     variant === 'drawer'
@@ -120,10 +120,10 @@ export function Sidebar({
                 to={item.to}
                 onClick={handleNavClick}
                 className={[
-                  'flex items-center gap-2 px-3 py-2 rounded-md text-[13px] transition-colors w-full',
+                  'relative flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium transition-colors w-full border-l-4',
                   isActive
-                    ? 'bg-[color:var(--brand)] text-white font-medium'
-                    : 'text-[#E6EDF3] hover:bg-[#17324F]',
+                    ? 'bg-white/10 text-white border-[color:var(--brand)] shadow-sm'
+                    : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent',
                 ].join(' ')}
               >
                 <item.icon

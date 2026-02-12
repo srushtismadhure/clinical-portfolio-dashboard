@@ -68,12 +68,12 @@ export function TopBar({ title = 'Srushti Madhure', breadcrumbs, onMenuClick }: 
             linkTitleToHome ? (
               <Link
                 to="/"
-                className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate hover:text-primary transition-colors"
+                className="text-[16px] sm:text-[17px] font-semibold text-slate-900 tracking-tight truncate hover:text-primary transition-colors"
               >
                 Home
               </Link>
             ) : (
-              <h2 className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate">
+              <h2 className="text-[16px] sm:text-[17px] font-semibold text-slate-900 tracking-tight truncate">
                 {title}
               </h2>
             )
@@ -102,8 +102,8 @@ export function TopBar({ title = 'Srushti Madhure', breadcrumbs, onMenuClick }: 
               key={item.label}
               to={item.to}
               className={[
-                'text-[12px] sm:text-[12px] font-medium transition-colors',
-                isActive ? 'text-primary' : 'text-[hsl(var(--clinical-text))] hover:text-primary',
+                'text-base font-medium tracking-wide transition-colors',
+                isActive ? 'text-primary' : 'text-slate-800 hover:text-slate-900',
               ].join(' ')}
             >
               {item.label}
