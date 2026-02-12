@@ -1,6 +1,6 @@
-import type React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Linkedin, Github, Database, Activity, Layers, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, FileText, ShieldCheck, GitMerge } from 'lucide-react';
+import { Mail, Linkedin, Github, Database, Activity, Layers, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, FileText, ShieldCheck, GitMerge, Clipboard } from 'lucide-react';
 
 const coreSkills = [
   { name: 'SQL', category: 'query' },
@@ -158,6 +158,19 @@ const problemsISolve: Problem[] = [
 ];
 
 export function HeroSection() {
+  const email = 'srushtisunilmadhure@gmail.com';
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      setCopied(false);
+    }
+  };
+
   return (
     <section className="py-2 px-4 sm:px-4 lg:px-0 relative overflow-visible">
       {/* Main Grid */}
@@ -245,16 +258,30 @@ export function HeroSection() {
                         <Github className="h-4 w-4 text-muted-foreground" />
                         <span>GitHub</span>
                       </a>
-                      <a
-                        href="mailto:srushtisunilmadhure@gmail.com"
-                        className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
-                      >
-                      <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span>Contact</span>
-                    </a>
-                  </div>
+                  <a
+                    href="mailto:srushtisunilmadhure@gmail.com"
+                    className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                  >
+                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <span>Contact</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className={[
+                      'text-xs px-1.5 py-1 rounded-md border flex items-center gap-1 transition-colors',
+                      copied
+                        ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+                        : 'border-[#E3E8EE] bg-white text-slate-600 hover:bg-slate-50',
+                    ].join(' ')}
+                    aria-label={copied ? 'Copied!' : 'Copy email'}
+                  >
+                    <Clipboard className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy'}</span>
+                  </button>
                 </div>
               </div>
+            </div>
             </div>
 
             <div className="system-module min-w-0 rounded-xl border border-slate-100 bg-white shadow-sm">

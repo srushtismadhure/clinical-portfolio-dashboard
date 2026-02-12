@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { Mail, Linkedin, Github } from 'lucide-react';
-import { useMemo } from 'react';
+import { Mail, Linkedin, Github, Clipboard } from 'lucide-react';
+import { useMemo, useState } from 'react';
 
 export default function Contact() {
   // Absolute URL for FormSubmit redirect (works on localhost + production)
@@ -9,6 +9,18 @@ export default function Contact() {
     const base = import.meta.env.BASE_URL || '/';
     return `${window.location.origin}${base}#/thank-you`;
   }, []);
+
+  const email = 'srushtisunilmadhure@gmail.com';
+  const [copiedFooter, setCopiedFooter] = useState(false);
+
+  const copyEmail = (which: 'footer') => {
+    navigator.clipboard.writeText(email).then(() => {
+      setCopiedFooter(true);
+      setTimeout(() => setCopiedFooter(false), 1500);
+    }).catch(() => {
+      setCopiedFooter(false);
+    });
+  };
 
   const socialLinks = [
     { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/srushti-madhure/' },
@@ -85,6 +97,20 @@ export default function Contact() {
                 >
                   srushtisunilmadhure@gmail.com
                 </a>
+                <button
+                  type="button"
+                  onClick={() => copyEmail('footer')}
+                  className={[
+                    'ml-2 inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md border transition-colors',
+                    copiedFooter
+                      ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+                      : 'border-[#E3E8EE] bg-white text-slate-600 hover:bg-slate-50',
+                  ].join(' ')}
+                  aria-label={copiedFooter ? 'Copied!' : 'Copy email'}
+                >
+                  <Clipboard className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">{copiedFooter ? 'Copied!' : 'Copy'}</span>
+                </button>
               </p>
             </div>
 
@@ -103,9 +129,11 @@ export default function Contact() {
                     <div className="w-10 h-10 rounded-xl bg-[#EAF3F7] flex items-center justify-center">
                       <link.icon className="w-5 h-5 text-[#1E3A5F]" />
                     </div>
-                    <span className="font-medium text-slate-800 group-hover:text-[#1E3A5F] transition-colors">
-                      {link.label}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-slate-800 group-hover:text-[#1E3A5F] transition-colors">
+                        {link.label}
+                      </span>
+                    </div>
                   </a>
                 ))}
               </div>

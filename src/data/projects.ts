@@ -413,9 +413,9 @@ export const projects: Project[] = [
   {
     id: 'health-numerics',
     title: 'Health Numerics',
-    problem: 'Designed dashboards and data pipelines to monitor patient risk signals and operational KPIs.',
+    problem: 'Designed predictive models to forecast population health risk and guide proactive care decisions.',
     subtitle: 'Predictive Analyst',
-    summary: 'SDOH insights and care optimization dashboard for maternal health outcomes.',
+    summary: 'Designed predictive models to forecast population health risk and guide proactive care decisions.',
     category: 'Analytics',
     dataSource: 'Claims + SDOH',
     projectType: 'professional',

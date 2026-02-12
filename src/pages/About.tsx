@@ -83,7 +83,7 @@ export default function About() {
                     <h3 className="text-lg font-semibold leading-tight text-slate-900">Data Analyst</h3>
                     <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Health Numerics • 2024 – 2024</p>
                     <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
-                      Developed predictive models and dashboards to support population health risk assessment and operational strategy.
+                      Designed predictive models to forecast population health risk and guide proactive care decisions.
                     </p>
                   </div>
                   <div className="border-l-2 border-[hsl(var(--ehr-teal))] pl-4">
