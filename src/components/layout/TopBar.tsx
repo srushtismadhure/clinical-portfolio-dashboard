@@ -1,4 +1,4 @@
-import { Search, Bell, Menu, Settings } from 'lucide-react';
+import { Search, Menu } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface TopBarProps {
@@ -7,28 +7,42 @@ interface TopBarProps {
   onMenuClick?: () => void;
 }
 
-export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: TopBarProps) {
+const rightNav = [
+  { label: 'Projects', to: '/projects' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
+];
+
+export function TopBar({ title = 'Srushti Madhure', breadcrumbs, onMenuClick }: TopBarProps) {
   const location = useLocation();
 
   // ✅ NEW: Hide the TopBar title on project detail routes (/projects/:id)
   // This prevents long project names from appearing in the nav bar,
   // since the page already renders the project title in the content.
   const isProjectDetailRoute = location.pathname.startsWith('/projects/');
+  const isHomeRoute =
+    location.pathname === '/' &&
+    (location.hash === '' || location.hash === '#' || location.hash === '#/');
+  const inProjectsSection = location.pathname.startsWith('/projects');
+  const inAbout = location.pathname.startsWith('/about');
+  const inContact = location.pathname.startsWith('/contact');
+  const linkTitleToHome = inProjectsSection || inAbout || inContact;
 
   return (
     <header className="h-10 sm:h-11 bg-[hsl(var(--clinical-surface))] border-b border-[hsl(var(--clinical-border))] flex items-center justify-between px-3 sm:px-4 lg:px-5 sticky top-0 z-30">
       {/* Left: Menu + Breadcrumbs (+ optional Title) */}
       <div className="flex items-center gap-2 min-w-0">
-        {/* Hamburger menu */}
-        <button
-          onClick={onMenuClick}
-          className="w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] flex items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors flex-shrink-0"
-          aria-label="Open menu"
-          type="button"
-        >
-          <Menu className="w-3.5 h-3.5 text-primary" />
-        </button>
-
+        {/* Desktop hamburger on the left (lg+) */}
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            className="hidden lg:flex w-9 h-9 rounded-md bg-white border border-[hsl(var(--clinical-border))] items-center justify-center hover:bg-[hsl(var(--primary)/0.08)] transition-colors"
+            aria-label="Open navigation"
+            type="button"
+          >
+            <Menu className="w-4 h-4 text-primary" />
+          </button>
+        )}
         <div className="min-w-0">
           {breadcrumbs && breadcrumbs.length > 0 && (
             <nav className="flex items-center gap-1 text-[9px] text-[hsl(var(--clinical-text-muted))] mb-0.5">
@@ -51,9 +65,18 @@ export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: 
 
           {/* ✅ CHANGED: hide title on project detail pages */}
           {!isProjectDetailRoute && (
-            <h2 className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate">
-              {title}
-            </h2>
+            linkTitleToHome ? (
+              <Link
+                to="/"
+                className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate hover:text-primary transition-colors"
+              >
+                Home
+              </Link>
+            ) : (
+              <h2 className="text-[13px] font-medium text-[hsl(var(--clinical-text))] tracking-tight truncate">
+                {title}
+              </h2>
+            )
           )}
         </div>
       </div>
@@ -70,31 +93,36 @@ export function TopBar({ title = 'System Overview', breadcrumbs, onMenuClick }: 
         </div>
       </div>
 
-      {/* Right: Actions */}
-      <div className="flex items-center gap-1 flex-shrink-0">
-        <button
-          className="hidden sm:flex w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors"
-          type="button"
-          aria-label="Settings"
-        >
-          <Settings className="w-3 h-3 text-primary/70" />
-        </button>
-
-        <button
-          className="w-7 h-7 rounded bg-[hsl(var(--clinical-primary-muted))] border border-[hsl(var(--clinical-border))] flex items-center justify-center hover:bg-[hsl(var(--primary)/0.12)] transition-colors relative"
-          type="button"
-          aria-label="Notifications"
-        >
-          <Bell className="w-3 h-3 text-primary/70" />
-          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-primary rounded-full text-[7px] text-white flex items-center justify-center font-medium">
-            3
-          </span>
-        </button>
-
-        <div className="w-7 h-7 rounded bg-primary flex items-center justify-center text-primary-foreground font-medium text-[10px]">
-          SM
-        </div>
+      {/* Right: Inline nav */}
+      <div className="hidden lg:flex items-center gap-3 lg:gap-4">
+        {rightNav.map((item) => {
+          const isActive = location.pathname === item.to;
+          return (
+            <Link
+              key={item.label}
+              to={item.to}
+              className={[
+                'text-[12px] sm:text-[12px] font-medium transition-colors',
+                isActive ? 'text-primary' : 'text-[hsl(var(--clinical-text))] hover:text-primary',
+              ].join(' ')}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
       </div>
+
+      {/* Mobile & tablet hamburger (right aligned for <lg) */}
+      {onMenuClick && (
+        <button
+          onClick={onMenuClick}
+          className="flex lg:hidden w-9 h-9 rounded-md bg-white border border-[hsl(var(--clinical-border))] items-center justify-center hover:bg-[hsl(var(--primary)/0.08)] transition-colors ml-auto"
+          aria-label="Open navigation"
+          type="button"
+        >
+          <Menu className="w-4 h-4 text-primary" />
+        </button>
+      )}
     </header>
   );
 }

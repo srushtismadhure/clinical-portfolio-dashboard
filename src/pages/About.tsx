@@ -6,6 +6,7 @@ import { AnimatedHighlight } from '@/components/shared/AnimatedHighlight';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { PinnedVideoCard } from '@/components/about/PinnedVideoCard';
 import { SystemAccessBadge } from '@/components/about/SystemAccessBadge';
+import ScrollHighlight from '@/components/about/ScrollHighlight';
 import VolunteerStrip from '@/components/VolunteerStrip';
 import { GraduationCap, Briefcase, Search } from 'lucide-react';
 
@@ -28,9 +29,9 @@ export default function About() {
   };
 
   return (
-    <Layout title="About" breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}>
+    <Layout title="Home">
       <div className="mb-4 flex items-start gap-2">
-        <Search className="w-5 h-5 text-[hsl(var(--ehr-teal))]" />
+        <Search className="w-5 h-5 text-[hsl(var(--ehr-teal))] mt-0.5" />
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold text-slate-900">About Me</h1>
         </div>
@@ -54,15 +55,15 @@ export default function About() {
               {/* Bio */}
               <div className="ehr-card animate-fade-up">
                 <SectionHeader title="Background" />
-                <div className="space-y-3 text-slate-600">
-                  <p className="text-[14px] lg:text-[15px] text-slate-600 leading-relaxed tracking-[0.01em]">
-                    I taught myself how to code out of frustration. I was manually entering patient data into outdated legacy systems daily, really just doing work that should and could have been automated. This pushed me to find an unconventional solution—coding. I went from diagnostics to debugging and realized they share the same foundation: <AnimatedHighlight>pattern recognition, systematic problem-solving, and root-cause analysis.</AnimatedHighlight>
+                <div className="space-y-4 text-slate-700 text-[15px] md:text-[16px] leading-7">
+                  <p>
+                    I <ScrollHighlight><strong className="font-semibold text-slate-800">taught myself how to code out of frustration</strong></ScrollHighlight>. During my undergrad internship, I spent hours typing patient histories and manually entering data into systems daily, just doing work that <strong className="font-semibold text-slate-800">should and could have been automated</strong>. That frustration pushed me to research solutions, and I discovered how data analysis, health informatics, and coding were being combined to solve exactly these problems. I taught myself Python and quickly realized clinical thinking and programming aren’t that different, both rely on recognizing patterns, connecting concepts, and thinking in systems.
                   </p>
-                  <p className="text-[14px] lg:text-[15px] text-slate-600 leading-relaxed tracking-[0.01em]">
-                    Today, I work at the intersection of healthcare, data, and product. With a <strong className="font-bold text-slate-900">Master’s degree in Health Informatics from the University of Michigan</strong> <AnimatedHighlight color="rgba(30, 64, 175, 0.18)">(Go Blue)</AnimatedHighlight> and formal training in <strong className="font-bold text-slate-900">integrative medicine</strong>, I bridge clinical thinking with data engineering to build systems and tools that are clinically sound, data-informed, and actually used in real care settings.
+                  <p>
+                    Working on real healthcare systems taught me quickly that <strong className="font-semibold text-slate-800">technical skill alone isn’t enough</strong>. <ScrollHighlight>Healthcare isn’t like other industries</ScrollHighlight>. In most fields, poor design or inefficient workflows are minor inconveniences. In healthcare, the same mistake can <ScrollHighlight><strong className="font-semibold text-slate-800">delay care or cause real harm</strong></ScrollHighlight>. Building products that don’t fail demands domain knowledge and firsthand clinical experience. That’s why I design at the intersection of healthcare, data, and product, grounded in integrative medicine training and a Master’s in Health Informatics from the University of Michigan (<span className="inline-block px-1 py-[1px] rounded-sm bg-[#DCEBFF] text-[#00274C]">Go Blue</span>).
                   </p>
-                  <p className="text-[14px] lg:text-[15px] text-slate-600 leading-relaxed tracking-[0.01em]">
-                    I handle the full spectrum of data work: defining what to measure, building <AnimatedHighlight>ETL pipelines</AnimatedHighlight>, running analyses, and delivering dashboards and predictive models, plus the unglamorous but critical pieces like <AnimatedHighlight>HIPAA compliance</AnimatedHighlight>, FHIR standards, data governance, and regulatory requirements. If it touches data in a healthcare context, I can help make it work.
+                  <p>
+                    In execution, I own the <ScrollHighlight><strong className="font-semibold text-slate-800">full healthcare data lifecycle</strong></ScrollHighlight>, from defining metrics and building <strong className="font-semibold text-slate-800">ETL pipelines</strong> to deploying analytics, predictive models, and decision-ready dashboards. I design the underlying foundation through HIPAA compliance, BAAs, governance, and regulatory alignment. Ultimately, I build systems and analytics that <ScrollHighlight><strong className="font-semibold text-slate-800">clinicians can trust</strong></ScrollHighlight> when it matters most.
                   </p>
                 </div>
               </div>
@@ -75,19 +76,19 @@ export default function About() {
                     <h3 className="text-lg font-semibold leading-tight text-slate-900">Business Analyst</h3>
                     <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">PainTools • 2025 – 2026</p>
                     <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
-                      Built end-to-end clinical data pipelines and analytics workflows to enable decision support and product insights.
+                      Built end-to-end data pipelines and analytics workflows to enable decision support and product insights.
                     </p>
                   </div>
                   <div className="border-l-2 border-[hsl(var(--ehr-lavender))] pl-4">
                     <h3 className="text-lg font-semibold leading-tight text-slate-900">Data Analyst</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Health Numerics • Remote Patient Monitoring • 2024 – 2024</p>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Health Numerics • 2024 – 2024</p>
                     <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
                       Developed predictive models and dashboards to support population health risk assessment and operational strategy.
                     </p>
                   </div>
                   <div className="border-l-2 border-[hsl(var(--ehr-teal))] pl-4">
                     <h3 className="text-lg font-semibold leading-tight text-slate-900">Healthcare Data Intern</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Michigan Medicine — OBI Initiative • 2024 – 2024</p>
+                    <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em]">Michigan Medicine – OBI Initiative • 2024 – 2024</p>
                     <p className="text-sm text-slate-600 leading-relaxed tracking-[0.01em] mt-2">
                       Analyzed Medicaid claims data to inform maternal health quality improvement initiatives.
                     </p>

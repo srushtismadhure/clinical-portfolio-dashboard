@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { TopBar } from '@/components/layout/TopBar';
 import { HeroSection } from '@/components/cards/HeroSection';
@@ -11,17 +11,28 @@ const Index = () => {
     setSidebarOpen(prev => !prev);
   };
 
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSidebarOpen(false);
+    };
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleEsc);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
+
   return (
     // ✅ CHANGED: switched from flex layout to a responsive grid on desktop
     // This gives the sidebar its own column on lg+ screens, preventing overlap and keeping it visible.
-    <div className="min-h-screen w-full bg-white lg:grid lg:grid-cols-[224px_1fr]">
-      {/* Left Sidebar */}
-      {/* ✅ CHANGED: added variant="persistent"
-          - Desktop (lg+): sidebar stays visible (persistent)
-          - Mobile: still uses isOpen/onClose as a drawer (hamburger controls it)
-      */}
+    <div className="min-h-screen w-full bg-transparent lg:grid lg:grid-cols-[224px_1fr]">
       <Sidebar
-        variant="persistent" // ✅ CHANGED
+        variant="persistent"
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
@@ -31,7 +42,7 @@ const Index = () => {
           min-w-0 stays important to prevent horizontal overflow with wide cards/tables.
       */}
       <div className="min-w-0 flex flex-col">
-        <TopBar title="System Overview" onMenuClick={toggleSidebar} />
+        <TopBar title="Srushti Madhure" onMenuClick={toggleSidebar} />
 
         {/* ✅ CHANGED: added bg-white to keep the "white UI" consistent
             (optional, but recommended if bg-background was tinted)
@@ -45,7 +56,9 @@ const Index = () => {
             <div className="system-module">
               <div className="system-module-header">
                 <div className="flex items-center gap-1.5">
-                  <span className="system-module-label">Projects</span>
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 pt-4 pb-2">
+                    Projects
+                  </h2>
                 </div>
               </div>
               <div className="system-module-content">
@@ -157,6 +170,7 @@ const Index = () => {
           </section>
 
         </main>
+
       </div>
     </div>
   );

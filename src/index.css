@@ -39,7 +39,6 @@
 }
 
 @media (min-width: 1024px) {
-  /* Desktop-only readability (System Overview) */
   .home-typescale .system-module-header .system-module-label {
     font-size: 1rem;
     line-height: 1.4;
@@ -120,7 +119,7 @@
     --clinical-primary: 210 50% 36%;
     --clinical-primary-hover: 210 55% 42%;
     --clinical-primary-muted: 210 45% 96%;
-    --clinical-surface: 220 40% 99%;
+    --clinical-surface: 0 0% 100%;
     --clinical-text: 220 30% 25%;
     --clinical-text-muted: 220 15% 50%;
     --clinical-border: 220 25% 88%;
@@ -148,11 +147,15 @@
 
 @layer base {
   :root {
-    --surface-page: #F3F6F9;
+    --surface-page: #EAF2F8;
     --border-default: #E2E8F0;
   }
   * {
     border-color: var(--border-default);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -163,17 +166,34 @@
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: contain;
   }
+}
+
+/* Global scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
 
 @layer components {
   /* Clinical System Module - Blue-tinted surface */
   .system-module {
-    @apply bg-[hsl(var(--clinical-surface))] border border-[hsl(var(--clinical-border))] rounded-md;
+    @apply bg-white border border-gray-100 rounded-xl shadow-sm;
   }
 
   .system-module-header {
-    @apply flex items-center justify-between px-3 py-2 border-b border-[hsl(var(--clinical-border))] bg-[hsl(var(--clinical-primary-muted))];
+    @apply flex items-center justify-between px-3 py-2 border-b border-[hsl(var(--clinical-border))];
+    background: transparent;
   }
 
   .system-module-label {
@@ -185,7 +205,8 @@
   }
 
   .system-module-footer {
-    @apply px-3 py-1.5 border-t border-[hsl(var(--clinical-border))] bg-[hsl(var(--clinical-primary-muted)/0.5)] text-[9px] text-[hsl(var(--clinical-text-muted))];
+    @apply px-3 py-1.5 border-t border-[hsl(var(--clinical-border))] text-[9px] text-[hsl(var(--clinical-text-muted))];
+    background: transparent;
   }
 
   /* Data tags - blue-tinted */
@@ -199,7 +220,7 @@
 
   /* Clinical cards - blue-tinted surface */
   .clinical-card {
-    @apply bg-[hsl(var(--clinical-surface))] rounded-md border border-[hsl(var(--clinical-border))] transition-colors duration-150;
+    @apply bg-white rounded-xl border border-gray-100 shadow-sm transition-colors duration-150;
   }
 
   .clinical-card:hover {
@@ -208,7 +229,7 @@
 
   /* EHR cards - compact, blue-tinted */
   .ehr-card {
-    @apply bg-[hsl(var(--clinical-surface))] rounded-md p-3 border border-[hsl(var(--clinical-border))] transition-colors duration-150;
+    @apply bg-white rounded-xl p-3 border border-gray-100 shadow-sm transition-colors duration-150;
   }
 
   .ehr-card:hover {
@@ -216,7 +237,7 @@
   }
 
   .ehr-card-secondary {
-    @apply bg-[hsl(var(--clinical-primary-muted)/0.5)] rounded-md p-2.5 border border-[hsl(var(--clinical-border))] transition-colors duration-150;
+    @apply bg-white rounded-xl p-2.5 border border-gray-100 shadow-sm transition-colors duration-150;
   }
 
   .ehr-card-secondary:hover {

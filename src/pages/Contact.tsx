@@ -17,7 +17,7 @@ export default function Contact() {
   ];
 
   return (
-    <Layout title="Contact" breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}>
+    <Layout title="Home">
       <div className="flex min-h-full flex-col">
         <div className="flex-1">
           <PageHeader

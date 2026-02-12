@@ -17,7 +17,7 @@ export default function Projects() {
   const hasPersonalProjects = projects.some(p => p.projectType === 'personal');
 
   return (
-    <Layout title="Projects" breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }]}>
+    <Layout title="Home">
       <div className="space-y-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
         <section>
           <div className="mb-3 border-b border-slate-200 pb-3">

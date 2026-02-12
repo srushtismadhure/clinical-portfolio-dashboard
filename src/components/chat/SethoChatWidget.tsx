@@ -140,7 +140,7 @@ export default function SethoChatWidget() {
     <div className="fixed bottom-6 right-6 z-50">
       {open && (
         <div className="relative mb-3 w-[360px] max-w-[calc(100vw-2rem)] overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
-          <div className="flex items-start justify-between gap-3 border-b border-slate-100 bg-slate-50 px-4 py-3">
+          <div className="flex items-start justify-between gap-3 border-b border-gray-200 bg-white px-4 py-3">
             <div className="flex items-center gap-3">
               <div className="leading-tight">
                 <div className="text-base font-bold text-slate-900">Echo</div>
@@ -262,16 +262,16 @@ export default function SethoChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close Echo chat' : 'Open Echo chat'}
         title="Chat with Echo"
-        className="group relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-visible border-0 cursor-pointer transition-transform duration-200 hover:scale-105"
+        className="group relative w-16 h-16 sm:w-[72px] sm:h-[72px] md:w-24 md:h-24 rounded-full overflow-visible border-0 cursor-pointer transition-transform duration-200 hover:scale-105"
       >
         <div className="relative w-full h-full rounded-full bg-white/15 border border-white/30 backdrop-blur-xl shadow-lg/70 group-hover:shadow-xl transition-all duration-200 flex items-center justify-center">
           <img
             src={sethoBotUrl}
             alt="Echo"
-            className="w-[76px] h-[76px] sm:w-[80px] sm:h-[80px] md:w-[88px] md:h-[88px] object-contain pointer-events-none"
+            className="w-[60px] h-[60px] sm:w-[64px] sm:h-[64px] md:w-[88px] md:h-[88px] object-contain pointer-events-none"
           />
         </div>
-        <span className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-[#2FBF71] rounded-full border-2 border-white shadow-sm" />
+        <span className="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 md:w-3 md:h-3 bg-[#2FBF71] rounded-full border-2 border-white shadow-sm" />
       </button>
     </div>
   );

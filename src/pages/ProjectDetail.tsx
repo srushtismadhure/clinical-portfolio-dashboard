@@ -51,7 +51,7 @@ function PowerBIFrame({ imageSrc, alt }: PowerBIFrameProps) {
 
 function CopilotNoteCard() {
   return (
-    <aside className="w-full max-w-[320px] rounded-xl border border-slate-300 bg-slate-50 p-4 shadow-sm">
+    <aside className="w-full max-w-[320px] bg-white rounded-xl border border-gray-100 shadow-sm p-4">
       <div className="flex items-center gap-2 text-slate-900">
         <Lightbulb className="h-4 w-4 text-slate-600" />
         <div className="text-xs font-semibold uppercase tracking-wide">
@@ -185,10 +185,10 @@ if (project.template === 'health-numerics') {
       ]}
       contentClassName="flex-1 overflow-auto p-0"
     >
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-transparent">
         <div className="w-full">
           <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
-            <aside className="hidden lg:block bg-slate-50">
+            <aside className="hidden lg:block bg-transparent">
               <div className="sticky top-0 h-screen overflow-hidden p-6">
                 <ProjectSidebarNav
                   title={project.title}
@@ -401,7 +401,7 @@ if (project.template === 'health-numerics') {
         {project.executiveSummary.metrics?.length ? (
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {project.executiveSummary.metrics.map((m) => (
-              <div key={m.label} className="rounded-lg bg-slate-50 px-4 py-3">
+              <div key={m.label} className="rounded-lg bg-white border border-gray-100 shadow-sm px-4 py-3">
                 <div className="text-xs text-slate-500">{m.label}</div>
                 <div className="text-sm font-semibold text-slate-900">{m.value}</div>
               </div>

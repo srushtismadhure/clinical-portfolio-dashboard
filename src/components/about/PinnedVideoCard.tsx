@@ -37,7 +37,7 @@ export function PinnedVideoCard({ title = "Pinned video", src, tileMode = false 
       }
     >
       {!tileMode && (
-        <header className="px-3 py-2 border-b bg-slate-50 text-xs font-medium text-slate-600">
+    <header className="px-3 py-2 border-b border-gray-200 bg-white text-xs font-medium text-slate-600">
           {title}
         </header>
       )}

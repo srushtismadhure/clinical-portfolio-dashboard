@@ -2,7 +2,7 @@ import React from 'react';
 
 export function SystemAccessBadge() {
   return (
-    <div className="relative mx-auto w-full max-w-[420px] min-w-0">
+    <div className="relative mx-auto w-full max-w-[420px] min-w-0 hidden md:block">
       {/* Lanyard strap */}
       <div className="absolute left-1/2 -translate-x-1/2 -top-28 h-28 w-9 rounded-b-md bg-slate-200 shadow-sm" />
 
@@ -34,9 +34,6 @@ export function SystemAccessBadge() {
           <div className="min-w-0 flex-1 space-y-1">
             <div className="text-[18px] font-semibold text-slate-900 leading-tight truncate">
               Srushti S. Madhure
-            </div>
-            <div className="text-[13px] text-slate-700 leading-snug">
-              Clinical Data &amp; Analytics Engineer
             </div>
             <div className="text-[12px] text-slate-500 leading-snug">
               Health Informatics • Data Engineering

@@ -54,7 +54,8 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
       bullets: [
         'De-identified all user-level data to remove PHI and direct identifiers from beta analysis.',
         'Defined a normalized baseline period and outcome score for that period.',
-        'Segmented users based on stakeholders requirement.',
+        'Used Excel pivot tables to analyze 10K+ records and surface decision-driving trends.',
+        'Segmented users based on stakeholder requirements.',
         'Informed feature and stakeholder decisions for product direction.',
       ],
     },

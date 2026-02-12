@@ -231,7 +231,7 @@ export default function ShredderScrollScene() {
                 </p>
               </div>
               <div className="mt-6 flex-1 flex flex-col justify-between">
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 shadow-sm">
+                <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                   <div className="text-sm font-semibold text-slate-900">Clinical notes</div>
                   <div className="text-xs text-slate-600 mt-1">messages • free-text • triage comments</div>
                 </div>
@@ -240,7 +240,7 @@ export default function ShredderScrollScene() {
                   ↓
                   <span className="block h-px flex-1 bg-slate-200 mx-3" />
                 </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 shadow-sm">
+                <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                   <div className="text-sm font-semibold text-slate-900">NLP pipeline</div>
                   <div className="text-xs text-slate-600 mt-1">de-id • tokenization • embeddings</div>
                 </div>
@@ -249,7 +249,7 @@ export default function ShredderScrollScene() {
                   ↓
                   <span className="block h-px flex-1 bg-slate-200 mx-3" />
                 </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 shadow-sm">
+                <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                   <div className="text-sm font-semibold text-slate-900">Z-codes</div>
                   <div className="text-xs text-slate-600 mt-1">structured tags for downstream analytics</div>
                 </div>

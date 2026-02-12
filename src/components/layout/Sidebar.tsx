@@ -1,25 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  Activity,
-  X,
-  LayoutGrid,
-  FolderKanban,
-  FlaskConical,
-  User,
-  Mail,
-  FileText,
-} from 'lucide-react';
-
-const navItems = [
-  { icon: LayoutGrid, label: 'System Overview', path: '/' },
-  { icon: FolderKanban, label: 'Project Archive', path: '/projects' },
-  // { icon: FlaskConical, label: 'Research & Labs', path: '/labs' },
-  { icon: User, label: 'About', path: '/about' },
-  // TODO: Re-enable Credentials when we have non-redundant proof content (certifications, publications, awards, verification links).
-  // { icon: FileText, label: 'Credentials', path: '/resume' },
-  { icon: Mail, label: 'Access / Contact', path: '/contact' },
-];
+import { X } from 'lucide-react';
+import { navItems } from '@/config/navigation';
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -53,20 +35,20 @@ export function Sidebar({
   const asideClassName =
     variant === 'drawer'
       ? [
-          'fixed inset-y-0 left-0 z-50 shrink-0',
+          'fixed inset-y-0 right-0 lg:left-0 lg:right-auto z-50 shrink-0',
           'w-56 min-h-screen',
-          frostedPanel, // ✅ CHANGED (was bg-white border-slate-200)
+          frostedPanel,
           'flex flex-col',
           'transform transition-transform duration-300 ease-out',
-          isOpen ? 'translate-x-0' : '-translate-x-full',
+          isOpen ? 'translate-x-0' : 'translate-x-full lg:-translate-x-full',
         ].join(' ')
       : [
-          'fixed inset-y-0 left-0 z-50 shrink-0',
+          'fixed inset-y-0 right-0 z-50 shrink-0 lg:left-0 lg:right-auto',
           'w-56 min-h-screen',
-          frostedPanel, // ✅ CHANGED (was bg-white border-slate-200)
+          frostedPanel,
           'flex flex-col',
           'transform transition-transform duration-300 ease-out',
-          isOpen ? 'translate-x-0' : '-translate-x-full',
+          isOpen ? 'translate-x-0' : 'translate-x-full',
           'lg:static lg:translate-x-0 lg:h-full',
         ].join(' ');
 
@@ -75,16 +57,23 @@ export function Sidebar({
       {/* Overlay (mobile only) */}
       {showOverlay && (
         <div
-          // ✅ CHANGED: cooler overlay so the blur reads "glassy" not muddy
           className="fixed inset-0 z-40 bg-slate-900/25 backdrop-blur-sm lg:hidden"
           onClick={onClose}
         />
       )}
 
-      <aside className={asideClassName} aria-label="Primary navigation">
+      <aside
+        className={asideClassName}
+        aria-label="Primary navigation"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="px-3 py-3 border-b border-[color:var(--brand-hover)] flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2" onClick={handleNavClick}>
+          <Link
+            to="/"
+            className="hidden md:flex items-center gap-2"
+            onClick={handleNavClick}
+          >
             <div className="w-20 h-20 rounded-md bg-transparent flex items-center justify-center overflow-hidden relative">
               <span className="absolute inset-0 bg-white/4 rounded-md pointer-events-none" aria-hidden="true" />
               <img
@@ -97,14 +86,13 @@ export function Sidebar({
               <h1 className="font-semibold text-[13px] text-[#E6EDF3]">
                 Healthcare Analytics
               </h1>
-              <p className="text-[10px] text-[#E6EDF3]/80">S. Madhure</p>
             </div>
           </Link>
 
           {/* Close button only on mobile drawer */}
           <button
             onClick={onClose}
-            className="lg:hidden w-8 h-8 rounded-md border border-[color:var(--brand-hover)] hover:bg-[color:var(--brand-hover)]/60 flex items-center justify-center"
+            className="lg:hidden w-8 h-8 rounded-md border border-[color:var(--brand-hover)] hover:bg-[color:var(--brand-hover)]/60 flex items-center justify-center ml-auto"
             aria-label="Close sidebar"
             type="button"
           >
@@ -122,12 +110,14 @@ export function Sidebar({
           </div>
 
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const isActive = item.to === '/'
+              ? location.pathname === '/'
+              : location.pathname.startsWith(item.to);
 
             return (
               <Link
                 key={item.label}
-                to={item.path}
+                to={item.to}
                 onClick={handleNavClick}
                 className={[
                   'flex items-center gap-2 px-3 py-2 rounded-md text-[13px] transition-colors w-full',

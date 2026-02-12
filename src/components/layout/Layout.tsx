@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 
@@ -21,10 +21,32 @@ export function Layout({
 
   const toggleSidebar = () => setSidebarOpen((prev) => !prev);
   const isDrawer = sidebarVariant === 'drawer';
+  const closeSidebarIfOpen = () => {
+    if (isDrawer && sidebarOpen) setSidebarOpen(false);
+  };
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSidebarOpen(false);
+    };
+    if (isDrawer && sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleEsc);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = '';
+    };
+  }, [isDrawer, sidebarOpen]);
 
   return (
     /* APP CANVAS */
-    <div className="flex min-h-screen bg-[color:var(--surface-page,theme(colors.surface.page))]">
+    <div
+      className="flex min-h-screen bg-transparent"
+      onClick={closeSidebarIfOpen}
+    >
       {/* Sidebar */}
       <Sidebar
         variant={sidebarVariant}
