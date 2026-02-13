@@ -11,7 +11,7 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import PainToolsWorkstreamDetail from "./pages/PainToolsWorkstreamDetail";
 import CaseStudies from "./pages/CaseStudies";
-import Analytics from "./pages/Analytics";
+import AnalyticsPage from "./pages/Analytics";
 import UXWork from "./pages/UXWork";
 import Blog from "./pages/Blog";
 import Skills from "./pages/Skills";
@@ -52,7 +52,7 @@ const App = () => (
             <Route path="/projects/:id" element={<ProjectDetail />} />
 
             <Route path="/case-studies" element={<CaseStudies />} />
-            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
             <Route path="/ux-work" element={<UXWork />} />
             <Route path="/labs" element={<Labs />} />
             <Route path="/blog" element={<Blog />} />
