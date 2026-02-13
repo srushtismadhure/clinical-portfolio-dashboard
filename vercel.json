@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/work",
+      "destination": "/?utm_source=social&utm_medium=portfolio&utm_campaign=ehr_experience",
+      "permanent": false
+    }
+  ],
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/" }
