@@ -264,7 +264,7 @@ export default function SethoChatWidget() {
         title="Chat with Echo"
         className="group relative w-16 h-16 sm:w-[72px] sm:h-[72px] md:w-24 md:h-24 rounded-full overflow-visible border-0 cursor-pointer transition-transform duration-200 hover:scale-105"
       >
-        <div className="relative w-full h-full rounded-full bg-white/15 border border-white/30 backdrop-blur-xl shadow-lg/70 group-hover:shadow-xl transition-all duration-200 flex items-center justify-center">
+        <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#1E3A5F] via-[#2D5FA4] to-[#132742] border border-[#1E3A5F]/50 shadow-lg/80 group-hover:shadow-xl transition-all duration-200 flex items-center justify-center">
           <img
             src={sethoBotUrl}
             alt="Echo"
