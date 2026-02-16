@@ -14,8 +14,7 @@
       "permanent": false
     }
   ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
