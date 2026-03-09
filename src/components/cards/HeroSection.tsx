@@ -52,8 +52,8 @@ type PillProps = {
 };
 
 const Pill = ({ icon: Icon, label }: PillProps) => (
-  <span className="inline-flex h-10 w-full items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 leading-5 hover:bg-slate-50 transition-colors">
-    <Icon className="h-4 w-4 text-slate-500 shrink-0" aria-hidden="true" />
+  <span className="inline-flex h-10 w-full items-center gap-2 rounded-lg border border-[#C5D2E3] bg-[#F9FBFE] px-3 py-2 text-[13px] font-semibold text-[#3B4A5F] leading-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.92)] transition duration-150 hover:-translate-y-[1px] hover:border-[#9EB3CE] hover:shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
+    <Icon className="h-4 w-4 text-[#3B4A5F] shrink-0" aria-hidden="true" />
     <span className="truncate">{label}</span>
   </span>
 );
@@ -92,17 +92,20 @@ export function ClinicalAnalyticsToolkit() {
   );
 
   return (
-    <section className="min-w-0 rounded-xl border border-slate-200/70 bg-white shadow-sm overflow-hidden">
-      <div className="px-5 py-3 bg-transparent border-b border-slate-200/70">
+    <section className="min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
+      <div className="flex items-center justify-between px-5 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
         <div className="flex items-center gap-2">
-          <Database className="h-3.5 w-3.5 text-slate-500" />
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 pt-4 pb-2">
+          <Database className="h-3.5 w-3.5 text-[#3B4A5F]" />
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
             Core Skills
           </h2>
         </div>
+        <span className="text-[11px] font-semibold text-[#52627A] bg-white border border-[#C5D2E3] px-2 py-0.5 rounded-md shadow-[0_1px_0_rgba(15,23,42,0.05)]">
+          n={coreSkills.length}
+        </span>
       </div>
 
-      <div className="px-5 py-4">
+      <div className="px-5 py-4 bg-white">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2.5">
           {coreSkills.map((skill) => {
             const Icon = iconMap[skill.name] ?? Layers;
@@ -111,6 +114,7 @@ export function ClinicalAnalyticsToolkit() {
             );
           })}
         </div>
+        <p className="mt-3 text-[11px] text-[#6B7A90] font-medium">Primary technical stack</p>
       </div>
     </section>
   );
@@ -231,7 +235,7 @@ export function HeroSection() {
                       View Projects
                     </Link>
                     <a
-                      href={`${import.meta.env.BASE_URL}BI_Analyst_Master.pdf`}
+                      href={`${import.meta.env.BASE_URL}Madhure_BI_2026_PDF.pdf`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center h-9 px-4 rounded-xl border border-[#E2E8F0] text-sm font-medium text-[#0F172A] bg-white hover:bg-[#F3F6F9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A5F] focus-visible:ring-offset-2 transition-colors w-full sm:w-auto"
@@ -284,16 +288,22 @@ export function HeroSection() {
             </div>
             </div>
 
-            <div className="system-module min-w-0 rounded-xl border border-slate-100 bg-white shadow-sm">
-              <div className="system-module-content px-4 md:px-6 py-4 md:py-5">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 pt-4 pb-2">
+            <div className="min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
+                <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
                   Systems I’ve Built
                 </h2>
-                <div className="border-t border-[#E2E8F0] mt-1 mb-1.5" />
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 space-y-0 text-sm font-medium text-slate-600 leading-7">
+                <span className="text-[11px] font-semibold text-[#52627A] bg-white border border-[#C5D2E3] px-2 py-0.5 rounded-md shadow-[0_1px_0_rgba(15,23,42,0.05)]">
+                  n={summaryItems.length}
+                </span>
+              </div>
+              <div className="px-5 py-4">
+                <div className="border-t border-[#CCD7E6] mt-1 mb-3" />
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm font-medium text-[#3B4A5F] leading-7">
                   {summaryItems.map((item) => (
-                    <li key={item.label} className="text-sm leading-7">
-                      • {item.label}
+                    <li key={item.label} className="flex gap-2 items-start text-[13.5px] leading-6">
+                      <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#9EB3CE]" aria-hidden="true" />
+                      <span className="flex-1">{item.label}</span>
                     </li>
                   ))}
                 </ul>
@@ -307,25 +317,23 @@ export function HeroSection() {
         <div className="min-w-0 w-full overflow-hidden lg:pr-2 lg:pl-1 flex flex-col gap-2">
           <ClinicalAnalyticsToolkit />
 
-          <section className="hidden md:block system-module min-w-0 rounded-xl border border-[#E2E8F0] bg-white shadow-sm overflow-hidden">
-            <div className="system-module-header px-6 py-3 bg-white border-b border-[#E2E8F0]">
-              <div className="flex items-center gap-2">
-                <Activity className="h-3.5 w-3.5 text-slate-500" />
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 pt-4 pb-2">
-                  What I Do
-                </h2>
-              </div>
+          <section className="hidden md:block min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
+            <div className="flex items-center px-6 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
+              <Activity className="h-3.5 w-3.5 text-[#3B4A5F]" />
+              <h2 className="ml-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
+                What I Do
+              </h2>
             </div>
 
-            <div className="system-module-content px-5 py-4">
-              <div className="flex flex-col divide-y divide-slate-200">
+            <div className="px-5 py-4">
+              <div className="flex flex-col divide-y divide-[#CCD7E6]">
                 {whatIDoItems.map((item, idx) => (
                   <div
                     key={item.title}
                     className="grid grid-cols-1 gap-3 sm:gap-4 py-4"
                   >
                     <div className="flex items-start gap-3 sm:gap-4 group">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--brand)]/30 bg-white text-[12px] font-semibold text-slate-600 transition-all duration-200 ease-out group-hover:border-[color:var(--brand)] group-hover:text-[color:var(--brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand)]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white shadow-[0_0_0_1px_rgba(30,58,95,0.04)]">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C5D2E3] bg-white text-[12px] font-semibold text-[#3B4A5F] transition-all duration-200 ease-out group-hover:border-[#9EB3CE] group-hover:text-[#2D3D53] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5D2E3]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white shadow-[0_0_0_1px_rgba(30,58,95,0.04)]">
                         {idx + 1}
                       </span>
                       <div className="space-y-1">
@@ -342,7 +350,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="system-module-footer px-6 py-3" />
+            <div className="px-6 py-3 border-t border-[#CCD7E6] bg-[#E7EDF6]" />
           </section>
         </div>
       </div>

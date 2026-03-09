@@ -11,9 +11,19 @@ export default function Resume() {
         title="Resume"
         subtitle="Professional experience and qualifications"
       >
-        <Button className="mt-4 gap-2 bg-[hsl(var(--ehr-teal))] hover:bg-[hsl(var(--ehr-teal)/0.9)]">
-          <Download className="w-4 h-4" />
-          Download PDF
+        <Button
+          asChild
+          className="mt-4 gap-2 bg-[hsl(var(--ehr-teal))] hover:bg-[hsl(var(--ehr-teal)/0.9)]"
+        >
+          <a
+            href={`${import.meta.env.BASE_URL}Madhure_BI_2026_PDF.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2"
+          >
+            <Download className="w-4 h-4" />
+            Download PDF
+          </a>
         </Button>
       </PageHeader>
 

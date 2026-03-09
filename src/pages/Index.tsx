@@ -53,15 +53,15 @@ const Index = () => {
 
           {/* Projects Section - Record View */}
           <section className="mt-3 sm:mt-4">
-            <div className="system-module">
-              <div className="system-module-header">
+            <div className="min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
+              <div className="flex items-center justify-between px-5 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
                 <div className="flex items-center gap-1.5">
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 pt-4 pb-2">
+                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
                     Projects
                   </h2>
                 </div>
               </div>
-              <div className="system-module-content">
+              <div className="px-3 sm:px-4 lg:px-5 py-3">
                 <SelectedProjectsGrid />
               </div>
             </div>
