@@ -28,16 +28,15 @@ export function Sidebar({
 
   const showOverlay = isOpen;
 
-  // ✅ CHANGED: frosted-glass base styles
-  const frostedPanel =
-    'bg-[#1E2F4D] text-white border-r border-white/10 shadow-md';
+  const systemPanel =
+    'border-r border-[#27466D] bg-[#1E2F4D] text-[#E6EDF3]';
 
   const asideClassName =
     variant === 'drawer'
       ? [
           'fixed inset-y-0 right-0 lg:left-0 lg:right-auto z-50 shrink-0',
           'w-56 min-h-screen',
-          frostedPanel,
+          systemPanel,
           'flex flex-col',
           'transform transition-transform duration-300 ease-out',
           isOpen ? 'translate-x-0' : 'translate-x-full lg:-translate-x-full',
@@ -45,7 +44,7 @@ export function Sidebar({
       : [
           'fixed inset-y-0 right-0 z-50 shrink-0 lg:left-0 lg:right-auto',
           'w-56 min-h-screen',
-          frostedPanel,
+          systemPanel,
           'flex flex-col',
           'transform transition-transform duration-300 ease-out',
           isOpen ? 'translate-x-0' : 'translate-x-full',
@@ -68,43 +67,42 @@ export function Sidebar({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-3 py-3 border-b border-[color:var(--brand-hover)] flex items-center justify-between">
+        <div className="flex items-center justify-between border-b border-[#27466D] px-4 py-4">
           <Link
             to="/"
-            className="hidden md:flex items-center gap-2"
+            className="hidden items-center gap-3 md:flex"
             onClick={handleNavClick}
           >
-            <div className="w-20 h-20 rounded-md bg-transparent flex items-center justify-center overflow-hidden relative">
-              <span className="absolute inset-0 bg-white/4 rounded-md pointer-events-none" aria-hidden="true" />
+            <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-md border border-[#27466D] bg-white/5">
               <img
                 src={`${import.meta.env.BASE_URL}images/logo.svg`}
                 alt="Healthcare Analytics logo"
-                className="h-18 w-18 object-contain"
+                className="h-9 w-9 object-contain"
               />
             </div>
             <div className="leading-tight">
-              <h1 className="font-semibold text-[13px] text-[#E6EDF3]">
+              <h1 className="text-[13px] font-semibold text-[#E6EDF3]">
                 Healthcare Analytics
               </h1>
+              <p className="mt-0.5 text-[11px] text-[#B8C7D8]">Clinical portfolio dashboard</p>
             </div>
           </Link>
 
           {/* Close button only on mobile drawer */}
           <button
             onClick={onClose}
-            className="lg:hidden w-8 h-8 rounded-md border border-[color:var(--brand-hover)] hover:bg-[color:var(--brand-hover)]/60 flex items-center justify-center ml-auto"
+            className="ml-auto flex h-8 w-8 items-center justify-center rounded-md border border-[#27466D] text-[#E6EDF3] transition-colors hover:bg-white/10 lg:hidden"
             aria-label="Close sidebar"
             type="button"
           >
-            <X className="w-4 h-4 text-[#E6EDF3]" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 p-2 space-y-1 overflow-y-auto relative">
-          <span className="absolute inset-0 bg-white/3 pointer-events-none" aria-hidden="true" />
+        <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           <div className="px-2 py-1">
-            <span className="text-[10px] font-medium text-[#CBD5E1] uppercase tracking-wide">
+            <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#CBD5E1]">
               Navigation
             </span>
           </div>
@@ -120,22 +118,22 @@ export function Sidebar({
                 to={item.to}
                 onClick={handleNavClick}
                 className={[
-                  'relative flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium transition-colors w-full border-l-4',
+                  'flex w-full items-center gap-3 rounded-md border px-3 py-2.5 text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-white/10 text-white border-[color:var(--brand)] shadow-sm'
-                    : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent',
+                    ? 'border-white/10 bg-white/10 text-white'
+                    : 'border-transparent text-white/80 hover:bg-white/10 hover:text-white',
                 ].join(' ')}
               >
                 <item.icon
                   className={[
                     'w-4 h-4 flex-shrink-0',
-                    isActive ? 'opacity-100' : 'opacity-80',
+                    isActive ? 'opacity-100' : 'opacity-85',
                   ].join(' ')}
                 />
                 <span className="flex-1 truncate">{item.label}</span>
 
                 {item.badge && (
-                  <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-white/50 text-slate-800">
+                  <span className="rounded-md bg-white/75 px-1.5 py-0.5 text-[10px] font-medium text-[#1E2F4D]">
                     {item.badge}
                   </span>
                 )}
@@ -144,8 +142,8 @@ export function Sidebar({
           })}
         </nav>
 
-        <div className="px-3 py-2 border-t border-white/20">
-          <p className="text-[10px] text-slate-600">v1.0.0 · Jan 2026</p>
+        <div className="border-t border-[#27466D] px-4 py-3">
+          <p className="text-[10px] text-[#9FB3C8]">v1.0.0 · Jan 2026</p>
         </div>
       </aside>
     </>

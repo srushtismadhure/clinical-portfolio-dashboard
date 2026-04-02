@@ -35,7 +35,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#EEF4FA] to-[#EAF2F8]">
+      <div className="min-h-screen flex flex-col bg-[#F6F8FB]">
         <main className="flex-1 flex flex-col">
           <Routes>
             <Route path="/" element={<Index />} />

@@ -55,7 +55,7 @@ export function Layout({
       />
 
       {/* Main Column */}
-      <div className="flex flex-1 flex-col w-full">
+      <div className="flex flex-1 flex-col w-full bg-[#F3F8FF]">
         {/* Top Navigation */}
         <TopBar
           title={title}

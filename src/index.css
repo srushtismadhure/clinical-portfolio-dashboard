@@ -43,7 +43,7 @@
     font-size: 1rem;
     line-height: 1.4;
   }
-  .home-typescale .system-module-content :where(p:not(.text-[11px]):not(.text-[10px]), li) {
+  .home-typescale .system-module-content :where(p:not(.text-\[11px\]):not(.text-\[10px\]), li) {
     font-size: 1.02rem;
     line-height: 1.55;
   }
@@ -65,7 +65,7 @@
   }
 
   /* Areas of Interest panel */
-  .home-typescale .interest-panel > div:first-child span.text-[11px] {
+  .home-typescale .interest-panel > div:first-child span.text-\[11px\] {
     font-size: 1rem;
     line-height: 1.4;
   }
@@ -147,7 +147,7 @@
 
 @layer base {
   :root {
-    --surface-page: #EAF2F8;
+    --surface-page: #F6F8FB;
     --border-default: #E2E8F0;
   }
   * {
@@ -188,73 +188,71 @@
 @layer components {
   /* Clinical System Module - Blue-tinted surface */
   .system-module {
-    @apply bg-white border border-gray-100 rounded-xl shadow-sm;
+    @apply rounded-md border border-[#D9E6F2] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)];
   }
 
   .system-module-header {
-    @apply flex items-center justify-between px-3 py-2 border-b border-[hsl(var(--clinical-border))];
-    background: transparent;
+    @apply flex items-center justify-between gap-3 border-b border-[#D9E6F2] bg-white px-4 py-3;
   }
 
   .system-module-label {
-    @apply text-[9px] font-semibold text-primary uppercase tracking-wide;
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500;
   }
 
   .system-module-content {
-    @apply px-3 py-2.5;
+    @apply px-4 py-4;
   }
 
   .system-module-footer {
-    @apply px-3 py-1.5 border-t border-[hsl(var(--clinical-border))] text-[9px] text-[hsl(var(--clinical-text-muted))];
-    background: transparent;
+    @apply border-t border-[#D9E6F2] bg-white px-4 py-2.5 text-[11px] text-gray-500;
   }
 
-  /* Data tags - blue-tinted */
   .data-tag {
-    @apply inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[9px] font-medium bg-[hsl(var(--clinical-primary-muted))] text-[hsl(var(--clinical-text-muted))] border border-[hsl(var(--clinical-border))];
+    @apply inline-flex items-center gap-1 rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-3 py-1 text-[11px] font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out hover:border-[#BFD1EA] hover:bg-[#E2ECF9] hover:shadow-[0_2px_4px_rgba(36,74,132,0.10)];
   }
 
   .data-tag-active {
-    @apply bg-[hsl(var(--primary)/0.12)] text-primary border-[hsl(var(--primary)/0.2)];
+    @apply rounded-lg border border-[#BFD1EA] bg-[#E2ECF9] text-[#234A84] shadow-[0_2px_4px_rgba(36,74,132,0.10)];
   }
 
-  /* Clinical cards - blue-tinted surface */
   .clinical-card {
-    @apply bg-white rounded-xl border border-gray-100 shadow-sm transition-colors duration-150;
+    @apply rounded-lg border border-[#D9E6F2] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors duration-150;
   }
 
   .clinical-card:hover {
-    @apply border-primary/40;
+    @apply border-gray-300;
   }
 
-  /* EHR cards - compact, blue-tinted */
   .ehr-card {
-    @apply bg-white rounded-xl p-3 border border-gray-100 shadow-sm transition-colors duration-150;
+    @apply rounded-md border border-[#D9E6F2] bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors duration-150;
   }
 
   .ehr-card:hover {
-    @apply border-primary/40;
+    @apply border-gray-300;
   }
 
   .ehr-card-secondary {
-    @apply bg-white rounded-xl p-2.5 border border-gray-100 shadow-sm transition-colors duration-150;
+    @apply rounded-md border border-[#D9E6F2] bg-white p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors duration-150;
   }
 
   .ehr-card-secondary:hover {
-    @apply bg-[hsl(var(--clinical-primary-muted))];
+    @apply bg-slate-50;
   }
 
-  /* Pills - blue system */
   .ehr-pill {
-    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[10px] font-medium;
+    @apply inline-flex items-center gap-1 rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-[11px] font-medium;
   }
 
   .ehr-pill-primary {
-    @apply bg-[hsl(var(--primary)/0.12)] text-primary;
+    @apply rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)];
   }
 
   .ehr-pill-muted {
-    @apply bg-[hsl(var(--clinical-primary-muted))] text-[hsl(var(--clinical-text-muted))];
+    @apply text-gray-600;
+  }
+
+  .ehr-pill-blue {
+    @apply rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)];
   }
 
   /* Navigation - for non-sidebar use */
@@ -267,17 +265,17 @@
   }
 
   .table-row-hover {
-    @apply hover:bg-[hsl(var(--clinical-primary-muted)/0.5)] transition-colors duration-100;
+    @apply transition-colors duration-100 hover:bg-slate-50;
   }
 
   /* Topbar - white with blue accent */
   .clinical-topbar {
-    @apply bg-[hsl(var(--clinical-surface))] border-b border-[hsl(var(--clinical-border))];
+    @apply border-b border-[#D9E6F2] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)];
   }
 
   /* Section labels - blue */
   .section-label {
-    @apply text-[9px] font-semibold text-primary uppercase tracking-wide;
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500;
   }
 
   /* Metric display - compact */
@@ -286,7 +284,7 @@
   }
 
   .metric-label {
-    @apply text-[9px] text-primary uppercase tracking-wide;
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500;
   }
 
   /* Divider line */
@@ -296,11 +294,11 @@
 
   /* Status indicator - blue */
   .status-badge {
-    @apply inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[9px] font-medium;
+    @apply inline-flex items-center rounded-md border px-2 py-1 text-[11px] font-medium;
   }
 
   .status-active {
-    @apply bg-[#E6F7EE] text-[#2FBF71];
+    @apply border-emerald-200 bg-emerald-50 text-emerald-700;
   }
 
   .status-pending {

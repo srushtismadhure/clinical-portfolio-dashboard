@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Linkedin, Github, Database, Activity, Layers, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, FileText, ShieldCheck, GitMerge, Clipboard } from 'lucide-react';
+import { Mail, Linkedin, Github, Database, Activity, Layers, User, Code2, BarChart3, Boxes, Cloud, Sigma, Layers3, ShieldCheck, GitMerge, Clipboard } from 'lucide-react';
 
 const coreSkills = [
   { name: 'SQL', category: 'query' },
@@ -52,29 +52,29 @@ type PillProps = {
 };
 
 const Pill = ({ icon: Icon, label }: PillProps) => (
-  <span className="inline-flex h-10 w-full items-center gap-2 rounded-lg border border-[#C5D2E3] bg-[#F9FBFE] px-3 py-2 text-[13px] font-semibold text-[#3B4A5F] leading-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.92)] transition duration-150 hover:-translate-y-[1px] hover:border-[#9EB3CE] hover:shadow-[0_4px_12px_rgba(15,23,42,0.08)]">
-    <Icon className="h-4 w-4 text-[#3B4A5F] shrink-0" aria-hidden="true" />
+  <span className="inline-flex items-center gap-2 rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-3.5 py-1.5 text-sm font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 hover:border-[#BFD1EA] hover:bg-[#E2ECF9] hover:shadow-[0_2px_4px_rgba(36,74,132,0.10)]">
+    <Icon className="h-4 w-4 shrink-0 text-[#234A84]" aria-hidden="true" />
     <span className="truncate">{label}</span>
   </span>
 );
 
 export const ProblemsISolve = () => (
-  <section className="mt-3 rounded-xl border border-slate-100 bg-white shadow-sm px-3 py-3">
+  <section className="mt-5 rounded-lg border border-gray-200 bg-white px-5 py-5 shadow-none">
     <div className="flex items-center justify-between mb-2">
-      <h4 className="text-[11px] font-semibold uppercase tracking-wide text-slate-600">
+      <h4 className="text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">
         Problems I Solve
       </h4>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3">
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
       {problemsISolve.map(({ title, subtitle, Icon }) => (
         <div
           key={title}
-          className="flex items-start gap-2 rounded-xl border border-slate-100 bg-white shadow-sm p-4"
+          className="flex items-start gap-3 rounded-md border border-gray-200 bg-gray-50 p-4"
         >
-          <Icon className="h-4 w-4 text-slate-600 mt-0.5" aria-hidden="true" />
+          <Icon className="mt-0.5 h-4 w-4 text-gray-500" aria-hidden="true" />
           <div className="min-w-0">
             <p className="text-sm font-semibold text-slate-800 leading-tight">{title}</p>
-            <p className="text-[12px] text-slate-600 leading-snug">{subtitle}</p>
+            <p className="text-[13px] leading-snug text-gray-600">{subtitle}</p>
           </div>
         </div>
       ))}
@@ -92,21 +92,21 @@ export function ClinicalAnalyticsToolkit() {
   );
 
   return (
-    <section className="min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
+    <section className="system-module min-w-0 overflow-hidden">
+      <div className="system-module-header">
         <div className="flex items-center gap-2">
-          <Database className="h-3.5 w-3.5 text-[#3B4A5F]" />
-          <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
+          <Database className="h-3.5 w-3.5 text-gray-500" />
+          <h2 className="system-module-label">
             Core Skills
           </h2>
         </div>
-        <span className="text-[11px] font-semibold text-[#52627A] bg-white border border-[#C5D2E3] px-2 py-0.5 rounded-md shadow-[0_1px_0_rgba(15,23,42,0.05)]">
+        <span className="rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-2.5 py-1 text-[11px] font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out">
           n={coreSkills.length}
         </span>
       </div>
 
-      <div className="px-5 py-4 bg-white">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2.5">
+      <div className="system-module-content">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-3">
           {coreSkills.map((skill) => {
             const Icon = iconMap[skill.name] ?? Layers;
             return (
@@ -114,7 +114,7 @@ export function ClinicalAnalyticsToolkit() {
             );
           })}
         </div>
-        <p className="mt-3 text-[11px] text-[#6B7A90] font-medium">Primary technical stack</p>
+        <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-gray-500">Primary technical stack</p>
       </div>
     </section>
   );
@@ -176,29 +176,29 @@ export function HeroSection() {
   };
 
   return (
-    <section className="py-2 px-4 sm:px-4 lg:px-0 relative overflow-visible">
+    <section className="relative overflow-visible px-0 py-1">
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] items-start lg:items-start gap-5 lg:gap-x-2 lg:gap-y-2 w-full relative z-10 overflow-visible">
+      <div className="relative z-10 grid w-full grid-cols-1 items-start gap-4 overflow-visible lg:grid-cols-[minmax(0,1.65fr)_minmax(280px,0.95fr)]">
         
         {/* Left Column */}
-        <div className="min-w-0 flex flex-col gap-2">
-          <div className="flex flex-col gap-5">
-            <div className="system-module min-w-0 rounded-xl border border-slate-100 bg-white shadow-sm">
-              <div className="system-module-header px-6 py-4 bg-transparent border-b border-slate-100">
+        <div className="min-w-0">
+          <div className="flex flex-col gap-4">
+            <div className="system-module min-w-0">
+              <div className="system-module-header">
                 <div className="flex items-center gap-1.5">
-                  <User className="w-3 h-3 text-primary" />
-                  <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 pt-4 pb-2">
+                  <User className="h-3.5 w-3.5 text-gray-500" />
+                  <h2 className="system-module-label">
                     Profile Overview
                   </h2>
                 </div>
                 <span className="status-badge status-active">Active</span>
               </div>
               
-              <div className="system-module-content px-4 md:px-6 py-4 md:py-6">
+              <div className="system-module-content">
                 {/* Identity Row */}
-                <div className="flex flex-col md:flex-row md:items-center items-center gap-3 md:gap-4 mb-2.5 text-center md:text-left">
+                <div className="flex flex-col items-center gap-3 text-center md:flex-row md:items-start md:text-left">
                   {/* Photo */}
-                  <div className="relative shrink-0 rounded-full overflow-hidden border-2 border-[#E2E8F0] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] w-24 h-24 md:w-[100px] md:h-[100px] -mt-2 md:-mt-7">
+                  <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-slate-50 md:h-[96px] md:w-[96px]">
                     <img
                       src={`${import.meta.env.BASE_URL}images/profile.png`}
                       alt="Profile photo"
@@ -207,18 +207,18 @@ export function HeroSection() {
                   </div>
                   
                   {/* Name & Role */}
-                  <div className="flex-1 flex flex-col justify-center min-w-0 w-full items-center md:items-start">
-                    <div className="space-y-1.5 md:space-y-2">
-                      <p className="text-[10px] md:text-[11px] uppercase tracking-[0.08em] text-[#9CA3AF] leading-4">
+                  <div className="flex min-w-0 flex-1 flex-col justify-center">
+                    <div className="space-y-1.5">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.14em] leading-4 text-gray-500">
                         Diagnosis
                       </p>
-                      <h1 className="text-[22px] md:text-[30px] font-extrabold text-[color:var(--brand)] leading-[1.2]">
+                      <h1 className="text-[24px] font-semibold leading-tight text-slate-800 md:text-[30px]">
                         Healthcare Data &amp; Analytics Engineer
                       </h1>
-                      <p className="text-[14px] md:text-[17px] font-medium text-slate-500 leading-[1.2]">
+                      <p className="text-[15px] font-medium leading-[1.3] text-slate-600 md:text-[17px]">
                         Srushti Madhure
                       </p>
-                      <p className="text-[12px] md:text-[13px] text-slate-500 leading-snug">
+                      <p className="text-[13px] leading-snug text-gray-500">
                         Define • Collect • Model • Deploy
                       </p>
                     </div>
@@ -226,11 +226,11 @@ export function HeroSection() {
                 </div>
 
                 {/* Actions */}
-                <div className="mt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4">
-                  <div className="w-full md:w-auto flex flex-col sm:flex-row gap-2">
+                <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+                  <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
                     <Link
                       to="/projects"
-                      className="flex items-center justify-center h-9 px-4 rounded-xl bg-[color:var(--brand)] text-white text-sm font-medium hover:bg-[color:var(--brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--brand-hover)] focus-visible:ring-offset-2 transition-colors w-full sm:w-auto shadow-sm"
+                      className="flex h-10 w-full items-center justify-center rounded-md bg-slate-800 px-4 text-sm font-medium text-white transition-all duration-200 ease-in-out hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 sm:w-auto"
                     >
                       View Projects
                     </Link>
@@ -238,45 +238,45 @@ export function HeroSection() {
                       href={`${import.meta.env.BASE_URL}Madhure_BI_2026_PDF.pdf`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center h-9 px-4 rounded-xl border border-[#E2E8F0] text-sm font-medium text-[#0F172A] bg-white hover:bg-[#F3F6F9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1E3A5F] focus-visible:ring-offset-2 transition-colors w-full sm:w-auto"
+                      className="flex h-10 w-full items-center justify-center rounded-md border border-gray-200 bg-white px-4 text-sm font-medium text-slate-700 transition-all duration-200 ease-in-out hover:border-gray-300 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 sm:w-auto"
                     >
                       Resume
                     </a>
                   </div>
-                  <div className="w-full md:w-auto flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 text-sm text-muted-foreground">
+                  <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-gray-600 md:justify-end lg:w-auto">
                     <a
                       href="https://www.linkedin.com/in/srushti-madhure/"
                       target="_blank"
                       rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                        className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
                       >
-                        <Linkedin className="h-4 w-4 text-muted-foreground" />
+                        <Linkedin className="h-4 w-4 text-gray-500" />
                         <span>LinkedIn</span>
                       </a>
                       <a
                         href="https://github.com/srushtismadhure"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                        className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
                       >
-                        <Github className="h-4 w-4 text-muted-foreground" />
+                        <Github className="h-4 w-4 text-gray-500" />
                         <span>GitHub</span>
                       </a>
                   <a
                     href="mailto:srushtisunilmadhure@gmail.com"
-                    className="flex items-center gap-1.5 hover:text-foreground hover:underline underline-offset-4"
+                    className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
                   >
-                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <Mail className="h-4 w-4 text-gray-500" />
                   <span>Contact</span>
                   </a>
                   <button
                     type="button"
                     onClick={handleCopyEmail}
                     className={[
-                      'text-xs px-1.5 py-1 rounded-md border flex items-center gap-1 transition-colors',
+                      'flex items-center gap-1 rounded-md border px-2.5 py-1.5 text-xs transition-all duration-200 ease-in-out',
                       copied
                         ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
-                        : 'border-[#E3E8EE] bg-white text-slate-600 hover:bg-slate-50',
+                        : 'border-gray-200 bg-gray-50 text-gray-600 hover:bg-white',
                     ].join(' ')}
                     aria-label={copied ? 'Copied!' : 'Copy email'}
                   >
@@ -285,24 +285,23 @@ export function HeroSection() {
                   </button>
                 </div>
               </div>
-            </div>
+              </div>
             </div>
 
-            <div className="min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
-                <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
+            <div className="system-module min-w-0 overflow-hidden">
+              <div className="system-module-header">
+                <h2 className="system-module-label">
                   Systems I’ve Built
                 </h2>
-                <span className="text-[11px] font-semibold text-[#52627A] bg-white border border-[#C5D2E3] px-2 py-0.5 rounded-md shadow-[0_1px_0_rgba(15,23,42,0.05)]">
+                <span className="rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-2.5 py-1 text-[11px] font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out">
                   n={summaryItems.length}
                 </span>
               </div>
-              <div className="px-5 py-4">
-                <div className="border-t border-[#CCD7E6] mt-1 mb-3" />
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-sm font-medium text-[#3B4A5F] leading-7">
+              <div className="system-module-content">
+                <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                   {summaryItems.map((item) => (
-                    <li key={item.label} className="flex gap-2 items-start text-[13.5px] leading-6">
-                      <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#9EB3CE]" aria-hidden="true" />
+                    <li key={item.label} className="flex items-start gap-3 rounded-md border border-gray-200 bg-gray-50/80 px-3.5 py-2.5 text-[13.5px] leading-6 text-gray-700 transition-all duration-200 ease-in-out">
+                      <span className="mt-1.5 inline-block h-2 w-2 rounded-sm bg-blue-200" aria-hidden="true" />
                       <span className="flex-1">{item.label}</span>
                     </li>
                   ))}
@@ -314,33 +313,35 @@ export function HeroSection() {
         </div>
 
         {/* Right Column */}
-        <div className="min-w-0 w-full overflow-hidden lg:pr-2 lg:pl-1 flex flex-col gap-2">
+        <div className="flex w-full min-w-0 flex-col gap-4 overflow-hidden">
           <ClinicalAnalyticsToolkit />
 
-          <section className="hidden md:block min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
-            <div className="flex items-center px-6 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
-              <Activity className="h-3.5 w-3.5 text-[#3B4A5F]" />
-              <h2 className="ml-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
+          <section className="system-module hidden min-w-0 overflow-hidden md:block">
+            <div className="system-module-header">
+              <div className="flex items-center gap-2">
+              <Activity className="h-3.5 w-3.5 text-gray-500" />
+              <h2 className="system-module-label">
                 What I Do
               </h2>
+              </div>
             </div>
 
-            <div className="px-5 py-4">
-              <div className="flex flex-col divide-y divide-[#CCD7E6]">
+            <div className="system-module-content">
+              <div className="flex flex-col divide-y divide-gray-200">
                 {whatIDoItems.map((item, idx) => (
                   <div
                     key={item.title}
-                    className="grid grid-cols-1 gap-3 sm:gap-4 py-4"
+                    className="grid grid-cols-1 gap-3 py-3 first:pt-0 last:pb-0 sm:gap-4"
                   >
                     <div className="flex items-start gap-3 sm:gap-4 group">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#C5D2E3] bg-white text-[12px] font-semibold text-[#3B4A5F] transition-all duration-200 ease-out group-hover:border-[#9EB3CE] group-hover:text-[#2D3D53] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5D2E3]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white shadow-[0_0_0_1px_rgba(30,58,95,0.04)]">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 bg-gray-50 text-[12px] font-medium text-gray-600 transition-colors duration-200 ease-out group-hover:border-gray-300 group-hover:bg-white">
                         {idx + 1}
                       </span>
                       <div className="space-y-1">
                         <p className="text-[15px] font-semibold text-slate-900 leading-snug">
                           {item.title}
                         </p>
-                        <p className="text-[13px] text-slate-600 leading-relaxed">
+                        <p className="text-[13px] leading-relaxed text-gray-600">
                           {item.description}
                         </p>
                       </div>
@@ -350,7 +351,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="px-6 py-3 border-t border-[#CCD7E6] bg-[#E7EDF6]" />
+            <div className="border-t border-gray-200 bg-slate-50 px-5 py-3" />
           </section>
         </div>
       </div>

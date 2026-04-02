@@ -1,4 +1,4 @@
-import { Search, Plus, MoreVertical, FileText, Database, Brain, Palette, LineChart, ExternalLink } from 'lucide-react';
+import { Search, Plus, FileText, Database, Brain, Palette, LineChart, ExternalLink } from 'lucide-react';
 
 const projects = [
   {
@@ -59,57 +59,57 @@ const projects = [
 ];
 
 const statusColors: Record<string, string> = {
-  production: 'text-primary bg-[hsl(var(--primary)/0.12)]',
-  development: 'text-[hsl(var(--clinical-text-muted))] bg-[hsl(var(--clinical-primary-muted))]',
-  archived: 'text-[hsl(var(--clinical-text-muted))] bg-[hsl(var(--clinical-primary-muted)/0.5)]',
+  production: 'border border-emerald-200 bg-emerald-50 text-emerald-700',
+  development: 'border border-amber-200 bg-amber-50 text-amber-700',
+  archived: 'border border-gray-200 bg-gray-100 text-gray-600',
 };
 
 export function ProjectTable() {
   return (
     <div className="system-module min-w-0">
       <div className="system-module-header">
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="min-w-0">
           <span className="system-module-label">Project Records</span>
-          <div className="flex gap-1.5">
-            <button className="text-[9px] font-medium text-primary border-b border-primary pb-0.5">
+          <div className="mt-2 flex gap-2">
+            <button className="rounded-md border border-gray-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-700">
               Recent
             </button>
-            <button className="text-[9px] text-[hsl(var(--clinical-text-muted))] hover:text-primary transition-colors pb-0.5">
+            <button className="rounded-md border border-transparent px-2 py-1 text-[11px] font-medium text-gray-500 transition-colors hover:border-gray-200 hover:bg-white hover:text-slate-700">
               Archived
             </button>
           </div>
         </div>
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <span className="text-[9px] text-primary/70 tabular-nums">n={projects.length}</span>
-          <button className="w-5 h-5 rounded hover:bg-[hsl(var(--primary)/0.1)] flex items-center justify-center transition-colors">
-            <Search className="w-2.5 h-2.5 text-primary/60" />
+        <div className="flex flex-shrink-0 items-center gap-1.5">
+          <span className="rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-2.5 py-1 text-[11px] font-medium text-[#234A84] tabular-nums shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out">n={projects.length}</span>
+          <button className="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-500 transition-all duration-200 ease-in-out hover:border-gray-300 hover:bg-slate-50 hover:text-slate-700">
+            <Search className="h-3.5 w-3.5" />
           </button>
-          <button className="w-5 h-5 rounded bg-primary hover:bg-[hsl(var(--clinical-primary-hover))] flex items-center justify-center transition-colors">
-            <Plus className="w-2.5 h-2.5 text-primary-foreground" />
+          <button className="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 bg-slate-800 text-white transition-all duration-200 ease-in-out hover:bg-slate-700">
+            <Plus className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
 
       {/* Mobile Card View */}
-      <div className="sm:hidden system-module-content space-y-1.5">
+      <div className="system-module-content space-y-2.5 sm:hidden">
         {projects.map((project) => (
           <div 
             key={project.name} 
-            className="p-2 bg-[hsl(var(--clinical-primary-muted)/0.5)] rounded border border-[hsl(var(--clinical-border))]"
+            className="rounded-md border border-gray-200 bg-gray-50 p-2.5"
           >
-            <div className="flex items-start justify-between gap-1.5 mb-1">
-              <div className="flex items-center gap-1.5 min-w-0">
-                <project.categoryIcon className="w-3 h-3 flex-shrink-0 text-primary/70" />
+            <div className="mb-2 flex items-start justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2">
+                <project.categoryIcon className="h-3.5 w-3.5 flex-shrink-0 text-gray-500" />
                 <div className="min-w-0">
-                  <p className="text-[10px] font-medium text-[hsl(var(--clinical-text))] truncate">{project.name}</p>
-                  <p className="text-[9px] text-[hsl(var(--clinical-text-muted))] truncate">{project.category}</p>
+                  <p className="truncate text-sm font-medium text-slate-800">{project.name}</p>
+                  <p className="truncate text-[11px] uppercase tracking-[0.12em] text-gray-500">{project.category}</p>
                 </div>
               </div>
-              <span className={`text-[8px] font-medium px-1 py-0.5 rounded-sm ${statusColors[project.status]}`}>
+              <span className={`rounded-md px-2 py-1 text-[11px] font-medium ${statusColors[project.status]}`}>
                 {project.status}
               </span>
             </div>
-            <div className="flex flex-wrap gap-1 text-[8px]">
+            <div className="flex flex-wrap gap-2">
               <span className="data-tag">{project.dataSource}</span>
               <span className="data-tag">{project.records}</span>
               <span className="data-tag">{project.tools}</span>
@@ -119,16 +119,16 @@ export function ProjectTable() {
       </div>
 
       {/* Desktop Table View */}
-      <div className="hidden sm:block overflow-x-auto">
+      <div className="hidden overflow-x-auto sm:block">
         <table className="w-full min-w-[650px]">
-          <thead>
-            <tr className="border-b border-[hsl(var(--clinical-border))]">
-              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Category</th>
-              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Project</th>
-              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Data Source</th>
-              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Records</th>
-              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Tools</th>
-              <th className="text-left text-[8px] font-medium text-primary py-1.5 px-2.5 uppercase tracking-wide">Outcome</th>
+          <thead className="bg-slate-50">
+            <tr className="border-b border-gray-200">
+              <th className="px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">Category</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">Project</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">Data Source</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">Records</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">Tools</th>
+              <th className="px-4 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500">Outcome</th>
               <th className="w-6"></th>
             </tr>
           </thead>
@@ -136,32 +136,32 @@ export function ProjectTable() {
             {projects.map((project) => (
               <tr 
                 key={project.name} 
-                className="table-row-hover border-b border-[hsl(var(--clinical-border))] last:border-0 cursor-pointer"
+                className="table-row-hover cursor-pointer border-b border-gray-200 last:border-0"
               >
-                <td className="py-1.5 px-2.5">
-                  <div className="flex items-center gap-1 min-w-0">
-                    <project.categoryIcon className="w-3 h-3 flex-shrink-0 text-primary/60" />
-                    <span className="text-[10px] text-[hsl(var(--clinical-text))] truncate">{project.category}</span>
+                <td className="px-4 py-2.5">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <project.categoryIcon className="h-3.5 w-3.5 flex-shrink-0 text-gray-500" />
+                    <span className="truncate text-sm text-slate-700">{project.category}</span>
                   </div>
                 </td>
-                <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] font-medium text-[hsl(var(--clinical-text))]">{project.name}</span>
+                <td className="px-4 py-2.5">
+                  <span className="text-sm font-medium text-slate-800">{project.name}</span>
                 </td>
-                <td className="py-1.5 px-2.5">
-                  <span className="data-tag text-[8px]">{project.dataSource}</span>
+                <td className="px-4 py-2.5">
+                  <span className="data-tag">{project.dataSource}</span>
                 </td>
-                <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] text-[hsl(var(--clinical-text-muted))] tabular-nums">{project.records}</span>
+                <td className="px-4 py-2.5">
+                  <span className="text-sm tabular-nums text-gray-600">{project.records}</span>
                 </td>
-                <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] text-[hsl(var(--clinical-text-muted))]">{project.tools}</span>
+                <td className="px-4 py-2.5">
+                  <span className="text-sm text-gray-600">{project.tools}</span>
                 </td>
-                <td className="py-1.5 px-2.5">
-                  <span className="text-[10px] text-[hsl(var(--clinical-text))]">{project.outcome}</span>
+                <td className="px-4 py-2.5">
+                  <span className="text-sm text-slate-700">{project.outcome}</span>
                 </td>
-                <td className="py-1.5 px-2.5">
-                  <button className="w-4 h-4 rounded hover:bg-[hsl(var(--primary)/0.1)] flex items-center justify-center transition-colors">
-                    <ExternalLink className="w-2.5 h-2.5 text-primary/60" />
+                <td className="px-4 py-2.5">
+                  <button className="flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-gray-500 transition-all duration-200 ease-in-out hover:border-gray-200 hover:bg-white hover:text-slate-700">
+                    <ExternalLink className="h-3.5 w-3.5" />
                   </button>
                 </td>
               </tr>

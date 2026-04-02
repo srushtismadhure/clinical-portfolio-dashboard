@@ -30,7 +30,7 @@ const Index = () => {
   return (
     // ✅ CHANGED: switched from flex layout to a responsive grid on desktop
     // This gives the sidebar its own column on lg+ screens, preventing overlap and keeping it visible.
-    <div className="min-h-screen w-full bg-transparent lg:grid lg:grid-cols-[224px_1fr]">
+    <div className="min-h-screen w-full bg-[#F6F8FB] lg:grid lg:grid-cols-[224px_1fr]">
       <Sidebar
         variant="persistent"
         isOpen={sidebarOpen}
@@ -41,27 +41,27 @@ const Index = () => {
       {/* ✅ CHANGED: removed flex-1 and w-full because we're inside a grid column now.
           min-w-0 stays important to prevent horizontal overflow with wide cards/tables.
       */}
-      <div className="min-w-0 flex flex-col">
+      <div className="min-w-0 flex flex-col bg-[#F3F8FF]">
         <TopBar title="Srushti Madhure" onMenuClick={toggleSidebar} />
 
         {/* ✅ CHANGED: added bg-white to keep the "white UI" consistent
             (optional, but recommended if bg-background was tinted)
         */}
-        <main className="home-typescale flex-1 p-3 sm:p-4 lg:p-5 overflow-x-hidden bg-transparent w-full">
+        <main className="home-typescale flex-1 w-full overflow-x-hidden bg-transparent p-4 sm:p-5">
           {/* Hero Section - Profile Overview */}
           <HeroSection />
 
           {/* Projects Section - Record View */}
           <section className="mt-3 sm:mt-4">
-            <div className="min-w-0 rounded-[8px] border border-[#D5DFEC] bg-white shadow-[0_1px_2px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] overflow-hidden">
-              <div className="flex items-center justify-between px-5 py-3 bg-[#E7EDF6] border-b border-[#CCD7E6]">
+            <div className="system-module min-w-0 overflow-hidden">
+              <div className="system-module-header">
                 <div className="flex items-center gap-1.5">
-                  <h2 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3B4A5F]">
+                  <h2 className="system-module-label">
                     Projects
                   </h2>
                 </div>
               </div>
-              <div className="px-3 sm:px-4 lg:px-5 py-3">
+              <div className="system-module-content px-4 sm:px-5">
                 <SelectedProjectsGrid />
               </div>
             </div>
