@@ -52,8 +52,8 @@ type PillProps = {
 };
 
 const Pill = ({ icon: Icon, label }: PillProps) => (
-  <span className="inline-flex items-center gap-2 rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-3.5 py-1.5 text-sm font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 hover:border-[#BFD1EA] hover:bg-[#E2ECF9] hover:shadow-[0_2px_4px_rgba(36,74,132,0.10)]">
-    <Icon className="h-4 w-4 shrink-0 text-[#234A84]" aria-hidden="true" />
+  <span className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors duration-200 hover:border-slate-300 hover:bg-white">
+    <Icon className="h-4 w-4 shrink-0 text-slate-500" aria-hidden="true" />
     <span className="truncate">{label}</span>
   </span>
 );
@@ -100,7 +100,7 @@ export function ClinicalAnalyticsToolkit() {
             Core Skills
           </h2>
         </div>
-        <span className="rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-2.5 py-1 text-[11px] font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out">
+        <span className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600">
           n={coreSkills.length}
         </span>
       </div>
@@ -114,8 +114,8 @@ export function ClinicalAnalyticsToolkit() {
             );
           })}
         </div>
-        <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.12em] text-gray-500">Primary technical stack</p>
       </div>
+      <div className="system-module-footer">Primary technical stack</div>
     </section>
   );
 }
@@ -198,7 +198,7 @@ export function HeroSection() {
                 {/* Identity Row */}
                 <div className="flex flex-col items-center gap-3 text-center md:flex-row md:items-start md:text-left">
                   {/* Photo */}
-                  <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-slate-50 md:h-[96px] md:w-[96px]">
+                  <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-md border border-slate-200 bg-slate-50 md:h-[96px] md:w-[96px]">
                     <img
                       src={`${import.meta.env.BASE_URL}images/profile.png`}
                       alt="Profile photo"
@@ -209,16 +209,16 @@ export function HeroSection() {
                   {/* Name & Role */}
                   <div className="flex min-w-0 flex-1 flex-col justify-center">
                     <div className="space-y-1.5">
-                      <p className="text-[11px] font-medium uppercase tracking-[0.14em] leading-4 text-gray-500">
+                      <p className="text-xs font-semibold uppercase tracking-[0.15em] leading-4 text-slate-500">
                         Diagnosis
                       </p>
-                      <h1 className="text-[24px] font-semibold leading-tight text-slate-800 md:text-[30px]">
+                      <h1 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
                         Healthcare Data &amp; Analytics Engineer
                       </h1>
-                      <p className="text-[15px] font-medium leading-[1.3] text-slate-600 md:text-[17px]">
+                      <p className="text-base font-medium leading-[1.4] text-slate-700 md:text-lg">
                         Srushti Madhure
                       </p>
-                      <p className="text-[13px] leading-snug text-gray-500">
+                      <p className="text-sm text-slate-500">
                         Define • Collect • Model • Deploy
                       </p>
                     </div>
@@ -226,7 +226,7 @@ export function HeroSection() {
                 </div>
 
                 {/* Actions */}
-                <div className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+                <div className="mt-5 flex flex-col gap-2.5 lg:flex-row lg:items-end lg:justify-between">
                   <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
                     <Link
                       to="/projects"
@@ -248,44 +248,45 @@ export function HeroSection() {
                       href="https://www.linkedin.com/in/srushti-madhure/"
                       target="_blank"
                       rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
-                      >
-                        <Linkedin className="h-4 w-4 text-gray-500" />
-                        <span>LinkedIn</span>
-                      </a>
-                      <a
-                        href="https://github.com/srushtismadhure"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
-                      >
-                        <Github className="h-4 w-4 text-gray-500" />
-                        <span>GitHub</span>
-                      </a>
-                  <a
-                    href="mailto:srushtisunilmadhure@gmail.com"
-                    className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
-                  >
-                  <Mail className="h-4 w-4 text-gray-500" />
-                  <span>Contact</span>
-                  </a>
-                  <button
-                    type="button"
-                    onClick={handleCopyEmail}
-                    className={[
-                      'flex items-center gap-1 rounded-md border px-2.5 py-1.5 text-xs transition-all duration-200 ease-in-out',
-                      copied
-                        ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
-                        : 'border-gray-200 bg-gray-50 text-gray-600 hover:bg-white',
-                    ].join(' ')}
-                    aria-label={copied ? 'Copied!' : 'Copy email'}
-                  >
-                    <Clipboard className="h-3.5 w-3.5" />
-                    <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy'}</span>
-                  </button>
+                      className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
+                    >
+                      <Linkedin className="h-4 w-4 text-gray-500" />
+                      <span>LinkedIn</span>
+                    </a>
+                    <a
+                      href="https://github.com/srushtismadhure"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
+                    >
+                      <Github className="h-4 w-4 text-gray-500" />
+                      <span>GitHub</span>
+                    </a>
+                    <a
+                      href="mailto:srushtisunilmadhure@gmail.com"
+                      className="flex items-center gap-1.5 transition-all duration-200 ease-in-out hover:text-slate-800"
+                    >
+                      <Mail className="h-4 w-4 text-gray-500" />
+                      <span>Contact</span>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className={[
+                        'flex items-center gap-1 rounded-md border px-2.5 py-1.5 text-xs transition-all duration-200 ease-in-out',
+                        copied
+                          ? 'border-emerald-300 bg-emerald-50 text-emerald-700'
+                          : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-white',
+                      ].join(' ')}
+                      aria-label={copied ? 'Copied!' : 'Copy email'}
+                    >
+                      <Clipboard className="h-3.5 w-3.5" />
+                      <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy'}</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-              </div>
+              <div className="h-10 border-t border-slate-200 bg-white" />
             </div>
 
             <div className="system-module min-w-0 overflow-hidden">
@@ -293,20 +294,21 @@ export function HeroSection() {
                 <h2 className="system-module-label">
                   Systems I’ve Built
                 </h2>
-                <span className="rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-2.5 py-1 text-[11px] font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out">
+                <span className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600">
                   n={summaryItems.length}
                 </span>
               </div>
               <div className="system-module-content">
                 <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                   {summaryItems.map((item) => (
-                    <li key={item.label} className="flex items-start gap-3 rounded-md border border-gray-200 bg-gray-50/80 px-3.5 py-2.5 text-[13.5px] leading-6 text-gray-700 transition-all duration-200 ease-in-out">
+                    <li key={item.label} className="flex items-start gap-3 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-base leading-relaxed text-slate-700 transition-colors duration-200 ease-in-out">
                       <span className="mt-1.5 inline-block h-2 w-2 rounded-sm bg-blue-200" aria-hidden="true" />
                       <span className="flex-1">{item.label}</span>
                     </li>
                   ))}
                 </ul>
               </div>
+              <div className="h-10 border-t border-slate-200 bg-white" />
             </div>
           </div>
 
@@ -319,10 +321,10 @@ export function HeroSection() {
           <section className="system-module hidden min-w-0 overflow-hidden md:block">
             <div className="system-module-header">
               <div className="flex items-center gap-2">
-              <Activity className="h-3.5 w-3.5 text-gray-500" />
-              <h2 className="system-module-label">
-                What I Do
-              </h2>
+                <Activity className="h-3.5 w-3.5 text-gray-500" />
+                <h2 className="system-module-label">
+                  What I Do
+                </h2>
               </div>
             </div>
 
@@ -338,10 +340,10 @@ export function HeroSection() {
                         {idx + 1}
                       </span>
                       <div className="space-y-1">
-                        <p className="text-[15px] font-semibold text-slate-900 leading-snug">
+                        <p className="text-base font-semibold leading-snug text-slate-900">
                           {item.title}
                         </p>
-                        <p className="text-[13px] leading-relaxed text-gray-600">
+                        <p className="text-base leading-relaxed text-slate-700">
                           {item.description}
                         </p>
                       </div>
@@ -351,7 +353,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="border-t border-gray-200 bg-slate-50 px-5 py-3" />
+            <div className="h-10 border-t border-slate-200 bg-white" />
           </section>
         </div>
       </div>

@@ -40,11 +40,11 @@
 
 @media (min-width: 1024px) {
   .home-typescale .system-module-header .system-module-label {
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1.4;
   }
   .home-typescale .system-module-content :where(p:not(.text-\[11px\]):not(.text-\[10px\]), li) {
-    font-size: 1.02rem;
+    font-size: 1rem;
     line-height: 1.55;
   }
 
@@ -186,29 +186,29 @@
 }
 
 @layer components {
-  /* Clinical System Module - Blue-tinted surface */
+  /* Clinical System Module - structured dashboard surface */
   .system-module {
-    @apply rounded-md border border-[#D9E6F2] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)];
+    @apply overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm;
   }
 
   .system-module-header {
-    @apply flex items-center justify-between gap-3 border-b border-[#D9E6F2] bg-white px-4 py-3;
+    @apply flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-5 py-4;
   }
 
   .system-module-label {
-    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-gray-500;
+    @apply text-xs font-semibold uppercase tracking-[0.15em] text-slate-500;
   }
 
   .system-module-content {
-    @apply px-4 py-4;
+    @apply px-5 py-4;
   }
 
   .system-module-footer {
-    @apply border-t border-[#D9E6F2] bg-white px-4 py-2.5 text-[11px] text-gray-500;
+    @apply border-t border-slate-200 bg-white px-5 py-3 text-sm text-slate-500;
   }
 
   .data-tag {
-    @apply inline-flex items-center gap-1 rounded-lg border border-[#C9D8EE] bg-[#EAF2FB] px-3 py-1 text-[11px] font-medium text-[#234A84] shadow-[0_1px_2px_rgba(36,74,132,0.08)] transition-all duration-200 ease-in-out hover:border-[#BFD1EA] hover:bg-[#E2ECF9] hover:shadow-[0_2px_4px_rgba(36,74,132,0.10)];
+    @apply inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors duration-200 ease-in-out hover:border-slate-300 hover:bg-white;
   }
 
   .data-tag-active {
@@ -294,7 +294,7 @@
 
   /* Status indicator - blue */
   .status-badge {
-    @apply inline-flex items-center rounded-md border px-2 py-1 text-[11px] font-medium;
+    @apply inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-semibold;
   }
 
   .status-active {

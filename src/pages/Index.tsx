@@ -64,6 +64,7 @@ const Index = () => {
               <div className="system-module-content px-4 sm:px-5">
                 <SelectedProjectsGrid />
               </div>
+              <div className="h-10 border-t border-slate-200 bg-white" />
             </div>
           </section>
 
