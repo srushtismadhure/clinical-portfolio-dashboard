@@ -2,16 +2,12 @@ import { Link } from 'react-router-dom';
 import {
   Lightbulb,
   Database,
-  BarChart3,
   FlaskConical,
   Wrench,
   ShieldCheck,
   Radar,
   ArrowLeft,
-  ClipboardList,
   Network,
-  Server,
-  Activity,
 } from 'lucide-react';
 import type { Project } from '@/components/shared/ProjectCard';
 
@@ -20,85 +16,128 @@ type PainToolsDetailProps = {
   project: Project;
 };
 
-export default function PainToolsDetail({ project }: PainToolsDetailProps) {
-  // ✅ Icon map keys MUST match workstream.routeSlug or workstream.id from projects.ts
-  const workstreamIcons: Record<string, React.ElementType> = {
-    'product-workflow': Lightbulb,
-    'data-backend': Database,
-    'analytics-insights': BarChart3,
-    'experimentation-testing': FlaskConical,
-    'feature-engineering': Wrench,
-    'model-development': Database,
-    'validation-performance': ShieldCheck,
-    'deployment-monitoring': Radar,
-  };
+function FaDatabaseIcon({ className }: { className?: string }) {
+  return (
+    <i
+      className={`fa-solid fa-database text-[20px] leading-none ${className ?? ''}`}
+      aria-hidden="true"
+    />
+  );
+}
 
+function FaBoxIcon({ className }: { className?: string }) {
+  return (
+    <i
+      className={`fa-solid fa-box text-[20px] leading-none ${className ?? ''}`}
+      aria-hidden="true"
+    />
+  );
+}
+
+function FaRobotIcon({ className }: { className?: string }) {
+  return (
+    <i
+      className={`fa-solid fa-robot text-[20px] leading-none ${className ?? ''}`}
+      aria-hidden="true"
+    />
+  );
+}
+
+function FaChartAreaIcon({ className }: { className?: string }) {
+  return (
+    <i
+      className={`fa-solid fa-chart-area text-[20px] leading-none ${className ?? ''}`}
+      aria-hidden="true"
+    />
+  );
+}
+
+export default function PainToolsDetail({ project }: PainToolsDetailProps) {
   const capabilityCards = [
     {
       id: 'data-backend',
-      title: 'Data Architecture & HIPAA Controls',
-      icon: Server,
+      title: 'Data Architecture, ETL & Security',
+      icon: FaDatabaseIcon,
       href: `/projects/${project.id}/workstreams/data-backend`,
       bullets: [
-        'Gathered requirements from clinical, engineering, and product stakeholders.',
-        'Developed HIPAA compliant database structure to collect diverse sources of data.',
+        <>
+          Gathered requirements from clinical stakeholders, engineering, and product teams to
+          design <strong>HIPAA-compliant</strong> database architecture to support{' '}
+          <strong>longitudinal pain tracking</strong>.
+        </>,
         'Set data grain, primary keys, access boundaries, and internationalization standards.',
-        'Established BAAs and aligned cloud infrastructure with HIPAA security and access requirements.',
+        <>
+          Developed <strong>ETL pipelines</strong> integrating pain assessments, behavioral logs,
+          and utilization metrics into a centralized database.
+        </>,
+      ],
+    },
+    {
+      id: 'experimentation-testing',
+      title: 'Product Operations & Analytics',
+      icon: FaBoxIcon,
+      href: `/projects/${project.id}/workstreams/experimentation-testing`,
+      bullets: [
+        <>
+          Defined product roadmap and launch priorities for application, enabling on-time{' '}
+          <strong>Q3 launch</strong> with full cross-functional alignment.
+        </>,
+        <>
+          Centralized roadmap, strategy, and customer feedback into tagged system, reducing
+          information retrieval time by <strong>3 hours weekly</strong> across product and
+          engineering teams.
+        </>,
+        'Analyzed beta user data to inform product prioritization, enabling leadership to deprioritize 20% of low-impact features.',
+      ],
+    },
+    {
+      id: 'product-workflow',
+      title: 'AI/LLM Evaluation & Product Quality',
+      icon: FaRobotIcon,
+      href: `/projects/${project.id}/workstreams/product-workflow`,
+      bullets: [
+        'Developed evaluation metrics and Excel-based framework for assessing AI-generated outputs, categorizing 100 responses by quality, tone, and alignment with company guardrails.',
+        'Tested LLM outputs across 200 user scenarios to identify clinical overreach instances, uncovering 15 failure pattern categories that informed prompt refinement strategies.',
+        'Generated comparison datasets which provided structured feedback that guided fine-tuning priorities and improved output consistency.',
       ],
     },
     {
       id: 'analytics-insights',
       title: 'Analytics & Insights',
-      icon: BarChart3,
+      icon: FaChartAreaIcon,
       href: `/projects/${project.id}/workstreams/analytics-insights`,
       bullets: [
-        'De-identified all user-level data to remove PHI and direct identifiers from beta analysis.',
-        'Defined a normalized baseline period and outcome score for that period.',
-        'Used Excel pivot tables to analyze 10K+ records and surface decision-driving trends.',
-        'Segmented users based on stakeholder requirements.',
-        'Informed feature and stakeholder decisions for product direction.',
-      ],
-    },
-    {
-      id: 'product-workflow',
-      title: 'Data Flow & Experience Design',
-      icon: ClipboardList,
-      href: `/projects/${project.id}/workstreams/product-workflow`,
-      bullets: [
-        'Defined user personas through qualitative and quantitative research.',
-        'Mapped user journeys and end-to-end flows to inform product and development decisions.',
-        'Designed data flow structures to support analytics, workflows, and system integration.',
-      ],
-    },
-    {
-      id: 'experimentation-testing',
-      title: 'Product Roadmap & Analytics',
-      icon: Activity,
-      href: `/projects/${project.id}/workstreams/experimentation-testing`,
-      bullets: [
-        'Set the product roadmap and launch priorities for the app.',
-        'Contributed to major product design decisions using research and data insights.',
-        'Deprioritized low-impact features based on data to maintain focus.',
+        'De-identified 50K patient records, removing PHI and direct identifiers to create compliant beta analysis dataset for product evaluation.',
+        'Established normalized baseline periods to enable longitudinal assessments and cohort analysis across beta populations.',
+        'Analyzed risk factors and engagement patterns across pain, anxiety, and depression metrics to surface churn and retention drivers informing product strategy.',
+        'Visualized behavioral trends and clinical outcomes using Excel dashboards, providing stakeholders with actionable insights on user engagement.',
       ],
     },
   ];
 
   const accentById: Record<string, string> = {
-    'data-backend': 'bg-sky-200',
-    'analytics-insights': 'bg-emerald-200',
-    'product-workflow': 'bg-amber-200',
-    'experimentation-testing': 'bg-indigo-200',
+    'data-backend': 'bg-[#CBD9E3]',
+    'analytics-insights': 'bg-[#D7DECA]',
+    'product-workflow': 'bg-[#E8D6B9]',
+    'experimentation-testing': 'bg-[#D9D4E2]',
+  };
+
+  const tabLabelById: Record<string, string> = {
+    'data-backend': 'Data Architecture',
+    'analytics-insights': 'Analytics',
+    'product-workflow': 'Experience Design',
+    'experimentation-testing': 'Roadmap',
   };
 
   const skillsById: Record<string, string> = {
-    'data-backend': 'SQL · Data Modeling · ERDs · Firebase · HIPAA · PHI De-ID · Access Controls · Cloud Security',
+    'data-backend': 'SQL · Data Modeling · ERDs · ETL Pipelines · HIPAA Compliance · PHI Security · Access Controls · Cloud Infrastructure · Firebase · Reporting & Visualization',
     'analytics-insights': 'EDA · Baselines & Metrics · Segmentation · De-ID Pipelines · Excel',
-    'product-workflow': 'User Research · Personas · Journey Mapping · Flow Design · PRDs · Systems Thinking',
-    'experimentation-testing': 'Product Strategy · Roadmapping · Prioritization · Analytics-Driven Decisions · Launch Planning',
+    'product-workflow': 'LLM Evaluation · Output Quality Testing · Guardrails & Safety · AI Governance · Evaluation Frameworks · Bias Detection',
+    'experimentation-testing': 'Roadmapping · Prioritization · Launch Planning · Cross-Functional Coordination · Data-Driven Decisions',
   };
 
   return (
-    <div className="space-y-6">
+    <div className="paintools-dossier space-y-6">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         {/* Back link */}
         <div className="mb-3">
@@ -112,19 +151,22 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
         </div>
 
         {/* Header */}
-        <div className="rounded-lg border border-[#E3D9CB] bg-[#FBF8F2] p-4 sm:p-5 mb-6 sm:mb-7 shadow-[0_6px_16px_rgba(15,23,42,0.06)]">
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 leading-tight">
-            PainTools – Femtech startup
-          </h1>
-          <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4 text-sm text-slate-700">
-              <div className="flex items-start gap-1">
-                <span className="text-sm font-semibold text-slate-900">Role:</span>
-                <span className="text-sm text-slate-700">Product, Data & Analytics Lead</span>
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-md border border-[#E6D8C6] bg-[#FFF8EC] px-2.5 py-1 text-xs text-slate-700">
-                <span aria-hidden="true">🔒</span>
-                <span>File details are classified due to NDA.</span>
+        <div className="dossier-card dossier-card-flat mb-6 sm:mb-7 p-4 sm:p-5">
+  <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 leading-tight">
+    PainTools
+  </h1>
+  <p className="mt-1 text-sm sm:text-base text-slate-700 leading-snug">
+    AI-Powered Chronic Pain Management Platform
+  </p>
+  <div className="mt-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4 text-sm text-slate-700">
+      <div className="flex items-start gap-1">
+        <span className="text-sm font-semibold text-slate-900">Role:</span>
+        <span className="text-sm text-slate-700">Healthcare Business Analyst (Product & Operations)</span>
+      </div>
+      <div className="inline-flex items-center gap-2 rounded-md border border-[#E6D8C6] bg-[#FFF8EC] px-2.5 py-1 text-xs text-slate-700">
+        <span aria-hidden="true">🔒</span>
+        <span>File details are classified due to NDA.</span>
               </div>
             </div>
           </div>
@@ -137,83 +179,70 @@ export default function PainToolsDetail({ project }: PainToolsDetailProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 items-stretch auto-rows-fr">
               {capabilityCards.map((card) => {
                 const Icon = card.icon;
-              const accent =
-                card.id === 'data-backend'
-                  ? 'bg-sky-200'
-                  : card.id === 'analytics-insights'
-                  ? 'bg-emerald-200'
-                  : card.id === 'product-workflow'
-                  ? 'bg-amber-200'
-                  : 'bg-indigo-200';
-              const heading =
-                card.id === 'data-backend'
-                  ? 'Owned full database development'
-                  : card.id === 'analytics-insights'
-                  ? 'Data driven insights for stakeholders'
-                  : card.id === 'product-workflow'
-                  ? 'Human interaction design'
-                  : card.id === 'experimentation-testing'
-                  ? 'Led key decisions'
-                  : card.title;
+                const accent = accentById[card.id] ?? 'bg-[#CBD9E3]';
+                const heading =
+                  card.id === 'data-backend'
+                    ? 'Owned full database development'
+                    : card.id === 'analytics-insights'
+                    ? 'Data driven insights for stakeholders'
+                    : card.id === 'product-workflow'
+                    ? 'Human interaction design'
+                    : card.id === 'experimentation-testing'
+                    ? 'Led key decisions'
+                    : card.title;
 
-              return (
-                <div key={card.id} className="relative overflow-visible h-full">
-                  {/* Folder tab with color strip + notch */}
-                  <div className="absolute left-6 top-0 z-10 -translate-y-1/2" aria-hidden>
-                    <div className="relative">
-                      <div className="h-7 w-36 rounded-t-md border border-[#D8CFC1] bg-[#FFFDF7] shadow-[0_2px_6px_rgba(15,23,42,0.12)]" />
-                      <div className="absolute right-0 top-0 h-7 w-10 bg-[#F6F1E8]" />
-                      <div className={`absolute left-3 top-2 h-2.5 w-16 rounded-sm ${accent}`} />
+                return (
+                  <div key={card.id} className="relative h-full overflow-visible pt-4">
+                    <div className="dossier-tab" aria-hidden>
+                      <span className={`dossier-tab-accent ${accent}`} />
+                      <span className="dossier-tab-label">{tabLabelById[card.id] ?? 'Case File'}</span>
                     </div>
-                  </div>
 
-                  {/* Folder body */}
-                  <div className="relative rounded-md lg:rounded-sm border border-[#cfc7b8] bg-[#F6F1E8] shadow-[0_4px_10px_rgba(15,23,42,0.08)] lg:shadow-[0_3px_8px_rgba(15,23,42,0.10)] h-full flex flex-col">
-                    <div className="absolute inset-0 translate-x-[4px] translate-y-[4px] rounded-md border border-[#dcd4c7] bg-[#f9f4eb] opacity-80 -z-10" aria-hidden />
-                    <div className="p-4 pt-6 lg:p-3 lg:pt-5 flex-1 flex flex-col">
-                      {/* Header */}
-                      <div className="flex items-start gap-4 rounded-sm bg-white/40 px-2 py-1">
-                        <div className="flex h-10 w-10 lg:h-9 lg:w-9 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
-                          <Icon className="w-5 h-5 text-slate-700" />
+                    <div className="dossier-card h-full flex flex-col">
+                      <div className="flex-1 p-3.5 pt-4 lg:p-3.5 lg:pt-4">
+                        {/* Header */}
+                        <div className="flex items-start gap-3.5 rounded-[2px] border border-[#D2C0A8] bg-white/45 px-3 py-2">
+                          <div className="dossier-stamp h-10 w-10 lg:h-9 lg:w-9">
+                            <Icon className="w-5 h-5 text-slate-700" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-lg lg:text-base font-semibold text-slate-900">{card.title}</h3>
+                            {skillsById[card.id] && (
+                              <div className="mt-1 text-xs font-normal tracking-wide text-[#7C6F61]">
+                                {skillsById[card.id]}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg lg:text-base font-semibold text-slate-900">{card.title}</h3>
-                          {skillsById[card.id] && (
-                            <div className="mt-1 text-xs font-normal tracking-wide text-slate-400">
-                              {skillsById[card.id]}
-                            </div>
-                          )}
-                        </div>
-                      </div>
 
-                      {/* Paper inset */}
-                      <div className="mt-5 rounded-md lg:rounded-sm border border-[#DED6CA] bg-[#FFFDF7] p-4 lg:p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.75),inset_0_0_0_1px_rgba(255,255,255,0.35)] flex-1">
-                        <div className="mb-3 text-[11px] font-semibold tracking-wide text-slate-500">
-                          {heading}
+                        {/* Paper inset */}
+                        <div className="dossier-sheet mt-3.5 flex-1 p-3.5 lg:p-3.5">
+                          <div className="dossier-kicker mb-4">
+                            {heading}
+                          </div>
+                          <ul className="space-y-2.5 text-sm text-slate-700">
+                            {card.bullets.map((b, index) => (
+                              <li key={`${card.id}-${index}`} className="flex items-start gap-3 leading-relaxed">
+                                <span className="dossier-stamp mt-0.5 inline-flex h-5 w-5 items-center justify-center text-slate-500">
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    className="h-3 w-3"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <path d="M20 6 9 17l-5-5" />
+                                  </svg>
+                                </span>
+                                <span>{b}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <ul className="space-y-2.5 text-sm text-slate-700">
-                          {card.bullets.map((b) => (
-                            <li key={b} className="flex items-start gap-3 leading-relaxed">
-                              <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500">
-                                <svg
-                                  viewBox="0 0 24 24"
-                                  className="h-3 w-3"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                >
-                                  <path d="M20 6 9 17l-5-5" />
-                                </svg>
-                              </span>
-                              <span>{b}</span>
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
+                );
               })}
             </div>
           </div>

@@ -25,7 +25,7 @@ function sortByLastUpdatedDesc(projects: ExtendedProject[]) {
 }
 
 function selectProjects(projects: ExtendedProject[], count = 4) {
-  const preferredOrder = ['predictive-modeling', 'health-numerics', 'value-based-care'];
+  const preferredOrder = ['predictive-modeling', 'mlchc-ai-playbook', 'health-numerics', 'value-based-care'];
   const ordered = preferredOrder
     .map((id) => projects.find((project) => project.id === id))
     .filter((project): project is ExtendedProject => Boolean(project));
@@ -86,9 +86,11 @@ export function SelectedProjectsGrid() {
                 ))}
               </div>
 
-              <p className="line-clamp-2 text-sm text-gray-600">
-                {description}
-              </p>
+              {description ? (
+                <p className="line-clamp-2 text-sm text-gray-600">
+                  {description}
+                </p>
+              ) : null}
 
               <div className="relative h-48 flex-grow overflow-hidden rounded-md border border-gray-200/80 bg-slate-50">
                 <img
@@ -127,9 +129,11 @@ export function SelectedProjectsGrid() {
               <h3 className="line-clamp-2 text-[15px] font-semibold leading-snug text-slate-800">
                 {project.title}
               </h3>
-              <p className="line-clamp-2 text-[13px] leading-snug text-gray-600">
-                {description}
-              </p>
+              {description ? (
+                <p className="line-clamp-2 text-[13px] leading-snug text-gray-600">
+                  {description}
+                </p>
+              ) : null}
               {tech.length > 0 && (
                 <div className="mt-1 flex flex-wrap gap-1.5 text-[11px] text-gray-500">
                   {tech.slice(0, 3).map((techItem: string) => (

@@ -224,9 +224,11 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                   {roleLine}
                 </p>
               )}
-              <p className="mt-1 text-sm leading-snug text-white/70 group-hover:text-slate-500 transition-colors duration-200 ease-out line-clamp-2">
-                {project.summary}
-              </p>
+              {project.summary ? (
+                <p className="mt-1 text-sm leading-snug text-white/70 group-hover:text-slate-500 transition-colors duration-200 ease-out line-clamp-2">
+                  {project.summary}
+                </p>
+              ) : null}
             </div>
           </div>
         </div>

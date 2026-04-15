@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
-  ShieldCheck,
-  Sparkles,
   FileText,
   FolderOpen,
   Wand2,
@@ -35,7 +33,15 @@ function PillTag({ text }: { text: string }) {
 function FilePillar({ variant, title, subtitle, primaryFile, secondaryFiles, details }: FilePillarProps) {
   const expanded = true; // always open
   const headerColor = 'bg-[#E7EDF2] border-[#D8DEE6] text-[#1F2933]';
-  const icon = variant === 'risk' ? <ShieldCheck className="h-5 w-5 text-[#3F556B]" /> : <Sparkles className="h-5 w-5 text-[#3F556B]" />;
+  const icon =
+    variant === 'risk' ? (
+      <i className="fa-solid fa-file text-[20px] leading-none text-[#3F556B]" aria-hidden="true" />
+    ) : (
+      <i
+        className="fa-solid fa-briefcase-medical text-[20px] leading-none text-[#3F556B]"
+        aria-hidden="true"
+      />
+    );
   return (
     <div className="h-full rounded-md border border-[#D8DEE6] bg-[#F6F8FA] shadow-sm overflow-hidden">
       <div

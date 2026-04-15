@@ -134,14 +134,18 @@
       "highlights": [
         "Designed the data model + analytics layer",
         "Processed and de-identified high-volume beta user data, then performed trend analysis to identify patterns that guided product strategy.",
-        "Led UX/UI strategy for PainTools, applying human-centered design principles to create an intuitive, accessible experience"
+        "Led UX/UI strategy for PainTools, applying human-centered design principles to create an intuitive, accessible experience",
+        "Centralized roadmap, strategy, customer feedback, and PRDs into a tagged, searchable system, reducing information retrieval time by 3 hours weekly across product and engineering teams and increasing cross-functional collaboration"
       ],
       "keywords": [
         "women's health",
         "femtech",
         "chronic pain",
         "analytics",
-        "product"
+        "product",
+        "roadmap",
+        "customer feedback",
+        "PRDs"
       ],
       "links": {
         "case_study": "/#/projects/paintools"
@@ -165,6 +169,28 @@
       ],
       "links": {
         "case_study": "/#/projects/healthnumerics"
+      }
+    },
+    {
+      "id": "mlchc",
+      "name": "Massachusetts League of Community Health Centers",
+      "one_liner": "AI adoption playbook for community health centers.",
+      "role": "AI strategy + operations",
+      "highlights": [
+        "Co-developed an AI adoption playbook for 50+ community health centers",
+        "Conducted 30+ stakeholder interviews across clinical, operational, and leadership teams",
+        "Defined guidance for AI governance, workflow readiness, vendor evaluation, and implementation planning"
+      ],
+      "keywords": [
+        "community health centers",
+        "ai governance",
+        "workflow analysis",
+        "stakeholder interviews",
+        "ai readiness",
+        "implementation playbook"
+      ],
+      "links": {
+        "case_study": "/#/projects/mlchc-ai-playbook"
       }
     }
   ],

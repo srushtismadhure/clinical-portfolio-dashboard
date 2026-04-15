@@ -239,6 +239,149 @@
     @apply bg-slate-50;
   }
 
+  .paintools-dossier {
+    --dossier-folder: #f7f1e6;
+    --dossier-folder-deep: #f1e6d4;
+    --dossier-layer: #ece0ce;
+    --dossier-sheet: #fffdf8;
+    --dossier-sheet-soft: #faf5ec;
+    --dossier-border: #cdbca5;
+    --dossier-border-strong: #af987b;
+    --dossier-text-muted: #776a5b;
+    --dossier-shadow: rgba(69, 54, 34, 0.025);
+    --dossier-tab: #efe3d0;
+  }
+
+  .paintools-dossier .ehr-card,
+  .paintools-dossier .dossier-card {
+    position: relative;
+    overflow: visible;
+    border-radius: 0.125rem;
+    border: 1px solid var(--dossier-border);
+    background: linear-gradient(180deg, var(--dossier-folder) 0%, #f3ecde 100%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.76);
+  }
+
+  .paintools-dossier .ehr-card::before,
+  .paintools-dossier .dossier-card::before {
+    content: "";
+    position: absolute;
+    inset: 0.2rem -0.12rem -0.12rem 0.12rem;
+    z-index: -1;
+    border-radius: inherit;
+    border: 1px solid rgba(175, 152, 123, 0.55);
+    background: linear-gradient(180deg, var(--dossier-layer) 0%, #e7d9c4 100%);
+    box-shadow: none;
+  }
+
+  .paintools-dossier .dossier-card-flat::before {
+    inset: 0.16rem -0.1rem -0.1rem 0.1rem;
+  }
+
+  .paintools-dossier .dossier-card-compact::before {
+    inset: 0.12rem -0.08rem -0.08rem 0.08rem;
+  }
+
+  .paintools-dossier .dossier-card-no-stack::before {
+    display: none;
+  }
+
+  .paintools-dossier .dossier-tab {
+    position: absolute;
+    top: 0.95rem;
+    left: 1rem;
+    z-index: 10;
+    display: inline-flex;
+    max-width: calc(100% - 1.5rem);
+    align-items: center;
+    gap: 0.5rem;
+    transform: translateY(calc(-100% + 2px));
+    border: 1px solid var(--dossier-border-strong);
+    border-bottom: none;
+    border-radius: 0.18rem 0.18rem 0 0;
+    background: linear-gradient(180deg, #f8f2e8 0%, var(--dossier-tab) 100%);
+    padding: 0.4rem 0.82rem 0.28rem;
+    box-shadow: none;
+  }
+
+  .paintools-dossier .dossier-tab-accent {
+    display: inline-block;
+    height: 0.42rem;
+    width: 3.2rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    opacity: 0.95;
+  }
+
+  .paintools-dossier .dossier-tab-label {
+    @apply truncate text-[10px] font-semibold uppercase tracking-[0.12em];
+    color: var(--dossier-text-muted);
+  }
+
+  .paintools-dossier .dossier-sheet {
+    position: relative;
+    border: 1px solid rgba(205, 188, 165, 0.98);
+    border-radius: 0.125rem;
+    background: linear-gradient(180deg, var(--dossier-sheet) 0%, var(--dossier-sheet-soft) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  }
+
+  .paintools-dossier .dossier-sheet::before {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    top: 0.85rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(196, 179, 152, 0.06),
+      rgba(196, 179, 152, 0.32),
+      rgba(196, 179, 152, 0.06)
+    );
+    pointer-events: none;
+  }
+
+  .paintools-dossier .dossier-stamp {
+    @apply flex items-center justify-center border;
+    border-radius: 0.125rem;
+    border-color: var(--dossier-border);
+    background: linear-gradient(180deg, #fffefb 0%, #f2e8d8 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .paintools-dossier .dossier-kicker {
+    @apply text-[11px] font-semibold uppercase tracking-[0.12em];
+    color: var(--dossier-text-muted);
+  }
+
+  .paintools-dossier .dossier-divider {
+    border-top: 1px solid rgba(196, 179, 152, 0.5);
+  }
+
+  .paintools-dossier .dossier-note {
+    color: var(--dossier-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .paintools-dossier .ehr-card::before,
+    .paintools-dossier .dossier-card::before {
+      inset: 0.14rem -0.08rem -0.08rem 0.08rem;
+    }
+
+    .paintools-dossier .dossier-tab {
+      left: 0.75rem;
+      top: 0.9rem;
+      max-width: calc(100% - 1rem);
+      padding: 0.36rem 0.68rem 0.28rem;
+    }
+
+    .paintools-dossier .dossier-tab-accent {
+      width: 2.4rem;
+    }
+  }
+
   .ehr-pill {
     @apply inline-flex items-center gap-1 rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-[11px] font-medium;
   }

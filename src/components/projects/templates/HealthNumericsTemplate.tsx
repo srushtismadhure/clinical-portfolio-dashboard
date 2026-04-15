@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Sparkles, TrendingUp } from 'lucide-react';
-import { FileStackCard } from '@/components/shared/FileStackCard';
+import { ArrowLeft } from 'lucide-react';
 
 type Pillar = {
   id: 'predictive-analytics' | 'nlp';
@@ -11,10 +10,28 @@ type Pillar = {
   tabColor: 'sky' | 'lavender';
 };
 
+function FaCheckIcon({ className }: { className?: string }) {
+  return (
+    <i
+      className={`fa-solid fa-check text-[20px] leading-none ${className ?? ''}`}
+      aria-hidden="true"
+    />
+  );
+}
+
+function FaBookMedicalIcon({ className }: { className?: string }) {
+  return (
+    <i
+      className={`fa-solid fa-book-medical text-[20px] leading-none ${className ?? ''}`}
+      aria-hidden="true"
+    />
+  );
+}
+
 const pillars: Pillar[] = [
   {
     id: 'predictive-analytics',
-    icon: TrendingUp,
+    icon: FaCheckIcon,
     title: 'Predictive Analytics & Risk Modeling',
     description:
       'Built and validated predictive models to identify risk, cost drivers, and outcome gaps across patient populations.',
@@ -23,7 +40,7 @@ const pillars: Pillar[] = [
   },
   {
     id: 'nlp',
-    icon: Sparkles,
+    icon: FaBookMedicalIcon,
     title: 'Clinical NLP & Unstructured Data Analysis',
     description:
       'Built NLP models to surface Z-codes from unstructured clinical and patient-generated text, improving documentation completeness, and reimbursement capture.',
@@ -42,7 +59,7 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 export default function HealthNumericsTemplate() {
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-6">
+    <div className="paintools-dossier mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
       {/* Back link */}
       <div className="mb-3">
         <Link
@@ -101,15 +118,50 @@ export default function HealthNumericsTemplate() {
           <div className="space-y-5">
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
+              const accent =
+                pillar.tabColor === 'sky' ? 'bg-[#CBD9E3]' : 'bg-[#D9D4E2]';
+              const tabLabel =
+                pillar.id === 'predictive-analytics' ? 'Risk Modeling' : 'Clinical NLP';
               return (
-                <FileStackCard
-                  key={pillar.id}
-                  title={pillar.title}
-                  description={pillar.description}
-                  href={pillar.to}
-                  tabColor={pillar.tabColor}
-                  icon={<Icon className="h-5 w-5 text-slate-700" />}
-                />
+                <Link key={pillar.id} to={pillar.to} className="group block">
+                  <div className="relative h-full overflow-visible pt-4">
+                    <div className="dossier-tab" aria-hidden>
+                      <span className={`dossier-tab-accent ${accent}`} />
+                      <span className="dossier-tab-label">{tabLabel}</span>
+                    </div>
+
+                    <div className="dossier-card h-full flex flex-col transition-transform duration-200 ease-out group-hover:-translate-y-0.5">
+                      <div className="flex-1 p-3.5 pt-4 lg:p-3.5 lg:pt-4">
+                        <div className="flex items-start gap-3.5 rounded-[2px] border border-[#D2C0A8] bg-white/45 px-3 py-2">
+                          <div className="dossier-stamp h-10 w-10 lg:h-9 lg:w-9">
+                            <Icon className="w-5 h-5 text-slate-700" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-lg font-semibold text-slate-900 lg:text-base">
+                              {pillar.title}
+                            </h3>
+                            <div className="mt-1 text-xs font-normal tracking-wide text-[#7C6F61]">
+                              {pillar.id === 'predictive-analytics'
+                                ? 'Population Risk · Cost Drivers · Outcomes'
+                                : 'Clinical Text · Z-Codes · Documentation Capture'}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="dossier-sheet mt-3.5 flex-1 p-3.5 lg:p-3.5">
+                          <div className="dossier-kicker mb-4">Project Description</div>
+                          <p className="text-sm leading-relaxed text-slate-700">
+                            {pillar.description}
+                          </p>
+                          <div className="mt-4 inline-flex items-center gap-2 rounded-md border border-[#E6D8C6] bg-[#FFF8EC] px-2.5 py-1 text-xs text-slate-700">
+                            <span>View Details</span>
+                            <span aria-hidden>→</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               );
             })}
           </div>

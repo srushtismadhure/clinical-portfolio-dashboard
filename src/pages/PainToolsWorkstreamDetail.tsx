@@ -18,6 +18,7 @@ import { projects } from '@/data/projects';
 import { Button } from '@/components/ui/button';
 import ProjectSidebarNav, { ProjectNavItem } from '@/components/project/ProjectSidebarNav';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
+import { cn } from '@/lib/utils';
 
 const renderSectionList = (items?: string[]) => {
   if (!items || items.length === 0) {
@@ -64,7 +65,7 @@ function PersonaSection({ title, bullets }: PersonaSectionProps) {
       <div className="space-y-2">
         {bullets.map((b) => (
           <div key={b} className="flex items-start gap-2">
-            <CheckCircle2 className="w-4 h-4 text-[#2B6CB0] mt-0.5 flex-shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-[#8C7B64] mt-0.5 flex-shrink-0" />
             <p className="text-[15px] leading-relaxed text-slate-700">{b}</p>
           </div>
         ))}
@@ -81,7 +82,7 @@ type HeroQuoteProps = {
 function HeroQuote({ quote, subquote }: HeroQuoteProps) {
   return (
     <section id="hero" className="scroll-mt-24">
-      <div className="bg-[#EEF5FF]">
+      <div className="bg-[#F3EEE4]">
         <div className="mx-auto max-w-[960px] px-4 sm:px-6 py-10 sm:py-14 text-center">
           <h1 className="text-[32px] sm:text-[42px] lg:text-[52px] font-semibold tracking-tight text-slate-900 leading-[1.15]">
             {quote}
@@ -104,7 +105,7 @@ type MetaPill = {
 function MetaPills({ items }: { items: MetaPill[] }) {
   return (
     <div className="mx-auto mt-8 max-w-[960px] px-4 sm:px-6">
-      <div className="rounded-2xl bg-white/75 backdrop-blur border border-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+      <div className="dossier-card dossier-card-flat overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-3">
           {items.map((it, idx) => {
             const Icon = it.icon;
@@ -113,14 +114,14 @@ function MetaPills({ items }: { items: MetaPill[] }) {
                 key={it.label}
                 className={
                   'flex items-center gap-3 px-5 py-4 ' +
-                  (idx === 0 ? '' : 'sm:border-l border-slate-200')
+                  (idx === 0 ? '' : 'sm:border-l border-[#D9CCB8]')
                 }
               >
-                <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+                <div className="dossier-stamp h-9 w-9 flex-shrink-0">
                   <Icon className="w-5 h-5 text-slate-600" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[12px] font-semibold tracking-wide text-slate-500">
+                  <div className="dossier-kicker">
                     {it.label}
                   </div>
                   <div className="text-[15px] font-medium text-slate-900 truncate">
@@ -152,7 +153,7 @@ function UXHero({
       <div
         className="relative"
         style={{
-          backgroundColor: '#F8FAFC',
+          backgroundColor: '#F6F1E8',
         }}
       >
         <div className="mx-auto max-w-[960px] px-4 sm:px-6 py-12 sm:py-16">
@@ -180,7 +181,7 @@ function ProblemStatementCard({ body }: { body: string }) {
   return (
     <section id="problem" className="scroll-mt-24">
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 py-10">
-        <div className="rounded-[22px] bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] p-7 sm:p-9">
+        <div className="dossier-card dossier-card-flat p-7 sm:p-9">
           <div className="text-2xl sm:text-3xl font-semibold text-slate-900">
             Problem Statement
           </div>
@@ -217,7 +218,7 @@ function WireframesSection({
         <div className="mt-6 relative">
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white" />
 
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+          <div className="dossier-card dossier-card-flat dossier-card-no-stack overflow-hidden">
             <img
               src={resolvedFirstImageSrc}
               alt="Wireframe"
@@ -261,7 +262,7 @@ function PersonaCard(props: PersonaCardProps) {
   return (
     <section id="persona" className="scroll-mt-24">
       <div className="mx-auto w-full px-4 sm:px-6 pb-10">
-        <div className="rounded-[20px] bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_30px_rgba(15,23,42,0.08)] p-5 sm:p-6">
+        <div className="dossier-card dossier-card-flat p-5 sm:p-6">
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
             <div>
               <div className="text-[16px] font-semibold text-slate-900">
@@ -276,7 +277,7 @@ function PersonaCard(props: PersonaCardProps) {
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
             {/* Column 1: Primary Persona */}
             <div className="space-y-4">
-              <div className="overflow-hidden rounded-2xl border border-[#D6E6FF] bg-white max-w-[180px] mx-auto">
+              <div className="dossier-sheet overflow-hidden max-w-[180px] mx-auto">
                 <div className="aspect-square bg-slate-50 flex items-center justify-center">
                   <img
                     src={`${import.meta.env.BASE_URL}images/icon.png`}
@@ -292,7 +293,7 @@ function PersonaCard(props: PersonaCardProps) {
                 <div className="mt-3 space-y-2">
                   {leftBullets.map((b) => (
                     <div key={b} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#2B6CB0] mt-0.5 flex-shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#8C7B64] mt-0.5 flex-shrink-0" />
                       <p className="text-[15px] leading-relaxed text-slate-700">{b}</p>
                     </div>
                   ))}
@@ -311,6 +312,34 @@ function PersonaCard(props: PersonaCardProps) {
         </div>
       </div>
     </section>
+  );
+}
+
+type FolderPanelProps = {
+  tab: string;
+  accentClassName?: string;
+  className?: string;
+  cardClassName?: string;
+  tabClassName?: string;
+  children: React.ReactNode;
+};
+
+function FolderPanel({
+  tab,
+  accentClassName = 'bg-[#CBD9E3]',
+  className,
+  cardClassName,
+  tabClassName,
+  children,
+}: FolderPanelProps) {
+  return (
+    <div className={cn('relative overflow-visible pt-4', className)}>
+      <div className={cn('dossier-tab', tabClassName)} aria-hidden>
+        <span className={cn('dossier-tab-accent', accentClassName)} />
+        <span className="dossier-tab-label">{tab}</span>
+      </div>
+      <div className={cn('dossier-card', cardClassName)}>{children}</div>
+    </div>
   );
 }
 
@@ -500,86 +529,78 @@ export default function PainToolsWorkstreamDetail() {
                     </select>
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="paintools-dossier space-y-6">
                     {/* ✅ Back to project hub */}
                     <Link
-  to={`/projects/${project.id}`}
-  className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
->
-  ← Back to {project.title}
-</Link>
+                      to={`/projects/${project.id}`}
+                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      ← Back to {project.title}
+                    </Link>
 
-<header className="ehr-card">
-  <h1 className="mt-2 text-2xl font-semibold text-slate-900">{workstream.title}</h1>
-  <p className="mt-1 text-slate-600">{workstream.desc ?? workstream.summary ?? ''}</p>
-</header>
+                    <header className="ehr-card dossier-card-flat">
+                      <div className="dossier-kicker">Case File</div>
+                      <h1 className="mt-2 text-2xl font-semibold text-slate-900">{workstream.title}</h1>
+                      <p className="mt-1 text-slate-600">{workstream.desc ?? workstream.summary ?? ''}</p>
+                    </header>
 
-{isBackend ? (
-  <>
-    {/* Project + Problem (explicit) */}
-    {workstream.sections?.overview?.[0] ? (
-      <section id="overview" className="scroll-mt-24">
-        <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
-          Overview
-        </h2>
-        <p className="mt-0 text-sm sm:text-[15px] leading-relaxed text-slate-700">
-          {workstream.sections.overview[0]}
-        </p>
-      </section>
-    ) : null}
+                    {isBackend ? (
+                      <>
+                        {/* Project + Problem (explicit) */}
+                        {workstream.sections?.overview?.[0] ? (
+                          <section id="overview" className="scroll-mt-24">
+                            <h2 className="mb-2 text-lg font-semibold text-slate-900 sm:text-xl">
+                              Overview
+                            </h2>
+                            <p className="mt-0 text-sm leading-relaxed text-slate-700 sm:text-[15px]">
+                              {workstream.sections.overview[0]}
+                            </p>
+                          </section>
+                        ) : null}
 
-    {workstream.sections?.problem?.[0] ? (
-      <section id="problem" className="scroll-mt-24">
-        <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2">
-          Problem
-        </h2>
-        <p className="mt-0 text-sm sm:text-[15px] leading-relaxed text-slate-700 font-semibold">
-          {workstream.sections.problem[0]}
-        </p>
-      </section>
-    ) : null}
+                        {workstream.sections?.problem?.[0] ? (
+                          <section id="problem" className="scroll-mt-24">
+                            <h2 className="mb-2 text-lg font-semibold text-slate-900 sm:text-xl">
+                              Problem
+                            </h2>
+                            <p className="mt-0 text-sm font-semibold leading-relaxed text-slate-700 sm:text-[15px]">
+                              {workstream.sections.problem[0]}
+                            </p>
+                          </section>
+                        ) : null}
 
-                        {/* Three cards (system-architecture style: sharp corners + header bars + edge arrows) */}
-                        <section id="cards" className="grid grid-cols-1 md:grid-cols-3 gap-4 scroll-mt-24">
-                          {/* Card 1 */}
-                          <div className="relative z-30 overflow-visible bg-white border border-slate-300 rounded-none">
-                            {/* Header bar */}
-                            <div className="bg-[#DCEBFF] border-b border-slate-300 px-4 py-2">
-                              <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
+                        <section id="cards" className="grid grid-cols-1 gap-4 scroll-mt-24 md:grid-cols-3">
+                          <FolderPanel tab="Role" accentClassName="bg-[#CBD9E3]" className="md:z-30" cardClassName="h-full">
+                            <div className="p-4">
+                              <div className="dossier-kicker">Ownership</div>
+                              <div className="mt-2 text-lg font-semibold text-slate-900">
                                 {workstream.cards?.role?.title ?? 'Role'}
                               </div>
-                            </div>
-
-                            {/* Body */}
-                            <div className="px-4 py-4">
-                              {renderSectionList(workstream.cards?.role?.bullets)}
-                            </div>
-
-                            {/* Arrow: Left → Center (desktop only) */}
-                            <div className="hidden md:block absolute top-1/2 -right-[25px] -translate-y-1/2 z-50 pointer-events-none">
-                              <svg width="30" height="14" viewBox="0 0 30 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="0" y1="7" x2="24" y2="7" stroke="#64748B" strokeWidth="1.5" />
-                                <path d="M24 2 L30 7 L24 12" fill="none" stroke="#64748B" strokeWidth="1.5" />
-                              </svg>
-                            </div>
-                          </div>
-
-                          {/* Card 2 */}
-                          <div className="relative z-0 overflow-visible bg-white border border-slate-300 rounded-none">
-                            {/* Header bar */}
-                            <div className="bg-[#DCEBFF] border-b border-slate-300 px-4 py-2">
-                              <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
-                                {workstream.cards?.scope?.title ?? 'Scope'}
+                              <div className="dossier-sheet mt-3.5 p-3.5">
+                                {renderSectionList(workstream.cards?.role?.bullets)}
                               </div>
                             </div>
 
-                            {/* Body */}
-                            <div className="px-4 py-4">
-                              {renderSectionList(workstream.cards?.scope?.bullets)}
+                            <div className="pointer-events-none absolute top-1/2 -right-[25px] z-50 hidden -translate-y-1/2 md:block">
+                              <svg width="30" height="14" viewBox="0 0 30 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="0" y1="7" x2="24" y2="7" stroke="#8C7B64" strokeWidth="1.5" />
+                                <path d="M24 2 L30 7 L24 12" fill="none" stroke="#8C7B64" strokeWidth="1.5" />
+                              </svg>
+                            </div>
+                          </FolderPanel>
+
+                          <FolderPanel tab="Scope" accentClassName="bg-[#E8D6B9]" cardClassName="h-full">
+                            <div className="p-4">
+                              <div className="dossier-kicker">Coverage</div>
+                              <div className="mt-2 text-lg font-semibold text-slate-900">
+                                {workstream.cards?.scope?.title ?? 'Scope'}
+                              </div>
+                              <div className="dossier-sheet mt-3.5 p-3.5">
+                                {renderSectionList(workstream.cards?.scope?.bullets)}
+                              </div>
                             </div>
 
-                            {/* Arrow: Center → Right (desktop only) */}
-                            <div className="hidden md:block absolute top-1/2 left-full -translate-y-1/2">
+                            <div className="pointer-events-none absolute top-1/2 left-full hidden -translate-y-1/2 md:block">
                               <svg
                                 width="22"
                                 height="14"
@@ -587,67 +608,60 @@ export default function PainToolsWorkstreamDetail() {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
-                                <line x1="0" y1="7" x2="16" y2="7" stroke="#64748B" strokeWidth="1.5" />
-                                <path d="M16 2 L22 7 L16 12" fill="none" stroke="#64748B" strokeWidth="1.5" />
+                                <line x1="0" y1="7" x2="16" y2="7" stroke="#8C7B64" strokeWidth="1.5" />
+                                <path d="M16 2 L22 7 L16 12" fill="none" stroke="#8C7B64" strokeWidth="1.5" />
                               </svg>
                             </div>
-                          </div>
+                          </FolderPanel>
 
-                          {/* Card 3 */}
-                          <div className="bg-white border border-slate-300 rounded-none">
-                            {/* Header bar */}
-                            <div className="bg-[#DCEBFF] border-b border-slate-300 px-4 py-2">
-                              <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
+                          <FolderPanel tab="Constraints" accentClassName="bg-[#D9D4E2]" cardClassName="h-full">
+                            <div className="p-4">
+                              <div className="dossier-kicker">Guardrails</div>
+                              <div className="mt-2 text-lg font-semibold text-slate-900">
                                 {workstream.cards?.constraints?.title ?? 'Constraints'}
                               </div>
+                              <div className="dossier-sheet mt-3.5 p-3.5">
+                                {renderSectionList(workstream.cards?.constraints?.bullets)}
+                              </div>
                             </div>
-
-                            {/* Body */}
-                            <div className="px-4 py-4">
-                              {renderSectionList(workstream.cards?.constraints?.bullets)}
-                            </div>
-                          </div>
+                          </FolderPanel>
                         </section>
 
-                        {/* Divider */}
-                        <div className="my-6 border-t border-slate-200" />
+                        <div className="dossier-divider my-6" />
 
                         {/* Step 1 — Requirements & Constraints */}
                         <section className="scroll-mt-24" id="requirements">
-                          <div className="rounded-none bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] overflow-hidden">
-                            <div className="px-5 py-3 bg-gradient-to-b from-[#E7F0FF] to-[#DDEAFF] border-b border-slate-200">
-                              <div className="text-[13px] font-semibold tracking-wide text-slate-800">
-                                Step 01 — Requirements &amp; Constraints
-                              </div>
-                            </div>
-                            <div className="p-5 sm:p-6">
-                              <p className="text-slate-600">
+                          <FolderPanel tab="Step 01" accentClassName="bg-[#E8D6B9]" cardClassName="dossier-card-flat overflow-hidden">
+                            <div className="p-4 sm:p-5">
+                              <div className="dossier-kicker">Requirements &amp; Constraints</div>
+                              <div className="mt-2 text-xl font-semibold text-slate-900">
                                 Gathered inputs from researchers, clinicians, and product &amp; engineering partners
-                              </p>
+                              </div>
 
-                              <div className="mt-4 space-y-3">
-                                {(
-                                  // Prefer the constraints bullets; fall back to scope bullets; finally fall back to the old Problem bullets
-                                  workstream.cards?.constraints?.bullets ??
-                                  workstream.cards?.scope?.bullets ??
-                                  workstream.sections?.problem ??
-                                  []
-                                ).map((item) => (
-                                  <div key={item} className="flex items-start gap-3">
-                                    <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
-                                    <p className="text-slate-800">{item}</p>
-                                  </div>
-                                ))}
-                                {(
-                                  (workstream.cards?.constraints?.bullets?.length ?? 0) === 0 &&
-                                  (workstream.cards?.scope?.bullets?.length ?? 0) === 0 &&
-                                  (workstream.sections?.problem?.length ?? 0) === 0
-                                ) ? (
-                                  <p className="text-sm text-slate-500">N/A</p>
-                                ) : null}
+                              <div className="dossier-sheet mt-4 p-4">
+                                <div className="space-y-3">
+                                  {(
+                                    workstream.cards?.constraints?.bullets ??
+                                    workstream.cards?.scope?.bullets ??
+                                    workstream.sections?.problem ??
+                                    []
+                                  ).map((item) => (
+                                    <div key={item} className="flex items-start gap-3">
+                                      <Stethoscope className="w-5 h-5 text-[#8C7B64] mt-0.5 flex-shrink-0" />
+                                      <p className="text-slate-800">{item}</p>
+                                    </div>
+                                  ))}
+                                  {(
+                                    (workstream.cards?.constraints?.bullets?.length ?? 0) === 0 &&
+                                    (workstream.cards?.scope?.bullets?.length ?? 0) === 0 &&
+                                    (workstream.sections?.problem?.length ?? 0) === 0
+                                  ) ? (
+                                    <p className="text-sm text-slate-500">N/A</p>
+                                  ) : null}
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          </FolderPanel>
                         </section>
 
                         <div className="my-6 flex flex-col items-center">
@@ -658,7 +672,7 @@ export default function PainToolsWorkstreamDetail() {
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
-                            className="text-slate-400"
+                            className="text-[#B09C82]"
                           >
                             <path
                               d="M12 5V19"
@@ -678,31 +692,20 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Step 2 — Unified Data Model (NDA-Safe) */}
                         <section id="step-2" className="scroll-mt-24">
-                          <div className="rounded-none bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] overflow-hidden">
-                            <div className="px-5 py-3 bg-gradient-to-b from-[#E7F0FF] to-[#DDEAFF] border-b border-slate-200">
-                              <div className="text-[13px] font-semibold tracking-wide text-slate-800">
-                                Step 02 — Unified Data Model (NDA-Safe)
-                              </div>
-                            </div>
-                            <div className="p-5 sm:p-6">
-                              <p className="text-slate-600">
+                          <FolderPanel tab="Step 02" accentClassName="bg-[#CBD9E3]" cardClassName="dossier-card-flat overflow-hidden">
+                            <div className="p-4 sm:p-5">
+                              <div className="dossier-kicker">Unified Data Model (NDA-safe)</div>
+                              <div className="mt-2 text-xl font-semibold text-slate-900">
                                 Standardized diverse data sources into one analyzable schema
-                              </p>
-
-                              <div className="mt-3 text-[13px] font-semibold text-slate-800 uppercase tracking-wide">
-                                Data Flow
                               </div>
 
-                              {/* Image slot */}
-                              <div className="mt-4 overflow-hidden border border-slate-200 bg-white">
-                                {/* Header strip (schema-box style) */}
-                                <div className="bg-[#DCEBFF] border-b border-slate-200 px-4 py-2">
-                                  <div className="text-[12px] font-bold tracking-wide uppercase text-slate-800">
-                                    Schema Preview (NDA-safe)
-                                  </div>
+                              <div className="dossier-kicker mt-4">Data Flow</div>
+
+                              <div className="dossier-sheet mt-3.5 overflow-hidden">
+                                <div className="border-b border-[#DED2C0] bg-[#F7F0E5] px-4 py-3">
+                                  <div className="dossier-kicker">Schema Preview (NDA-safe)</div>
                                 </div>
 
-                                {/* Image body */}
                                 <div className="p-4 sm:p-5">
                                   {resolveImageSrc(diagram?.src) ? (
                                     <img
@@ -713,24 +716,23 @@ export default function PainToolsWorkstreamDetail() {
                                         (e.currentTarget as HTMLImageElement).style.display = 'none';
                                       }}
                                       alt={diagram?.alt ?? 'Unified data model diagram (NDA-safe)'}
-                                      className="w-full h-auto object-contain rounded-none bg-white"
+                                      className="w-full h-auto rounded-none bg-white object-contain"
                                       loading="lazy"
                                     />
                                   ) : (
-                                    <div className="w-full aspect-video bg-slate-50 border border-slate-200 flex items-center justify-center">
+                                    <div className="flex w-full aspect-video items-center justify-center border border-[#E2D6C5] bg-[#FBF8F2]">
                                       <span className="text-sm text-slate-500">Add data model image</span>
                                     </div>
                                   )}
                                 </div>
 
-                                {/* Caption */}
-                                <p className="px-4 sm:px-5 pb-4 text-sm sm:text-[15px] leading-relaxed text-slate-600">
+                                <p className="px-4 pb-4 sm:px-5 text-sm sm:text-[15px] leading-relaxed text-slate-600">
                                   {diagram?.caption ??
                                     'I standardized questionnaire responses and activity-based inputs into a consistent, encounter-like response envelope so downstream analytics could operate on a single schema. The model separates identity/context from response instances and item-level values, enabling versioning, partial completion, and auditable derived outputs—while maintaining NDA-safe abstractions and privacy boundaries.'}
                                 </p>
                               </div>
                             </div>
-                          </div>
+                          </FolderPanel>
                         </section>
 
                         <div className="my-6 flex flex-col items-center">
@@ -741,7 +743,7 @@ export default function PainToolsWorkstreamDetail() {
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
-                            className="text-slate-400"
+                            className="text-[#B09C82]"
                           >
                             <path
                               d="M12 5V19"
@@ -761,39 +763,41 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Step 3 — Privacy, Compliance & Governance */}
                         <section id="step-3" className="scroll-mt-24">
-                          <div className="rounded-none bg-white border border-slate-200 shadow-[0_14px_40px_rgba(15,23,42,0.10)] overflow-hidden">
-                            <div className="px-5 py-3 bg-gradient-to-b from-[#E7F0FF] to-[#DDEAFF] border-b border-slate-200">
-                              <div className="text-[13px] font-semibold tracking-wide text-slate-800">
+                          <FolderPanel tab="Step 03" accentClassName="bg-[#D9D4E2]" cardClassName="dossier-card-flat overflow-hidden">
+                            <div className="p-4 sm:p-5">
+                              <div className="dossier-kicker">Privacy, Compliance &amp; Governance</div>
+                              <div className="mt-2 text-xl font-semibold text-slate-900">
                                 {step3?.title ?? 'Step 03 — Privacy, Compliance & Governance'}
                               </div>
-                            </div>
-                            <div className="p-5 sm:p-6">
-                              <p className="text-slate-600">
+                              <p className="mt-3 text-slate-600">
                                 {step3?.subtitle ?? 'Implemented HIPAA-aligned controls and NDA-safe governance for analytics-ready data'}
                               </p>
-                              <div className="mt-4 space-y-3">
-                                {step3?.bullets?.map((item: any) => (
-                                  <div key={item.title} className="flex items-start gap-3">
-                                    <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
-                                    <p className="text-slate-800">
-                                      <span className="font-medium text-slate-900">{item.title}:</span> {item.body}
-                                    </p>
-                                  </div>
-                                ))}
-                                {!step3?.bullets?.length && (
-                                  <p className="text-sm text-slate-500">No compliance details defined.</p>
-                                )}
-                                <p className="pt-2 text-xs text-slate-500 leading-relaxed">
-                                  {step3?.note ?? 'Note: This section is written at a conceptual level to remain NDA-safe while conveying the compliance design intent.'}
-                                </p>
+                              <div className="dossier-sheet mt-4 p-4">
+                                <div className="space-y-3">
+                                  {step3?.bullets?.map((item: any) => (
+                                    <div key={item.title} className="flex items-start gap-3">
+                                      <Stethoscope className="w-5 h-5 text-[#8C7B64] mt-0.5 flex-shrink-0" />
+                                      <p className="text-slate-800">
+                                        <span className="font-medium text-slate-900">{item.title}:</span> {item.body}
+                                      </p>
+                                    </div>
+                                  ))}
+                                  {!step3?.bullets?.length && (
+                                    <p className="text-sm text-slate-500">No compliance details defined.</p>
+                                  )}
+                                  <p className="dossier-note pt-2 text-xs leading-relaxed">
+                                    {step3?.note ?? 'Note: This section is written at a conceptual level to remain NDA-safe while conveying the compliance design intent.'}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          </FolderPanel>
                         </section>
 
                         {/* Impact */}
                         {(workstream.sections?.results?.length ?? 0) > 0 ? (
-                          <section id="impact" className="ehr-card scroll-mt-24">
+                          <section id="impact" className="ehr-card dossier-card-flat scroll-mt-24">
+                            <div className="dossier-kicker">Impact</div>
                             <h2 className="text-lg font-semibold text-slate-900">Impact</h2>
                             {renderSectionList(workstream.sections?.results)}
                           </section>
@@ -801,64 +805,62 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Reflection & What I Learned */}
                         <section id="reflection" className="scroll-mt-24">
-                          <div className="rounded-2xl bg-white border border-slate-200 shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-5 sm:p-6">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                              Reflection
-                            </div>
-                            <h2 className="mt-2 text-lg sm:text-xl font-semibold text-slate-900">
-                              What I learned (NDA-safe)
-                            </h2>
+                          <FolderPanel tab="Reflection" accentClassName="bg-[#D7DECA]" cardClassName="dossier-card-flat">
+                            <div className="p-4 sm:p-5">
+                              <div className="dossier-kicker">Reflection</div>
+                              <h2 className="mt-2 text-lg sm:text-xl font-semibold text-slate-900">
+                                What I learned (NDA-safe)
+                              </h2>
 
-                            {/* Translation-friendly table */}
-                            <div className="mt-4 overflow-x-auto">
-                              <table className="w-full text-sm">
-                                <tbody className="divide-y divide-slate-100">
-                                  <tr className="align-top">
-                                    <td className="py-3 pr-4 font-medium text-slate-900 whitespace-nowrap">
-                                      Unified structure first
-                                    </td>
-                                    <td className="py-3 text-slate-700">
-                                      A single, standardized response envelope beats multiple bespoke tables—reducing complexity, enabling consistent analytics, and making change over time manageable.
-                                    </td>
-                                  </tr>
-                                  <tr className="align-top">
-                                    <td className="py-3 pr-4 font-medium text-slate-900 whitespace-nowrap">
-                                      Compliance-by-design
-                                    </td>
-                                    <td className="py-3 text-slate-700">
-                                      HIPAA-aligned constraints should shape the model from day one (access boundaries, auditability, and de-identification posture), not as a retrofit after the database is “done.”
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
+                              <div className="dossier-sheet mt-4 overflow-x-auto p-3.5 sm:p-4">
+                                <table className="w-full text-sm">
+                                  <tbody className="divide-y divide-[#E7DDCF]">
+                                    <tr className="align-top">
+                                      <td className="py-3 pr-4 font-medium text-slate-900 whitespace-nowrap">
+                                        Unified structure first
+                                      </td>
+                                      <td className="py-3 text-slate-700">
+                                        A single, standardized response envelope beats multiple bespoke tables—reducing complexity, enabling consistent analytics, and making change over time manageable.
+                                      </td>
+                                    </tr>
+                                    <tr className="align-top">
+                                      <td className="py-3 pr-4 font-medium text-slate-900 whitespace-nowrap">
+                                        Compliance-by-design
+                                      </td>
+                                      <td className="py-3 text-slate-700">
+                                        HIPAA-aligned constraints should shape the model from day one (access boundaries, auditability, and de-identification posture), not as a retrofit after the database is “done.”
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
 
-                            {/* Stethoscope-bulleted takeaways */}
-                            <div className="mt-5 space-y-3">
-                              {[
-                                'Prefer one analyzable schema over many complex, instrument-specific databases.',
-                                'Design for versioning and partial completion so real-world workflows don’t break reporting.',
-                                'Treat privacy, authorization, and auditability as primary requirements from the beginning.',
-                              ].map((item) => (
-                                <div key={item} className="flex items-start gap-3">
-                                  <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
-                                  <p className="text-slate-700">{item}</p>
-                                </div>
-                              ))}
-                            </div>
+                              <div className="mt-5 space-y-3">
+                                {[
+                                  'Prefer one analyzable schema over many complex, instrument-specific databases.',
+                                  'Design for versioning and partial completion so real-world workflows don’t break reporting.',
+                                  'Treat privacy, authorization, and auditability as primary requirements from the beginning.',
+                                ].map((item) => (
+                                  <div key={item} className="flex items-start gap-3">
+                                    <Stethoscope className="w-5 h-5 text-[#8C7B64] mt-0.5 flex-shrink-0" />
+                                    <p className="text-slate-700">{item}</p>
+                                  </div>
+                                ))}
+                              </div>
 
-                            <p className="mt-4 text-xs text-slate-500 leading-relaxed">
-                              Written at a high level to remain NDA-safe.
-                            </p>
-                          </div>
+                              <p className="dossier-note mt-4 text-xs leading-relaxed">
+                                Written at a high level to remain NDA-safe.
+                              </p>
+                            </div>
+                          </FolderPanel>
                         </section>
                       </>
                     ) : isAnalyticsInsights ? (
                       <>
                         {/* Context */}
                         <section id="context" className="scroll-mt-24">
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                          <div className="ehr-card dossier-card-flat">
+                            <div className="dossier-kicker">
                               Context
                             </div>
                             <h2 className="mt-2 text-xl font-semibold text-slate-900">
@@ -872,7 +874,7 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Analysis Areas */}
                         <section id="analysis-areas" className="scroll-mt-24">
-                          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Analysis Areas</div>
+                          <div className="dossier-kicker">Analysis Areas</div>
                           <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4">
                             {(((workstream as any).analysisAreas as { title: string; description: string }[] | undefined) ?? [
                               {
@@ -888,7 +890,7 @@ export default function PainToolsWorkstreamDetail() {
                                 description: 'Segmented patterns by usage intensity and timing to inform next experiments.',
                               },
                             ]).map((area) => (
-                              <div key={area.title} className="ehr-card">
+                              <div key={area.title} className="ehr-card dossier-card-compact">
                                 <div className="text-sm font-semibold text-slate-900">{area.title}</div>
                                 <p className="mt-2 text-sm text-slate-600">{area.description}</p>
                               </div>
@@ -898,8 +900,8 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Problem */}
                         <section id="problem" className="scroll-mt-24">
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                          <div className="ehr-card dossier-card-flat">
+                            <div className="dossier-kicker">
                               The Problem
                             </div>
                             <p className="mt-3 text-slate-700 leading-relaxed">
@@ -920,7 +922,7 @@ export default function PainToolsWorkstreamDetail() {
                                   ]
                               ).map((item) => (
                                 <div key={item} className="flex items-start gap-3">
-                                  <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
+                                  <Stethoscope className="w-5 h-5 text-[#8C7B64] mt-0.5 flex-shrink-0" />
                                   <p className="text-sm text-slate-700 leading-relaxed">{item}</p>
                                 </div>
                               ))}
@@ -946,7 +948,7 @@ export default function PainToolsWorkstreamDetail() {
                             <div className="mt-3 space-y-6">
                               {((workstream as any).solutionSteps as any[]).map((s) => (
                                 <div key={s.step} className="flex items-start gap-4">
-                                  <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center text-sm font-semibold">
+                                  <div className="dossier-stamp h-12 w-12 text-sm font-semibold text-[#786B5D]">
                                     {String(s.step).padStart(2, '0')}
                                   </div>
 
@@ -958,11 +960,11 @@ export default function PainToolsWorkstreamDetail() {
                                       <p className="mt-1 text-slate-600">{s.subtitle}</p>
                                     ) : null}
 
-                                    <div className="mt-3 rounded-2xl bg-white border border-slate-200 shadow-[0_8px_24px_rgba(15,23,42,0.06)] p-5 sm:p-6">
+                                    <div className="dossier-sheet mt-3 p-4 sm:p-5">
                                       <div className="space-y-3">
                                         {(s.bullets ?? []).map((item: string) => (
                                           <div key={item} className="flex items-start gap-3">
-                                            <Stethoscope className="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" />
+                                            <Stethoscope className="w-5 h-5 text-[#8C7B64] mt-0.5 flex-shrink-0" />
                                             <p className="text-slate-800">{item}</p>
                                           </div>
                                         ))}
@@ -983,8 +985,8 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Key Insights */}
                         <section id="insights" className="scroll-mt-24">
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Key Insights</div>
+                          <div className="ehr-card dossier-card-flat">
+                            <div className="dossier-kicker">Key Insights</div>
                             {workstream.sections?.results?.length ? (
                               <ul className="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-5">
                                 {workstream.sections.results.map((r) => (
@@ -999,8 +1001,8 @@ export default function PainToolsWorkstreamDetail() {
 
                         {/* Next Steps */}
                         <section id="next-steps" className="scroll-mt-24">
-                          <div className="ehr-card">
-                            <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Next Steps</div>
+                          <div className="ehr-card dossier-card-flat">
+                            <div className="dossier-kicker">Next Steps</div>
                             {workstream.sections?.artifacts?.length ? (
                               <ul className="mt-3 space-y-2 text-sm text-slate-700 list-disc pl-5">
                                 {workstream.sections.artifacts.map((a) => (
@@ -1134,9 +1136,9 @@ export default function PainToolsWorkstreamDetail() {
                               {['Onboarding','Check-in','Activity','Feedback','Follow-up'].map((title) => (
                                 <div
                                   key={title}
-                                  className="rounded-2xl bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_24px_rgba(15,23,42,0.06)] overflow-hidden"
+                                  className="dossier-card dossier-card-compact dossier-card-no-stack overflow-hidden"
                                 >
-                                  <div className="px-4 py-5 bg-white/70 border-b border-[#D6E6FF] text-center">
+                                  <div className="border-b border-[#DED2C0] bg-white/55 px-4 py-5 text-center">
                                     <div className="text-[16px] font-semibold text-slate-900">{title}</div>
                                   </div>
                                 </div>
@@ -1152,13 +1154,13 @@ export default function PainToolsWorkstreamDetail() {
                           <div className="mx-auto max-w-[1100px] px-4 sm:px-6 pb-14">
                             <div className="text-center">
                               <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-                                Experience Design <span className="text-[#2B6CB0]">Methods &amp; Tools</span>
+                                Experience Design <span className="text-[#8C7B64]">Methods &amp; Tools</span>
                               </h2>
                             </div>
 
-                            <div className="mt-6 rounded-[22px] bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_10px_30px_rgba(15,23,42,0.08)] overflow-hidden">
+                            <div className="dossier-card dossier-card-flat mt-6 overflow-hidden">
                               {/* Top 3 columns */}
-                              <div className="grid grid-cols-1 md:grid-cols-3 md:items-start md:divide-x md:divide-[#D6E6FF]">
+                              <div className="grid grid-cols-1 md:grid-cols-3 md:items-start md:divide-x md:divide-[#DED2C0]">
                                 {/* What I Did */}
                                 <div className="p-6 sm:p-7">
                                   <div className="text-xl font-semibold text-slate-900">What I Did</div>
@@ -1213,19 +1215,21 @@ export default function PainToolsWorkstreamDetail() {
                                       'Low-fidelity UX wireframes to validate sequencing and information hierarchy',
                                     ].map((item) => (
                                       <div key={item} className="flex items-start gap-3">
-                                        <Stethoscope className="w-5 h-5 text-[#2B6CB0] mt-0.5 flex-shrink-0" />
+                                        <Stethoscope className="w-5 h-5 text-[#8C7B64] mt-0.5 flex-shrink-0" />
                                         <p className="text-[16px] leading-relaxed text-slate-700">{item}</p>
                                       </div>
                                     ))}
                                   </div>
                                 </div>
                               </div>
-                              <div className="h-px bg-[#D6E6FF]" />
+                              <div className="h-px bg-[#DED2C0]" />
 
                               {/* Outcome row */}
                               <div className="p-6 sm:p-7">
                                 <div className="flex items-start gap-3">
-                                  <Stethoscope className="w-6 h-6 text-[#2B6CB0] mt-0.5 flex-shrink-0" />
+                                  <div className="dossier-stamp mt-0.5 h-10 w-10 flex-shrink-0">
+                                    <Stethoscope className="w-5 h-5 text-[#8C7B64]" />
+                                  </div>
                                   <div>
                                     <div className="text-[18px] font-semibold text-slate-900">Outcome</div>
                                     <p className="mt-2 text-[16px] leading-relaxed text-slate-700">
@@ -1234,13 +1238,13 @@ export default function PainToolsWorkstreamDetail() {
                                   </div>
                                 </div>
                               </div>
-                              <div className="h-px bg-[#D6E6FF]" />
+                              <div className="h-px bg-[#DED2C0]" />
 
                               {/* Why it matters row */}
                               <div className="p-6 sm:p-7">
                                 <div className="flex items-start gap-3">
-                                  <div className="w-6 h-6 rounded-full bg-[#EEF5FF] border border-[#D6E6FF] flex items-center justify-center mt-0.5 flex-shrink-0">
-                                    <span className="text-[12px] font-semibold text-[#2B6CB0]">i</span>
+                                  <div className="dossier-stamp mt-0.5 h-10 w-10 flex-shrink-0">
+                                    <span className="text-[12px] font-semibold text-[#8C7B64]">i</span>
                                   </div>
                                   <div>
                                     <div className="text-[18px] font-semibold text-slate-900">Why It Matters</div>
@@ -1271,11 +1275,13 @@ export default function PainToolsWorkstreamDetail() {
                             </div>
                             {/* --- Process Mapping Explanation Box --- */}
                             <div className="mt-10 mx-auto max-w-[1000px]">
-                              <div className="rounded-[22px] bg-[#F7FAFF] border border-[#D6E6FF] shadow-[0_12px_30px_rgba(15,23,42,0.08)] p-6 sm:p-8 space-y-6">
+                              <div className="dossier-card dossier-card-flat space-y-6 p-6 sm:p-8">
                                 {/* What I Did */}
                                 <div>
                                   <div className="flex items-center gap-3">
-                                    <CheckCircle2 className="w-6 h-6 text-[#2B6CB0]" />
+                                    <div className="dossier-stamp h-10 w-10">
+                                      <CheckCircle2 className="h-5 w-5 text-[#8C7B64]" />
+                                    </div>
                                     <h3 className="text-xl font-semibold text-slate-900">What I Did</h3>
                                   </div>
                                   <p className="mt-3 text-[16px] leading-relaxed text-slate-700">
@@ -1283,14 +1289,14 @@ export default function PainToolsWorkstreamDetail() {
                                   </p>
                                 </div>
 
-                                <div className="border-t border-dashed border-[#D6E6FF]" />
+                                <div className="dossier-divider border-dashed" />
 
                                 {/* Why It Matters */}
                                 <div>
                                   <div className="flex items-center gap-3">
-                                    <span className="w-7 h-7 rounded-full bg-[#FFF3CD] border border-[#F1C40F] flex items-center justify-center text-[14px]">
-                                      💡
-                                    </span>
+                                    <div className="dossier-stamp h-10 w-10">
+                                      <span className="text-[12px] font-semibold text-[#8C7B64]">01</span>
+                                    </div>
                                     <h3 className="text-xl font-semibold text-slate-900">Why It Matters</h3>
                                   </div>
                                   <p className="mt-3 text-[16px] leading-relaxed text-slate-700">
@@ -1298,14 +1304,14 @@ export default function PainToolsWorkstreamDetail() {
                                   </p>
                                 </div>
 
-                                <div className="border-t border-dashed border-[#D6E6FF]" />
+                                <div className="dossier-divider border-dashed" />
 
                                 {/* Impact & AI Readiness */}
                                 <div>
                                   <div className="flex items-center gap-3">
-                                    <span className="w-7 h-7 rounded-full bg-[#E8F5E9] border border-[#81C784] flex items-center justify-center text-[14px]">
-                                      🧠
-                                    </span>
+                                    <div className="dossier-stamp h-10 w-10">
+                                      <span className="text-[12px] font-semibold text-[#8C7B64]">02</span>
+                                    </div>
                                     <h3 className="text-xl font-semibold text-slate-900">Impact &amp; AI Readiness</h3>
                                   </div>
                                   <p className="mt-3 text-[16px] leading-relaxed text-slate-700">
