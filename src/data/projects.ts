@@ -425,34 +425,6 @@ export const projects: Project[] = [
     },
   },
   {
-    id: 'mlchc-ai-playbook',
-    title: 'Massachusetts League of Community Health Centers',
-    problem: '',
-    subtitle: 'AI Strategy and Operations Analyst',
-    summary: '',
-    category: 'AI/LLM',
-    dataSource: 'Stakeholder Interviews + Workflow Assessment',
-    projectType: 'professional',
-    status: 'Completed',
-    lastUpdated: 'Jan 2025',
-    template: 'mlchc',
-    thumbnail: '/images/aiplaybook.png',
-    thumbnailAlt: 'MLCHC AI playbook preview',
-    heroImage: '/images/aiplaybook.png',
-    href: '/projects/mlchc-ai-playbook',
-    imageSrc: '/images/aiplaybook.png',
-    ctaLabel: 'Open Case Study →',
-    featured: true,
-    skills: [
-      'Strategy & Operations',
-      'AI Governance',
-      'Stakeholder Interviews',
-      'Workflow Analysis',
-      'AI Readiness',
-      'Implementation Playbook',
-    ],
-  },
-  {
     id: 'health-numerics',
     title: 'Health Numerics',
     problem: 'Designed predictive models to forecast population health risk and guide proactive care decisions.',
@@ -677,25 +649,6 @@ export const projectDetails: Record<
       'Data quality is paramount in SDOH analytics',
       'Stakeholder engagement crucial for adoption',
       'Privacy considerations require careful handling',
-    ],
-  },
-  'mlchc-ai-playbook': {
-    overview:
-      'Co-developed an AI adoption playbook for community health centers, translating operational realities, governance needs, and readiness constraints into a practical implementation framework.',
-    problem:
-      'Community health centers needed actionable guidance for evaluating and adopting AI responsibly without overextending already constrained clinical and operational teams.',
-    approach:
-      'Conducted stakeholder interviews, mapped workflow pain points, assessed governance and vendor evaluation needs, and synthesized findings into a phased AI adoption playbook tailored to community health settings.',
-    tools: ['Excel', 'Stakeholder Interviews', 'Workflow Analysis', 'Vendor Evaluation'],
-    results: [
-      'Produced a practical AI adoption playbook for 50+ community health centers',
-      'Clarified readiness, governance, and implementation criteria for AI use cases',
-      'Created structured guidance for prioritization and rollout planning',
-    ],
-    lessons: [
-      'AI adoption strategy has to fit existing care operations, not abstract innovation goals',
-      'Governance and workforce readiness matter as much as use case selection',
-      'Resource-constrained care settings need pragmatic implementation pathways',
     ],
   },
   'ehr-data-engineering': {

@@ -25,7 +25,7 @@ function sortByLastUpdatedDesc(projects: ExtendedProject[]) {
 }
 
 function selectProjects(projects: ExtendedProject[], count = 4) {
-  const preferredOrder = ['predictive-modeling', 'mlchc-ai-playbook', 'health-numerics', 'value-based-care'];
+  const preferredOrder = ['predictive-modeling', 'health-numerics', 'value-based-care'];
   const ordered = preferredOrder
     .map((id) => projects.find((project) => project.id === id))
     .filter((project): project is ExtendedProject => Boolean(project));

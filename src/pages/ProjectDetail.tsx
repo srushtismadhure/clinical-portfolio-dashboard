@@ -11,7 +11,6 @@ import { DataModelSection } from '@/components/sections/DataModelSection';
 import ProjectSidebarNav, { ProjectNavItem } from '@/components/project/ProjectSidebarNav';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import HealthNumericsTemplate from '@/components/projects/templates/HealthNumericsTemplate';
-import MLCHCTemplate from '@/components/projects/templates/MLCHCTemplate';
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -172,21 +171,6 @@ if (project.template === 'health-numerics') {
       ]}
     >
       <HealthNumericsTemplate project={project} details={details} />
-    </Layout>
-  );
-}
-
-if (project.template === 'mlchc') {
-  return (
-    <Layout
-      title={project.title}
-      breadcrumbs={[
-        { label: 'Home', href: '/' },
-        { label: 'Projects', href: '/projects' },
-        { label: project.title },
-      ]}
-    >
-      <MLCHCTemplate project={project} />
     </Layout>
   );
 }
